@@ -1,7 +1,8 @@
 import { checkUser } from "@/api/user";
 import type { Metadata } from "next";
 import "../../styles/main.css";
-// import "../globals.css";
+// import "tailwindcss/tailwind.css";
+import "../globals.css";
 import { redirect } from "next/navigation";
 import { UserProfile } from "@/types/user";
 import Header from "@/containers/header";
@@ -21,7 +22,7 @@ export default async function RootLayout({
     redirect("/login");
   }
   return (
-    <html data-theme="dark">
+    <html>
       <body>
         <RecoilRootWrapper>
           <div id="wrap">
