@@ -1,6 +1,7 @@
 import { checkUser } from "@/api/user";
 import type { Metadata } from "next";
 import "../../styles/main.css";
+// import "../globals.css";
 import { redirect } from "next/navigation";
 import { UserProfile } from "@/types/user";
 import Header from "@/containers/header";
@@ -14,14 +15,13 @@ export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-  }) {
-  
+}) {
   const res: UserProfile = await checkUser();
   if (!res) {
     redirect("/login");
   }
   return (
-    <html>
+    <html data-theme="dark">
       <body>
         <RecoilRootWrapper>
           <div id="wrap">
