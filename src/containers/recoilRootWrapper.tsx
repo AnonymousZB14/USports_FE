@@ -8,5 +8,4 @@ const RecoilRootWrapper = ({ children }: { children: React.ReactNode }) => {
     </RecoilRoot>
   );
 };
-
 export default RecoilRootWrapper;
