@@ -1,7 +1,7 @@
 "use client";
 import Avatar from "@/components/avatar";
 import CateUl from "@/components/cateUl";
-import Title from "@/components/title";
+import Records from "@/components/records";
 import React, { useEffect, useRef, useState } from "react";
 
 const Page = () => {
@@ -34,7 +34,7 @@ const Page = () => {
       <div className="profile_contents">
         <CateUl onClick={cateOnclick} categories={["기록", "모집글"]} />
         <div className="contents" ref={divRef}>
-          <div className="records">records</div>
+          <div className="records"><Records /></div>
           <div className="recruits">recruits</div>
         </div>
       </div>

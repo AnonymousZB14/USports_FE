@@ -1,8 +1,10 @@
 // 로그인 유무 확인 API
 import { API_URL } from "@/constants/contant";
 
-export const checkUser = async (accessToken?: string) => {
-  const res = await fetch(`${API_URL}/user`,{ next: { revalidate: 10 } });
+export const getUsersRecords = async (accountName?: string) => {
+  const res = await fetch(`${API_URL}/${accountName}-records`, {
+    next: { revalidate: 10 },
+  });
   if (!res.ok) {
     throw new Error("Failed to fetch user data!");
   }

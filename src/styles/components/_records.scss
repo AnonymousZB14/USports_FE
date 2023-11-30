@@ -1,0 +1,20 @@
+.records{
+  ul{
+    display: flex;
+    background-color: #ccc;
+    flex-wrap: wrap;
+    li{
+      width: 33%;
+      a{
+        width: 100%;
+        display: block;
+        img{
+          width: 100%;
+          display: block;
+          object-fit: cover;
+          max-height: 300px;
+        }
+      }
+    }
+  }
+}
