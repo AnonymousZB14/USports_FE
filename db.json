@@ -1,0 +1,18 @@
+{
+  "user": {
+    "id": 1,
+    "name": "naraLee",
+    "profileImage": "https://lh3.googleusercontent.com/a/ACg8ocKE_zmbDmAr6qBdQzGwgyrzfbOXWWnD4MVfa0fwb6yPeg=s288-c-no"
+  },
+
+  "records": [
+    {
+      "recordId": "001",
+      "imageAddress": "https://firebasestorage.googleapis.com/v0/b/twitter-reloaded-d6dfe.appspot.com/o/tweets%2FWrKPYOJJdmRq3mOLYwBgAjsimIP2%2F9FoRsu6Pe6D3xVbS40NL?alt=media&token=c8e64337-3094-44c3-9450-259428dc7f6f"
+    },
+    {
+      "recordId": "002",
+      "imageAddress": "https://firebasestorage.googleapis.com/v0/b/twitter-reloaded-d6dfe.appspot.com/o/avatars%2F2Fzbbw9VaoYaZ2OJCpm4BbghNXo1?alt=media&token=09c760ef-3415-4f71-9fed-87ebac9318c2"
+    }
+  ]
+}

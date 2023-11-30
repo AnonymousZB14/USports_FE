@@ -1,0 +1,1 @@
+export const API_URL_USER = 'http://localhost:9999/user'

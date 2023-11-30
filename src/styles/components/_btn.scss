@@ -1,0 +1,15 @@
+.logout{
+  cursor: pointer;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  border: 2px solid gray;
+  height: 50px;
+  width: 50px;
+  padding: 5px;
+  border-radius: 50%;
+  svg {
+    width: 100%;
+    fill: gray;
+  }
+}
