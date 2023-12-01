@@ -1,0 +1,61 @@
+@use "../base/variables" as *;
+$color-red1: #ef4444;
+html[data-theme="dark"] {
+  --text-color-1: #{$text-color-off-1};
+  --text-color-2: #{$text-color-off-2};
+  --bg-color-1: #{$bg-color-off-1};
+  --bg-color-2: #{$bg-color-off-2};
+  --bg-color-3: #{$bg-color-off-3};
+  --bg-color-4: #{$bg-color-off-4};
+  .theme-icon {
+    fill: #{$text-color-off-1};
+  }
+}
+html[data-theme="light"] {
+  --text-color-1: #{$text-color-on-1};
+  --text-color-2: #{$text-color-on-2};
+  --bg-color-1: #{$bg-color-on-1};
+  --bg-color-2: #{$bg-color-on-2};
+  --bg-color-3: #{$bg-color-on-3};
+  --bg-color-4: #{$bg-color-on-4};
+  header {
+    background-color: #fff;
+  }
+  .theme-icon {
+    background-color: #{$bg-color-on-1};
+    svg {
+      fill: #{$text-color-on-1};
+    }
+  }
+}
+
+@mixin mobile {
+  @media (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: 768px) and (max-width: 1203px) {
+    @content;
+  }
+}
+@mixin basicWidth {
+  .max1360 {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 0 auto;
+  }
+  @media (min-width: 1204px) {
+    .max1360 {
+      max-width: 1360px;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  @media (max-width: 767px) {
+    .mainSection .max1360 {
+      padding-right: 0;
+    }
+  }
+}

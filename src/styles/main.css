@@ -154,6 +154,36 @@ html, body {
   margin: 0 auto;
 }
 
+html[data-theme=dark] {
+  --text-color-1: #fff;
+  --text-color-2: #a6adbb;
+  --bg-color-1: #252a33;
+  --bg-color-2: #2a303d;
+  --bg-color-3: #3f4246;
+  --bg-color-4: #464e5b;
+}
+html[data-theme=dark] .theme-icon {
+  fill: #fff;
+}
+
+html[data-theme=light] {
+  --text-color-1: #000;
+  --text-color-2: #222;
+  --bg-color-1: #eee;
+  --bg-color-2: #fff;
+  --bg-color-3: #f3f3f3;
+  --bg-color-4: #ececec;
+}
+html[data-theme=light] header {
+  background-color: #fff;
+}
+html[data-theme=light] .theme-icon {
+  background-color: #eee;
+}
+html[data-theme=light] .theme-icon svg {
+  fill: #000;
+}
+
 #header {
   background-color: #000;
   min-width: 300px;
@@ -316,7 +346,7 @@ main > * {
   content: "";
   display: block;
   position: absolute;
-  background-color: #fff;
+  background-color: transparent;
   width: 100%;
   height: 50px;
   z-index: 0;

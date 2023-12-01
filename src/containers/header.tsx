@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { UserProfile } from "@/types/user";
 import LogoutBtn from "@/components/logoutBtn";
+import ModeToggle from "@/components/modeToggle";
 
 const Header = () => {
   return (
@@ -31,6 +32,7 @@ const Header = () => {
             </li>
           </ul>
         </nav>
+        <ModeToggle />
         <LogoutBtn />
       </div>
     </header>
