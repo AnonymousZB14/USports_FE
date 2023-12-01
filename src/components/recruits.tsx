@@ -6,6 +6,8 @@ const Recruits = () => {
   return (
     <ul>
       <Recruit id={"001"} />
+      <Recruit id={"002"} />
+      <Recruit id={"003"} />
       {/* <Recruit /> */}
       {/* <Recruit /> */}
     </ul>
@@ -17,7 +19,7 @@ export const Recruit = ({ id }: { id: string }) => {
     <li>
       <div className="recruit_head">
         <UserInfoSec />
-        <Link href={`/detail/${id}`}>자세히보기</Link>
+        <Link href={`/recruit/detail/${id}`}>자세히보기</Link>
       </div>
       <div className="recruit_body">
         <h4>Lorem ipsum dolor sit amet</h4>

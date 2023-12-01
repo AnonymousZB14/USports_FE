@@ -33,7 +33,7 @@ const Page = () => {
         </div>
       </div>
       <div className="profile_contents">
-        <CateUl onClick={cateOnclick} categories={["기록", "모집글"]} />
+        <CateUl onClick={cateOnclick} categories={["Record", "Recruit"]} />
         <div className="tab_contents" ref={divRef}>
           <div className="records">
             <Records />
