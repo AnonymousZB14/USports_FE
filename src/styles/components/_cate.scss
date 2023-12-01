@@ -10,13 +10,16 @@
       width: 50%;
       text-align: center;
       padding-bottom: 15px;
-      font-size: 17px;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--text-color-1);
+      
     }
   }
   span.border {
     display: block;
-    background-color: #000;
-    height: 3px;
+    background-color: var(--text-color-1);
+    height: 4px;
     width: 50px;
     position: absolute;
     transform: translateX(-50%);

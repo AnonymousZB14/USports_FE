@@ -1,5 +1,16 @@
 @use "../base/variables" as *;
-$color-red1: #ef4444;
+:root {
+  --color-red1: #ef4444;
+  --main-color1: #000;
+}
+.hoverScaleAct{
+  transform: scale(1);
+  transition: all .1s;
+  cursor: pointer;
+  &:hover{
+    transform: scale(1.15);
+  }
+}
 html[data-theme="dark"] {
   --text-color-1: #{$text-color-off-1};
   --text-color-2: #{$text-color-off-2};
@@ -20,9 +31,6 @@ html[data-theme="light"] {
   --bg-color-2: #{$bg-color-on-2};
   --bg-color-3: #{$bg-color-on-3};
   --bg-color-4: #{$bg-color-on-4};
-  header {
-    background-color: #fff;
-  }
   .theme-icon {
     background-color: #{$bg-color-on-1};
     svg {

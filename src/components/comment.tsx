@@ -1,7 +1,7 @@
 import React from "react";
 import Avatar from "./avatar";
 
-const Comment = () => {
+const Comment = ({ depth }: { depth?: boolean }) => {
   return (
     <div className="comment">
       <div className="avatar_wrap" style={{ width: "35px", height: "35px" }}>

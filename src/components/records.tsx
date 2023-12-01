@@ -1,6 +1,7 @@
 "use client";
 import { getUsersRecords } from "@/api/records";
 import { RecordsState } from "@/store/records";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
@@ -12,6 +13,17 @@ const Records = () => {
       setRecords(resp.records);
     });
   }, [setRecords]);
+  if (!records) {
+    return (
+      <ul>
+        <li>
+          <div className="thumbnail" style={{ padding: "10px" }}>
+            <div className="skeleton h-52"></div>
+          </div>
+        </li>
+      </ul>
+    );
+  }
   return (
     <ul>
       {records.map((record) => {
