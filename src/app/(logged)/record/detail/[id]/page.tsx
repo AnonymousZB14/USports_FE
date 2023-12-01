@@ -3,7 +3,8 @@ import UserInfoSec from "@/components/userInfoSec";
 import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { scrollHandler } from "@/func/scrollEvent";
 import { useRouter } from "next/navigation";
-import { IoArrowBackCircleOutline } from "react-icons/io5";
+import { IoChevronBackCircleSharp } from "react-icons/io5";
+
 import { FaRegCommentAlt, FaHeart } from "react-icons/fa";
 import Comment from "@/components/comment";
 type PageParams = {
@@ -19,8 +20,8 @@ const page = ({ params }: { params: PageParams }) => {
   return (
     <section ref={pageRef} className="record_detail_sec">
       <div className="page_top">
-        <button onClick={() => router.back()}>
-          <IoArrowBackCircleOutline />
+        <button onClick={() => router.back()} className="hoverScaleAct">
+          <IoChevronBackCircleSharp />
         </button>
         <UserInfoSec />
       </div>
@@ -38,8 +39,8 @@ const page = ({ params }: { params: PageParams }) => {
           </ul>
         </div>
         <div className="icon_wrap">
-          <FaHeart />
-          <FaRegCommentAlt />
+          <FaHeart className="hoverScaleAct" />
+          <FaRegCommentAlt className="hoverScaleAct" />
         </div>
         <div className="record_contents">
           <span>username</span>

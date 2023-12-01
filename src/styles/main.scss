@@ -11,5 +11,7 @@
 @use "./components/userInfo";
 @use "./components/comment";
 @use "./page/profile";
+@use "./page/home";
 @use "./page/recordDetail";
 @use "./themes/theme";
+@use "./containers/tabContents";
