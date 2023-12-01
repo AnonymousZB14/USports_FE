@@ -1,0 +1,78 @@
+main {
+  &:has(section) {
+    overflow-y: unset;
+  }
+}
+.record_detail_sec {
+  overflow-y: auto;
+  height: 100%;
+  padding: 0;
+  & > * {
+    padding: 0 7%;
+  }
+  .page_top {
+    &:is(.scrolled > div) {
+      margin: 20px;
+      top: 10px;
+      border-radius: 14px;
+      box-shadow: 0 0px 20px 0px #0000001f;
+      padding-left: 70px;
+      button {
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+    backdrop-filter: blur(10px);
+    background-color: transparent;
+    transition: all 0.4s;
+    padding: 40px 7% 30px;
+    // margin: 20px;
+    position: sticky;
+    top: 0;
+    // background-color: var(--bg-color-2);
+    button {
+      transition: all 0.3s;
+      position: absolute;
+      left: 15px;
+      top: 15px;
+      svg {
+        width: 40px;
+        height: 40px;
+
+        path {
+          stroke: var(--text-color-3);
+        }
+      }
+    }
+  }
+  .page_mid {
+    .icon_wrap {
+      margin: 15px 0;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      svg {
+        width: 22px;
+        height: 22px;
+      }
+    }
+    .record_contents{
+      display: flex;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      padding: 20px 0;
+      gap: 10px;
+      span{
+        font-weight: 500;
+
+      }
+      p{
+
+      }
+    }
+  }
+  .page_btm {
+    margin: 20px 0;
+  }
+}

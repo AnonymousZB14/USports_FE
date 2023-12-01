@@ -5,13 +5,14 @@
   min-width: 300px;
   width: 24%;
   .head_inner {
-    padding: 50px 0px 40px;
+    // padding: 50px 0px 40px;
+    padding-top: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     height: 100%;
-    gap: 50px;
+    // gap: 50px;
     nav {
       flex: 1;
       width: 100%;
@@ -38,6 +39,11 @@
           }
         }
       }
+    }
+    .iconWrap{
+      display: flex;
+      align-items: center;
+      gap: 20px;
     }
   }
 }

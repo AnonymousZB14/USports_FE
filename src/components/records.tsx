@@ -16,7 +16,11 @@ const Records = () => {
     <ul>
       {records.map((record) => {
         return (
-          <Record key={record.recordId} imageAddress={record.imageAddress} />
+          <Record
+            key={record.recordId}
+            imageAddress={record.imageAddress}
+            recordId={record.recordId}
+          />
         );
       })}
     </ul>
@@ -25,12 +29,20 @@ const Records = () => {
 
 export default Records;
 
-const Record = ({ imageAddress }: { imageAddress: string }) => {
+const Record = ({
+  imageAddress,
+  recordId,
+}: {
+  imageAddress: string;
+  recordId: number;
+}) => {
   return (
     <li>
-      <Link href={'/'}>
-        <img src={imageAddress} alt="thumbnail" />
-      </Link>
+      <div className="thumbnail">
+        <Link href={`/record/detail/${recordId}`}>
+          <img src={imageAddress} alt="thumbnail" />
+        </Link>
+      </div>
     </li>
   );
 };
