@@ -1,0 +1,31 @@
+.recruits {
+  padding: 20px;
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    li {
+      a {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        .recruit_body {
+          border-radius: 10px;
+          background-color: var(--bg-color-3);
+          padding: 24px;
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+          h4 {
+            font-size: 16px;
+            font-weight: 500;
+          }
+          p {
+            font-size: 14px;
+            line-height: 1.3;
+          }
+        }
+      }
+    }
+  }
+}

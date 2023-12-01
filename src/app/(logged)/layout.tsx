@@ -1,7 +1,6 @@
 import { checkUser } from "@/api/user";
 import type { Metadata } from "next";
 import "../../styles/main.css";
-// import "tailwindcss/tailwind.css";
 import "../globals.css";
 import { redirect } from "next/navigation";
 import { UserProfile } from "@/types/user";
@@ -22,15 +21,15 @@ export default async function RootLayout({
     redirect("/login");
   }
   return (
-    <html>
-      <body>
-        <RecoilRootWrapper>
+    <RecoilRootWrapper>
+      <html data-theme="light">
+        <body>
           <div id="wrap">
             <Header />
             <main id="main">{children}</main>
           </div>
-        </RecoilRootWrapper>
-      </body>
-    </html>
+        </body>
+      </html>
+    </RecoilRootWrapper>
   );
 }

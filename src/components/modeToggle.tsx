@@ -1,11 +1,29 @@
-import React from "react";
+"use client";
+import { DarkModeState } from "@/store/mode";
+import React, { useEffect, useLayoutEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 
 const ModeToggle = () => {
+  const [darkmode, setDarkmode] = useState(false);
+  useEffect(() => {
+    const savedMode = localStorage.getItem("dark-mode");
+    if (savedMode !== null) {
+      console.log(savedMode);
+      setDarkmode(JSON.parse(savedMode));
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("dark-mode", JSON.stringify(darkmode));
+    if (darkmode) {
+      document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+      document.documentElement.setAttribute("data-theme", "light");
+    }
+  }, [darkmode]);
   return (
     <label className="swap swap-rotate">
       {/* this hidden checkbox controls the state */}
-      <input type="checkbox" />
-
+      <input type="checkbox" onClick={() => setDarkmode(!darkmode)} />
       {/* sun icon */}
       <svg
         className="swap-on fill-current w-10 h-10"

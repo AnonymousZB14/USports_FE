@@ -3,6 +3,7 @@ $color-red1: #ef4444;
 html[data-theme="dark"] {
   --text-color-1: #{$text-color-off-1};
   --text-color-2: #{$text-color-off-2};
+  --text-color-3: #{$text-color-off-3};
   --bg-color-1: #{$bg-color-off-1};
   --bg-color-2: #{$bg-color-off-2};
   --bg-color-3: #{$bg-color-off-3};
@@ -14,6 +15,7 @@ html[data-theme="dark"] {
 html[data-theme="light"] {
   --text-color-1: #{$text-color-on-1};
   --text-color-2: #{$text-color-on-2};
+  --text-color-3: #{$text-color-on-3};
   --bg-color-1: #{$bg-color-on-1};
   --bg-color-2: #{$bg-color-on-2};
   --bg-color-3: #{$bg-color-on-3};

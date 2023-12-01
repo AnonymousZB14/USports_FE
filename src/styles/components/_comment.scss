@@ -1,0 +1,45 @@
+.comment {
+  display: flex;
+  margin: 20px 0;
+  align-items: flex-start;
+  gap: 10px;
+  .avatar_img {
+  }
+  .comment_body {
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      li {
+        &:nth-child(1) {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          span {
+            font-size: 12px;
+            &:first-child{
+              font-weight: 500;
+              color: var(--text-color-1);
+            }
+            &:last-child{
+              color: var(--text-color-3);
+              font-size: 11px;
+              
+            }
+          }
+        }
+        &:nth-child(2) {
+          font-size: 14px;
+          color: var(--text-color-1);
+          color: var(--text-color-1);
+        }
+        &:nth-child(3) {
+          button {
+            font-size: 11px;
+            color: var(--text-color-3);
+          }
+        }
+      }
+    }
+  }
+}
