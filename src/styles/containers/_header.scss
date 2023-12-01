@@ -30,10 +30,8 @@
         flex-direction: column;
         li {
           width: 100%;
-          // padding: 14px;
           display: flex;
           align-items: center;
-          // justify-content: center;
           background-color: transparent;
           transition: all 0.1s;
 
@@ -41,7 +39,7 @@
             display: block;
             width: 100%;
             &:hover > span {
-              background-color: #b2b2b2b7;
+              background-color: #333333f7;
             }
             span {
               background-color: transparent;
@@ -52,7 +50,7 @@
               gap: 13px;
               padding: 15px 20px;
               color: #fff;
-              border-radius: 40px;
+              border-radius: 14px;
               font-size: 1.3em;
               svg {
                 width: 25px;

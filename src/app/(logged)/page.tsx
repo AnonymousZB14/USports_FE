@@ -12,7 +12,7 @@ export default function Home() {
   useLayoutEffect(() => {
     if (homeRef.current === null) return;
     scrollHandler(homeRef.current);
-    console.log(homeRef);
+    // console.log(homeRef);
   }, [homeRef]);
   const divRef = useRef<HTMLDivElement | null>(null);
   const cateOnclick = (e: React.MouseEvent<HTMLUListElement>) => {
@@ -50,7 +50,10 @@ export const GoToFollow = () => {
     <div className="go_to_follow">
       <p>You haven't followed anyone yet</p>
       <span>😓</span>
-      <Link href="/explore">Find people to follow<BsArrowRightCircle /></Link>
+      <Link href="/explore">
+        Find people to follow
+        <BsArrowRightCircle />
+      </Link>
     </div>
   );
 };
