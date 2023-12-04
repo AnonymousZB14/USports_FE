@@ -1,10 +1,10 @@
-// 로그인 유무 확인 API
-import { API_URL } from "@/constants/contant";
+// 로그인 유무 확인 API (MOCK)
+import { API_URL } from '@/constants/contant'
 
 export const checkUser = async (accessToken?: string) => {
-  const res = await fetch(`${API_URL}/user`,{ next: { revalidate: 10 } });
+  const res = await fetch(`${API_URL}/user`, { next: { revalidate: 10 } })
   if (!res.ok) {
-    throw new Error("Failed to fetch user data!");
+    throw new Error('Failed to fetch user data!')
   }
-  return res.json();
-};
+  return res.json()
+}

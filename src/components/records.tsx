@@ -1,7 +1,6 @@
 "use client";
 import { getUsersRecords } from "@/api/records";
 import { RecordsState } from "@/store/records";
-import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { useRecoilState, useRecoilValueLoadable } from "recoil";
