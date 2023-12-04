@@ -4,26 +4,18 @@ import { RecordsState } from "@/store/records";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValueLoadable } from "recoil";
+import Skeleton from "./skeleton";
 
 const Records = () => {
   const [records, setRecords] = useRecoilState(RecordsState);
+  const recordLoadable = useRecoilValueLoadable(RecordsState);
   useEffect(() => {
     getUsersRecords("user").then((resp) => {
       setRecords(resp.records);
     });
   }, [setRecords]);
-  if (!records) {
-    return (
-      <ul>
-        <li>
-          <div className="thumbnail" style={{ padding: "10px" }}>
-            <div className="skeleton h-52"></div>
-          </div>
-        </li>
-      </ul>
-    );
-  }
+
   return (
     <ul>
       {records.map((record) => {

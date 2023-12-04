@@ -64,7 +64,7 @@ export const Notification = ({
           <h3 className="font-bold">{title}</h3>
           <div className="text-xs">{body}</div>
         </div>
-        <button className="btn btn-sm">DELETE</button>
+        <button className="btn btn-sm">delete</button>
       </div>
     </li>
   );
