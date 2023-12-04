@@ -9,15 +9,24 @@
     li {
       width: calc((100% - 10px) / 3);
       .thumbnail {
+        position: relative;
+        &::after {
+          display: block;
+          content: "";
+          padding-bottom: 100%;
+        }
         a {
           display: block;
-          transition: all .1s;
-          &:hover{
-            opacity: .9;
+          width: 100%;
+          height: 100%;
+          transition: all 0.1s;
+          &:hover {
+            opacity: 0.9;
           }
           img {
+            position: absolute;
             width: 100%;
-            height: 240px;
+            height: 100%;
             object-fit: cover;
           }
         }
@@ -54,4 +63,3 @@
   p {
   }
 }
-

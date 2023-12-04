@@ -398,16 +398,27 @@ main section {
 .records ul li {
   width: calc((100% - 10px) / 3);
 }
+.records ul li .thumbnail {
+  position: relative;
+}
+.records ul li .thumbnail::after {
+  display: block;
+  content: "";
+  padding-bottom: 100%;
+}
 .records ul li .thumbnail a {
   display: block;
+  width: 100%;
+  height: 100%;
   transition: all 0.1s;
 }
 .records ul li .thumbnail a:hover {
   opacity: 0.9;
 }
 .records ul li .thumbnail a img {
+  position: absolute;
   width: 100%;
-  height: 240px;
+  height: 100%;
   object-fit: cover;
 }
 
