@@ -17,14 +17,13 @@
           gap: 10px;
           span {
             font-size: 12px;
-            &:first-child{
+            &:first-child {
               font-weight: 500;
               color: var(--text-color-1);
             }
-            &:last-child{
+            &:last-child {
               color: var(--text-color-3);
               font-size: 11px;
-              
             }
           }
         }

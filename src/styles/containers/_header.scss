@@ -1,5 +1,5 @@
-@use "../themes/theme" as *;
-@use "../base/variables" as *;
+@use '../themes/theme' as *;
+@use '../base/variables' as *;
 #header {
   background-color: var(--main-color1);
   min-width: 300px;
@@ -9,7 +9,6 @@
     padding-bottom: 40px;
     display: flex;
     flex-direction: column;
-    // align-items: center;
     justify-content: space-between;
     height: 100%;
     gap: 40px;

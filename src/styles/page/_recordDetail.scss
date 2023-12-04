@@ -22,7 +22,6 @@ main {
         top: 50%;
         transform: translateY(-50%);
         svg{
-          // transform: scale(1.2);
           width: 38px;
           height: 38px;
         }
@@ -32,10 +31,8 @@ main {
     background-color: transparent;
     transition: all 0.4s;
     padding: 40px 7% 30px;
-    // margin: 20px;
     position: sticky;
     top: 0;
-    // background-color: var(--bg-color-2);
     button {
       transition: all 0.3s;
       position: absolute;
