@@ -3,10 +3,12 @@ import { getUsersRecords } from "@/api/records";
 import { RecordsState } from "@/store/records";
 import Link from "next/link";
 import React, { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValueLoadable } from "recoil";
+import Skeleton from "./skeleton";
 
 const Records = () => {
   const [records, setRecords] = useRecoilState(RecordsState);
+  const recordLoadable = useRecoilValueLoadable(RecordsState);
   useEffect(() => {
     getUsersRecords("user").then((resp) => {
       setRecords(resp.records);
