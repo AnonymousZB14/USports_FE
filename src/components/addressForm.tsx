@@ -8,7 +8,7 @@ import {
 } from 'react'
 import DaumPostcodeEmbed, { Address } from 'react-daum-postcode'
 import Button from './Button'
-import { AddressType } from '../../types'
+import { AddressType } from '../types/types'
 
 interface Props {
   addressData: AddressType | null

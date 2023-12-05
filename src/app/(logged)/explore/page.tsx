@@ -1,14 +1,13 @@
-
 'use client'
-import Title from '@/components/title';
-import * as data from './data';
-import FormAddress from "../../../components/addressForm";
-import { useState } from 'react';
-import { AddressType } from "../../../../types";
+import Title from '@/components/title'
+import * as data from './data'
+import FormAddress from '../../../components/addressForm'
+import { useState } from 'react'
+import { AddressType } from '../../../types/types'
 
 const explore = () => {
-  const [addressData, setAddressData] = useState<AddressType | null>(null);
-  
+  const [addressData, setAddressData] = useState<AddressType | null>(null)
+
   return (
     <>
       <Title title="Explore" />
@@ -22,28 +21,34 @@ const explore = () => {
           <h1>카테고리</h1>
           <div className="select-wrap">
             <select className="select-box">
-            {data.selectList1.map((item: { value: string; name: string }) => {
-              return <option value={item.value} key={item.value}>
-                {item.name}
-              </option>;
-            })}
+              {data.selectList1.map((item: { value: string; name: string }) => {
+                return (
+                  <option value={item.value} key={item.value}>
+                    {item.name}
+                  </option>
+                )
+              })}
             </select>
           </div>
           <div className="select-wrap">
             <select className="select-box">
-            {data.selectList2.map((item: { value: string; name: string }) => {
-              return <option value={item.value} key={item.value}>
-                {item.name}
-              </option>;
-            })}
+              {data.selectList2.map((item: { value: string; name: string }) => {
+                return (
+                  <option value={item.value} key={item.value}>
+                    {item.name}
+                  </option>
+                )
+              })}
             </select>
           </div>
           <div className="select-wrap">
             <select className="select-box">
               {data.selectList3.map((item: { value: string; name: string }) => {
-                return <option value={item.value} key={item.value}>
-                  {item.name}
-                </option>;
+                return (
+                  <option value={item.value} key={item.value}>
+                    {item.name}
+                  </option>
+                )
               })}
             </select>
           </div>
@@ -53,18 +58,22 @@ const explore = () => {
           <div className="select-wrap">
             <select className="select-box">
               {data.selectList4.map((item: { value: string; name: string }) => {
-                return <option value={item.value} key={item.value}>
-                  {item.name}
-                </option>;
+                return (
+                  <option value={item.value} key={item.value}>
+                    {item.name}
+                  </option>
+                )
               })}
             </select>
           </div>
           <div className="select-wrap">
             <select className="select-box">
               {data.selectList5.map((item: { value: string; name: string }) => {
-                return <option value={item.value} key={item.value}>
-                  {item.name}
-                </option>;
+                return (
+                  <option value={item.value} key={item.value}>
+                    {item.name}
+                  </option>
+                )
               })}
             </select>
           </div>
@@ -98,7 +107,7 @@ const explore = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default explore;
+export default explore

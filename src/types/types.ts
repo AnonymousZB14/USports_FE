@@ -1,3 +1,8 @@
+export interface AddressType {
+  address: string;
+  postCode: string;
+  additional: string;
+}
 export interface UserProfile {
   id: number;
   name: string;
