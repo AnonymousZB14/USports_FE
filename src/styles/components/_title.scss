@@ -6,7 +6,7 @@
   padding-bottom: var(--padding-1);
   display: flex;
   h2 {
-    font-size: 2em;
+    font-size: var(--text-size-2xl);
     position: relative;
     font-weight: 400;
     &::after {

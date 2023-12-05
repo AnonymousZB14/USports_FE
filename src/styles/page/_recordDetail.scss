@@ -8,7 +8,7 @@ main {
   height: 100%;
   padding: 0;
   & > * {
-    padding: 0 7%;
+    padding: 0 var(--side-padding);
   }
   .page_top {
     &:is(.scrolled > div) {

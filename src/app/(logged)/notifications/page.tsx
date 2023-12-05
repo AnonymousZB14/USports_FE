@@ -6,9 +6,9 @@ const page = () => {
   return (
     <>
       <Title title="Notifications" />
-      <section className="notifications">
+      <div className="notifications">
         <Notifications />
-      </section>
+      </div>
     </>
   );
 };
