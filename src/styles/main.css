@@ -282,13 +282,12 @@ html[data-theme=light] {
   transition: all 0.1s;
   display: flex;
   align-items: center;
-  width: -moz-fit-content;
   width: fit-content;
   gap: 13px;
   padding: 15px 20px;
   color: #fff;
   border-radius: 14px;
-  font-size: 1.3em;
+  font-size: var(--text-size-xl);
 }
 #header .head_inner nav ul li a span svg {
   width: 25px;
@@ -338,8 +337,7 @@ main section {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 #title {
@@ -351,7 +349,7 @@ main section {
   display: flex;
 }
 #title h2 {
-  font-size: 2em;
+  font-size: var(--text-size-2xl);
   position: relative;
   font-weight: 400;
 }
@@ -429,8 +427,7 @@ main section {
   position: absolute;
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 .feed {
@@ -453,10 +450,16 @@ main section {
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   padding: 20px 0;
+  align-items: center;
   gap: 10px;
 }
 .record_contents span {
   font-weight: 500;
+  font-size: var(--text-size-lg);
+}
+.record_contents p {
+  font-weight: 500;
+  font-size: var(--text-size-sm);
 }
 
 .recruits {
@@ -480,6 +483,7 @@ main section {
   gap: 20px;
   align-items: center;
   justify-content: space-between;
+  font-size: var(--text-size-base);
 }
 .recruits ul li .recruit_head > div:first-child {
   flex: 1;
@@ -621,8 +625,7 @@ main section {
   position: sticky;
   top: 0;
   padding-top: 40px;
-  -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 .home_section .top_section:is(.scrolled > div) {
   padding-top: 60px;
@@ -641,6 +644,7 @@ main section {
   padding: 30px;
   border-radius: 20px;
   border: 1px dashed #ccc;
+  font-size: var(--text-size-base);
 }
 .go_to_follow p {
   color: var(--text-color-3);
@@ -666,23 +670,31 @@ main section {
   height: 25px;
 }
 
-section.notifications {
+.notifications {
   margin-top: 40px;
 }
-section.notifications ul {
+.notifications ul {
   display: flex;
   flex-direction: column;
   gap: 30px;
 }
-section.notifications ul li .alert {
+.notifications ul li .alert {
   cursor: pointer;
   background-color: var(--bg-color-2);
   transition: all 0.08s;
 }
-section.notifications ul li .alert:hover {
+.notifications ul li .alert > * {
+  font-size: var(--text-size-sm);
+}
+.notifications ul li .alert > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.notifications ul li .alert:hover {
   transform: scale(1.02);
 }
-section.notifications ul li .alert svg {
+.notifications ul li .alert svg {
   width: 25px;
   height: 25px;
 }
@@ -701,11 +713,10 @@ main:has(section) {
   padding: 0;
 }
 .record_detail_sec > * {
-  padding: 0 7%;
+  padding: 0 var(--side-padding);
 }
 .record_detail_sec .page_top {
-  -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   background-color: transparent;
   transition: all 0.4s;
   padding: 40px 7% 30px;
@@ -764,4 +775,4 @@ main:has(section) {
 .tab_contents:is(.home_section > div) {
   padding-left: var(--side-padding);
   padding-right: var(--side-padding);
-}/*# sourceMappingURL=main.css.map */
+}

@@ -62,7 +62,7 @@ export const Notification = ({
         <IoMdNotifications />
         <div>
           <h3 className="font-bold">{title}</h3>
-          <div className="text-xs">{body}</div>
+          <div >{body}</div>
         </div>
         <button className="btn btn-sm">delete</button>
       </div>
