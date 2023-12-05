@@ -1,9 +1,7 @@
-import { CustomOverlayMap, Map, MapMarker } from 'react-kakao-maps-sdk'
+import { Map, MapMarker } from 'react-kakao-maps-sdk'
 const KaKaoMap = ({ Lat, Lng }: { Lat: number; Lng: number }) => {
-
   return (
     <div id="map">
-      {/* <MarkerWithCustomOverlayStyle /> */}
       <Map // 지도를 표시할 Container
         center={{
           // 지도의 중심좌표
@@ -37,22 +35,7 @@ const KaKaoMap = ({ Lat, Lng }: { Lat: number; Lng: number }) => {
             },
           }}
         />
-        <CustomOverlayMap
-          position={{ lat: 37.54699, lng: 127.09598 }}
-          yAnchor={1}
-        >
-          <div className="customoverlay">
-            <a
-              href="https://map.kakao.com/link/map/11394059"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <span className="title">구의야구공원</span>
-            </a>
-          </div>
-        </CustomOverlayMap>
       </Map>
-      
     </div>
   )
 }
