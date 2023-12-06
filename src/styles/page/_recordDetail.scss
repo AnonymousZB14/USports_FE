@@ -1,8 +1,4 @@
-main {
-  &:has(section) {
-    overflow-y: unset;
-  }
-}
+
 .record_detail_sec {
   overflow-y: auto;
   height: 100%;

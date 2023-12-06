@@ -4,7 +4,10 @@ main {
   & > * {
     padding: 0 var(--side-padding);
   }
-  section {
+  & > section {
     padding-bottom: 100px !important;
+  }
+  &:is(&>section) {
+    overflow-y: unset;
   }
 }

@@ -11,11 +11,13 @@
 @use './components/userInfo';
 @use './components/comment';
 @use './components/animations';
+@use './components/evaluationList';
+@use './components/applicationsList';
 @use './page/profile';
 @use './page/home';
+@use './page/mypage';
 @use './page/notifications';
 @use './page/explore';
-@use './page/recruit';
 @use './page/recordDetail';
 @use './themes/theme';
 @use './containers/tabContents';
