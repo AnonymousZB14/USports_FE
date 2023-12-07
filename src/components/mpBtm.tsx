@@ -4,7 +4,11 @@ import MpCategories from './mpCategories'
 import EvaluationList from './evaluationList'
 import ApplicationStatus from './applicationStatus'
 import RecruitManagement from './recruitManagement'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { FaArrowAltCircleRight } from 'react-icons/fa'
 const MpBtm = () => {
+  const route = useRouter()
   return (
     <>
       <MpCategories activeCate="평가하기" activeSec="mp1" />
@@ -21,7 +25,17 @@ const MpBtm = () => {
         <RecruitManagement />
       </section>
       <MpCategories activeCate="정보수정" activeSec="mp4" />
-      <section id="mp4">sec4</section>
+      <section id="mp4">
+        <div className="editBtnWrap">
+          <Link href={`/member/${'nara'}`}>
+            내 정보 수정하기
+            <FaArrowAltCircleRight />
+          </Link>
+          <Link href={`/member/${'nara'}/edit-password`}>
+            비밀번호 변경하기 <FaArrowAltCircleRight />
+          </Link>
+        </div>
+      </section>
     </>
   )
 }

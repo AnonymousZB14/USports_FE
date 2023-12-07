@@ -51,7 +51,7 @@ const page = ({ params }: { params: PageParams }) => {
                 setShowInput(!showInput)
               }}
             />
-            <span className="dayjs" style={{marginLeft:'auto'}}>
+            <span className="dayjs" style={{ marginLeft: 'auto' }}>
               {dayjs(Date.now()).format('MM/DD/YYYY')}
             </span>
           </div>

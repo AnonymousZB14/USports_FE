@@ -11,7 +11,7 @@ const CommentInput = ({
     <div className="commentInput">
       <div className="inner">
         <Avatar width="35px" height="35px" isItprofile={false} />
-        <input type="text" placeholder="comment..."></input>
+        <input type="text" placeholder="userId(으)로 댓글달기..."></input>
         <button>
           <IoSend />
         </button>

@@ -126,6 +126,36 @@
           font-size: var(--text-size-xs);
           color: var(--text-color-3);
         }
+        .editBtnWrap{
+          padding-top: 40px;
+          display: flex;
+          gap: 15px;
+          a{
+            &:first-child{
+              background-color: var(--bg-color-3);
+              color: var(--text-color-1);
+            }
+            &:last-child{
+              background-color: var(--text-color-2);
+              color: var(--bg-color-1);
+            }
+            &:hover{
+              opacity: .7;
+            }
+            transition: all .2s;
+            width: calc((100% - 15px)/2);
+            padding: 17px;
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            justify-content: space-between;
+            font-size: var(--text-size-xl);
+            svg{
+              width: 22px;
+              height: 22px;
+            }
+          }
+        }
       }
     }
   }
