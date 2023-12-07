@@ -447,6 +447,14 @@ main:is(main > section) {
   flex-direction: column;
   gap: 20px;
 }
+.feed .feed_content > div:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.feed .feed_content > div:first-child > div:first-child {
+  flex: 1;
+}
 .feed .feed_content .body .record_contents {
   margin: 20px 0;
 }
@@ -466,6 +474,11 @@ main:is(main > section) {
 .record_contents p {
   font-weight: 500;
   font-size: var(--text-size-sm);
+}
+
+span.dayjs {
+  font-size: var(--text-size-xs);
+  color: var(--text-color-3);
 }
 
 .recruits {

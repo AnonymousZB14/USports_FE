@@ -43,6 +43,14 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    &>div:first-child{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      &>div:first-child{
+        flex: 1;
+      }
+    }
     .body {
       .record_contents {
         margin: 20px 0;
@@ -66,4 +74,10 @@
     font-weight: 500;
     font-size: var(--text-size-sm);
   }
+}
+
+
+span.dayjs{
+  font-size: var(--text-size-xs);
+  color: var(--text-color-3);
 }

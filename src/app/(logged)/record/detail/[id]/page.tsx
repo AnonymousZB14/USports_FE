@@ -7,6 +7,9 @@ import { IoChevronBackCircleSharp } from 'react-icons/io5'
 import { FaRegCommentAlt, FaHeart } from 'react-icons/fa'
 import Comment from '@/components/comment'
 import CommentInput from '@/components/commentInput'
+import relativeTime from 'dayjs/plugin/relativeTime'
+dayjs.extend(relativeTime)
+import dayjs from 'dayjs'
 type PageParams = {
   id: string
 }
@@ -48,6 +51,9 @@ const page = ({ params }: { params: PageParams }) => {
                 setShowInput(!showInput)
               }}
             />
+            <span className="dayjs" style={{marginLeft:'auto'}}>
+              {dayjs(Date.now()).format('MM/DD/YYYY')}
+            </span>
           </div>
           <div className="record_contents">
             <span>username</span>
