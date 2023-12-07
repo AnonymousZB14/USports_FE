@@ -15,9 +15,9 @@ export const ApplicationItem = () => {
   return (
     <li>
       <div className="applicationCont">
-        <div className="sportsBadge">러닝</div>
+        <div className="sportsBadge">축구</div>
         <div className="cont">
-          <p className="title">안양 평촌 칼라힐 어쩌구</p>
+          <p className="title">안양 평촌 칼라힐</p>
         </div>
         <div className="buttonWrap">
           <button className="cancle">신청취소</button>

@@ -247,6 +247,7 @@ html[data-theme=light] {
   justify-content: space-between;
   height: 100%;
   gap: 40px;
+  position: relative;
 }
 #header .head_inner .user_profile {
   display: flex;
@@ -306,18 +307,19 @@ html[data-theme=light] {
   bottom: 20px;
   background-color: var(--main-color1);
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1607843137);
-  padding: 20px 40px;
+  padding: 15px 22px;
   border-radius: 50px;
 }
 #header .head_inner .iconWrap svg {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   color: #fff;
 }
 
 main {
   width: 100%;
   overflow-y: auto;
+  position: relative;
 }
 main > * {
   padding: 0 var(--side-padding);
@@ -578,6 +580,53 @@ main:is(main > section) {
   color: var(--text-color-3);
 }
 
+.commentInput {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: #000000;
+  width: 100%;
+  padding: 20px 0;
+  z-index: 100;
+}
+.commentInput .inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 20px;
+}
+.commentInput .inner > input {
+  flex: 1;
+  background-color: transparent;
+  border: 1px solid #717171;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: var(--text-size-base);
+  color: #ccc;
+}
+.commentInput .inner > input::placeholder {
+  color: #686868;
+  font-size: var(--text-size-base);
+}
+.commentInput .inner > input:focus {
+  outline-color: #fff;
+}
+.commentInput .inner > button svg {
+  width: 30px;
+  height: 30px;
+  color: #fff;
+}
+.commentInput button.close {
+  position: absolute;
+  top: 9px;
+  right: 10px;
+}
+.commentInput button.close svg {
+  width: 17px;
+  height: 17px;
+  color: #ccc;
+}
+
 .hoverScaleAct {
   transform: scale(1);
   transition: all 0.1s;
@@ -587,6 +636,106 @@ main:is(main > section) {
   transform: scale(1.15);
 }
 
+ul.evaluationList {
+  margin: 30px 0 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+ul.evaluationList > li {
+  background-color: var(--bg-color-3);
+  border-bottom: 1px solid var(--bg-color-3);
+  border-left: 1px solid var(--bg-color-3);
+  border-right: 1px solid var(--bg-color-3);
+}
+ul.evaluationList > li .evitemCont {
+  padding: 14px;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+ul.evaluationList > li .evitemCont .sportsBadge {
+  padding: 3px 10px;
+  background-color: springgreen;
+  color: #222;
+  font-size: var(--text-size-xs);
+}
+ul.evaluationList > li .evitemCont .cont {
+  flex: 1;
+}
+ul.evaluationList > li .evitemCont .cont .title p {
+  font-size: var(--text-size-base);
+  color: var(--text-color-1);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+ul.evaluationList > li .evitemCont .cont .sub {
+  font-size: var(--text-size-xs);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+ul.evaluationList > li .evitemCont .cont .sub p.subCon {
+  color: var(--text-color-1);
+  font-weight: 600;
+}
+ul.evaluationList > li .evitemCont .cont .sub p.subCon::before {
+  content: "●";
+  display: inline-block;
+  margin-right: 2px;
+}
+ul.evaluationList > li .evitemCont .cont .sub p.conditions span {
+  color: var(--text-color-3);
+}
+ul.evaluationList > li .evitemCont > a {
+  background-color: var(--text-color-3);
+  font-size: var(--text-size-xs);
+  color: var(--bg-color-2);
+  padding: 5px 10px;
+}
+ul.evaluationList > li .evitemCont button {
+  transition: all 0.2s;
+}
+ul.evaluationList > li .evitemCont button svg {
+  width: 20px;
+  height: 20px;
+}
+ul.evaluationList > li .evitemCont button.active {
+  transform: rotate(180deg);
+}
+ul.evaluationList > li .evitemList {
+  display: none;
+}
+ul.evaluationList > li .evitemList.show {
+  display: block;
+}
+ul.evaluationList > li .evitemList ul {
+  background-color: var(--bg-color-2);
+  display: flex;
+  flex-wrap: wrap;
+}
+ul.evaluationList > li .evitemList ul li {
+  padding: 16px 0;
+  width: 50%;
+  text-align: center;
+  list-style: circle;
+  list-style-position: inside;
+}
+ul.evaluationList > li .evitemList ul li p {
+  display: inline-block;
+  font-size: var(--text-size-base);
+  font-weight: 600;
+}
+ul.evaluationList > li .evitemList ul li span {
+  font-size: var(--text-size-xs);
+}
+
+ul.applicationsList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 ul.applicationsList > li {
   background-color: var(--bg-color-3);
   border-bottom: 1px solid var(--bg-color-3);
@@ -642,80 +791,66 @@ ul.applicationsList > li .applicationCont .buttonWrap button.accepted {
   color: var(--bg-color-2);
 }
 
-ul.evaluationList {
+ul.recruitManagement {
   margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-ul.evaluationList > li {
+ul.recruitManagement > li {
   background-color: var(--bg-color-3);
   border-bottom: 1px solid var(--bg-color-3);
   border-left: 1px solid var(--bg-color-3);
   border-right: 1px solid var(--bg-color-3);
 }
-ul.evaluationList > li .evitemCont {
+ul.recruitManagement > li .recruitItemCont {
   padding: 14px;
   align-items: center;
   display: flex;
   justify-content: space-between;
   gap: 10px;
 }
-ul.evaluationList > li .evitemCont .sportsBadge {
+ul.recruitManagement > li .recruitItemCont .sportsBadge {
   padding: 3px 10px;
   background-color: springgreen;
   color: #222;
   font-size: var(--text-size-xs);
 }
-ul.evaluationList > li .evitemCont .cont {
+ul.recruitManagement > li .recruitItemCont .cont {
   flex: 1;
 }
-ul.evaluationList > li .evitemCont .cont .title p {
+ul.recruitManagement > li .recruitItemCont .cont .title p {
   font-size: var(--text-size-base);
   color: var(--text-color-1);
   margin-bottom: 8px;
   font-weight: 600;
 }
-ul.evaluationList > li .evitemCont .cont .sub {
+ul.recruitManagement > li .recruitItemCont .cont .sub {
   font-size: var(--text-size-xs);
   display: flex;
   align-items: center;
   gap: 6px;
 }
-ul.evaluationList > li .evitemCont .cont .sub p.subCon {
+ul.recruitManagement > li .recruitItemCont .cont .sub p.subCon {
   color: var(--text-color-1);
   font-weight: 600;
 }
-ul.evaluationList > li .evitemCont .cont .sub p.subCon::before {
+ul.recruitManagement > li .recruitItemCont .cont .sub p.subCon::before {
   content: "●";
   display: inline-block;
   margin-right: 2px;
 }
-ul.evaluationList > li .evitemCont .cont .sub p.conditions span {
+ul.recruitManagement > li .recruitItemCont .cont .sub p.conditions span {
   color: var(--text-color-3);
 }
-ul.evaluationList > li .evitemCont > a {
+ul.recruitManagement > li .recruitItemCont > a {
   background-color: var(--text-color-3);
   font-size: var(--text-size-xs);
   color: var(--bg-color-2);
-  padding: 5px 10px;
+  padding: 8px 10px;
 }
-ul.evaluationList > li .evitemList ul {
-  background-color: var(--bg-color-2);
-  display: flex;
-  flex-wrap: wrap;
-}
-ul.evaluationList > li .evitemList ul li {
-  padding: 16px 0;
-  width: 50%;
-  text-align: center;
-  list-style: circle;
-  list-style-position: inside;
-}
-ul.evaluationList > li .evitemList ul li p {
-  display: inline-block;
+ul.recruitManagement > li .recruitItemCont p.status {
   font-size: var(--text-size-base);
-  font-weight: 600;
-}
-ul.evaluationList > li .evitemList ul li span {
-  font-size: var(--text-size-xs);
 }
 
 .profile_info {

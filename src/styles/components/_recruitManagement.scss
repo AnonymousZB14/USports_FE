@@ -1,5 +1,5 @@
-ul.evaluationList {
-  margin: 30px 0 40px;
+ul.recruitManagement {
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -8,7 +8,7 @@ ul.evaluationList {
     border-bottom: 1px solid var(--bg-color-3);
     border-left: 1px solid var(--bg-color-3);
     border-right: 1px solid var(--bg-color-3);
-    .evitemCont {
+    .recruitItemCont {
       padding: 14px;
       align-items: center;
       display: flex;
@@ -55,44 +55,10 @@ ul.evaluationList {
         background-color: var(--text-color-3);
         font-size: var(--text-size-xs);
         color: var(--bg-color-2);
-        padding: 5px 10px;
+        padding: 8px 10px;
       }
-      button {
-        transition: all 0.2s;
-        svg {
-          width: 20px;
-          height: 20px;
-        }
-        &.active {
-          transform: rotate(180deg);
-        }
-      }
-    }
-    .evitemList {
-      display: none;
-      &.show {
-        display: block;
-      }
-      ul {
-        background-color: var(--bg-color-2);
-        display: flex;
-        flex-wrap: wrap;
-        li {
-          padding: 16px 0;
-          width: 50%;
-          text-align: center;
-          list-style: circle;
-          list-style-position: inside;
-
-          p {
-            display: inline-block;
-            font-size: var(--text-size-base);
-            font-weight: 600;
-          }
-          span {
-            font-size: var(--text-size-xs);
-          }
-        }
+      p.status {
+      font-size: var(--text-size-base);
       }
     }
   }

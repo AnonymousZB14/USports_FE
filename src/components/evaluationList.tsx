@@ -1,24 +1,37 @@
 'use client'
-import React from 'react'
-import { list1 } from '@/app/(logged)/mypage/_data/mock'
+import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { MdKeyboardArrowUp } from 'react-icons/md'
+import { IoIosArrowDown } from 'react-icons/io'
 const EvaluationList = () => {
   return (
     <ul className="evaluationList">
+      <EvaluationItem />
+      <EvaluationItem />
       <EvaluationItem />
     </ul>
   )
 }
 
 export const EvaluationItem = () => {
+  const [showList, setShowList] = useState(false)
+  const btnRef = useRef<HTMLButtonElement | null>(null)
+  const listRef = useRef<HTMLDivElement | null>(null)
+  useEffect(() => {
+    console.log(showList)
+    btnRef.current?.classList.toggle('active')
+    if (showList) {
+      listRef.current?.classList.add('show')
+    } else {
+      listRef.current?.classList.remove('show')
+    }
+  }, [showList])
   return (
     <li>
       <div className="evitemCont">
-        <div className="sportsBadge">러닝</div>
+        <div className="sportsBadge">축구</div>
         <div className="cont">
           <div className="title">
-            <p>안양 평촌 칼라힐 어쩌구</p>
+            <p>안양 평촌 칼라힐</p>
           </div>
           <div className="sub">
             <p className="subCon">21:00</p>
@@ -29,11 +42,17 @@ export const EvaluationItem = () => {
           </div>
         </div>
         <Link href="/profile">평가하기</Link>
-        <button className="toggle">
-          <MdKeyboardArrowUp />
+        <button
+          ref={btnRef}
+          className="toggleBtn"
+          onClick={() => {
+            setShowList(!showList)
+          }}
+        >
+          <IoIosArrowDown />
         </button>
       </div>
-      <div className="evitemList">
+      <div className="evitemList" ref={listRef}>
         <ul>
           <li>
             <p>{'NaraLee'}</p>

@@ -5,26 +5,33 @@ import Link from 'next/link'
 import { MdKeyboardArrowUp } from 'react-icons/md'
 const RecruitManagement = () => {
   return (
-    <ul className="recruitManagementList">
-      <RecruitListItem />
+    <ul className="recruitManagement">
+      <RecruitManagementItem />
+      <RecruitManagementItem />
+      <RecruitManagementItem />
     </ul>
   )
 }
 
-export const RecruitListItem = () => {
+export const RecruitManagementItem = () => {
   return (
     <li>
-      <div className="recruitManagemetItem">
-        <div className="sportsBadge">러닝</div>
+      <div className="recruitItemCont">
+        <div className="sportsBadge">클라이밍</div>
         <div className="cont">
-          <p className="title">안양 평촌 칼라힐 어쩌구</p>
+          <div className="title">
+            <p>강동 알레 클라이밍 12/4</p>
+          </div>
+          <div className="sub">
+            <p className="subCon">21:00</p>
+            <p className="conditions">
+              <span>남녀모두</span>
+              <span>모든 레벨</span>
+            </p>
+          </div>
         </div>
-        <div className="buttonWrap">
-          <button className="cancle">신청취소</button>
-          <button className="applying">신청중</button>
-          <button className="rejected">거절됨</button>
-          <button className="accepted">수락됨</button>
-        </div>
+        <p className="status">모집중</p>
+        <Link href="/profile">관리 ⇀</Link>
       </div>
     </li>
   )

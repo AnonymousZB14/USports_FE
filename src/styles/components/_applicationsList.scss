@@ -1,11 +1,13 @@
-ul.evaluationList {
-  margin-top: 30px;
+ul.applicationsList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   & > li {
     background-color: var(--bg-color-3);
     border-bottom: 1px solid var(--bg-color-3);
     border-left: 1px solid var(--bg-color-3);
     border-right: 1px solid var(--bg-color-3);
-    .evitemCont {
+    .applicationCont {
       padding: 14px;
       align-items: center;
       display: flex;
@@ -19,65 +21,36 @@ ul.evaluationList {
       }
       .cont {
         flex: 1;
-        .title {
-          p {
-            font-size: var(--text-size-base);
-            color: var(--text-color-1);
-            margin-bottom: 8px;
-            font-weight: 600;
-          }
-        }
-        .sub {
-          font-size: var(--text-size-xs);
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          p.subCon {
-            &::before{
-              content: "●";
-              display: inline-block;
-              margin-right: 2px;
-            }
-            color: var(--text-color-1);
-            font-weight: 600;
-          }
-          p.conditions {
-            span {
-              color: var(--text-color-3);
-            }
-          }
+        p {
+          font-size: var(--text-size-base);
+          color: var(--text-color-1);
+          font-weight: 600;
         }
       }
-      & > a {
-        background-color: var(--text-color-3);
-        font-size: var(--text-size-xs);
-        color: var(--bg-color-2);
-        padding: 5px 10px;
-      }
-      button {
-        svg {
-        }
-      }
-    }
-    .evitemList {
-      ul {
-        background-color: var(--bg-color-2);
+      .buttonWrap {
         display: flex;
-        flex-wrap: wrap;
-        li {
-          padding: 16px 0;
-          width: 50%;
-          text-align: center;
-          list-style: circle;
-          list-style-position: inside;
-
-          p {
-            display: inline-block;
-            font-size: var(--text-size-base);
-            font-weight: 600;
+        align-items: center;
+        gap: 4px;
+        button {
+          padding: 9px 10px;
+          border-radius: 4px;
+          font-size: var(--text-size-xs);
+          &.cancle {
+            background-color: transparent;
+            color: var(--text-color-2);
+            border: 1px solid var(--text-color-2);
           }
-          span {
-            font-size: var(--text-size-xs);
+          &.applying {
+            background-color: var(--text-color-3);
+            color: var(--bg-color-2);
+          }
+          &.rejected {
+            background-color: var(--text-color-2);
+            color: var(--bg-color-2);
+          }
+          &.accepted {
+            background-color: rgb(0, 214, 7);
+            color: var(--bg-color-2);
           }
         }
       }
