@@ -1,5 +1,6 @@
+'use client'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useLayoutEffect } from 'react'
 
 const MpCategories = ({
   activeCate,
@@ -14,26 +15,33 @@ const MpCategories = ({
     { title: '모집관리', href: '#mp3' },
     { title: '정보수정', href: '#mp4' },
   ]
-  const LinkOnClickHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault()
-    if (!((e.target as HTMLAnchorElement).nodeName === 'A')) return
-    const target = e.target as HTMLAnchorElement
-    if (!document) return
-    const location = (document?.querySelector(target.hash) as HTMLElement)
-      .offsetTop
-    const mypageSec = document?.querySelector('.mypageWrap') as HTMLDivElement
-    console.dir(mypageSec.scrollTo)
-    mypageSec.scrollTo({ top: 1000 })
+  const LinkOnClickHandler = (e: React.MouseEvent<HTMLUListElement>) => {
+    if ((e.target as HTMLAnchorElement).nodeName !== 'A') return
+    const location = (
+      document.querySelector(
+        (e.target as HTMLAnchorElement).dataset.href + '',
+      ) as HTMLElement
+    ).offsetTop
+    const $main = document.querySelector('main')
+    if (!$main) return
+    $main.scrollTo({
+      top: location - window.innerHeight / 3,
+      behavior: 'smooth',
+    })
   }
   return (
-    <ul className="mpCategories">
+    <ul className="mpCategories" onClick={LinkOnClickHandler}>
       {categories.map((category, idx) => {
         return (
           <li
             key={idx}
             className={category.title === activeCate ? 'active' : ''}
           >
-            <Link onClick={LinkOnClickHandler} href={category.href}>
+            <Link
+              href={'#none'}
+              data-href={category.href}
+              onClick={(e) => e.preventDefault()}
+            >
               {category.title}
             </Link>
           </li>
