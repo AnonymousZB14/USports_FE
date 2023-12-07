@@ -7,7 +7,7 @@ import {
   useState,
 } from 'react'
 import DaumPostcodeEmbed, { Address } from 'react-daum-postcode'
-import Button from './Button'
+import Button from './button'
 import { AddressType } from '../types/types'
 
 interface Props {
@@ -71,13 +71,13 @@ const FormAddress: React.FC<Props> = ({ addressData, setAddressData }) => {
           style={{
             height: showSearch ? '500px' : '0px',
             border: showSearch ? '1px solid #71717a' : 'none',
-            borderRadius: '15px',
+            borderRadius: '10px',
             overflow: 'hidden',
           }}
           onComplete={onAddressSearchComplete}
           autoClose={false}
         />
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 mt-2 text-2xl">
           <span>
             {addressData?.address
               ? `(${addressData?.postCode})`
@@ -96,25 +96,11 @@ const FormAddress: React.FC<Props> = ({ addressData, setAddressData }) => {
               value={addressData?.additional || ''}
               onChange={onAdditionalAddressChange}
               style={{
-                borderBottom: '1px solid #1f2937',
+                borderBottom: '1px solid #a5a5a5',
               }}
-              className="h-8 w-[200px] px-2 pt-1 pb-1"
+              className="h-10 w-[24rem] mt-3 px-5 pt-6 pb-6 text-2xl"
             />
           )}
-        </div>
-        <div className="flex gap-2">
-          <Button tailwindStyles="py-0 px-2" theme="gray">
-            작성취소
-          </Button>
-          <Button
-            tailwindStyles="py-0 px-2"
-            theme="blue"
-            onClick={() => {
-              console.log(addressData)
-            }}
-          >
-            작성완료
-          </Button>
         </div>
       </div>
     </div>

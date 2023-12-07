@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/flatpickr": "^3.1.2",
     "autoprefixer": "^10.4.16",
+    "flatpickr": "^4.6.13",
     "next": "^13.5.6",
     "postcss": "^8.4.31",
     "react": "^18",
