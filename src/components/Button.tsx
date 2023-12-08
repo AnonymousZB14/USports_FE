@@ -10,9 +10,11 @@ interface Props {
   theme?: string
   href?: UrlObject | string
   disabled?: boolean
+  type?: 'button' | 'submit' | 'reset'
 }
 const Button: React.FC<Props> = ({
   children,
+  type,
   onClick,
   height = 'fit',
   tailwindStyles,
