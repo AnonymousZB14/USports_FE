@@ -175,7 +175,6 @@ body {
 }
 
 body:has(.centered) {
-  background-color: #f8f8f8;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -682,7 +681,7 @@ span.dayjs {
   width: fit-content;
   max-width: 100dvw;
   padding: 35px 20px;
-  background-color: #fff;
+  background-color: var(--bg-color-2);
   position: absolute;
   left: 50%;
   top: 50%;
@@ -1431,7 +1430,8 @@ ul.recruitManagement > li .recruitItemCont p.status {
 .editPwd form input[type=password] {
   width: 100%;
   padding: 13px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--bg-color-4);
+  background-color: transparent;
 }
 .editPwd form > div {
   margin-top: 20px;
@@ -1451,6 +1451,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
 }
 .editPwd form > div input:first-child {
   background-color: #ccc;
+  color: #000;
 }
 .editPwd form > div input:last-child {
   color: #fff;
@@ -1515,7 +1516,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 5px;
-  background-color: #f7f7f7;
+  background-color: transparent;
 }
 .editUser form > div input:not([type=radio]) {
   flex: 1;
@@ -1560,7 +1561,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   letter-spacing: 3px;
   text-align: center;
   font-size: var(--text-size-5xl);
-  color: #000;
+  color: var(--text-color-2);
   font-weight: 200;
 }
 .notLoggedP h2 strong {
@@ -1580,7 +1581,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
 .notLoggedP form div input {
   flex: 1;
   padding: 10px 0;
-  background-color: #eee;
+  background-color: transparent;
   border: 1px solid #ccc;
   border-radius: 6px;
   padding-left: 20px;

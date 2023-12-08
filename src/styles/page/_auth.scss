@@ -18,7 +18,7 @@
     letter-spacing: 3px;
     text-align: center;
     font-size: var(--text-size-5xl);
-    color: #000;
+    color: var(--text-color-2);
     font-weight: 200;
   }
   form {
@@ -36,7 +36,7 @@
         }
         flex: 1;
         padding: 10px 0;
-        background-color: #eee;
+        background-color: transparent;
         border: 1px solid #ccc;
         border-radius: 6px;
         padding-left: 20px;

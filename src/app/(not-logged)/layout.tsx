@@ -12,7 +12,7 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html>
+    <html data-theme="light">
       <body>{children}</body>
     </html>
   )
