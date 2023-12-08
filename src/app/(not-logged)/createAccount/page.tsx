@@ -48,8 +48,8 @@ const page = () => {
           />
           <div>
             <p>성별</p>
-            <input type="radio" name="gender" id="gender" value={'female'} />여
-            <input type="radio" name="gender" id="gender" value={'male'} />남
+            <input type="radio" name="gender" id="female" value={'female'} />여
+            <input type="radio" name="gender" id="male" value={'male'} />남
           </div>
           <div>
             <p>프로필 공개</p>
@@ -63,7 +63,7 @@ const page = () => {
             <input
               type="radio"
               name="accountOpen"
-              id="accountOpen"
+              id="accountClosed"
               value={'false'}
             />
             비공개
