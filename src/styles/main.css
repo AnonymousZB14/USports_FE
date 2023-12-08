@@ -168,9 +168,17 @@ a {
   box-shadow: inset 0px 0px 5px white;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
+}
+
+body:has(.centered) {
+  background-color: #f8f8f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #wrap {
@@ -1532,6 +1540,138 @@ ul.recruitManagement > li .recruitItemCont p.status {
 }
 .editUser form > div input[type=file] {
   display: none;
+}
+
+.notLoggedP {
+  min-height: 50vh;
+  min-width: 40vw;
+  margin: 0 auto;
+  width: fit-content;
+  max-width: 100vw;
+  font-size: var(--text-size-base);
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  overflow-y: auto;
+  max-height: 90dvh;
+}
+.notLoggedP h2 {
+  word-spacing: 5px;
+  letter-spacing: 3px;
+  text-align: center;
+  font-size: var(--text-size-5xl);
+  color: #000;
+  font-weight: 200;
+}
+.notLoggedP h2 strong {
+  font-weight: 500;
+}
+.notLoggedP form {
+  margin-top: 80px;
+  display: flex;
+  gap: 10px;
+}
+.notLoggedP form div {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 10px;
+}
+.notLoggedP form div input {
+  flex: 1;
+  padding: 10px 0;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding-left: 20px;
+}
+.notLoggedP form div input::placeholder {
+  color: #999;
+}
+.notLoggedP form input[type=submit] {
+  cursor: pointer;
+  background-color: #000;
+  color: #fff;
+  padding: 20px 50px;
+  border-radius: 6px;
+  margin: 0 auto;
+  transition: all 0.1s;
+}
+.notLoggedP form input[type=submit]:hover {
+  opacity: 0.8;
+}
+.notLoggedP .linkWrap {
+  margin: 40px 0;
+  display: flex;
+  gap: 10px;
+}
+.notLoggedP .linkWrap a {
+  flex: 1;
+  text-align: center;
+  padding: 20px 0;
+  color: #fff;
+  background-color: #222;
+  transition: all 0.1s;
+}
+.notLoggedP .linkWrap a:hover {
+  opacity: 0.8;
+}
+.notLoggedP .linkWrap a:first-child {
+  background-color: #888;
+}
+.notLoggedP .linkWrap a:last-child {
+  background-color: #444;
+}
+.notLoggedP hr {
+  position: relative;
+  overflow: visible;
+  border-top: 1px solid #000;
+}
+.notLoggedP hr::after {
+  background-color: #f8f8f8;
+  padding: 0 10px;
+  font-weight: 500;
+  display: block;
+  content: "OR";
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+}
+.findPwdP form,
+.createAccountP form {
+  flex-direction: column;
+}
+.findPwdP form input,
+.createAccountP form input {
+  margin: unset !important;
+}
+
+.createAccountP form > div {
+  gap: 14px;
+}
+.createAccountP form > div div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.createAccountP form > div div p,
+.createAccountP form > div div button {
+  padding: 12px 0;
+  width: 110px;
+  font-size: var(--text-size-base);
+  background-color: #909090;
+  color: #eee;
+  border-radius: 4px;
+  text-align: center;
+  border-radius: 3px;
+}
+.createAccountP form > div div input[type=radio] {
+  flex: unset;
+}
+.createAccountP form input[type=submit] {
+  margin-top: 40px !important;
 }
 
 .tab_contents > div {
