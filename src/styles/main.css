@@ -670,7 +670,9 @@ span.dayjs {
   background-color: rgba(0, 0, 0, 0.368627451);
 }
 #modal .modalInner {
-  width: 50vw;
+  min-width: 50dvw;
+  width: fit-content;
+  max-width: 100dvw;
   padding: 35px 20px;
   background-color: #fff;
   position: absolute;
@@ -1445,6 +1447,91 @@ ul.recruitManagement > li .recruitItemCont p.status {
 .editPwd form > div input:last-child {
   color: #fff;
   background-color: rgb(39, 193, 0);
+}
+
+.editUser {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  font-size: var(--text-size-base);
+  gap: 30px;
+}
+.editUser p {
+  font-size: var(--text-size-2xl);
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-align: center;
+}
+.editUser form {
+  min-width: 80%;
+  display: flex;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.editUser form > div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.editUser form > div > label {
+  padding: 10px;
+  width: 100px;
+}
+.editUser form > div > label:has(img) {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  opacity: 0.8;
+  overflow: hidden;
+}
+.editUser form > div > label:has(img) img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+.editUser form > div:last-child {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  margin-top: 70px;
+}
+.editUser form > div > * {
+  font-size: var(--text-size-base);
+}
+.editUser form > div input:not([type=submit], [type=button]) {
+  border: 1px solid #ccc;
+  height: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+}
+.editUser form > div input:not([type=radio]) {
+  flex: 1;
+}
+.editUser form > div input[type=submit],
+.editUser form > div input[type=button] {
+  flex: 1;
+  color: #fff;
+  padding: 20px 0;
+  transition: all 0.1s;
+  font-weight: 500;
+}
+.editUser form > div input[type=submit]:hover,
+.editUser form > div input[type=button]:hover {
+  opacity: 0.8;
+}
+.editUser form > div input[type=submit] {
+  background-color: rgb(39, 193, 0);
+}
+.editUser form > div input[type=button] {
+  background-color: #a2a2a2;
+}
+.editUser form > div input[type=file] {
+  display: none;
 }
 
 .tab_contents > div {
