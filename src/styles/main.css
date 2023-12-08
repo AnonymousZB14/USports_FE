@@ -692,7 +692,6 @@ span.dayjs {
   min-height: 200px;
   overflow-y: auto;
   height: 100%;
-  max-height: 70vh;
 }
 
 ul.evaluationList {
