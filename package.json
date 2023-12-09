@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "json": "json-server --watch db.json --port 9999"
   },
   "dependencies": {
     "@types/flatpickr": "^3.1.2",
