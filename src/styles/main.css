@@ -705,6 +705,7 @@ main section {
 
 .explore-form {
   padding-top: 3rem;
+  padding-bottom: 6rem;
 }
 .explore-form > h1 {
   font-size: var(--text-size-xl);
@@ -925,6 +926,18 @@ main:has(section) {
 }
 .record_detail_sec .page_btm {
   margin: 20px 0;
+}
+
+.object-cover {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  color: transparent;
+}
+
+.upload-wrap {
+  width: 100%;
 }
 
 .tab_contents > div {

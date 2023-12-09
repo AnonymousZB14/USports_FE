@@ -1,7 +1,6 @@
 'use client'
-// import { useRouter } from 'next/router'
 import Title from '@/components/title'
-import { filterOptions } from './data'
+import { filterOptions } from '../../../types/data'
 import FormAddress from '../../../components/addressForm'
 import DataPicker from '../../../components/dataPicker'
 import { useState } from 'react'
@@ -13,7 +12,6 @@ import Button from '@/components/button'
 import { SlArrowDown } from 'react-icons/sl'
 
 const recruitWrite = () => {
-  // const router = useRouter()
   const [addressData, setAddressData] = useState<AddressType | null>(null)
   const [selectedDate, setSelectedDate] = useState('')
 
@@ -103,17 +101,6 @@ const recruitWrite = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const formData = new FormData(event.currentTarget)
-    const formObject: Record<string, string> = {}
-
-    formData.forEach((value, key) => {
-      formObject[key] = value.toString()
-    })
-
-    // router.push({
-    //   pathname: '/result',
-    //   query: formObject,
-    // })
   }
 
   return (

@@ -21,7 +21,7 @@ main {
         left: 20px;
         top: 50%;
         transform: translateY(-50%);
-        svg{
+        svg {
           width: 38px;
           height: 38px;
         }
@@ -44,7 +44,6 @@ main {
         color: var(--text-color-1);
         transform: scale(1);
         path {
-          
         }
       }
     }
@@ -60,9 +59,20 @@ main {
         height: 22px;
       }
     }
-
   }
   .page_btm {
     margin: 20px 0;
   }
+}
+
+.object-cover {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  color: transparent;
+}
+
+.upload-wrap {
+  width: 100%;
 }
