@@ -95,7 +95,6 @@ const recruitWrite = () => {
   }
 
   const applyFilter5 = (filter: string) => {
-    console.log('Applying filter 5:', filter)
     setSelectedFilter5(filter)
   }
 
