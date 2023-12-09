@@ -32,7 +32,7 @@ export default async function RootLayout({
             <main id="main">{children}</main>
             {modal}
             <script
-              src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_MAP_KEY}&autoload=false`}
+              src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_MAP_KEY}&autoload=false`}
               type="text/javascript"
             />
           </div>

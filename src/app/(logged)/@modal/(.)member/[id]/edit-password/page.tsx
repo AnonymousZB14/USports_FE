@@ -1,8 +1,10 @@
 'use client'
 import Modal from '@/components/modal'
+import { useRouter } from 'next/navigation'
 import React, { ChangeEventHandler, useState } from 'react'
 
 const Page = () => {
+  const router = useRouter()
   return (
     <Modal>
       <div className="editPwd">
@@ -27,7 +29,13 @@ const Page = () => {
             required
           />
           <div>
-            <input type="button" value={'취소'} />
+            <input
+              type="button"
+              value={'취소'}
+              onClick={() => {
+                router.back()
+              }}
+            />
             <input type="submit" value={'수정하기'} />
           </div>
         </form>
