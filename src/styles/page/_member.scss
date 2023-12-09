@@ -1,0 +1,83 @@
+.editUser {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  font-size: var(--text-size-base);
+  gap: 30px;
+  p {
+    font-size: var(--text-size-2xl);
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  form {
+    min-width: 80%;
+    display: flex;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    & > div {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      & > label {
+        padding: 10px;
+        width: 100px;
+        &:has(img) {
+          width: 75px;
+          height: 75px;
+          border-radius: 50%;
+          border: 1px solid #ccc;
+          opacity: 0.8;
+          overflow: hidden;
+          img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+      &:last-child {
+        display: flex;
+        gap: 10px;
+        justify-content: space-between;
+        margin-top: 70px;
+      }
+      & > * {
+        font-size: var(--text-size-base);
+      }
+      input:not([type='submit'], [type='button']) {
+        border: 1px solid #ccc;
+        height: 40px;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 5px;
+        background-color: transparent;
+      }
+      input:not([type='radio']) {
+        flex: 1;
+      }
+      input[type='submit'],
+      input[type='button'] {
+        flex: 1;
+        color: #fff;
+        padding: 20px 0;
+        transition: all 0.1s;
+        font-weight: 500;
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+      input[type='submit'] {
+        background-color: rgb(39, 193, 0);
+      }
+      input[type='button'] {
+        background-color: #a2a2a2;
+      }
+      input[type='file'] {
+        display: none;
+      }
+    }
+  }
+}

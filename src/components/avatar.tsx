@@ -1,6 +1,6 @@
 'use client'
 import { checkUser } from '@/api/user'
-import { useEffect, useLayoutEffect } from 'react'
+import { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { UserState, UserState as userstate } from '@/store/user'
 import Link from 'next/link'

@@ -8,7 +8,7 @@ import { AddressType } from '../../../types/types'
 import flatpickr from 'flatpickr'
 import 'flatpickr/dist/flatpickr.min.css'
 import FilterDialog from '@/components/filterDialog'
-import Button from '@/components/button'
+import Button from '@/components/Button'
 import { SlArrowDown } from 'react-icons/sl'
 
 const recruitWrite = () => {

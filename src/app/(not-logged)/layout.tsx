@@ -1,19 +1,19 @@
-import type { Metadata } from "next";
-import "../globals.css";
-
+import type { Metadata } from 'next'
+import '../globals.css'
+import '../../styles/main.css'
 export const metadata: Metadata = {
-  title: "USports",
-  description: "usports",
-};
+  title: 'USports',
+  description: 'usports',
+}
 
 export default async function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
-    <html>
+    <html data-theme="light">
       <body>{children}</body>
     </html>
-  );
+  )
 }

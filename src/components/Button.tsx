@@ -14,6 +14,7 @@ interface Props {
 }
 const Button: React.FC<Props> = ({
   children,
+  type,
   onClick,
   height = 'fit',
   tailwindStyles,

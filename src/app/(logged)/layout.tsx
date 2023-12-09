@@ -14,8 +14,10 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
+  modal,
 }: {
   children: React.ReactNode
+  modal: React.ReactNode
 }) {
   const res: UserProfile = await checkUser()
   if (!res) {
@@ -27,11 +29,12 @@ export default async function RootLayout({
         <body>
           <div id="wrap">
             <Header />
+            <main id="main">{children}</main>
+            {modal}
             <script
-              src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_MAP_KEY}&autoload=false`}
+              src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_MAP_KEY}&autoload=false`}
               type="text/javascript"
             />
-            <main id="main">{children}</main>
           </div>
         </body>
       </html>

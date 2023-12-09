@@ -1,7 +1,10 @@
 import React from 'react'
 import UserInfoSec from './userInfoSec'
 import Link from 'next/link'
-
+import relativeTime from 'dayjs/plugin/relativeTime'
+import dayjs from 'dayjs'
+// import 'dayjs/locale/kr'
+dayjs.extend(relativeTime)
 const Feed = () => {
   return (
     <div className="feed">
@@ -16,7 +19,10 @@ const Feed = () => {
 export const FeedContent = () => {
   return (
     <div className="feed_content">
-      <UserInfoSec />
+      <div>
+        <UserInfoSec />
+        <span className="dayjs">{dayjs(Date.now()).fromNow(true)}</span>
+      </div>
       <div className="body">
         <Link href={'/record/001'}>
           <img
