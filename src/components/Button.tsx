@@ -28,7 +28,7 @@ const Button: React.FC<Props> = ({
       href={href}
       className={`inline-block w-fit ${
         height === 'unset' ? '' : 'h-fit'
-      } break-keep rounded-md px-4 py-2 text-center text-base font-semibold transition-all ${
+      } break-keep rounded-md px-6 py-3 text-center text-xl font-semibold transition-all ${
         theme === 'gray'
           ? 'bg-zinc-200 text-zinc-600 hover:bg-zinc-100'
           : theme === 'black'
@@ -54,7 +54,7 @@ const Button: React.FC<Props> = ({
       onClick={onClick}
       className={`inline-block w-fit ${
         height === 'unset' ? '' : 'h-fit'
-      } break-keep rounded-md px-4 py-2 text-center text-base font-semibold transition-all ${
+      } break-keep rounded-md px-6 py-3 text-center text-xl font-semibold transition-all ${
         theme === 'gray'
           ? 'bg-zinc-200 text-zinc-600 hover:bg-zinc-100'
           : theme === 'black'

@@ -59,5 +59,14 @@
     margin: 20px 0;
   }
 }
+.object-cover {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  color: transparent;
+}
 
-
+.upload-wrap {
+  width: 100%;
+}
