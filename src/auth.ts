@@ -12,7 +12,12 @@ export const {
     signIn: '/login',
     newUser: '/createAccount',
   },
-/*   callbacks: {
+  session: {
+    strategy: 'jwt',
+    maxAge: 60 * 60,
+  },
+  // secret: process.env.NEXTAUTH_SECRET,
+  callbacks: {
     jwt({ token }) {
       console.log('auth.ts jwt', token)
       return token
@@ -35,15 +40,15 @@ export const {
       // if ('token' in data) {
       //   data.token = null;
       // }
-    }, */
-/*     session(data) {
+    },
+    session(data) {
       console.log(
         'auth.ts events session',
         'session' in data && data.session,
         'token' in data && data.token,
       )
     },
-  }, */
+  },
   providers: [
     CredentialsProvider({
       async authorize(credentials) {

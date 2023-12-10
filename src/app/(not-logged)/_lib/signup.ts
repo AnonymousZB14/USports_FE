@@ -7,9 +7,9 @@ export default async (prevState: any, formData: FormData) => {
   if (!formData.get('id') || !(formData.get('id') as string)?.trim()) {
     return { message: 'no_id' }
   }
-  if (!formData.get('name') || !(formData.get('name') as string)?.trim()) {
+  /*   if (!formData.get('name') || !(formData.get('name') as string)?.trim()) {
     return { message: 'no_name' }
-  }
+  } */
   if (
     !formData.get('password') ||
     !(formData.get('password') as string)?.trim()
@@ -41,13 +41,14 @@ export default async (prevState: any, formData: FormData) => {
       password: formData.get('password'),
       redirect: false,
     })
+    // redirect('/home')
   } catch (err) {
     console.error(err)
     return { message: null }
   }
 
   if (shouldRedirect) {
-    redirect('/') // try/catch문 안에서 X
+    redirect('/home') // try/catch문 안에서 X
   }
-  return { message: null }
+  return { message: 'success' }
 }
