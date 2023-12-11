@@ -26,12 +26,17 @@ const recruitDetail = () => {
             <span className="sr-only">back</span>
           </i>
         </button>
-        <Button tailwindStyles="py-0 px-2" theme="red">
-          파트너 평가하기
-        </Button>
-        {/* <Button tailwindStyles="py-0 px-2" theme="orange">
-          신청자 관리하기
-        </Button> */}
+        <Link href={`/recruit/partner`}>
+          <Button tailwindStyles="py-0 px-2" theme="red">
+            파트너 평가하기
+          </Button>
+        </Link>
+
+        <Link href={`/recruit/manage`}>
+          <Button tailwindStyles="py-0 px-2" theme="orange">
+            신청자 관리하기
+          </Button>
+        </Link>
       </div>
       <div className="content-body">
         <div className="map-wrap">
