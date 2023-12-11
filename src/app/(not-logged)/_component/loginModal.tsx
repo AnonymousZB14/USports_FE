@@ -7,7 +7,7 @@ import axios from 'axios'
 import { response } from 'express'
 
 const LoginModal = () => {
-  const [id, setId] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
   const router = useRouter()
@@ -35,7 +35,7 @@ const LoginModal = () => {
     const callbackUrl = `${process.env.NEXT_PUBLIC_LOCAL}/`
     console.log(callbackUrl)
     signIn('credentials', {
-      id,
+      email,
       password,
       redirect: true,
       callbackUrl,
@@ -49,7 +49,7 @@ const LoginModal = () => {
   }
 
   const onChangeId: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setId(e.target.value)
+    setEmail(e.target.value)
   }
 
   const onChangePassword: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -66,7 +66,7 @@ const LoginModal = () => {
             id="email"
             placeholder="email"
             required
-            value={id}
+            value={email}
             onChange={onChangeId}
           />
           <input
@@ -80,7 +80,7 @@ const LoginModal = () => {
           />
         </div>
         <div>{message}</div>
-        <input type="submit" value="Log in" disabled={!id && !password} />
+        <input type="submit" value="Log in" disabled={!email && !password} />
       </form>
       <div className="linkWrap">
         <Link href={'/findPassword'}>Find Password</Link>

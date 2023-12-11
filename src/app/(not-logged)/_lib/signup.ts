@@ -24,7 +24,7 @@ export default async (prevState: any, formData: FormData) => {
   let shouldRedirect = false
   try {
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_AUTH_URL}/api/users`,
+      `${process.env.NEXT_PUBLIC_AUTH_URL}/member/register`,
       {
         body: formData,
         credentials: 'include',

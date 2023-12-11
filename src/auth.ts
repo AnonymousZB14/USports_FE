@@ -12,7 +12,7 @@ export const {
   },
   providers: [
     CredentialsProvider({
-      async authorize(credentials: Record<any, any>, req: any) {
+      async authorize(credentials) {
         console.log(credentials)
         const authResponse = await axios.post(
           `${process.env.NEXT_PUBLIC_AUTH_URL}/api/login`,
@@ -21,7 +21,7 @@ export const {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              id: credentials.id,
+              email: credentials.email,
               password: credentials?.password,
             }),
           },
@@ -29,7 +29,8 @@ export const {
         const user = await authResponse.data
         console.log('User from server:', user)
         return {
-          email: { email: user.email, id: user.id },
+          id: user.id,
+          email: user?.email,
           name: user.nickname,
           image: user.image,
           ...user,

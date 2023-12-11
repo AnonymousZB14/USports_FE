@@ -2,18 +2,21 @@ import { http, HttpResponse, StrictResponse } from 'msw'
 
 const User = [
   {
+    userId: 1,
     id: 'elonmusk',
     nickname: 'Elon Musk',
     email: 'olu-zr@naver.com',
     image: '/tomatoA.svg',
   },
   {
+    userId: 2,
     id: 'nara',
     nickname: '나라',
     email: 'olu-zr@naver.com',
     image: '/tomatoA.svg',
   },
   {
+    userId: 3,
     id: 'nara',
     nickname: '나라',
     email: 'olu-zr@naver.com',
@@ -38,7 +41,7 @@ export const handlers = [
       },
     })
   }),
-  http.post('/api/users', async ({ request }) => {
+  http.post('/member/register', async ({ request }) => {
     console.log(request.body)
     console.log('회원가입')
     /*     return HttpResponse.text(JSON.stringify('user_exists'), {

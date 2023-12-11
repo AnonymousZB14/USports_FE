@@ -89,9 +89,8 @@ const SignUpModal = () => {
             비공개
           </div>
         </div>
-        <button type="submit" value="Create Account" disabled={pending}>
-          가입하기
-        </button>
+        <input type="submit" value="Create Account" disabled={pending}/>
+
         <div>{state?.message}</div>
       </form>
     </div>
