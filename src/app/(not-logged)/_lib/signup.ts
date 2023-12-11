@@ -31,6 +31,7 @@ export default async (prevState: any, formData: FormData) => {
       },
     )
     console.log(response.status)
+    console.log(await response.json())
     if (response.status === 403) {
       return { message: 'user_exists' }
     }
@@ -41,7 +42,7 @@ export default async (prevState: any, formData: FormData) => {
       password: formData.get('password'),
       redirect: false,
     })
-    // redirect('/home')
+    
   } catch (err) {
     console.error(err)
     return { message: null }

@@ -1,4 +1,4 @@
-import { checkUser } from '@/api/user'
+import { checkUser } from '@/test/user'
 import type { Metadata } from 'next'
 import '../../styles/main.css'
 import '../globals.css'

@@ -3,12 +3,13 @@ import { http, HttpResponse, StrictResponse } from 'msw'
 const User = [
   { id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg' },
   { id: 'zerohch0', nickname: '제로초', image: '/5Udwvqim.jpg' },
+  { id: 'nara', nickname: '나라', image: '/5Udwvqim.jpg' },
 ]
 
 export const handlers = [
   http.post('/api/login', () => {
     console.log('로그인')
-    return HttpResponse.json(User[1], {
+    return HttpResponse.json(User[2], {
       headers: {
         'Set-Cookie': 'connect.sid=msw-cookie;HttpOnly;Path=/',
       },
@@ -24,9 +25,9 @@ export const handlers = [
   }),
   http.post('/api/users', async ({ request }) => {
     console.log('회원가입')
-    // return HttpResponse.text(JSON.stringify('user_exists'), {
-    //   status: 403,
-    // })
+    /*     return HttpResponse.text(JSON.stringify('user_exists'), {
+      status: 403,
+    }) */
     return HttpResponse.text(JSON.stringify('ok'), {
       headers: {
         'Set-Cookie': 'connect.sid=msw-cookie;HttpOnly;Path=/;Max-Age=0',
@@ -42,7 +43,7 @@ export const handlers = [
         'https://lh3.googleusercontent.com/a/ACg8ocKE_zmbDmAr6qBdQzGwgyrzfbOXWWnD4MVfa0fwb6yPeg=s288-c-no',
     })
   }),
-  http.get(`/nara-records`, async ({ request }) => {
+  http.get(`/user-records`, async ({ request }) => {
     console.log('유저정보')
     return HttpResponse.json({
       records: [

@@ -1,11 +1,11 @@
 'use client'
 import React from 'react'
 import { FiLogOut } from 'react-icons/fi'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { Session } from '@auth/core/types'
 import { useRouter } from 'next/navigation'
 type Props = {
-  me: Session | null
+  me?: Session | null
 }
 const LogoutBtn = ({ me }: Props) => {
   const router = useRouter()
@@ -17,6 +17,8 @@ const LogoutBtn = ({ me }: Props) => {
   }
 
   const onLogout = () => {
+    // const { data: session, status } = useSession()
+    // if (status === 'authenticated') console.log('session', session)
     signOut({ redirect: false }).then(() => {
       fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/logout`, {
         method: 'post',

@@ -13,10 +13,10 @@ const LoginModal = () => {
     e.preventDefault()
     setMessage('')
     try {
-      const response = await signIn('credentials', {
+      const response = await signIn('username-login', {
         username: id,
         password,
-        redirect: false,
+        // redirect: false,
       })
       if (!response?.ok) {
         setMessage('아이디와 비밀번호가 일치하지 않습니다.')
@@ -39,7 +39,7 @@ const LoginModal = () => {
   return (
     <div className="loginP notLoggedP centered">
       <h2>Log into USports</h2>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} action="/api/auth/callback/credentials">
         <div>
           <input
             type="text"

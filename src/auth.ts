@@ -10,56 +10,16 @@ export const {
 } = NextAuth({
   pages: {
     signIn: '/login',
-    // signOut: '/auth/signout',
-    newUser: '/createAccount',
+    // newUser: '/i/flow/signup',
   },
-  session: {
-    strategy: 'jwt',
-    maxAge: 60 * 60,
-  },
-  // secret: process.env.NEXTAUTH_SECRET,
-  callbacks: {
-    jwt({ token }) {
-      console.log('auth.ts jwt', token)
-      return token
-    },
-    session({ session, newSession, user }) {
-      console.log('auth.ts session', session, newSession, user)
-      return session
-    },
-  },
-  events: {
-    signOut(data) {
-      console.log(
-        'auth.ts events signout',
-        'session' in data && data.session,
-        'token' in data && data.token,
-      )
-      // if ('session' in data) {
-      //   data.session = null;
-      // }
-      // if ('token' in data) {
-      //   data.token = null;
-      // }
-    },
-    session(data) {
-      console.log(
-        'auth.ts events session',
-        'session' in data && data.session,
-        'token' in data && data.token,
-      )
-    },
-  },
+  secret: process.env.SECRET,
   providers: [
-    CredentialsProvider({    name: 'Credentials',
-    // The credentials is used to generate a suitable form on the sign in page.
-    // You can specify whatever fields you are expecting to be submitted.
-    // e.g. domain, username, password, 2FA token, etc.
-    // You can pass any HTML attribute to the <input> tag through the object.
-    credentials: {
-      username: { label: "Username", type: "text", placeholder: "jsmith" },
-      password: { label: "Password", type: "password" }
-    },
+    CredentialsProvider({
+      id: 'username-login', // <- add this line
+      credentials: {
+        username: { label: '유저네임', type: 'text', placeholder: 'jsmith' },
+        password: { label: '패스워드', type: 'password' },
+      },
       async authorize(credentials) {
         const authResponse = await fetch(`${process.env.AUTH_URL}/api/login`, {
           method: 'POST',
@@ -80,9 +40,9 @@ export const {
         if (!authResponse.ok) {
           return null
         }
-
         const user = await authResponse.json()
         console.log('user', user)
+
         return {
           email: user.id,
           name: user.nickname,

@@ -1,19 +1,19 @@
-"use client";
-import { getUsersRecords } from "@/api/records";
-import { RecordsState } from "@/store/records";
-import Link from "next/link";
-import React, { useEffect } from "react";
-import { useRecoilState, useRecoilValueLoadable } from "recoil";
-import Skeleton from "./skeleton";
+'use client'
+import { getUsersRecords } from '@/test/records'
+import { RecordsState } from '@/store/records'
+import Link from 'next/link'
+import React, { useEffect } from 'react'
+import { useRecoilState, useRecoilValueLoadable } from 'recoil'
+import Skeleton from './skeleton'
 
 const Records = () => {
-  const [records, setRecords] = useRecoilState(RecordsState);
-  const recordLoadable = useRecoilValueLoadable(RecordsState);
+  const [records, setRecords] = useRecoilState(RecordsState)
+  const recordLoadable = useRecoilValueLoadable(RecordsState)
   useEffect(() => {
-    getUsersRecords("user").then((resp) => {
-      setRecords(resp.records);
-    });
-  }, [setRecords]);
+    getUsersRecords('user').then((resp) => {
+      setRecords(resp.records)
+    })
+  }, [setRecords])
 
   return (
     <ul>
@@ -24,20 +24,20 @@ const Records = () => {
             imageAddress={record.imageAddress}
             recordId={record.recordId}
           />
-        );
+        )
       })}
     </ul>
-  );
-};
+  )
+}
 
-export default Records;
+export default Records
 
 const Record = ({
   imageAddress,
   recordId,
 }: {
-  imageAddress: string;
-  recordId: number;
+  imageAddress: string
+  recordId: number
 }) => {
   return (
     <li>
@@ -47,5 +47,5 @@ const Record = ({
         </Link>
       </div>
     </li>
-  );
-};
+  )
+}
