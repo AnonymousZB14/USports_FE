@@ -3,6 +3,9 @@ import '../globals.css'
 import '../../styles/main.css'
 import { MSWComponent } from '@/app/_component/MSWComponent'
 import AuthSession from '@/app/_component/AuthSession'
+import { auth } from '@/auth'
+import { redirect } from 'next/navigation'
+
 export const metadata: Metadata = {
   title: 'USports',
   description: 'usports',
@@ -13,6 +16,11 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const session = await auth()
+  if (session?.user) {
+    redirect('/home')
+    return null
+  }
   return (
     <html data-theme="light">
       <body>

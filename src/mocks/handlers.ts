@@ -1,9 +1,24 @@
 import { http, HttpResponse, StrictResponse } from 'msw'
 
 const User = [
-  { id: 'elonmusk', nickname: 'Elon Musk', image: '/tomatoA.svg' },
-  { id: 'nara', nickname: '나라', image: '/tomatoA.svg' },
-  { id: 'nara', nickname: '나라', image: '/tomatoA.svg' },
+  {
+    id: 'elonmusk',
+    nickname: 'Elon Musk',
+    email: 'olu-zr@naver.com',
+    image: '/tomatoA.svg',
+  },
+  {
+    id: 'nara',
+    nickname: '나라',
+    email: 'olu-zr@naver.com',
+    image: '/tomatoA.svg',
+  },
+  {
+    id: 'nara',
+    nickname: '나라',
+    email: 'olu-zr@naver.com',
+    image: '/tomatoA.svg',
+  },
 ]
 
 export const handlers = [

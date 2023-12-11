@@ -31,11 +31,11 @@ export default async (prevState: any, formData: FormData) => {
       },
     )
     console.log(response.status)
-    console.log(await response.data())
+    console.log(await response.data)
     if (response.status === 403) {
       return { message: 'user_exists' }
     }
-    console.log(await response.data())
+    console.log(await response.data)
     shouldRedirect = true
     await signIn('credentials', {
       username: formData.get('id'),

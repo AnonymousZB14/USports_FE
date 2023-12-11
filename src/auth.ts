@@ -29,7 +29,7 @@ export const {
         const user = await authResponse.data
         console.log('User from server:', user)
         return {
-          email: user.id,
+          email: { email: user.email, id: user.id },
           name: user.nickname,
           image: user.image,
           ...user,

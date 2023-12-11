@@ -61,10 +61,10 @@ const LoginModal = () => {
       <form onSubmit={onSubmit}>
         <div>
           <input
-            type="text"
-            name="id"
-            id="id"
-            placeholder="id"
+            type="email"
+            name="email"
+            id="email"
+            placeholder="email"
             required
             value={id}
             onChange={onChangeId}
