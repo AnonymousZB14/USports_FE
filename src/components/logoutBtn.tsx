@@ -18,12 +18,15 @@ const LogoutBtn = ({ me }: Props) => {
   }
 
   const onLogout = () => {
-    signOut({ redirect: false }).then(() => {
-      axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/logout`, {
-        credentials: 'include',
+    if (confirm('로그아웃 하시겠습니까?')) {
+      alert('로그아웃되었습니다')
+      signOut({ redirect: false }).then(() => {
+        axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/logout`, {
+          credentials: 'include',
+        })
+        router.replace('/login')
       })
-      router.replace('/login')
-    })
+    }
   }
   /*   if (!me?.user) {
     return null

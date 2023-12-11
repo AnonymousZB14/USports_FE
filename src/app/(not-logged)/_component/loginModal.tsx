@@ -5,6 +5,7 @@ import { redirect, useRouter } from 'next/navigation'
 import { signIn, signOut } from 'next-auth/react'
 import axios from 'axios'
 import { response } from 'express'
+import Image from 'next/image'
 
 const LoginModal = () => {
   const [email, setEmail] = useState('')
@@ -29,7 +30,18 @@ const LoginModal = () => {
       setMessage('에러발생')
     }
   } */
-
+  const handleKakao = async () => {
+    const result = await signIn('kakao', {
+      redirect: true,
+      callbackUrl: '/',
+    })
+  }
+  const handleNaver = async () => {
+    const result = await signIn('naver', {
+      redirect: true,
+      callbackUrl: '/',
+    })
+  }
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
     const callbackUrl = `${process.env.NEXT_PUBLIC_LOCAL}/`
@@ -79,15 +91,35 @@ const LoginModal = () => {
             required
           />
         </div>
-        <div>{message}</div>
+        
         <input type="submit" value="Log in" disabled={!email && !password} />
       </form>
+
       <div className="linkWrap">
         <Link href={'/findPassword'}>Find Password</Link>
         <Link href={'/createAccount'}>Create Account</Link>
       </div>
       <hr />
-      <div className="kakaoLogBtn"></div>
+      <div className="socialLogBtn">
+        <button
+          className="kakaoBtn"
+          onClick={() => signIn('kakao', { redirect: true, callbackUrl: '/' })}
+        >
+          카카오로 로그인
+        </button>
+        <button
+          className="naverBtn"
+          onClick={() => signIn('naver', { redirect: true, callbackUrl: '/' })}
+        >
+          {/*           <Image
+            src={'/naver_login.png'}
+            alt="kakao"
+            width={200}
+            height={100}
+          /> */}
+          네이버로 로그인
+        </button>
+      </div>
     </div>
   )
 }

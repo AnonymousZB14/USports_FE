@@ -1638,6 +1638,27 @@ ul.recruitManagement > li .recruitItemCont p.status {
   transform: translate(-50%, -50%);
   top: 50%;
 }
+.notLoggedP .socialLogBtn {
+  padding-top: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.notLoggedP .socialLogBtn button {
+  flex: 1;
+  padding: 18px 0;
+  font-size: var(--text-size-base);
+  border-radius: 5px;
+  font-weight: 500;
+}
+.notLoggedP .socialLogBtn button.kakaoBtn {
+  background-color: #FEE500;
+}
+.notLoggedP .socialLogBtn button.naverBtn {
+  background-color: rgb(3, 199, 90);
+  color: #fff;
+}
+
 .findPwdP form,
 .createAccountP form {
   flex-direction: column;

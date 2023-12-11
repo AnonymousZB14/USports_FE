@@ -16,6 +16,10 @@ export const config = {
     '/home',
     '/explore',
     '/messages',
+    '/member',
+    '/mypage',
     '/notifications',
+    '/record',
+    '/recruit',
   ],
 }

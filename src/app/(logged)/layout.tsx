@@ -6,9 +6,10 @@ import { redirect } from 'next/navigation'
 import { UserProfile } from '@/types/types'
 import Header from '@/containers/header'
 import RecoilRootWrapper from '@/containers/recoilRootWrapper'
-import { KAKAO_MAP_KEY } from '@/constants/contant'
+// import { KAKAO_APP_KEY } from '@/constants/contant'
 import { MSWComponent } from '@/app/_component/MSWComponent'
 import AuthSession from '@/app/_component/AuthSession'
+import { auth } from '@/auth'
 export const metadata: Metadata = {
   title: 'USports',
   description: 'usports',
@@ -21,8 +22,12 @@ export default async function RootLayout({
   children: React.ReactNode
   modal: React.ReactNode
 }) {
-  const res: UserProfile = await checkUser()
+  const session = await auth()
+  /*   const res: UserProfile = await checkUser()
   if (!res) {
+    redirect('/login')
+  } */
+  if (!session?.user) {
     redirect('/login')
   }
   return (
@@ -36,7 +41,7 @@ export default async function RootLayout({
               <main id="main">{children}</main>
               {modal}
               <script
-                src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_MAP_KEY}&autoload=false`}
+                src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_APP_KEY}&autoload=false`}
                 type="text/javascript"
               />
             </div>
