@@ -7,7 +7,7 @@ import {
   useState,
 } from 'react'
 import DaumPostcodeEmbed, { Address } from 'react-daum-postcode'
-import Button from './Button'
+import Button from './button'
 import { AddressType } from '../types/types'
 
 interface Props {

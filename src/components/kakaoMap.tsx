@@ -11,7 +11,7 @@ const KaKaoMap = ({ Lat, Lng }: { Lat: number; Lng: number }) => {
         style={{
           // 지도의 크기
           width: '100%',
-          height: '450px',
+          height: '300px',
         }}
         level={4} // 지도의 확대 레벨
       >
@@ -24,8 +24,8 @@ const KaKaoMap = ({ Lat, Lng }: { Lat: number; Lng: number }) => {
           image={{
             src: 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다
             size: {
-              width: 64,
-              height: 69,
+              width: 35,
+              height: 40,
             }, // 마커이미지의 크기입니다
             options: {
               offset: {
