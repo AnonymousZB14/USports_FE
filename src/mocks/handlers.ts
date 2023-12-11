@@ -1,15 +1,15 @@
 import { http, HttpResponse, StrictResponse } from 'msw'
 
 const User = [
-  { id: 'elonmusk', nickname: 'Elon Musk', image: '/yRsRRjGO.jpg' },
-  { id: 'zerohch0', nickname: '제로초', image: '/5Udwvqim.jpg' },
-  { id: 'nara', nickname: '나라', image: '/5Udwvqim.jpg' },
+  { id: 'elonmusk', nickname: 'Elon Musk', image: '/tomatoA.svg' },
+  { id: 'zerohch0', nickname: '제로초', image: '/tomatoA.svg' },
+  { id: 'nara', nickname: '나라', image: '/tomatoA.svg' },
 ]
 
 export const handlers = [
-  http.post('/api/login', () => {
+  http.post('/api/login', ({ request }) => {
     console.log('로그인')
-    return HttpResponse.json(User[2], {
+    return HttpResponse.json(User[1], {
       headers: {
         'Set-Cookie': 'connect.sid=msw-cookie;HttpOnly;Path=/',
       },
@@ -24,6 +24,7 @@ export const handlers = [
     })
   }),
   http.post('/api/users', async ({ request }) => {
+    console.log(request.body)
     console.log('회원가입')
     /*     return HttpResponse.text(JSON.stringify('user_exists'), {
       status: 403,
@@ -35,7 +36,7 @@ export const handlers = [
     })
   }),
   http.get('/user', async ({ request }) => {
-    console.log('유저정보')
+    // console.log(request.body)
     return HttpResponse.json({
       id: 1,
       name: 'naraLee',

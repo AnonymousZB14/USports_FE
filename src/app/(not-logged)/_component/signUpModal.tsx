@@ -2,7 +2,7 @@
 import React, { useLayoutEffect, useState } from 'react'
 import onSubmit from '../_lib/signup'
 import { useFormState, useFormStatus } from 'react-dom'
-// import {createUser} from 'next-auth'
+
 function showMessage(message: string | null) {
   console.log('message', message)
   if (message === 'no_id') {
@@ -28,9 +28,6 @@ const SignUpModal = () => {
   const [state, formAction] = useFormState(onSubmit, { message: null })
   const { pending } = useFormStatus()
   console.log('state', state)
-  useLayoutEffect(() => {
-    console.log(state)
-  }, [state])
   
   return (
     <div className="createAccountP notLoggedP centered">

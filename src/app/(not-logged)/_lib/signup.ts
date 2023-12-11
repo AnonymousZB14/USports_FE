@@ -2,6 +2,7 @@
 
 import { redirect } from 'next/navigation'
 import { signIn } from '@/auth'
+import axios from 'axios'
 
 export default async (prevState: any, formData: FormData) => {
   if (!formData.get('id') || !(formData.get('id') as string)?.trim()) {
@@ -22,27 +23,25 @@ export default async (prevState: any, formData: FormData) => {
   formData.set('nickname', formData.get('name') as string)
   let shouldRedirect = false
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users`,
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_AUTH_URL}/api/users`,
       {
-        method: 'post',
         body: formData,
         credentials: 'include',
       },
     )
     console.log(response.status)
-    console.log(await response.json())
+    console.log(await response.data())
     if (response.status === 403) {
       return { message: 'user_exists' }
     }
-    console.log(await response.json())
+    console.log(await response.data())
     shouldRedirect = true
     await signIn('credentials', {
       username: formData.get('id'),
       password: formData.get('password'),
       redirect: false,
     })
-    
   } catch (err) {
     console.error(err)
     return { message: null }

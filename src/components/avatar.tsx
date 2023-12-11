@@ -1,6 +1,6 @@
 'use client'
 import { checkUser } from '@/test/user'
-import { useEffect } from 'react'
+import { useEffect, useLayoutEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { UserState, UserState as userstate } from '@/store/user'
 import Link from 'next/link'
@@ -16,12 +16,20 @@ const Avatar = ({
 }) => {
   const { data: session, status } = useSession()
   const [user, setUser] = useRecoilState(UserState)
-  if (status === 'authenticated') console.log('session', session)
-  useEffect(() => {
+  // if (status === 'authenticated') console.log('session', session)
+/*   useEffect(() => {
     checkUser().then((resp) => {
       setUser(resp)
     })
-  }, [setUser])
+  }, [setUser]) */
+  useLayoutEffect(() => {
+    console.log(session)
+    setUser({
+      id: 0,
+      name: session?.user?.name!,
+      profileImage: session?.user?.image!,
+    })
+  }, [session])
   return (
     <div style={{ width: width, height: height }}>
       <div className="avatar_img">

@@ -2,7 +2,7 @@ import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { cookies } from 'next/headers'
 import cookie from 'cookie'
-
+import axios from 'axios'
 export const {
   handlers: { GET, POST },
   auth,
@@ -10,46 +10,32 @@ export const {
 } = NextAuth({
   pages: {
     signIn: '/login',
-    // newUser: '/i/flow/signup',
+    newUser: '/createAccount',
   },
-  secret: process.env.SECRET,
   providers: [
     CredentialsProvider({
-      id: 'username-login', // <- add this line
-      credentials: {
-        username: { label: '유저네임', type: 'text', placeholder: 'jsmith' },
-        password: { label: '패스워드', type: 'password' },
-      },
       async authorize(credentials) {
-        const authResponse = await fetch(`${process.env.AUTH_URL}/api/login`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+        const authResponse = await axios.post(
+          `${process.env.NEXT_PUBLIC_AUTH_URL}/api/login`,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              id: credentials?.username,
+              password: credentials?.password,
+            }),
           },
-          body: JSON.stringify({
-            id: credentials.username,
-            password: credentials.password,
-          }),
-        })
-        let setCookie = authResponse.headers.get('Set-Cookie')
-        console.log('set-cookie', setCookie)
-        if (setCookie) {
-          const parsed = cookie.parse(setCookie)
-          cookies().set('connect.sid', parsed['connect.sid'], parsed) // 브라우저에 쿠키를 심어주는 것
-        }
-        if (!authResponse.ok) {
-          return null
-        }
-        const user = await authResponse.json()
-        console.log('user', user)
+        )
 
+        const user = await authResponse.data
+
+        console.log('User from server:', user)
         return {
-          email: user.id,
-          name: user.nickname,
-          image: user.image,
           ...user,
         }
       },
+      credentials: undefined,
     }),
   ],
 })

@@ -13,19 +13,18 @@ const LoginModal = () => {
     e.preventDefault()
     setMessage('')
     try {
-      const response = await signIn('username-login', {
+      const callbackUrl = `${process.env.NEXT_PUBLIC_LOCAL}/`
+      console.log(callbackUrl)
+      const response = await signIn('credentials', {
         username: id,
         password,
-        // redirect: false,
+        redirect: false,
+        callbackUrl,
       })
-      if (!response?.ok) {
-        setMessage('아이디와 비밀번호가 일치하지 않습니다.')
-      } else {
-        router.replace('/home')
-      }
+      console.log(response) // 토큰 확인
     } catch (err) {
       console.error(err)
-      setMessage('아이디와 비밀번호가 일치하지 않습니다.')
+      setMessage('에러발생')
     }
   }
 
@@ -39,7 +38,7 @@ const LoginModal = () => {
   return (
     <div className="loginP notLoggedP centered">
       <h2>Log into USports</h2>
-      <form onSubmit={onSubmit} action="/api/auth/callback/credentials">
+      <form onSubmit={onSubmit}>
         <div>
           <input
             type="text"

@@ -4,6 +4,7 @@ import { FiLogOut } from 'react-icons/fi'
 import { signOut, useSession } from 'next-auth/react'
 import { Session } from '@auth/core/types'
 import { useRouter } from 'next/navigation'
+import axios from 'axios'
 type Props = {
   me?: Session | null
 }
@@ -20,8 +21,7 @@ const LogoutBtn = ({ me }: Props) => {
     // const { data: session, status } = useSession()
     // if (status === 'authenticated') console.log('session', session)
     signOut({ redirect: false }).then(() => {
-      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/logout`, {
-        method: 'post',
+      axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/logout`, {
         credentials: 'include',
       })
       router.replace('/login')
