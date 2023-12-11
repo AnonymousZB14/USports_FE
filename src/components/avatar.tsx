@@ -17,7 +17,7 @@ const Avatar = ({
   const { data: session, status } = useSession()
   const [user, setUser] = useRecoilState(UserState)
   // if (status === 'authenticated') console.log('session', session)
-/*   useEffect(() => {
+  /*   useEffect(() => {
     checkUser().then((resp) => {
       setUser(resp)
     })
@@ -36,7 +36,6 @@ const Avatar = ({
         <Link href={isItprofile ? '#none' : '/profile'}>
           <img src={user.profileImage} alt="profileImage" />
         </Link>
-        <p>{session?.user?.name}</p>
       </div>
     </div>
   )

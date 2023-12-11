@@ -18,8 +18,6 @@ const LogoutBtn = ({ me }: Props) => {
   }
 
   const onLogout = () => {
-    // const { data: session, status } = useSession()
-    // if (status === 'authenticated') console.log('session', session)
     signOut({ redirect: false }).then(() => {
       axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/logout`, {
         credentials: 'include',

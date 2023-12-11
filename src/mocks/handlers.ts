@@ -2,13 +2,13 @@ import { http, HttpResponse, StrictResponse } from 'msw'
 
 const User = [
   { id: 'elonmusk', nickname: 'Elon Musk', image: '/tomatoA.svg' },
-  { id: 'zerohch0', nickname: '제로초', image: '/tomatoA.svg' },
+  { id: 'nara', nickname: '나라', image: '/tomatoA.svg' },
   { id: 'nara', nickname: '나라', image: '/tomatoA.svg' },
 ]
 
 export const handlers = [
   http.post('/api/login', ({ request }) => {
-    console.log('로그인')
+    console.log('로그인', request)
     return HttpResponse.json(User[1], {
       headers: {
         'Set-Cookie': 'connect.sid=msw-cookie;HttpOnly;Path=/',

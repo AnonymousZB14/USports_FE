@@ -2,14 +2,16 @@
 import Link from 'next/link'
 import { ChangeEventHandler, FormEventHandler, useState } from 'react'
 import { redirect, useRouter } from 'next/navigation'
-import { signIn } from 'next-auth/react'
+import { signIn, signOut } from 'next-auth/react'
+import axios from 'axios'
+import { response } from 'express'
 
 const LoginModal = () => {
   const [id, setId] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
   const router = useRouter()
-  const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+  /*   const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
     setMessage('')
     try {
@@ -26,6 +28,24 @@ const LoginModal = () => {
       console.error(err)
       setMessage('에러발생')
     }
+  } */
+
+  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault()
+    const callbackUrl = `${process.env.NEXT_PUBLIC_LOCAL}/`
+    console.log(callbackUrl)
+    signIn('credentials', {
+      id,
+      password,
+      redirect: true,
+      callbackUrl,
+    })
+      .then((response) => {
+        console.log(`response:${response}`)
+      })
+      .catch((error) => {
+        console.log(`error:${error}`)
+      })
   }
 
   const onChangeId: ChangeEventHandler<HTMLInputElement> = (e) => {
