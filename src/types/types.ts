@@ -14,8 +14,18 @@ export interface User {
   nickname: string
   profileImage: string
 }
-
-export type Records = { recordId: string; imageAddress: string }[]
+export type Record = {
+  accountName: string
+  countComment: number
+  imageAddressList: string[]
+  memberId: number
+  recordContent: string
+  recordId: number
+  registeredAt: Date
+  sportsId: number
+  updatedAt: Date
+}
+export type Records = Record[]
 
 export interface FilterDialogProps {
   onApplyFilter: (filter: string) => void
