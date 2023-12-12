@@ -1,5 +1,13 @@
 import { http, HttpResponse, StrictResponse } from 'msw'
-
+import { faker } from '@faker-js/faker'
+function generateDate() {
+  const lastWeek = new Date(Date.now())
+  lastWeek.setDate(lastWeek.getDate() - 7)
+  return faker.date.between({
+    from: lastWeek,
+    to: Date.now(),
+  })
+}
 const User = [
   {
     userId: 1,
@@ -54,7 +62,6 @@ export const handlers = [
     })
   }),
   http.get('/user', async ({ request }) => {
-    // console.log(request.body)
     return HttpResponse.json({
       id: 1,
       name: 'naraLee',
@@ -190,5 +197,58 @@ export const handlers = [
         },
       ],
     })
+  }),
+  http.get('/api/postRecommends', ({ request }) => {
+    const url = new URL(request.url)
+    const cursor = parseInt(url.searchParams.get('cursor') as string) || 0
+    return HttpResponse.json([
+      {
+        postId: cursor + 1,
+        User: User[0],
+        content: `${cursor + 1} Z.com is so marvelous. I'm gonna buy that.`,
+        Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
+        createdAt: generateDate(),
+      },
+      {
+        postId: cursor + 2,
+        User: User[1],
+        content: `${cursor + 2} Z.com is so marvelous. I'm gonna buy that.`,
+        Images: [
+          { imageId: 1, link: faker.image.urlLoremFlickr() },
+          { imageId: 2, link: faker.image.urlLoremFlickr() },
+        ],
+        createdAt: generateDate(),
+      },
+      {
+        postId: cursor + 3,
+        User: User[0],
+        content: `${cursor + 3} Z.com is so marvelous. I'm gonna buy that.`,
+        Images: [],
+        createdAt: generateDate(),
+      },
+      {
+        postId: cursor + 4,
+        User: User[1],
+        content: `${cursor + 4} Z.com is so marvelous. I'm gonna buy that.`,
+        Images: [
+          { imageId: 1, link: faker.image.urlLoremFlickr() },
+          { imageId: 2, link: faker.image.urlLoremFlickr() },
+          { imageId: 3, link: faker.image.urlLoremFlickr() },
+          { imageId: 4, link: faker.image.urlLoremFlickr() },
+        ],
+        createdAt: generateDate(),
+      },
+      {
+        postId: cursor + 5,
+        User: User[0],
+        content: `${cursor + 5} Z.com is so marvelous. I'm gonna buy that.`,
+        Images: [
+          { imageId: 1, link: faker.image.urlLoremFlickr() },
+          { imageId: 2, link: faker.image.urlLoremFlickr() },
+          { imageId: 3, link: faker.image.urlLoremFlickr() },
+        ],
+        createdAt: generateDate(),
+      },
+    ])
   }),
 ]

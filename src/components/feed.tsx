@@ -1,15 +1,18 @@
 import React from 'react'
 import UserInfoSec from './userInfoSec'
 import Link from 'next/link'
-import relativeTime from 'dayjs/plugin/relativeTime'
+
 import dayjs from 'dayjs'
-// import 'dayjs/locale/kr'
-dayjs.extend(relativeTime)
+import { useQuery } from '@tanstack/react-query'
+import { Post } from '@/types/types'
 const Feed = () => {
+  const { data } = useQuery<Post[]>({
+    queryKey: ['posts', 'recommends'],
+    // queryFn: getPostRecommends,
+  })
   return (
     <div className="feed">
-      <FeedContent />
-      <FeedContent />
+      {/* {data?.map((post) => <FeedContent />)} */}
       <FeedContent />
       <FeedContent />
     </div>
@@ -21,7 +24,7 @@ export const FeedContent = () => {
     <div className="feed_content">
       <div>
         <UserInfoSec />
-        <span className="dayjs">{dayjs(Date.now()).fromNow(true)}</span>
+        <span className="dayjs">{'001'}</span>
       </div>
       <div className="body">
         <Link href={'/record/001'}>

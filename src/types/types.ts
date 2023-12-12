@@ -9,6 +9,11 @@ export interface UserProfile {
   name: string
   profileImage: string
 }
+export interface User {
+  id: string
+  nickname: string
+  profileImage: string
+}
 
 export type Records = { recordId: string; imageAddress: string }[]
 
@@ -29,4 +34,12 @@ export interface Notification {
   targetEntityId: number
   type: string
   url: string
+}
+
+export interface Post {
+  postId: number
+  User: User
+  content: string
+  createdAt: Date
+  Images: []
 }
