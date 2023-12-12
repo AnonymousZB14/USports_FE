@@ -1,5 +1,5 @@
 'use client'
-import { getUsersRecords } from '@/api/records'
+import { getUsersRecords } from '@/test/records'
 import { RecordsState } from '@/store/records'
 import Link from 'next/link'
 import React, { useEffect } from 'react'

@@ -5,6 +5,7 @@ import Title from '@/components/title'
 import React from 'react'
 
 const page = () => {
+  
   return (
     <div className="mypageWrap">
       <Title title="Mypage" />

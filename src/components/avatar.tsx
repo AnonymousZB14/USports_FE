@@ -1,9 +1,10 @@
 'use client'
-import { checkUser } from '@/api/user'
-import { useEffect } from 'react'
+import { checkUser } from '@/test/user'
+import { useEffect, useLayoutEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { UserState, UserState as userstate } from '@/store/user'
 import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 const Avatar = ({
   width,
   height,
@@ -14,11 +15,7 @@ const Avatar = ({
   isItprofile?: boolean
 }) => {
   const [user, setUser] = useRecoilState(UserState)
-  useEffect(() => {
-    checkUser().then((resp) => {
-      setUser(resp)
-    })
-  }, [setUser])
+
   return (
     <div style={{ width: width, height: height }}>
       <div className="avatar_img">
