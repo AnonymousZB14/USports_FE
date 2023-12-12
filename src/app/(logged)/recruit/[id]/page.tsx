@@ -6,21 +6,20 @@ import { TbSoccerField } from 'react-icons/tb'
 import { IoMaleFemaleSharp } from 'react-icons/io5'
 import { MdPlace } from 'react-icons/md'
 import { MdOutlinePeopleAlt } from 'react-icons/md'
-import Button from '@/components/button'
+import Button from '@/components/Button'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-// import router from 'next/router'
 
 const recruitDetail = () => {
-  const route = useRouter()
+  const router = useRouter()
   return (
     <div className="recruit-detail-wrap">
       <div className="content-header">
         <button
           className="back-arrow"
-          // onClick={() => {
-          //   router.back()
-          // }}
+          onClick={() => {
+            router.back()
+          }}
         >
           <i>
             <span className="sr-only">back</span>

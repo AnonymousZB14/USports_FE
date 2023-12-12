@@ -8,11 +8,13 @@ import { AddressType } from '../../../types/types'
 import flatpickr from 'flatpickr'
 import 'flatpickr/dist/flatpickr.min.css'
 import FilterDialog from '@/components/filterDialog'
-import Button from '@/components/button'
+import Button from '@/components/Button'
 import { SlArrowDown } from 'react-icons/sl'
 import FilterSection from '@/components/filterSection'
+import { useRouter } from 'next/navigation'
 
 const recruitWrite = () => {
+  const router = useRouter()
   const [addressData, setAddressData] = useState<AddressType | null>(null)
   const [selectedDate, setSelectedDate] = useState('')
   const [isFilterDialogOpen1, setIsFilterDialogOpen1] = useState(false)
@@ -146,25 +148,28 @@ const recruitWrite = () => {
           />
         </div>
         <div className="category-wrap">
-          <h2>레벨</h2>
-          <FilterSection
-            openFilterDialog={openFilterDialog4}
-            closeFilterDialog={closeFilterDialog4}
-            applyFilter={applyFilter4}
-            isFilterDialogOpen={isFilterDialogOpen4}
-            selectedFilter={selectedFilter4}
-            filterOptions={filterOptions.options4}
-            title="레벨"
-          />
-          <FilterSection
-            openFilterDialog={openFilterDialog5}
-            closeFilterDialog={closeFilterDialog5}
-            applyFilter={applyFilter5}
-            isFilterDialogOpen={isFilterDialogOpen5}
-            selectedFilter={selectedFilter5}
-            filterOptions={filterOptions.options5}
-            title="레벨"
-          />
+          <div className="category-con">
+            <h2>레벨</h2>
+            <FilterSection
+              openFilterDialog={openFilterDialog4}
+              closeFilterDialog={closeFilterDialog4}
+              applyFilter={applyFilter4}
+              isFilterDialogOpen={isFilterDialogOpen4}
+              selectedFilter={selectedFilter4}
+              filterOptions={filterOptions.options4}
+              title="레벨"
+            />
+            <span className="from-to-line"></span>
+            <FilterSection
+              openFilterDialog={openFilterDialog5}
+              closeFilterDialog={closeFilterDialog5}
+              applyFilter={applyFilter5}
+              isFilterDialogOpen={isFilterDialogOpen5}
+              selectedFilter={selectedFilter5}
+              filterOptions={filterOptions.options5}
+              title="레벨"
+            />
+          </div>
         </div>
 
         <div className="input-wrap">
@@ -206,9 +211,9 @@ const recruitWrite = () => {
           <Button
             tailwindStyles="py-0 px-2"
             theme="gray"
-            // onClick={() => {
-            //   router.back()
-            // }}
+            onClick={() => {
+              router.back()
+            }}
           >
             작성취소
           </Button>
