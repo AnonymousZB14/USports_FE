@@ -10,11 +10,11 @@ import 'flatpickr/dist/flatpickr.min.css'
 import FilterDialog from '@/components/filterDialog'
 import Button from '@/components/button'
 import { SlArrowDown } from 'react-icons/sl'
+import FilterSection from '@/components/filterSection'
 
 const recruitWrite = () => {
   const [addressData, setAddressData] = useState<AddressType | null>(null)
   const [selectedDate, setSelectedDate] = useState('')
-
   const [isFilterDialogOpen1, setIsFilterDialogOpen1] = useState(false)
   const [selectedFilter1, setSelectedFilter1] = useState<string>('모든지역')
   const [isFilterDialogOpen2, setIsFilterDialogOpen2] = useState(false)
@@ -25,14 +25,6 @@ const recruitWrite = () => {
   const [selectedFilter4, setSelectedFilter4] = useState<string>('레벨')
   const [isFilterDialogOpen5, setIsFilterDialogOpen5] = useState(false)
   const [selectedFilter5, setSelectedFilter5] = useState<string>('레벨')
-
-  const handleDateChange = (
-    selectedDates: Date[],
-    dateStr: string,
-    instance: flatpickr.Instance,
-  ) => {
-    setSelectedDate(dateStr)
-  }
 
   const openFilterDialog1 = () => {
     setIsFilterDialogOpen1(true)
@@ -98,6 +90,14 @@ const recruitWrite = () => {
     setSelectedFilter5(filter)
   }
 
+  const handleDateChange = (
+    selectedDates: Date[],
+    dateStr: string,
+    instance: flatpickr.Instance,
+  ) => {
+    setSelectedDate(dateStr)
+  }
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
   }
@@ -113,108 +113,58 @@ const recruitWrite = () => {
           <h2>제목</h2>
           <input type="text" placeholder="제목을 입력해주세요.(50자 이내)" />
         </div>
-
         <div className="category-wrap">
           <h2>카테고리</h2>
-          <ul className="category-con">
-            <li>
-              <button
-                onClick={openFilterDialog1}
-                className={selectedFilter1 === '모든지역' ? '' : 'active'}
-              >
-                {selectedFilter1}
-                <SlArrowDown className="category-arrow" />
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={openFilterDialog2}
-                className={selectedFilter2 === '운동종목' ? '' : 'active'}
-              >
-                {selectedFilter2}
-                <SlArrowDown className="category-arrow" />
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={openFilterDialog3}
-                className={selectedFilter3 === '성별' ? '' : 'active'}
-              >
-                {selectedFilter3}
-                <SlArrowDown className="category-arrow" />
-              </button>
-            </li>
-          </ul>
+          <FilterSection
+            openFilterDialog={openFilterDialog1}
+            closeFilterDialog={closeFilterDialog1}
+            applyFilter={applyFilter1}
+            isFilterDialogOpen={isFilterDialogOpen1}
+            selectedFilter={selectedFilter1}
+            filterOptions={filterOptions.options1}
+            title="모든지역"
+          />
 
-          {isFilterDialogOpen1 && (
-            <FilterDialog
-              options={filterOptions.options1}
-              onApplyFilter={applyFilter1}
-              onClose={closeFilterDialog1}
-              selectedFilterName={selectedFilter1}
-            />
-          )}
+          <FilterSection
+            openFilterDialog={openFilterDialog2}
+            closeFilterDialog={closeFilterDialog2}
+            applyFilter={applyFilter2}
+            isFilterDialogOpen={isFilterDialogOpen2}
+            selectedFilter={selectedFilter2}
+            filterOptions={filterOptions.options2}
+            title="운동종목"
+          />
 
-          {isFilterDialogOpen2 && (
-            <FilterDialog
-              options={filterOptions.options2}
-              onApplyFilter={applyFilter2}
-              onClose={closeFilterDialog2}
-              selectedFilterName={selectedFilter2}
-            />
-          )}
-
-          {isFilterDialogOpen3 && (
-            <FilterDialog
-              options={filterOptions.options3}
-              onApplyFilter={applyFilter3}
-              onClose={closeFilterDialog3}
-              selectedFilterName={selectedFilter3}
-            />
-          )}
+          <FilterSection
+            openFilterDialog={openFilterDialog3}
+            closeFilterDialog={closeFilterDialog3}
+            applyFilter={applyFilter3}
+            isFilterDialogOpen={isFilterDialogOpen3}
+            selectedFilter={selectedFilter3}
+            filterOptions={filterOptions.options3}
+            title="성별"
+          />
         </div>
-
         <div className="category-wrap">
           <h2>레벨</h2>
-          <ul className="category-con">
-            <li>
-              <button
-                onClick={openFilterDialog4}
-                className={selectedFilter4 === '레벨' ? '' : 'active'}
-              >
-                {selectedFilter4}
-                <SlArrowDown className="category-arrow" />
-              </button>
-            </li>
-            <span className="from-to-line"></span>
-            <li>
-              <button
-                onClick={openFilterDialog5}
-                className={selectedFilter5 === '레벨' ? '' : 'active'}
-              >
-                {selectedFilter5}
-                <SlArrowDown className="category-arrow" />
-              </button>
-            </li>
-          </ul>
-
-          {isFilterDialogOpen4 && (
-            <FilterDialog
-              options={filterOptions.options4}
-              onApplyFilter={applyFilter4}
-              onClose={closeFilterDialog4}
-              selectedFilterName={selectedFilter4}
-            />
-          )}
-
-          {isFilterDialogOpen5 && (
-            <FilterDialog
-              options={filterOptions.options5}
-              onApplyFilter={applyFilter5}
-              onClose={closeFilterDialog5}
-              selectedFilterName={selectedFilter5}
-            />
-          )}
+          <FilterSection
+            openFilterDialog={openFilterDialog4}
+            closeFilterDialog={closeFilterDialog4}
+            applyFilter={applyFilter4}
+            isFilterDialogOpen={isFilterDialogOpen4}
+            selectedFilter={selectedFilter4}
+            filterOptions={filterOptions.options4}
+            title="레벨"
+          />
+          <FilterSection
+            openFilterDialog={openFilterDialog5}
+            closeFilterDialog={closeFilterDialog5}
+            applyFilter={applyFilter5}
+            isFilterDialogOpen={isFilterDialogOpen5}
+            selectedFilter={selectedFilter5}
+            filterOptions={filterOptions.options5}
+            title="레벨"
+          />
         </div>
 
         <div className="input-wrap">

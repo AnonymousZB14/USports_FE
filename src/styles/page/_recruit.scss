@@ -236,8 +236,9 @@
 
 .content-body {
   margin: 0 auto;
-  background-color: var(--bg-color-3);
+  background-color: var(--bg-color-2);
   padding: 0 2rem 10rem;
+  height: calc(100% - 8rem);
 
   .map-wrap {
     height: 30rem;
