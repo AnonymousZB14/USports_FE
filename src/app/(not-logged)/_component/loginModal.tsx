@@ -3,9 +3,7 @@ import Link from 'next/link'
 import { ChangeEventHandler, FormEventHandler, useState } from 'react'
 import { redirect, useRouter } from 'next/navigation'
 import { signIn, signOut } from 'next-auth/react'
-import axios from 'axios'
-import { response } from 'express'
-import Image from 'next/image'
+
 
 const LoginModal = () => {
   const [email, setEmail] = useState('')

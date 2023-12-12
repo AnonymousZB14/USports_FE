@@ -129,4 +129,66 @@ export const handlers = [
       ],
     })
   }),
+  http.get(`/notifications`, async ({ request }) => {
+    console.log('알림내역')
+    return HttpResponse.json({
+      list: [
+        {
+          createdAt: '2023-12-12T06:40:27.057Z',
+          entityType: 'MEMBER',
+          memberId: 0,
+          message: 'alert message string',
+          notificationId: 0,
+          readAt: '2023-12-12T06:40:27.057Z',
+          targetEntityId: 0,
+          type: 'ALERT',
+          url: 'string',
+        },
+        {
+          createdAt: '2023-12-12T06:40:27.057Z',
+          entityType: 'MEMBER',
+          memberId: 0,
+          message: 'alert message string',
+          notificationId: 0,
+          readAt: '2023-12-12T06:40:27.057Z',
+          targetEntityId: 0,
+          type: 'ALERT',
+          url: 'string',
+        },
+        {
+          createdAt: '2023-12-12T06:40:27.057Z',
+          entityType: 'MEMBER',
+          memberId: 0,
+          message: 'alert message string',
+          notificationId: 0,
+          readAt: '2023-12-12T06:40:27.057Z',
+          targetEntityId: 0,
+          type: 'ALERT',
+          url: 'string',
+        },
+        {
+          createdAt: '2023-12-12T06:40:27.057Z',
+          entityType: 'MEMBER',
+          memberId: 0,
+          message: 'alert message string',
+          notificationId: 0,
+          readAt: '2023-12-12T06:40:27.057Z',
+          targetEntityId: 0,
+          type: 'ALERT',
+          url: 'string',
+        },
+        {
+          createdAt: '2023-12-12T06:40:27.057Z',
+          entityType: 'MEMBER',
+          memberId: 0,
+          message: 'alert message string',
+          notificationId: 0,
+          readAt: '2023-12-12T06:40:27.057Z',
+          targetEntityId: 0,
+          type: 'ALERT',
+          url: 'string',
+        },
+      ],
+    })
+  }),
 ]

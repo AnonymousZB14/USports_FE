@@ -18,3 +18,15 @@ export interface FilterDialogProps {
   options: string[]
   selectedFilterName: string
 }
+
+export interface Notification {
+  createdAt: string
+  entityType: string
+  memberId: number
+  message: string
+  notificationId: number
+  readAt: string
+  targetEntityId: number
+  type: string
+  url: string
+}
