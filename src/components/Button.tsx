@@ -28,14 +28,14 @@ const Button: React.FC<Props> = ({
       href={href}
       className={`inline-block w-fit ${
         height === 'unset' ? '' : 'h-fit'
-      } break-keep rounded-md px-4 py-2 text-center text-base font-semibold transition-all ${
+      } break-keep rounded-md px-6 py-3 text-center text-xl font-semibold transition-all ${
         theme === 'gray'
           ? 'bg-zinc-200 text-zinc-600 hover:bg-zinc-100'
           : theme === 'black'
             ? 'bg-zinc-800 text-zinc-50 hover:bg-zinc-500'
             : theme === 'red'
               ? 'bg-red-600 text-zinc-50 hover:bg-red-400'
-              : theme === 'rose'
+              : theme === 'orange'
                 ? 'bg-orange-600 text-zinc-50 hover:bg-orange-500'
                 : theme === 'blue'
                   ? 'bg-blue-700 text-zinc-50 hover:bg-blue-600'
@@ -54,7 +54,7 @@ const Button: React.FC<Props> = ({
       onClick={onClick}
       className={`inline-block w-fit ${
         height === 'unset' ? '' : 'h-fit'
-      } break-keep rounded-md px-4 py-2 text-center text-base font-semibold transition-all ${
+      } break-keep rounded-md px-6 py-3 text-center text-xl font-semibold transition-all ${
         theme === 'gray'
           ? 'bg-zinc-200 text-zinc-600 hover:bg-zinc-100'
           : theme === 'black'

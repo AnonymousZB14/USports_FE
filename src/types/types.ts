@@ -2,6 +2,7 @@ export interface AddressType {
   address: string
   postCode: string
   additional: string
+  type?: 'button' | 'submit' | 'reset'
 }
 export interface UserProfile {
   id: number

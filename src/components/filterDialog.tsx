@@ -9,13 +9,15 @@ const FilterDialog: React.FC<FilterDialogProps> = ({
   options,
   selectedFilterName,
 }) => {
-  const [selectedOption, setSelectedOption] = useState<string>('')
+  const [selectedOption, setSelectedOption] = useState<string | null>(null)
   const modalWrapperRef = useRef<HTMLDivElement>(null)
+
   const handleOptionClick = (option: string) => {
     setSelectedOption(option)
     onApplyFilter(option)
     onClose()
   }
+
   const handleWrapperClick = (event: MouseEvent) => {
     if (
       modalWrapperRef.current &&
@@ -39,14 +41,14 @@ const FilterDialog: React.FC<FilterDialogProps> = ({
         <div className="modal-header">
           <h3>{selectedFilterName}</h3>
           <div onClick={onClose}>
-            <IoCloseOutline size="26" />
+            <IoCloseOutline size="25" />
           </div>
         </div>
         <div className="modal-body">
           <ul>
-            {options.map((option) => (
+            {options.map((option, index) => (
               <li
-                key={option}
+                key={index}
                 onClick={() => handleOptionClick(option)}
                 className={selectedOption === option ? 'selected' : ''}
               >

@@ -42,7 +42,7 @@ const Record = ({
   return (
     <li>
       <div className="thumbnail">
-        <Link href={`/record/detail/${recordId}`}>
+        <Link href={`/record/${recordId}`}>
           <img src={imageAddress} alt="thumbnail" />
         </Link>
       </div>
