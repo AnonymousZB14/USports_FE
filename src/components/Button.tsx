@@ -35,7 +35,7 @@ const Button: React.FC<Props> = ({
             ? 'bg-zinc-800 text-zinc-50 hover:bg-zinc-500'
             : theme === 'red'
               ? 'bg-red-600 text-zinc-50 hover:bg-red-400'
-              : theme === 'rose'
+              : theme === 'orange'
                 ? 'bg-orange-600 text-zinc-50 hover:bg-orange-500'
                 : theme === 'blue'
                   ? 'bg-blue-700 text-zinc-50 hover:bg-blue-600'

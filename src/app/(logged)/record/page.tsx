@@ -6,7 +6,6 @@ import FilterDialog from '@/components/filterDialog'
 import Button from '@/components/button'
 import { SlArrowDown } from 'react-icons/sl'
 import { IoCloseOutline } from 'react-icons/io5'
-import { GoPlus } from 'react-icons/go'
 
 const recordWrite = () => {
   const [isFilterDialogOpen2, setIsFilterDialogOpen2] = useState(false)
