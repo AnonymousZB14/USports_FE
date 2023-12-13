@@ -2,17 +2,17 @@
 import { FeedContent } from '@/components/feedContent'
 import { Getfetch } from '@/func/fetchCall'
 import { useQuery } from '@tanstack/react-query'
-import React, { useEffect, useState } from 'react'
-import { Record } from '@/types/types'
+import React, { Suspense, useEffect, useState } from 'react'
+import { Record, Records } from '@/types/types'
 import { getPostRecommends } from '../../_lib/getPostRecommends'
 
 const RecmdFeed = () => {
-  const [list, setList] = useState([])
   const { data } = useQuery<Record[]>({
-    queryKey: ['posts', 'recommends'],
+    queryKey: ['records', 'recommends'],
     queryFn: getPostRecommends,
+    staleTime: 30000,
   })
-  useEffect(() => {
+  /*   useEffect(() => {
     try {
       Getfetch(`${process.env.NEXT_PUBLIC_BACKEND_SERVER}/home?page=1`).then(
         (resp) => {
@@ -22,12 +22,12 @@ const RecmdFeed = () => {
     } catch (error) {
       console.log(error)
     }
-  }, [])
+  }, []) */
   return (
     <div className="feed">
-      {list.map((item, idx) => {
-        return <FeedContent item={item} key={idx} />
-      })}
+      {data?.map((item, itemIdx: number) => (
+        <FeedContent item={item} key={itemIdx} />
+      ))}
     </div>
   )
 }

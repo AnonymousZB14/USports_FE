@@ -199,10 +199,10 @@ export const handlers = [
     })
   }),
   http.get('/api/postRecommends', ({ request }) => {
-    const url = new URL(request.url)
-    const cursor = parseInt(url.searchParams.get('cursor') as string) || 0
+    // const url = new URL(request.url)
+    // const cursor = parseInt(url.searchParams.get('cursor') as string) || 0
     return HttpResponse.json([
-/*       {
+      /*       {
         postId: cursor + 1,
         User: User[0],
         content: `${cursor + 1} Z.com is so marvelous. I'm gonna buy that.`,
@@ -214,6 +214,45 @@ export const handlers = [
         countComment: 9,
         imageAddressList: [faker.image.urlPicsumPhotos()],
         memberId: 1,
+        recordContent: 'string',
+        recordId: 3,
+        registeredAt: new Date(),
+        sportsId: 98,
+        updatedAt: new Date(),
+      },
+      {
+        accountName: 'nara',
+        countComment: 9,
+        imageAddressList: [faker.image.urlPicsumPhotos()],
+        memberId: 2,
+        recordContent: 'string',
+        recordId: 3,
+        registeredAt: new Date(),
+        sportsId: 98,
+        updatedAt: new Date(),
+      },
+    ])
+  }),
+  http.get('/api/postFollowings', ({ request }) => {
+    // const url = new URL(request.url)
+    // const cursor = parseInt(url.searchParams.get('cursor') as string) || 0
+    return HttpResponse.json([
+      {
+        accountName: 'cat',
+        countComment: 9,
+        imageAddressList: [faker.image.urlPicsumPhotos()],
+        memberId: 1,
+        recordContent: 'dont follow me',
+        recordId: 3,
+        registeredAt: new Date(),
+        sportsId: 98,
+        updatedAt: new Date(),
+      },
+      {
+        accountName: 'nara',
+        countComment: 9,
+        imageAddressList: [faker.image.urlPicsumPhotos()],
+        memberId: 2,
         recordContent: 'string',
         recordId: 3,
         registeredAt: new Date(),
