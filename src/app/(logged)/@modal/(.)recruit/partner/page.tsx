@@ -94,7 +94,7 @@ const Page = () => {
         </div>
         <div className="modal-body">
           <div className="manners-wrap">
-            <label>✐ 매너점수</label>
+            <label>😄 매너점수</label>
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((score) => (
               <button
                 key={score}
@@ -107,7 +107,7 @@ const Page = () => {
           </div>
 
           <div className="passion-wrap">
-            <label>✐ 열정 점수</label>
+            <label>😄 열정 점수</label>
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((score) => (
               <button
                 key={score}
@@ -120,7 +120,7 @@ const Page = () => {
           </div>
 
           <div className="teamwork-wrap">
-            <label>✐ 팀워크 점수</label>
+            <label>😄 팀워크 점수</label>
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((score) => (
               <button
                 key={score}
@@ -133,7 +133,7 @@ const Page = () => {
           </div>
 
           <div className="skill-wrap">
-            <label>✐ 운동실력</label>
+            <label>😄 운동실력</label>
             {skillLevels.map((levelInfo) => (
               <div key={levelInfo.label} className="skill-item">
                 <div className="level-info">

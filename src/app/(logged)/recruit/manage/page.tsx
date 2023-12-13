@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation'
 const page = () => {
   const route = useRouter()
-  route.replace('/mypage')
+  route.replace('/explore')
   return null
 }
 export default page

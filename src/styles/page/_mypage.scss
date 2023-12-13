@@ -39,7 +39,8 @@
           display: flex;
           flex-direction: column;
           gap: 5px;
-          button {
+          button,
+          .link-btn {
             padding: 5px 20px;
             border-radius: 30px;
             border: 1px solid var(--text-color-1);
@@ -120,41 +121,141 @@
       section {
         min-height: 300px;
         padding: 0 var(--side-padding);
-        p.info{
+        p.info {
           text-align: center;
           padding: 20px 0;
           font-size: var(--text-size-xs);
           color: var(--text-color-3);
         }
-        .editBtnWrap{
+        .editBtnWrap {
           padding-top: 40px;
           display: flex;
           gap: 15px;
-          a{
-            &:first-child{
+          a {
+            &:first-child {
               background-color: var(--bg-color-3);
               color: var(--text-color-1);
             }
-            &:last-child{
+            &:last-child {
               background-color: var(--text-color-2);
               color: var(--bg-color-1);
             }
-            &:hover{
-              opacity: .7;
+            &:hover {
+              opacity: 0.7;
             }
-            transition: all .2s;
-            width: calc((100% - 15px)/2);
+            transition: all 0.2s;
+            width: calc((100% - 15px) / 2);
             padding: 17px;
             display: flex;
             gap: 5px;
             align-items: center;
             justify-content: space-between;
             font-size: var(--text-size-xl);
-            svg{
+            svg {
               width: 22px;
               height: 22px;
             }
           }
+        }
+      }
+    }
+  }
+}
+
+.my-info-wrap {
+  .my-info-header {
+    display: flex;
+    justify-content: center;
+
+    .profile-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      & > .profile-img {
+        border: 0.3rem solid var(--text-color-5);
+        border-radius: 10rem;
+      }
+
+      & > p {
+        font-size: var(--text-size-base);
+        font-weight: 600;
+        color: var(--text-color-1);
+        margin-top: 1rem;
+      }
+    }
+  }
+
+  .my-info-body {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 1rem;
+    font-size: var(--text-size-base);
+    font-weight: 600;
+    color: var(--text-color-1);
+    margin-top: 3rem;
+
+    .exercise-wrap {
+      display: flex;
+      flex-direction: column;
+
+      & > h2 {
+        margin-top: 1rem;
+        font-size: var(--text-size-lg);
+        font-weight: 700;
+      }
+
+      & > .exercise-score {
+        display: flex;
+        align-items: center;
+        margin-top: 2rem;
+
+        & > h3 {
+          display: flex;
+          padding: 1rem 1.2rem;
+          margin-right: 1rem;
+          background-color: var(--text-color-5);
+          color: var(--text-color-1);
+          font-size: var(--text-size-xs);
+          border-radius: 0.3rem;
+          justify-content: center;
+        }
+        & > p {
+          font-weight: 500;
+        }
+      }
+    }
+
+    .manners-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      & > h2 {
+        margin-top: 1rem;
+        font-size: var(--text-size-lg);
+        font-weight: 700;
+      }
+
+      & > .manner-score,
+      & > .passion-score,
+      & > .teamwork-score {
+        display: flex;
+        align-items: center;
+        margin-top: 2rem;
+
+        & > h3 {
+          display: flex;
+          padding: 1rem 1.2rem;
+          margin-right: 1rem;
+          background-color: var(--text-color-5);
+          color: var(--text-color-1);
+          font-size: var(--text-size-xs);
+          border-radius: 0.3rem;
+          justify-content: center;
+        }
+        & > p {
+          font-weight: 500;
         }
       }
     }
