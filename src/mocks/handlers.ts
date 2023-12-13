@@ -199,8 +199,8 @@ export const handlers = [
     })
   }),
   http.get('/api/postRecommends', ({ request }) => {
-    // const url = new URL(request.url)
-    // const cursor = parseInt(url.searchParams.get('cursor') as string) || 0
+    const url = new URL(request.url)
+    const cursor = parseInt(url.searchParams.get('cursor') as string) || 0
     return HttpResponse.json([
       /*       {
         postId: cursor + 1,
@@ -215,18 +215,51 @@ export const handlers = [
         imageAddressList: [faker.image.urlPicsumPhotos()],
         memberId: 1,
         recordContent: 'string',
-        recordId: 3,
+        recordId: cursor + 1,
         registeredAt: new Date(),
         sportsId: 98,
         updatedAt: new Date(),
       },
       {
-        accountName: 'nara',
+        accountName: `${faker.person.firstName()}`,
         countComment: 9,
         imageAddressList: [faker.image.urlPicsumPhotos()],
         memberId: 2,
-        recordContent: 'string',
-        recordId: 3,
+        recordContent: `${faker.lorem.lines()}`,
+        recordId: cursor + 2,
+        registeredAt: new Date(),
+        sportsId: 98,
+        updatedAt: new Date(),
+      },
+      {
+        accountName: `${faker.person.firstName()}`,
+        countComment: 9,
+        imageAddressList: [faker.image.urlPicsumPhotos()],
+        memberId: 2,
+        recordContent: `${faker.lorem.lines()}`,
+        recordId: cursor + 3,
+        registeredAt: new Date(),
+        sportsId: 98,
+        updatedAt: new Date(),
+      },
+      {
+        accountName: `${faker.person.firstName()}`,
+        countComment: 9,
+        imageAddressList: [faker.image.urlPicsumPhotos()],
+        memberId: 2,
+        recordContent: `${faker.lorem.lines()}`,
+        recordId: cursor + 4,
+        registeredAt: new Date(),
+        sportsId: 98,
+        updatedAt: new Date(),
+      },
+      {
+        accountName: `${faker.person.firstName()}`,
+        countComment: 9,
+        imageAddressList: [faker.image.urlPicsumPhotos()],
+        memberId: 2,
+        recordContent: `${faker.lorem.lines()}`,
+        recordId: cursor + 5,
         registeredAt: new Date(),
         sportsId: 98,
         updatedAt: new Date(),
