@@ -6,21 +6,13 @@ import { useQuery } from '@tanstack/react-query'
 import { Post } from '@/types/types'
 import { Record } from '@/types/types'
 import { getPostRecommends } from '@/app/(logged)/_lib/getPostRecommends'
-import { FeedContent } from './feedContent'
+
 const Feed = () => {
   const { data } = useQuery<Post[]>({
     queryKey: ['posts', 'recommends'],
     queryFn: getPostRecommends,
   })
-  // if (!data) return null
-  // return data?.map((post) => <FeedContent key={post.postId} post={post} />)
 }
-
-
-
-
-
-
 
 //delete
 const FeedContent2 = ({ item }: { item: Record }) => {

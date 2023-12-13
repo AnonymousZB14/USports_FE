@@ -4,6 +4,7 @@ import Feed from '@/components/feed'
 import { scrollHandler } from '@/func/scrollEvent'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import FollowFeed from '../home/_component/followFeed'
+import RecmdFeed from '../home/_component/recmdFeed'
 
 export default function Home() {
   const [number, setNum] = useState(0)
@@ -30,7 +31,9 @@ export default function Home() {
         <CateUl onClick={cateOnclick} categories={['For You', 'Following']} />
       </div>
       <div className="tab_contents" ref={divRef}>
-        <div className="recommend">{/* <Feed /> */}</div>
+        <div className="recommend">
+          <RecmdFeed />
+        </div>
         <div className="following">
           <FollowFeed />
         </div>
@@ -38,5 +41,3 @@ export default function Home() {
     </section>
   )
 }
-
-
