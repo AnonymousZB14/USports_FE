@@ -1,21 +1,7 @@
-import React from 'react'
-import UserInfoSec from './userInfoSec'
 import Link from 'next/link'
-import dayjs from 'dayjs'
-import { useQuery } from '@tanstack/react-query'
-import { Post } from '@/types/types'
+import UserInfoSec from './userInfoSec'
 import { Record } from '@/types/types'
-import { getPostRecommends } from '@/app/(logged)/_lib/getPostRecommends'
-
-const Feed = () => {
-  const { data } = useQuery<Post[]>({
-    queryKey: ['posts', 'recommends'],
-    queryFn: getPostRecommends,
-  })
-}
-
-//delete
-const FeedContent2 = ({ item }: { item: Record }) => {
+export const FeedContent = ({ item }: { item: Record }) => {
   return (
     <div className="feed_content">
       <div>
@@ -27,7 +13,6 @@ const FeedContent2 = ({ item }: { item: Record }) => {
           {item.imageAddressList.map((img, idx) => {
             return <img key={idx} src={img} alt="img" />
           })}
-          {/* <img src={item.imageAddressList[0]} alt="img" /> */}
         </Link>
         <div className="record_contents">
           <span>{item.accountName}</span>
@@ -37,5 +22,3 @@ const FeedContent2 = ({ item }: { item: Record }) => {
     </div>
   )
 }
-
-export default Feed

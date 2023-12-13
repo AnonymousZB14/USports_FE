@@ -1,48 +1,24 @@
-import React from 'react'
+'use client'
+import { Getfetch } from '@/func/fetchCall'
+import axios from 'axios'
+import { GetServerSideProps } from 'next'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { IoMdNotifications } from 'react-icons/io'
+import { Notification as N } from '@/types/types'
 const Notifications = () => {
-  const list = [
-    {
-      id: 1,
-      title: 'New notification!',
-      body: 'Your application for recruitment has been accepted',
-    },
-    {
-      id: 2,
-      title: 'New notification!',
-      body: 'Your application for recruitment has been accepted',
-    },
-    {
-      id: 3,
-      title: 'New notification!',
-      body: 'Your application for recruitment has been accepted',
-    },
-    {
-      id: 4,
-      title: 'New notification!',
-      body: 'Your application for recruitment has been accepted',
-    },
-    {
-      id: 5,
-      title: 'New notification!',
-      body: 'Your application for recruitment has been accepted',
-    },
-    {
-      id: 6,
-      title: 'New notification!',
-      body: 'Your application for recruitment has been accepted',
-    },
-    {
-      id: 7,
-      title: 'New notification!',
-      body: 'Your application for recruitment has been accepted',
-    },
-  ]
+  const [list, setList] = useState<N[]>([])
+  useLayoutEffect(() => {
+    Getfetch(`${process.env.NEXT_PUBLIC_BASE_URL}/notifications`).then(
+      (resp) => {
+        setList(resp.list)
+      },
+    )
+  }, [])
   return (
     <ul>
-      {list.map((item) => {
+      {list.map((item, idx) => {
         return (
-          <Notification key={item.id} title={item.title} body={item.body} />
+          <Notification key={idx} title={item.entityType} body={item.message} />
         )
       })}
     </ul>
@@ -62,7 +38,7 @@ export const Notification = ({
         <IoMdNotifications />
         <div>
           <h3 className="font-bold">{title}</h3>
-          <div >{body}</div>
+          <div>{body}</div>
         </div>
         <button className="btn btn-sm">delete</button>
       </div>

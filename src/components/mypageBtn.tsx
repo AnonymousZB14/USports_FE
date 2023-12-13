@@ -18,7 +18,7 @@ const MypageBtn = () => {
     })
   }, [session])
   if (status === 'authenticated') {
-    console.log(session)
+    // console.log(session)
   }
   return (
     <Link href={'/mypage'}>
