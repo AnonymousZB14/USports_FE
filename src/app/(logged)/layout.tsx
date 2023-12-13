@@ -10,6 +10,7 @@ import RecoilRootWrapper from '@/containers/recoilRootWrapper'
 import { MSWComponent } from '@/app/_component/MSWComponent'
 import AuthSession from '@/app/_component/AuthSession'
 import { auth } from '@/auth'
+import RQProvider from './_component/RQProvider'
 export const metadata: Metadata = {
   title: 'USports',
   description: 'usports',
@@ -36,16 +37,18 @@ export default async function RootLayout({
         <body>
           <MSWComponent />
           <AuthSession>
-            <div id="wrap">
-              <Header />
-              <main id="main">{children}</main>
-              {modal}
-              <script
-                src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_APP_KEY}&autoload=false`}
-                type="text/javascript"
-              />
-            </div>
+            <RQProvider>
+              <div id="wrap">
+                <Header />
+                <main id="main">{children}</main>
+                {modal}
+              </div>
+            </RQProvider>
           </AuthSession>
+          <script
+            src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_APP_KEY}&autoload=false`}
+            type="text/javascript"
+          />
         </body>
       </html>
     </RecoilRootWrapper>

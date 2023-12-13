@@ -1,5 +1,13 @@
 import { http, HttpResponse, StrictResponse } from 'msw'
-
+import { faker } from '@faker-js/faker'
+function generateDate() {
+  const lastWeek = new Date(Date.now())
+  lastWeek.setDate(lastWeek.getDate() - 7)
+  return faker.date.between({
+    from: lastWeek,
+    to: Date.now(),
+  })
+}
 const User = [
   {
     userId: 1,
@@ -54,7 +62,6 @@ export const handlers = [
     })
   }),
   http.get('/user', async ({ request }) => {
-    // console.log(request.body)
     return HttpResponse.json({
       id: 1,
       name: 'naraLee',
@@ -128,5 +135,91 @@ export const handlers = [
         },
       ],
     })
+  }),
+  http.get(`/notifications`, async ({ request }) => {
+    console.log('알림내역')
+    return HttpResponse.json({
+      list: [
+        {
+          createdAt: '2023-12-12T06:40:27.057Z',
+          entityType: 'MEMBER',
+          memberId: 0,
+          message: 'alert message string',
+          notificationId: 0,
+          readAt: '2023-12-12T06:40:27.057Z',
+          targetEntityId: 0,
+          type: 'ALERT',
+          url: 'string',
+        },
+        {
+          createdAt: '2023-12-12T06:40:27.057Z',
+          entityType: 'MEMBER',
+          memberId: 0,
+          message: 'alert message string',
+          notificationId: 0,
+          readAt: '2023-12-12T06:40:27.057Z',
+          targetEntityId: 0,
+          type: 'ALERT',
+          url: 'string',
+        },
+        {
+          createdAt: '2023-12-12T06:40:27.057Z',
+          entityType: 'MEMBER',
+          memberId: 0,
+          message: 'alert message string',
+          notificationId: 0,
+          readAt: '2023-12-12T06:40:27.057Z',
+          targetEntityId: 0,
+          type: 'ALERT',
+          url: 'string',
+        },
+        {
+          createdAt: '2023-12-12T06:40:27.057Z',
+          entityType: 'MEMBER',
+          memberId: 0,
+          message: 'alert message string',
+          notificationId: 0,
+          readAt: '2023-12-12T06:40:27.057Z',
+          targetEntityId: 0,
+          type: 'ALERT',
+          url: 'string',
+        },
+        {
+          createdAt: '2023-12-12T06:40:27.057Z',
+          entityType: 'MEMBER',
+          memberId: 0,
+          message: 'alert message string',
+          notificationId: 0,
+          readAt: '2023-12-12T06:40:27.057Z',
+          targetEntityId: 0,
+          type: 'ALERT',
+          url: 'string',
+        },
+      ],
+    })
+  }),
+  http.get('/api/postRecommends', ({ request }) => {
+    const url = new URL(request.url)
+    const cursor = parseInt(url.searchParams.get('cursor') as string) || 0
+    return HttpResponse.json([
+/*       {
+        postId: cursor + 1,
+        User: User[0],
+        content: `${cursor + 1} Z.com is so marvelous. I'm gonna buy that.`,
+        Images: [{ imageId: 1, link: faker.image.urlLoremFlickr() }],
+        createdAt: generateDate(),
+      }, */
+      {
+        accountName: 'nara',
+        countComment: 9,
+        imageAddressList: [faker.image.urlPicsumPhotos()],
+        memberId: 1,
+        recordContent: 'string',
+        recordId: 3,
+        registeredAt: new Date(),
+        sportsId: 98,
+        updatedAt: new Date(),
+      },
+    ])
   }),
 ]
