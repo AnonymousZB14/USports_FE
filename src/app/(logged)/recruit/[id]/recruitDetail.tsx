@@ -1,6 +1,6 @@
 'use client'
 import KaKaoMap from '@/components/kakaoMap'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { RiShieldStarLine } from 'react-icons/ri'
 import { TbSoccerField } from 'react-icons/tb'
 import { IoMaleFemaleSharp } from 'react-icons/io5'
@@ -9,39 +9,12 @@ import { MdOutlinePeopleAlt } from 'react-icons/md'
 import Button from '@/components/Button'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Getfetch } from '@/func/fetchCall'
-import axios from 'axios'
 
-const recruitDetail = () => {
+export const recruitDetail = () => {
   const router = useRouter()
-
-  // const [list, setList] = useState([])
-  // useEffect(() => {
-  //   try {
-  //     Getfetch(`http://3.39.34.245:8080/recruit/1`).then((resp) => {
-  //       setList(resp.list)
-  //     })
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }, [])
-
-  // useEffect(() => {
-  //   console.log(list)
-  // }, [list])
 
   // const [list, setList] = useState({})
   // useEffect(() => {
-  //   try {
-  //     Getfetch('http://3.39.34.245:8080/recruits/1')
-  //       .then((res) => res.data)
-  //       .then((resp) => console.log(resp))
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }, [])
-
-  // const getRecruit = async () => {
   //   try {
   //     Getfetch('http://3.39.34.245:8080/recruits/1').then((resp) =>
   //       console.log(resp),
@@ -49,10 +22,17 @@ const recruitDetail = () => {
   //   } catch (error) {
   //     console.log(error)
   //   }
-  // }
-  // useEffect(() => {
-  //   getRecruit()
   // }, [])
+  const getRecruit = async () => {
+    const res = await axiosInstance.get(`/recruits/1`)
+
+    if (res.status === 200) {
+      console.log(res)
+    }
+  }
+  useEffect(() => {
+    getRecruit()
+  }, [])
 
   return (
     <div className="recruit-detail-wrap">
@@ -159,5 +139,3 @@ const recruitDetail = () => {
     </div>
   )
 }
-
-export default recruitDetail

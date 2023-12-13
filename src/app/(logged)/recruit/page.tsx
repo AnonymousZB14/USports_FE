@@ -3,7 +3,7 @@ import Title from '@/components/title'
 import { filterOptions } from '../../../types/data'
 import FormAddress from '../../../components/addressForm'
 import DataPicker from '../../../components/dataPicker'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AddressType } from '../../../types/types'
 import flatpickr from 'flatpickr'
 import 'flatpickr/dist/flatpickr.min.css'
@@ -12,6 +12,8 @@ import Button from '@/components/Button'
 import { SlArrowDown } from 'react-icons/sl'
 import FilterSection from '@/components/filterSection'
 import { useRouter } from 'next/navigation'
+import axios from 'axios'
+import { Getfetch } from '@/func/fetchCall'
 
 const recruitWrite = () => {
   const router = useRouter()
@@ -103,6 +105,32 @@ const recruitWrite = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
   }
+
+  const [list, setList] = useState({})
+  useEffect(() => {
+    try {
+      axios
+        .get('http://3.39.34.245:8080/recruit/1')
+        .then((res) => res.data)
+        .then((resp) => console.log(resp))
+    } catch (error) {
+      console.log(error)
+    }
+  }, [])
+  useEffect(() => {
+    console.log('dkdk:' + list)
+  }, [list])
+
+  // const getProfile = async () => {
+  //   const res = await axiosInstance.get(`http://3.39.34.245:8080/recruit/1`)
+
+  //   if (res.status === 200) {
+  //     console.log('dkdk:' + res)
+  //   }
+  // }
+  // useEffect(() => {
+  //   getProfile()
+  // }, [])
 
   return (
     <>
