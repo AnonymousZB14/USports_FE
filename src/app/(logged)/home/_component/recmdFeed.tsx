@@ -30,9 +30,10 @@ const RecmdFeed = () => {
       !isFetching && hasNextPage && fetchNextPage()
     }
   }, [inView, isFetching, hasNextPage, fetchNextPage])
-  /*   useEffect(() => {
+/*   const [list, setList] = useState([])
+  useEffect(() => {
     try {
-      Getfetch(`${process.env.NEXT_PUBLIC_BACKEND_SERVER}/home?page=1`).then(
+      Getfetch(`/home?page=1`).then(
         (resp) => {
           setList(resp.list)
         },

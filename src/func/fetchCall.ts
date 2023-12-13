@@ -2,7 +2,7 @@
 
 import axios, { AxiosError } from 'axios'
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
+const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL
 const API_TOKEN =
   'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYXBweWhzcnl1QGdtYWlsLmNvbSIsImlhdCI6MTcwMjM3Mjk5NywiZXhwIjoxNzAyNTg4OTk3fQ.WcUEwKNxFepfB9_fK3XAGQi71mfDefnNi_JIGxJZigD3Er8CeC5s0vBigzZVMGlYVD0th_Sv2tdzPtZo0wlhLw' // 서버에서 받아온 안전한 accountToken 사용
 

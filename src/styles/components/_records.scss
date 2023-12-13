@@ -43,15 +43,30 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    &>div:first-child{
+    & > div:first-child {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      &>div:first-child{
+      & > div:first-child {
         flex: 1;
       }
     }
     .body {
+      & > a > div {
+        &.odd {
+        }
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        img {
+          border-radius: 14px;
+          display: block;
+          width: calc((100% - 10px) / 2);
+          flex-grow: 1;
+          max-height: 20rem;
+          object-fit: cover;
+        }
+      }
       .record_contents {
         margin: 20px 0;
       }
@@ -76,8 +91,7 @@
   }
 }
 
-
-span.dayjs{
+span.dayjs {
   font-size: var(--text-size-xs);
   color: var(--text-color-3);
 }
