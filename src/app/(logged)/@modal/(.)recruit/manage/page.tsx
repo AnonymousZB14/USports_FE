@@ -2,7 +2,7 @@
 import React from 'react'
 import Modal from '@/components/modal'
 import { useRouter } from 'next/navigation'
-import Button from '@/components/Button'
+import Button from '@/components/commonButton'
 import ApplyStatus from '@/components/applyStatus'
 
 export const data = {

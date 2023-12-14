@@ -1246,7 +1246,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   font-size: var(--text-size-base);
 }
 .content-body .main-body-wrap .left-body-wrap {
-  width: 100%;
+  width: 45%;
 }
 .content-body .main-body-wrap .left-body-wrap .match-point-con {
   background-color: var(--bg-color-2);
@@ -1301,7 +1301,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
 }
 .content-body .main-body-wrap .right-body-wrap {
   width: 55%;
-  min-width: 36rem;
+  max-width: 36rem;
   margin-top: 2rem;
   margin-left: 1rem;
   height: -moz-fit-content;
@@ -1331,6 +1331,8 @@ ul.recruitManagement > li .recruitItemCont p.status {
   font-size: var(--text-size-sm);
   padding-bottom: 1rem;
   font-weight: 700;
+  display: flex;
+  align-items: center;
 }
 .content-body .main-body-wrap .right-body-wrap .apply-con .apply-main-section .match-time .match-time-info {
   color: var(--bg-color-1);
@@ -1346,7 +1348,8 @@ ul.recruitManagement > li .recruitItemCont p.status {
   font-size: var(--text-size-sm);
   padding-bottom: 3rem;
   font-weight: 700;
-  line-height: 1.5;
+  display: flex;
+  align-items: center;
 }
 .content-body .main-body-wrap .right-body-wrap .apply-con .apply-main-section .match-place .match-place-info {
   color: var(--bg-color-1);
@@ -1356,6 +1359,9 @@ ul.recruitManagement > li .recruitItemCont p.status {
   font-size: var(--text-size-xs);
   font-weight: 500;
   margin-right: 0.5rem;
+}
+.content-body .main-body-wrap .right-body-wrap .apply-con .apply-main-section .match-place .info-box .place-space {
+  margin-right: 0.4rem;
 }
 .content-body .main-body-wrap .right-body-wrap .apply-con .apply-main-section .match-price {
   color: var(--main-color-red);
@@ -1373,8 +1379,9 @@ ul.recruitManagement > li .recruitItemCont p.status {
   justify-content: space-between;
 }
 .content-body .main-body-wrap .right-body-wrap .apply-con .apply-register-section .apply-status {
-  color: var(--text-color-1);
+  color: var(--text-color-2);
   font-size: var(--text-size-lg);
+  font-weight: 600;
 }
 
 .modal-header {

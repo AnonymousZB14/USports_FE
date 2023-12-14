@@ -1,5 +1,5 @@
 'use client'
-import Button from '@/components/Button'
+import Button from '@/components/commonButton'
 import Modal from '@/components/modal'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'

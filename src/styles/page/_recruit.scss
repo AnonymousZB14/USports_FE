@@ -249,7 +249,7 @@
     font-size: var(--text-size-base);
 
     .left-body-wrap {
-      width: 100%;
+      width: 45%;
 
       .match-point-con {
         background-color: var(--bg-color-2);
@@ -312,7 +312,7 @@
 
     .right-body-wrap {
       width: 55%;
-      min-width: 36rem;
+      max-width: 36rem;
       margin-top: 2rem;
       margin-left: 1rem;
       height: fit-content;
@@ -343,6 +343,8 @@
             font-size: var(--text-size-sm);
             padding-bottom: 1rem;
             font-weight: 700;
+            display: flex;
+            align-items: center;
 
             .match-time-info {
               color: var(--bg-color-1);
@@ -359,7 +361,8 @@
             font-size: var(--text-size-sm);
             padding-bottom: 3rem;
             font-weight: 700;
-            line-height: 1.5;
+            display: flex;
+            align-items: center;
 
             .match-place-info {
               color: var(--bg-color-1);
@@ -369,6 +372,10 @@
               font-size: var(--text-size-xs);
               font-weight: 500;
               margin-right: 0.5rem;
+            }
+
+            .info-box .place-space {
+              margin-right: 0.4rem;
             }
           }
           .match-price {
@@ -388,8 +395,9 @@
           justify-content: space-between;
 
           .apply-status {
-            color: var(--text-color-1);
+            color: var(--text-color-2);
             font-size: var(--text-size-lg);
+            font-weight: 600;
           }
         }
       }

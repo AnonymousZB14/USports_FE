@@ -5,7 +5,7 @@ import SwitchButton from '@/components/switchButton'
 import Title from '@/components/title'
 import { useEffect, useState } from 'react'
 import { filterOptions } from '../../../types/data'
-import Button from '@/components/Button'
+import Button from '@/components/commonButton'
 import Pagination from '@/components/pagination'
 import { useRouter } from 'next/navigation'
 

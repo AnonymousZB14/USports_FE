@@ -6,53 +6,76 @@ import { TbSoccerField } from 'react-icons/tb'
 import { IoMaleFemaleSharp } from 'react-icons/io5'
 import { MdPlace } from 'react-icons/md'
 import { MdOutlinePeopleAlt } from 'react-icons/md'
-import Button from '@/components/Button'
+import Button from '@/components/commonButton'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { Getfetch } from '@/func/fetchCall'
+import { useRouter, useParams } from 'next/navigation'
 import axios from 'axios'
+import { Deletefetch, Putfetch, axiosInstance } from '@/func/fetchCall'
+
+interface recruitItemProps {
+  title: string
+  content: string
+  cost: number
+  gender: string
+  gradeFrom: number
+  gradeTo: number
+  lat: string
+  lnt: string
+  meetingDate: string
+  recruitId: number
+  memberId: number
+  placeName: string
+  recruitCount: number
+  recruitStatus: string
+  region: string
+  registeredAt: string
+  sportsId: number
+  streetNameAddr: string
+  streetNumberAddr: string
+  updatedAt: string
+}
 
 const recruitDetail = () => {
+  const params = useParams()
   const router = useRouter()
 
-  // const [list, setList] = useState([])
-  // useEffect(() => {
-  //   try {
-  //     Getfetch(`http://3.39.34.245:8080/recruit/1`).then((resp) => {
-  //       setList(resp.list)
-  //     })
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }, [])
+  const [recruitData, setRecruitData] = useState<recruitItemProps | undefined>()
+  const [formattedDate, setFormattedDate] = useState<string | undefined>()
 
-  // useEffect(() => {
-  //   console.log(list)
-  // }, [list])
+  console.log(params)
 
-  // const [list, setList] = useState({})
-  // useEffect(() => {
-  //   try {
-  //     Getfetch('http://3.39.34.245:8080/recruits/1')
-  //       .then((res) => res.data)
-  //       .then((resp) => console.log(resp))
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }, [])
+  useEffect(() => {
+    const { id } = params
 
-  // const getRecruit = async () => {
-  //   try {
-  //     Getfetch('http://3.39.34.245:8080/recruits/1').then((resp) =>
-  //       console.log(resp),
-  //     )
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-  // useEffect(() => {
-  //   getRecruit()
-  // }, [])
+    axiosInstance
+      .get(`/recruit/${id}`)
+      .then((res) => {
+        setRecruitData(res.data)
+        console.log(res.data)
+        const formattedDate = formatDate(res.data.meetingDate)
+        setFormattedDate(formattedDate)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
+
+  function formatDate(inputDateStr: string) {
+    let inputDate = new Date(inputDateStr)
+
+    let options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      weekday: 'long',
+      hour: '2-digit',
+      minute: '2-digit',
+    }
+
+    let formattedDate = inputDate.toLocaleString('ko-KR', options)
+
+    return formattedDate
+  }
 
   return (
     <div className="recruit-detail-wrap">
@@ -97,19 +120,19 @@ const recruitDetail = () => {
                   </li>
                   <li className="data-box category-data">
                     <TbSoccerField size="20" stroke="#f57e25" />
-                    <p>축구</p>
+                    {recruitData && <p>{recruitData.sportsId}</p>}
                   </li>
                   <li className="data-box gender-data">
                     <IoMaleFemaleSharp size="20" fill="#f57e25" />
-                    <p>남자만</p>
+                    {recruitData && <p>{recruitData.gender}</p>}
                   </li>
                   <li className="data-box place-data">
                     <MdPlace size="20" fill="#f57e25" />
-                    <p>서울</p>
+                    {recruitData && <p>{recruitData.region}</p>}
                   </li>
                   <li className="data-box personnel-data">
                     <MdOutlinePeopleAlt size="20" fill="#f57e25" />
-                    <p>12명</p>
+                    {recruitData && <p>{recruitData.recruitCount}</p>}
                   </li>
                 </ul>
                 <div className="average-wrap">
@@ -125,29 +148,52 @@ const recruitDetail = () => {
                 <p>모집 내용</p>
               </div>
               <div className="match-content">
-                <p>시청역 풋살파크에서 축구같이합시다!!</p>
+                {recruitData && <p>{recruitData.cost}</p>}
               </div>
             </div>
           </div>
           <div className="right-body-wrap">
             <div className="apply-con">
               <div className="apply-main-section">
-                <p className="match-person">등록한 사람</p>
+                {recruitData && (
+                  <p className="match-person"> {recruitData.sportsId}</p>
+                )}
+                {/* 등록한 사람 */}
+
                 <div className="match-title">
-                  <p>용인 풋살 같이 하실분.</p>
+                  {recruitData && <p>{recruitData.title}</p>}
                 </div>
                 <div className="match-time">
-                  <span className="match-time-info">일자</span>12월 9일 토요일
-                  19:00
+                  <div className="match-time-info">일자</div>
+                  {recruitData && <p>{formattedDate}</p>}
                 </div>
                 <div className="match-place">
-                  <span className="match-place-info">장소</span>서울특별시
-                  영등포구 선유로 138 풋살파크장
+                  <div className="match-place-info">장소</div>
+                  {recruitData && (
+                    <p className="info-box">
+                      <span className="place-space">
+                        {recruitData.streetNameAddr}
+                      </span>
+                      <span className="place-space">
+                        {recruitData.streetNumberAddr}
+                      </span>
+                      <span className="place-space">
+                        {recruitData.placeName}
+                      </span>
+                    </p>
+                  )}
+                  {/* 서울특별시 영등포구 선유로 138 풋살파크장 */}
                 </div>
-                <p className="match-price">50,000원</p>
+                {recruitData && (
+                  <p className="match-price">{recruitData.cost}원</p>
+                )}
               </div>
               <div className="apply-register-section">
-                <div className="apply-status">모집중</div>
+                {recruitData && (
+                  <div className="apply-status">
+                    {recruitData.recruitStatus}
+                  </div>
+                )}
                 <Button type="submit" tailwindStyles="py-0 px-2" theme="blue">
                   신청하기
                 </Button>

@@ -3,7 +3,7 @@ import Title from '@/components/title'
 import { useState } from 'react'
 import { filterOptions } from '../../../types/data'
 import FilterDialog from '@/components/filterDialog'
-import Button from '@/components/button'
+import Button from '@/components/commonButton'
 import { SlArrowDown } from 'react-icons/sl'
 import { IoCloseOutline } from 'react-icons/io5'
 

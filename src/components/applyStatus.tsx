@@ -2,7 +2,7 @@
 import React from 'react'
 import { list1 } from '@/app/(logged)/mypage/_data/mock'
 import Link from 'next/link'
-import Button from './Button'
+import Button from './commonButton'
 
 const ApplyStatus = () => {
   return (
