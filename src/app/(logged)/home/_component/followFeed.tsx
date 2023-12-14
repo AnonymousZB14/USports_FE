@@ -30,7 +30,7 @@ const FollowFeed = () => {
       !isFetching && hasNextPage && fetchNextPage()
     }
   }, [inView, isFetching, hasNextPage, fetchNextPage])
-/*       const [list, setList] = useState([])
+  /*       const [list, setList] = useState([])
   useEffect(() => {
     try {
       Getfetch(`${process.env.NEXT_PUBLIC_BACKEND_SERVER}/home?page=1`).then(

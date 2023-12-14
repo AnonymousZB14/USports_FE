@@ -33,13 +33,23 @@ const User = [
 ]
 
 export const handlers = [
-  http.post('/api/login', ({ request }) => {
+  http.post('/member/login', ({ request }) => {
     console.log('로그인', request)
-    return HttpResponse.json(User[1], {
-      headers: {
-        'Set-Cookie': 'connect.sid=msw-cookie;HttpOnly;Path=/',
+    return HttpResponse.json(
+      {
+        tokenDto: {
+          accessToken:
+            '비밀토큰이지롱',
+          refreshToken: 'refreshToken!!',
+          tokenType: 'tokenType!!',
+        },
       },
-    })
+      {
+        headers: {
+          'Set-Cookie': 'connect.sid=msw-cookie;HttpOnly;Path=/',
+        },
+      },
+    )
   }),
   http.post('/api/logout', () => {
     console.log('로그아웃')
@@ -205,7 +215,10 @@ export const handlers = [
       {
         accountName: `${faker.person.firstName()}`,
         countComment: 9,
-        imageAddressList: [faker.image.urlPicsumPhotos(),faker.image.urlPicsumPhotos()],
+        imageAddressList: [
+          faker.image.urlPicsumPhotos(),
+          faker.image.urlPicsumPhotos(),
+        ],
         memberId: 1,
         recordContent: `${faker.lorem.sentence()}`,
         recordId: page + 1,
@@ -227,7 +240,11 @@ export const handlers = [
       {
         accountName: `${faker.person.firstName()}`,
         countComment: 9,
-        imageAddressList: [faker.image.urlPicsumPhotos(),faker.image.urlPicsumPhotos(),faker.image.urlPicsumPhotos()],
+        imageAddressList: [
+          faker.image.urlPicsumPhotos(),
+          faker.image.urlPicsumPhotos(),
+          faker.image.urlPicsumPhotos(),
+        ],
         memberId: 1,
         recordContent: `${faker.lorem.sentence()}`,
         recordId: page + 3,
@@ -292,7 +309,10 @@ export const handlers = [
       {
         accountName: `${faker.person.firstName()}`,
         countComment: 9,
-        imageAddressList: [faker.image.urlPicsumPhotos(),faker.image.urlPicsumPhotos()],
+        imageAddressList: [
+          faker.image.urlPicsumPhotos(),
+          faker.image.urlPicsumPhotos(),
+        ],
         memberId: 1,
         recordContent: `${faker.lorem.sentence()}`,
         recordId: page + 3,
@@ -303,7 +323,12 @@ export const handlers = [
       {
         accountName: `${faker.person.firstName()}`,
         countComment: 9,
-        imageAddressList: [faker.image.urlPicsumPhotos(),faker.image.urlPicsumPhotos(),faker.image.urlPicsumPhotos(),faker.image.urlPicsumPhotos()],
+        imageAddressList: [
+          faker.image.urlPicsumPhotos(),
+          faker.image.urlPicsumPhotos(),
+          faker.image.urlPicsumPhotos(),
+          faker.image.urlPicsumPhotos(),
+        ],
         memberId: 1,
         recordContent: `${faker.lorem.sentence()}`,
         recordId: page + 4,

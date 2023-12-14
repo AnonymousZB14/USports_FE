@@ -13,12 +13,13 @@ export const {
     signIn: '/login',
     newUser: '/createAccount',
   },
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
       async authorize(credentials) {
         console.log(credentials)
         const authResponse = await axios.post(
-          `${process.env.NEXT_PUBLIC_AUTH_URL}/api/login`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/member/login`,
           {
             headers: {
               'Content-Type': 'application/json',
@@ -31,12 +32,20 @@ export const {
         )
         const user = await authResponse.data
         console.log('User from server:', user)
-        return {
-          id: user.id,
-          email: user?.email,
-          name: user.nickname,
-          image: user.image,
-          ...user,
+        if (authResponse.status === 401) {
+          console.log('에러에러에러 없는 유저다')
+          throw new Error('로그인 실패')
+        } else {
+          const { tokenDto: user } = await authResponse.data
+
+          console.log('User from server:', user)
+          // return user
+          return {
+            id: 1,
+            email: user.accessToken,
+            name: user.refreshToken,
+            ...user,
+          }
         }
       },
     }),
@@ -44,19 +53,16 @@ export const {
       clientId: process.env.KAKAO_CLIENT_ID,
       clientSecret: process.env.KAKAO_CLIENT_SECRET,
     }),
-    NaverProvider({
-      clientId: process.env.NAVER_CLIENT_ID!,
-      clientSecret: process.env.NAVER_CLIENT_SECRET!,
-    }),
   ],
   callbacks: {
-    jwt({ token }) {
+    jwt({ token, user }) {
       console.log('auth.ts jwt', token)
-      token.userId = token.test = 'test'
+      token.accessToken = user?.email
       return token
     },
     session({ session, newSession, user }) {
       console.log('auth.ts session', session, newSession, user)
+      session.user?.email
       return session
     },
   },

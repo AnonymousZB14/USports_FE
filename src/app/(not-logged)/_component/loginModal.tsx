@@ -3,94 +3,65 @@ import Link from 'next/link'
 import { ChangeEventHandler, FormEventHandler, useState } from 'react'
 import { redirect, useRouter } from 'next/navigation'
 import { signIn, signOut } from 'next-auth/react'
-
-
+import { useForm } from 'react-hook-form'
+import { Postfetch } from '@/func/fetchCall'
+import { setCookieToken } from '@/func/cookie'
+import { cookies } from 'next/headers'
+import { useRecoilState } from 'recoil'
+// import { LoginState } from '@/store/user'
 const LoginModal = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [message, setMessage] = useState('')
   const router = useRouter()
-  /*   const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-    e.preventDefault()
-    setMessage('')
-    try {
-      const callbackUrl = `${process.env.NEXT_PUBLIC_LOCAL}/`
-      console.log(callbackUrl)
-      const response = await signIn('credentials', {
-        username: id,
-        password,
-        redirect: false,
-        callbackUrl,
-      })
-      console.log(response) // 토큰 확인
-    } catch (err) {
-      console.error(err)
-      setMessage('에러발생')
-    }
-  } */
-  const handleKakao = async () => {
-    const result = await signIn('kakao', {
-      redirect: true,
-      callbackUrl: '/',
-    })
-  }
-  const handleNaver = async () => {
-    const result = await signIn('naver', {
-      redirect: true,
-      callbackUrl: '/',
-    })
-  }
-  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault()
-    const callbackUrl = `${process.env.NEXT_PUBLIC_LOCAL}/`
-    console.log(callbackUrl)
+  // const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState)
+  const [message, setMessage] = useState('')
+  const { register, handleSubmit } = useForm()
+  /*  
+  happyhsryu@gmail.com
+  a123456789!
+  */
+
+  const onsubmitHandler = (e: any) => {
+    let amIMove = false
+    /*     const { tokenDto } = await Postfetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/member/login`,
+      e,
+    ) */
+    const callbackUrl = `${process.env.NEXT_PUBLIC_LOCAL}/home`
+    console.log(e)
     signIn('credentials', {
-      email,
-      password,
+      email: e.email,
+      password: e.password,
       redirect: true,
       callbackUrl,
     })
-      .then((response) => {
-        console.log(`response:${response}`)
+      .then((res) => {
+        console.log(res)
       })
-      .catch((error) => {
-        console.log(`error:${error}`)
-      })
+      .catch((err) => console.log(err))
   }
 
-  const onChangeId: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setEmail(e.target.value)
-  }
-
-  const onChangePassword: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setPassword(e.target.value)
-  }
   return (
     <div className="loginP notLoggedP centered">
       <h2>Log into USports</h2>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit(onsubmitHandler)}>
         <div>
           <input
             type="email"
-            name="email"
+            {...register('email')}
             id="email"
             placeholder="email"
             required
-            value={email}
-            onChange={onChangeId}
           />
           <input
+            {...register('password')}
             type="password"
             name="password"
             id="password"
             placeholder="password"
-            value={password}
-            onChange={onChangePassword}
             required
           />
         </div>
-        
-        <input type="submit" value="Log in" disabled={!email && !password} />
+
+        <input type="submit" value="Log in" />
       </form>
 
       <div className="linkWrap">
@@ -104,18 +75,6 @@ const LoginModal = () => {
           onClick={() => signIn('kakao', { redirect: true, callbackUrl: '/' })}
         >
           카카오로 로그인
-        </button>
-        <button
-          className="naverBtn"
-          onClick={() => signIn('naver', { redirect: true, callbackUrl: '/' })}
-        >
-          {/*           <Image
-            src={'/naver_login.png'}
-            alt="kakao"
-            width={200}
-            height={100}
-          /> */}
-          네이버로 로그인
         </button>
       </div>
     </div>

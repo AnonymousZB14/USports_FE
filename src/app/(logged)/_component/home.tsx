@@ -4,6 +4,7 @@ import { scrollHandler } from '@/func/scrollEvent'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import FollowFeed from '../home/_component/followFeed'
 import RecmdFeed from '../home/_component/recmdFeed'
+import { getCookie2 } from '@/func/cookie'
 
 export default function Home() {
   const [number, setNum] = useState(0)
@@ -11,6 +12,7 @@ export default function Home() {
   useLayoutEffect(() => {
     if (homeRef.current === null) return
     scrollHandler(homeRef.current)
+
   }, [homeRef])
   const divRef = useRef<HTMLDivElement | null>(null)
   const cateOnclick = (e: React.MouseEvent<HTMLUListElement>) => {

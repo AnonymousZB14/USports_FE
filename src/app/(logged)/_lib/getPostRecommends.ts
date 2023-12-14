@@ -1,3 +1,4 @@
+import { auth } from '@/auth'
 type Props = { pageParam?: number }
 export async function getPostRecommends({ pageParam }: Props) {
   const res = await fetch(
@@ -6,6 +7,7 @@ export async function getPostRecommends({ pageParam }: Props) {
       next: {
         tags: ['records', 'recommends'],
       },
+      credentials: 'include',
       // cache: 'no-store',
     },
   )
