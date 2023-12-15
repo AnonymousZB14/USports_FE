@@ -14,7 +14,7 @@ const onSilentRefresh = () => {
 const onLoginSuccess = (res: any) => {
   const JWT_EXPIRY_TIME = 3600000 // 1시간
   const { accessToken, refreshToken } = res.data
-  setInterceptor(accessToken)
+  
 
   // 로그인 성공시 쿠키에 accessToken 저장
   localStorage.setItem('accessToken', JSON.stringify(accessToken))

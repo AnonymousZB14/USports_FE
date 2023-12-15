@@ -14,7 +14,7 @@ const page = async ({ params }: { params: PageParams }) => {
   await queryClient.prefetchInfiniteQuery({
     queryKey: ['records', params.accountName],
     queryFn: getMyRecords,
-    initialPageParam: 0,
+    initialPageParam: 1,
   })
   const dehydratedState = dehydrate(queryClient)
 

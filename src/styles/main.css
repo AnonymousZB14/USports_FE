@@ -219,7 +219,7 @@ body:has(.centered) {
   --text-size-base: 1.6rem;
   --text-size-sm: 1.4rem;
   --text-size-xs: 1.2rem;
-  --main-color1: rgb(0, 0, 0);
+  --main-color1: rgba(0, 0, 0, 0.646);
 }
 
 html[data-theme=dark] {
@@ -2199,10 +2199,6 @@ ul.recruitManagement > li .recruitItemCont p.status {
 
 .tab_contents > div {
   min-height: 200px;
-  /* display: none; */
-}
-.tab_contents > div.active {
-  /* display: block; */
 }
 .tab_contents:is(.home_section > div) {
   padding-left: var(--side-padding);

@@ -11,7 +11,7 @@ class LocalStorage {
 
   static setAccessToken(value: string) {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('usports_token', value)
+      localStorage.setItem('accessToken', value)
     }
   }
 
@@ -31,7 +31,7 @@ class LocalStorage {
   }
   static removeToken() {
     if (typeof window !== 'undefined') {
-      localStorage.removeItem('usports_token')
+      localStorage.removeItem('accessToken')
     }
   }
 }

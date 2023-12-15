@@ -31,6 +31,7 @@ const Content = ({ accountName }: { accountName: string }) => {
             <p>@userId</p>
           </div>
         </div>
+        
       </div>
       <div className="profile_contents">
         <CateUl onClick={cateOnclick} categories={['Record', 'Recruit']} />

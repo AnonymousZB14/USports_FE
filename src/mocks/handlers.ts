@@ -31,25 +31,33 @@ const User = [
     image: '/tomatoA.svg',
   },
 ]
-
+const ACCESSTOKEN =
+  'zzzzzzeyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYXBweWhzcnl1QGdtYWlsLmNvbSIsImlhdCI6MTcwMjM3Mjk5NywiZXhwIjoxNzAyNTg4OTk3fQ.WcUEwKNxFepfB9_fK3XAGQi71mfDefnNi_JIGxJZigD3Er8CeC5s0vBigzZVMGlYVD0th_Sv2tdzPtZo0wlhLw'
 export const handlers = [
   http.post('/member/login', ({ request }) => {
     console.log('로그인', request)
-    return HttpResponse.json({
-      user: {
-        memberId: '001',
-        accountName: 'testAcName',
-        name: 'testname',
-        email: 'happyhsryu@gmail.com',
-        image: '/tomatoA.svg',
-        profileOpen: 'open',
-        tokenDto: {
-          accessToken: 'secretToken',
-          refreshToken: 'refreshToken',
-          tokenType: 'tokenType',
+    return HttpResponse.json(
+      {
+        user: {
+          memberId: '001',
+          accountName: 'testAcName',
+          name: 'testname',
+          email: 'happyhsryu@gmail.com',
+          image: '/tomatoA.svg',
+          profileOpen: 'open',
+          tokenDto: {
+            accessToken: 'secretToken',
+            refreshToken: 'refreshToken',
+            tokenType: 'tokenType',
+          },
         },
       },
-    })
+      {
+        headers: {
+          'Set-Cookie': `connect.sid=${ACCESSTOKEN};HttpOnly;Path=/`,
+        },
+      },
+    )
   }),
   http.post('/api/logout', () => {
     console.log('로그아웃')
@@ -79,73 +87,7 @@ export const handlers = [
         'https://lh3.googleusercontent.com/a/ACg8ocKE_zmbDmAr6qBdQzGwgyrzfbOXWWnD4MVfa0fwb6yPeg=s288-c-no',
     })
   }),
-/*   http.get(`/:user-records`, async ({ request }) => {
-    console.log('유저정보')
-    return HttpResponse.json({
-      records: [
-        {
-          recordId: '001',
-          imageAddress:
-            'https://firebasestorage.googleapis.com/v0/b/twitter-reloaded-d6dfe.appspot.com/o/tweets%2FWrKPYOJJdmRq3mOLYwBgAjsimIP2%2F9FoRsu6Pe6D3xVbS40NL?alt=media&token=c8e64337-3094-44c3-9450-259428dc7f6f',
-        },
-        {
-          recordId: '002',
-          imageAddress:
-            'https://firebasestorage.googleapis.com/v0/b/twitter-reloaded-d6dfe.appspot.com/o/tweets%2FWrKPYOJJdmRq3mOLYwBgAjsimIP2%2F9FoRsu6Pe6D3xVbS40NL?alt=media&token=c8e64337-3094-44c3-9450-259428dc7f6f',
-        },
-        {
-          recordId: '003',
-          imageAddress:
-            'https://firebasestorage.googleapis.com/v0/b/twitter-reloaded-d6dfe.appspot.com/o/tweets%2FWrKPYOJJdmRq3mOLYwBgAjsimIP2%2F9FoRsu6Pe6D3xVbS40NL?alt=media&token=c8e64337-3094-44c3-9450-259428dc7f6f',
-        },
-        {
-          recordId: '004',
-          imageAddress:
-            'https://firebasestorage.googleapis.com/v0/b/twitter-reloaded-d6dfe.appspot.com/o/tweets%2FWrKPYOJJdmRq3mOLYwBgAjsimIP2%2F9FoRsu6Pe6D3xVbS40NL?alt=media&token=c8e64337-3094-44c3-9450-259428dc7f6f',
-        },
-        {
-          recordId: '005',
-          imageAddress:
-            'https://firebasestorage.googleapis.com/v0/b/twitter-reloaded-d6dfe.appspot.com/o/tweets%2FWrKPYOJJdmRq3mOLYwBgAjsimIP2%2F9FoRsu6Pe6D3xVbS40NL?alt=media&token=c8e64337-3094-44c3-9450-259428dc7f6f',
-        },
-        {
-          recordId: '006',
-          imageAddress:
-            'https://firebasestorage.googleapis.com/v0/b/twitter-reloaded-d6dfe.appspot.com/o/tweets%2FWrKPYOJJdmRq3mOLYwBgAjsimIP2%2F9FoRsu6Pe6D3xVbS40NL?alt=media&token=c8e64337-3094-44c3-9450-259428dc7f6f',
-        },
-        {
-          recordId: '007',
-          imageAddress:
-            'https://firebasestorage.googleapis.com/v0/b/twitter-reloaded-d6dfe.appspot.com/o/tweets%2FWrKPYOJJdmRq3mOLYwBgAjsimIP2%2F9FoRsu6Pe6D3xVbS40NL?alt=media&token=c8e64337-3094-44c3-9450-259428dc7f6f',
-        },
-        {
-          recordId: '008',
-          imageAddress:
-            'https://firebasestorage.googleapis.com/v0/b/twitter-reloaded-d6dfe.appspot.com/o/tweets%2FWrKPYOJJdmRq3mOLYwBgAjsimIP2%2F9FoRsu6Pe6D3xVbS40NL?alt=media&token=c8e64337-3094-44c3-9450-259428dc7f6f',
-        },
-        {
-          recordId: '009',
-          imageAddress:
-            'https://firebasestorage.googleapis.com/v0/b/twitter-reloaded-d6dfe.appspot.com/o/tweets%2FWrKPYOJJdmRq3mOLYwBgAjsimIP2%2F9FoRsu6Pe6D3xVbS40NL?alt=media&token=c8e64337-3094-44c3-9450-259428dc7f6f',
-        },
-        {
-          recordId: '010',
-          imageAddress:
-            'https://firebasestorage.googleapis.com/v0/b/twitter-reloaded-d6dfe.appspot.com/o/tweets%2FWrKPYOJJdmRq3mOLYwBgAjsimIP2%2F9FoRsu6Pe6D3xVbS40NL?alt=media&token=c8e64337-3094-44c3-9450-259428dc7f6f',
-        },
-        {
-          recordId: '011',
-          imageAddress:
-            'https://firebasestorage.googleapis.com/v0/b/twitter-reloaded-d6dfe.appspot.com/o/tweets%2FWrKPYOJJdmRq3mOLYwBgAjsimIP2%2F9FoRsu6Pe6D3xVbS40NL?alt=media&token=c8e64337-3094-44c3-9450-259428dc7f6f',
-        },
-        {
-          recordId: '012',
-          imageAddress:
-            'https://firebasestorage.googleapis.com/v0/b/twitter-reloaded-d6dfe.appspot.com/o/tweets%2FWrKPYOJJdmRq3mOLYwBgAjsimIP2%2F9FoRsu6Pe6D3xVbS40NL?alt=media&token=c8e64337-3094-44c3-9450-259428dc7f6f',
-        },
-      ],
-    })
-  }), */
+
   http.get(`/notifications`, async ({ request }) => {
     console.log('알림내역')
     return HttpResponse.json({
@@ -350,7 +292,8 @@ export const handlers = [
     ])
   }),
 
-  http.get('/:user-records', ({ request }) => {
+  http.get('/profile/:accoutName-records', ({ request, params }) => {
+    const { accoutName } = params
     const url = new URL(request.url)
     const page = parseInt(url.searchParams.get('page') as string) || 0
     return HttpResponse.json([
@@ -375,5 +318,8 @@ export const handlers = [
         imageAddress: faker.image.urlPicsumPhotos(),
       },
     ])
+  }),
+  http.get('/profile/:accoutName', ({ request, params }) => {
+    return HttpResponse.json({})
   }),
 ]

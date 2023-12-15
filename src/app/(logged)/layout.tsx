@@ -6,11 +6,12 @@ import { redirect } from 'next/navigation'
 import { UserProfile } from '@/types/types'
 import Header from '@/containers/header'
 import RecoilRootWrapper from '@/containers/recoilRootWrapper'
-// import { KAKAO_APP_KEY } from '@/constants/contant'
 import { MSWComponent } from '@/app/_component/MSWComponent'
 import AuthSession from '@/app/_component/AuthSession'
 import { auth } from '@/auth'
 import RQProvider from './_component/RQProvider'
+import { cookies } from 'next/headers'
+import { axiosInstance, setInterceptor } from '@/func/fetchCall'
 export const metadata: Metadata = {
   title: 'USports',
   description: 'usports',
@@ -24,10 +25,10 @@ export default async function RootLayout({
   modal: React.ReactNode
 }) {
   const session = await auth()
-  /*   const res: UserProfile = await checkUser()
-  if (!res) {
-    redirect('/login')
-  } */
+  const ttt = cookies().get('connect.sid')?.value
+  console.log(ttt)
+  // axiosInstance.defaults.headers.common.Authorization = `Bearer ${ttt}`
+  
   if (!session?.user) {
     redirect('/login')
   } else {

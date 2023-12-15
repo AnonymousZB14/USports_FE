@@ -1,4 +1,3 @@
-// import { setCookie } from './cookie';
 import { cookies } from 'next/headers'
 
 const cookieStore = cookies()
@@ -10,14 +9,9 @@ export const setCookie = (key: string, value: string, option?: any) => {
 export const setCookieToken = (accesstoken: any) => {
   cookies().set('Authorization', `Bearer ${accesstoken}`)
 }
-export const setCookieToken2 = (accesstoken: any) => {
-  cookies().set('Authorization', `Bearer ${accesstoken}`)
-}
+
 export const getCookie = (key: string) => {
   return cookieStore.get(key)
-}
-export const getCookie2 = () => {
-  return cookieStore.get('Authorization')
 }
 
 export const getCookiesAll = () => {

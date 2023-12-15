@@ -23,7 +23,7 @@ const Records = ({ accoutName }: { accoutName: string }) => {
   >({
     queryKey: ['records', accoutName],
     queryFn: getMyRecords,
-    initialPageParam: 0,
+    initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage.at(-1)?.recordId,
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,

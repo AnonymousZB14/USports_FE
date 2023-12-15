@@ -8,7 +8,9 @@ import axios from 'axios'
 import LocalStorage from '@/func/localstrage'
 import { useRecoilState } from 'recoil'
 import { UserState } from '@/store/user'
-import { setHeaderToken } from '@/func/fetchCall'
+import { getCookie } from '@/func/cookie_c'
+import { axiosInstance, setHeaderToken } from '@/func/fetchCall'
+
 type Props = {
   me?: Session | null
 }
@@ -16,15 +18,18 @@ const LogoutBtn = ({ me }: Props) => {
   const [user, setUser] = useRecoilState(UserState)
   const router = useRouter()
   const { data, status } = useSession()
+  const accessToken = getCookie('connect.sid')
   useEffect(() => {
-    LocalStorage.setAccessToken(data?.user?.email!)
-    setHeaderToken(data?.user?.email!)
+    LocalStorage.setAccessToken(accessToken)
+    setHeaderToken(accessToken)
+  }, [])
+  useEffect(() => {
     setUser({
       id: '0',
-      name: 'nata',
-      email: 'email@naver.com',
-      profileImage: 'https://via.placeholder.com/200',
-      accessToken: data?.user?.email as string,
+      name: data?.user?.name!,
+      email: data?.user?.email!,
+      profileImage: data?.user?.image!,
+      accessToken: accessToken,
     })
   }, [data])
   const onLogout = () => {

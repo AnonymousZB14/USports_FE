@@ -4,8 +4,6 @@ import { scrollHandler } from '@/func/scrollEvent'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import FollowFeed from '../home/_component/followFeed'
 import RecmdFeed from '../home/_component/recmdFeed'
-import { getCookie2 } from '@/func/cookie'
-
 export default function Home() {
   const [number, setNum] = useState(0)
   const homeRef = useRef(null)
