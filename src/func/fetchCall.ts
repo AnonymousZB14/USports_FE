@@ -1,26 +1,23 @@
 //func/fetchCall.ts
 import { auth } from '@/auth'
 import axios, { AxiosError } from 'axios'
-import { NextApiRequest, NextApiResponse } from 'next'
-import { cookies } from 'next/headers'
-import LocalStorage from './localstrage'
+import { getCookie } from './cookie'
+// const API_ACCESS_TOKEN = getCookie('accessToken')
 const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL
-/* const API_TOKEN =
+const API_TOKEN =
   'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYXBweWhzcnl1QGdtYWlsLmNvbSIsImlhdCI6MTcwMjM3Mjk5NywiZXhwIjoxNzAyNTg4OTk3fQ.WcUEwKNxFepfB9_fK3XAGQi71mfDefnNi_JIGxJZigD3Er8CeC5s0vBigzZVMGlYVD0th_Sv2tdzPtZo0wlhLw' // 서버에서 받아온 안전한 accountToken 사용
- */
-
 const axiosInstance = axios.create({
   // baseURL: API_BASE_URL,
   headers: {
     credentials: 'include',
     'Content-Type': 'application/json',
+    // Authorization: `Bearer ${API_TOKEN}`,
   },
 })
-const set = async () => {
-  const session = await auth()
-  axiosInstance.defaults.headers.common.Authorization = `Bearer ${session?.user?.email}`
+export const setHeaderToken = async (token:string) => {
+  axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`
 }
-set()
+
 export const setInterceptor = (token: string) => {
   if (!token) return false
   axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`
@@ -39,9 +36,13 @@ export async function Postfetch(url: string, data?: any) {
     throw axiosError
   }
 }
-export async function Getfetch(url: string) {
+export async function Getfetch(url: string,) {
   try {
-    const response = await axiosInstance.get(url)
+    const response = await axiosInstance.get(url, {
+      headers: {
+        Authorization: `Bearer ${API_TOKEN}`,
+      },
+    })
     return response.data
   } catch (error) {
     const axiosError = error as AxiosError

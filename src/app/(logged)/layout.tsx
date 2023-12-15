@@ -31,6 +31,7 @@ export default async function RootLayout({
   if (!session?.user) {
     redirect('/login')
   } else {
+    // console.log
   }
   return (
     <RecoilRootWrapper>

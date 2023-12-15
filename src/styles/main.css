@@ -2199,6 +2199,10 @@ ul.recruitManagement > li .recruitItemCont p.status {
 
 .tab_contents > div {
   min-height: 200px;
+  /* display: none; */
+}
+.tab_contents > div.active {
+  /* display: block; */
 }
 .tab_contents:is(.home_section > div) {
   padding-left: var(--side-padding);

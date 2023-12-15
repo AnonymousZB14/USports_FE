@@ -5,9 +5,8 @@ import { redirect, useRouter } from 'next/navigation'
 import { signIn, signOut } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
 import { Postfetch } from '@/func/fetchCall'
-import { setCookieToken } from '@/func/cookie'
-import { cookies } from 'next/headers'
 import { useRecoilState } from 'recoil'
+import { onLoginSuccess } from '@/func/authServices'
 // import { LoginState } from '@/store/user'
 const LoginModal = () => {
   const router = useRouter()
@@ -20,11 +19,6 @@ const LoginModal = () => {
   */
 
   const onsubmitHandler = (e: any) => {
-    let amIMove = false
-    /*     const { tokenDto } = await Postfetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/member/login`,
-      e,
-    ) */
     const callbackUrl = `${process.env.NEXT_PUBLIC_LOCAL}/home`
     console.log(e)
     signIn('credentials', {

@@ -15,17 +15,21 @@ const Avatar = ({
   isItprofile?: boolean
 }) => {
   const [user, setUser] = useRecoilState(UserState)
-  const { data } = useSession()
+  const session = useSession()
   return (
     <div style={{ width: width, height: height }}>
       <div className="avatar_img">
-        <p>{data?.user?.email}</p>
-        <Link href={isItprofile ? '#none' : '/profile'}>
-          <img
-            src={user.profileImage ? user.profileImage : '/tomatoA.svg'}
-            alt="profileImage"
-          />
-        </Link>
+        {/* <p>{session.data?.user?.email}</p> */}
+        {
+          <Link href={isItprofile ? '#none' : '/profile'}>
+            <img
+              src={
+                user.profileImage ? session.data?.user?.image! : '/tomatoA.svg'
+              }
+              alt="profileImage"
+            />
+          </Link>
+        }
       </div>
     </div>
   )

@@ -7,7 +7,7 @@ export const UserState = atom({
     name: '',
     email: '',
     profileImage: 'https://via.placeholder.com/200',
-    accessToken: token && '',
+    accessToken: token || '',
   },
 })
 /* export const LoginState = atom<boolean>({

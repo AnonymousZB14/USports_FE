@@ -35,21 +35,21 @@ const User = [
 export const handlers = [
   http.post('/member/login', ({ request }) => {
     console.log('로그인', request)
-    return HttpResponse.json(
-      {
+    return HttpResponse.json({
+      user: {
+        memberId: '001',
+        accountName: 'testAcName',
+        name: 'testname',
+        email: 'happyhsryu@gmail.com',
+        image: '/tomatoA.svg',
+        profileOpen: 'open',
         tokenDto: {
-          accessToken:
-            '비밀토큰이지롱',
-          refreshToken: 'refreshToken!!',
-          tokenType: 'tokenType!!',
+          accessToken: 'secretToken',
+          refreshToken: 'refreshToken',
+          tokenType: 'tokenType',
         },
       },
-      {
-        headers: {
-          'Set-Cookie': 'connect.sid=msw-cookie;HttpOnly;Path=/',
-        },
-      },
-    )
+    })
   }),
   http.post('/api/logout', () => {
     console.log('로그아웃')
@@ -79,7 +79,7 @@ export const handlers = [
         'https://lh3.googleusercontent.com/a/ACg8ocKE_zmbDmAr6qBdQzGwgyrzfbOXWWnD4MVfa0fwb6yPeg=s288-c-no',
     })
   }),
-  http.get(`/user-records`, async ({ request }) => {
+/*   http.get(`/:user-records`, async ({ request }) => {
     console.log('유저정보')
     return HttpResponse.json({
       records: [
@@ -145,7 +145,7 @@ export const handlers = [
         },
       ],
     })
-  }),
+  }), */
   http.get(`/notifications`, async ({ request }) => {
     console.log('알림내역')
     return HttpResponse.json({
@@ -346,6 +346,33 @@ export const handlers = [
         registeredAt: new Date(),
         sportsId: 98,
         updatedAt: new Date(),
+      },
+    ])
+  }),
+
+  http.get('/:user-records', ({ request }) => {
+    const url = new URL(request.url)
+    const page = parseInt(url.searchParams.get('page') as string) || 0
+    return HttpResponse.json([
+      {
+        recordId: page + 1,
+        imageAddress: faker.image.urlPicsumPhotos(),
+      },
+      {
+        recordId: page + 2,
+        imageAddress: faker.image.urlPicsumPhotos(),
+      },
+      {
+        recordId: page + 3,
+        imageAddress: faker.image.urlPicsumPhotos(),
+      },
+      {
+        recordId: page + 4,
+        imageAddress: faker.image.urlPicsumPhotos(),
+      },
+      {
+        recordId: page + 5,
+        imageAddress: faker.image.urlPicsumPhotos(),
       },
     ])
   }),

@@ -1,9 +1,8 @@
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import KakaoProvider from 'next-auth/providers/kakao'
-import NaverProvider from 'next-auth/providers/naver'
 import axios from 'axios'
-import { NextResponse } from 'next/server'
+import { onLoginSuccess } from './func/authServices'
 export const {
   handlers: { GET, POST },
   auth,
@@ -30,20 +29,21 @@ export const {
             }),
           },
         )
-        const user = await authResponse.data
-        console.log('User from server:', user)
+        const { user } = await authResponse.data
+        const { tokenDto } = user
+        console.log('User from server:', user, tokenDto)
+        axios.defaults.headers.common.Authorization = `Bearer ${tokenDto}`
         if (authResponse.status === 401) {
-          console.log('에러에러에러 없는 유저다')
+          console.log('로그인 에러')
           throw new Error('로그인 실패')
         } else {
-          const { tokenDto: user } = await authResponse.data
-
+          const { user } = await authResponse.data
           console.log('User from server:', user)
-          // return user
           return {
-            id: 1,
-            email: user.accessToken,
-            name: user.refreshToken,
+            id: 1, // 임시
+            email: user.tokenDto,
+            name: user.email,
+            image: user.image,
             ...user,
           }
         }
@@ -62,7 +62,7 @@ export const {
     },
     session({ session, newSession, user }) {
       console.log('auth.ts session', session, newSession, user)
-      session.user?.email
+
       return session
     },
   },
