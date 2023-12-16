@@ -1018,16 +1018,17 @@ ul.recruitManagement > li .recruitItemCont p.status {
   height: 25px;
 }
 
-.explore-form {
-  padding-top: 3rem;
-  padding-bottom: 6rem;
-}
-.explore-form > h1 {
+.write-tit {
   font-size: var(--text-size-xl);
   font-weight: 700;
-  margin-bottom: 3rem;
+  margin: 4rem 0 0;
 }
-.explore-form h2 {
+
+.explore-form {
+  padding-top: 5rem;
+  padding-bottom: 6rem;
+}
+.explore-form label {
   min-width: 6rem;
   font-size: var(--text-size-base);
   font-weight: 500;
@@ -1235,7 +1236,6 @@ ul.recruitManagement > li .recruitItemCont p.status {
   margin: 0 auto;
   background-color: var(--bg-color-5);
   padding: 0 2rem 10rem;
-  height: calc(100% - 8rem);
 }
 .content-body .map-wrap {
   height: 30rem;
@@ -1246,7 +1246,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   font-size: var(--text-size-base);
 }
 .content-body .main-body-wrap .left-body-wrap {
-  width: 45%;
+  width: 35%;
 }
 .content-body .main-body-wrap .left-body-wrap .match-point-con {
   background-color: var(--bg-color-2);
@@ -1269,19 +1269,26 @@ ul.recruitManagement > li .recruitItemCont p.status {
   margin-bottom: 1rem;
 }
 .content-body .main-body-wrap .left-body-wrap .match-point-con .match-content .data-wrap .data-box {
-  width: 48%;
+  width: 100%;
   display: inline-flex;
   align-items: center;
   padding: 1rem 0;
 }
 .content-body .main-body-wrap .left-body-wrap .match-point-con .match-content .data-wrap .data-box > p {
-  padding-left: 1rem;
+  padding: 0 1rem;
+}
+.content-body .main-body-wrap .left-body-wrap .match-point-con .match-content .data-wrap .data-box > .from-to-line {
+  width: 2rem;
+  height: 0.1rem;
+  background-color: var(--text-color-5);
+  margin: 0 1rem 0 0.5rem;
 }
 .content-body .main-body-wrap .left-body-wrap .match-point-con .match-content .average-wrap {
   margin-top: 1rem;
   border-top: 0.1rem solid var(--text-color-5);
 }
 .content-body .main-body-wrap .left-body-wrap .match-point-con .match-content .average-wrap > .average-title {
+  display: flex;
   margin-top: 2rem;
 }
 .content-body .main-body-wrap .left-body-wrap .recruit-detail-con {
@@ -1300,8 +1307,8 @@ ul.recruitManagement > li .recruitItemCont p.status {
   line-height: 1.35;
 }
 .content-body .main-body-wrap .right-body-wrap {
-  width: 55%;
-  max-width: 36rem;
+  width: 65%;
+  max-width: 100%;
   margin-top: 2rem;
   margin-left: 1rem;
   height: -moz-fit-content;

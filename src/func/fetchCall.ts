@@ -24,7 +24,7 @@ if (!baseURL) {
 
 export const axiosInstance = getAxiosInstance(
   baseURL,
-  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYXBweWhzcnl1QGdtYWlsLmNvbSIsImlhdCI6MTcwMjUxNzg3OCwiZXhwIjoxNzAyNzMzODc4fQ.vilP6XpZ7WXbW35ztsRnj0H1IoHsueEtfKVeI6cdwW9FT7nDJerxKiDhnpCrfRnhxDYYWk0gL2TVK2-JgXeNmQ',
+  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYXBweWhzcnl1QGdtYWlsLmNvbSIsImlhdCI6MTcwMjY0NjE5OCwiZXhwIjoxNzAyODYyMTk4fQ.h79n2LecHwbPN9sQ1Ps_y7FUshmNIr3xI6LKtlGbItM0D8PchsqNWh_iUjZP27NPbPJvLsGeIjsnisldswi9EQ',
 )
 
 export async function Postfetch(url: string, data?: any) {

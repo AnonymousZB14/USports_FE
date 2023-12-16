@@ -1,13 +1,13 @@
+.write-tit {
+  font-size: var(--text-size-xl);
+  font-weight: 700;
+  margin: 4rem 0 0;
+}
 .explore-form {
-  padding-top: 3rem;
+  padding-top: 5rem;
   padding-bottom: 6rem;
-  & > h1 {
-    font-size: var(--text-size-xl);
-    font-weight: 700;
-    margin-bottom: 3rem;
-  }
 
-  & h2 {
+  & label {
     min-width: 6rem;
     font-size: var(--text-size-base);
     font-weight: 500;
@@ -238,7 +238,6 @@
   margin: 0 auto;
   background-color: var(--bg-color-5);
   padding: 0 2rem 10rem;
-  height: calc(100% - 8rem);
 
   .map-wrap {
     height: 30rem;
@@ -249,7 +248,7 @@
     font-size: var(--text-size-base);
 
     .left-body-wrap {
-      width: 45%;
+      width: 35%;
 
       .match-point-con {
         background-color: var(--bg-color-2);
@@ -272,13 +271,19 @@
             margin-bottom: 1rem;
 
             .data-box {
-              width: 48%;
+              width: 100%;
               display: inline-flex;
               align-items: center;
               padding: 1rem 0;
 
               & > p {
-                padding-left: 1rem;
+                padding: 0 1rem;
+              }
+              & > .from-to-line {
+                width: 2rem;
+                height: 0.1rem;
+                background-color: var(--text-color-5);
+                margin: 0 1rem 0 0.5rem;
               }
             }
           }
@@ -287,6 +292,7 @@
             border-top: 0.1rem solid var(--text-color-5);
 
             & > .average-title {
+              display: flex;
               margin-top: 2rem;
             }
           }
@@ -311,8 +317,8 @@
     }
 
     .right-body-wrap {
-      width: 55%;
-      max-width: 36rem;
+      width: 65%;
+      max-width: 100%;
       margin-top: 2rem;
       margin-left: 1rem;
       height: fit-content;

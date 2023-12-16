@@ -1,39 +1,66 @@
+'use client'
+import React, { useEffect, useState } from 'react'
 import { Map, MapMarker } from 'react-kakao-maps-sdk'
-const KaKaoMap = ({ Lat, Lng }: { Lat: number; Lng: number }) => {
+import { recruitItemProps } from '@/types/types'
+
+interface KaKaoMapProps {
+  recruitData?: recruitItemProps
+}
+
+const KaKaoMap: React.FC<KaKaoMapProps> = ({ recruitData }) => {
+  const [centerMove, setCenterMove] = useState({
+    lat: recruitData?.lat || 37.56667437551163,
+    lng: recruitData?.lnt || 126.95764417493172,
+  })
+
+  useEffect(() => {
+    if (recruitData) {
+      setCenterMove({
+        lat: recruitData.lat,
+        lng: recruitData.lnt,
+      })
+    }
+  }, [recruitData])
   return (
-    <div id="map">
-      <Map
-        center={{
-          lat: Lat,
-          lng: Lng,
-        }}
-        style={{
-          width: '100%',
-          height: '300px',
-        }}
-        level={4}
-      >
-        <MapMarker
-          position={{
-            lat: Lat,
-            lng: Lng,
+    <>
+      {/* <p>Latitude: {centerMove.lat}</p>
+      <p>Longitude: {centerMove.lng}</p> */}
+      <div id="map">
+        <Map
+          center={{
+            lat: centerMove.lat,
+            lng: centerMove.lng,
           }}
-          image={{
-            src: 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png',
-            size: {
-              width: 35,
-              height: 40,
-            },
-            options: {
-              offset: {
-                x: 27,
-                y: 69,
+          style={{
+            width: '100%',
+            height: '300px',
+          }}
+          level={4}
+        >
+          <MapMarker
+            position={{
+              lat: centerMove.lat,
+              lng: centerMove.lng,
+            }}
+            // lat: 37.504449,
+            // lng: 127.04886,
+            image={{
+              src: 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png',
+              size: {
+                width: 35,
+                height: 40,
               },
-            },
-          }}
-        />
-      </Map>
-    </div>
+              options: {
+                offset: {
+                  x: 27,
+                  y: 69,
+                },
+              },
+            }}
+          />
+        </Map>
+      </div>
+    </>
   )
 }
 

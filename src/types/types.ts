@@ -53,3 +53,28 @@ export interface Post {
   createdAt: Date
   Images: []
 }
+
+export interface recruitItemProps {
+  title: string
+  content: string
+  cost: number
+  gender: string
+  gradeFrom: number
+  gradeTo: number
+  lat: number
+  lnt: number
+  memberAccountName: string
+  participantSportsSkillAverage: string
+  meetingDate: string
+  recruitId: number
+  memberId: number
+  placeName: string
+  recruitCount: number
+  recruitStatus: string
+  region: string
+  registeredAt: string
+  sportsId: number
+  streetNameAddr: string
+  streetNumberAddr: string
+  updatedAt: string
+}

@@ -3,7 +3,7 @@ import Title from '@/components/title'
 import { filterOptions } from '../../../types/data'
 import FormAddress from '../../../components/addressForm'
 import DataPicker from '../../../components/dataPicker'
-import { useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { AddressType } from '../../../types/types'
 import flatpickr from 'flatpickr'
 import 'flatpickr/dist/flatpickr.min.css'
@@ -11,14 +11,36 @@ import FilterDialog from '@/components/filterDialog'
 import Button from '@/components/commonButton'
 import { SlArrowDown } from 'react-icons/sl'
 import FilterSection from '@/components/filterSection'
-import { useRouter } from 'next/navigation'
+import { useRouter, useParams } from 'next/navigation'
 import axios from 'axios'
-import { Getfetch } from '@/func/fetchCall'
+import { Getfetch, axiosInstance } from '@/func/fetchCall'
+
+interface recruit {
+  title: string
+  content: string
+  region: string
+  sportsID: number
+  gender: string
+  gradeFrom: number
+  gradeTo: number
+  cost: number
+  recruitCount: number
+  address: string
+  postCode: number
+  additional: string
+  meetingDate: string
+}
 
 const recruitWrite = () => {
+  const params = useParams()
   const router = useRouter()
   const [addressData, setAddressData] = useState<AddressType | null>(null)
   const [selectedDate, setSelectedDate] = useState('')
+  const [tit, setTit] = useState('')
+  const [content, setContent] = useState('')
+  const [costNum, setCostNum] = useState('')
+  const [personNum, setPersonNum] = useState('')
+  const [reviewModalContent, setReviewModalContent] = useState('')
   const [isFilterDialogOpen1, setIsFilterDialogOpen1] = useState(false)
   const [selectedFilter1, setSelectedFilter1] = useState<string>('모든지역')
   const [isFilterDialogOpen2, setIsFilterDialogOpen2] = useState(false)
@@ -102,49 +124,93 @@ const recruitWrite = () => {
     setSelectedDate(dateStr)
   }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const handleTitChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setTit(event.target.value)
   }
 
-  const [list, setList] = useState({})
-  useEffect(() => {
+  const handleContentChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(event.target.value)
+  }
+
+  const handleCostNumChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setCostNum(event.target.value)
+  }
+
+  const handlePersonNumChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setPersonNum(event.target.value)
+  }
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
     try {
-      axios
-        .get('http://3.39.34.245:8080/recruit/1')
-        .then((res) => res.data)
-        .then((resp) => console.log(resp))
+      const recruitData = new FormData()
+
+      recruitData.append('tit', tit)
+      recruitData.append('content', content)
+      recruitData.append('region', selectedFilter1)
+      recruitData.append('sportsID', selectedFilter2)
+      recruitData.append('gender', selectedFilter3)
+      recruitData.append('gradeFrom', selectedFilter4)
+      recruitData.append('gradeTo', selectedFilter5)
+      recruitData.append('cost', costNum)
+      recruitData.append('recruitCount', String(personNum))
+      recruitData.append('additional', JSON.stringify(addressData))
+      recruitData.append('meetingDate', selectedDate)
+
+      const res = await axiosInstance.post(`/recruit`, recruitData)
+
+      if (res.status === 200) {
+        setContent('')
+
+        console.log('게시글 작성됐나?', tit, content, selectedFilter1)
+
+        setReviewModalContent('게시글 작성이 완료되었습니다.')
+      }
     } catch (error) {
-      console.log(error)
+      console.error('review 등록 중 오류:', error)
+      setReviewModalContent('게시글 작성에 실패하였습니다.')
     }
-  }, [])
+  }
+
   useEffect(() => {
-    console.log('dkdk:' + list)
-  }, [list])
+    const { id } = params
 
-  // const getProfile = async () => {
-  //   const res = await axiosInstance.get(`http://3.39.34.245:8080/recruit/1`)
-
-  //   if (res.status === 200) {
-  //     console.log('dkdk:' + res)
-  //   }
-  // }
-  // useEffect(() => {
-  //   getProfile()
-  // }, [])
+    axiosInstance
+      .get(`/recruit/${id}`)
+      .then((res) => {
+        console.log('dfsdf', res.data.gradeFrom, res.data.gradeTo)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
 
   return (
     <>
       <Title title="Explore" />
 
-      <form onSubmit={handleSubmit} className="explore-form">
-        <h1>모집 글을 작성해주세요.</h1>
-
+      <h1 className="write-tit">모집 글을 작성해주세요.</h1>
+      <form
+        onSubmit={handleSubmit}
+        // action="/recruit"
+        // method="POST"
+        encType="multipart/form-data"
+        className="explore-form"
+      >
         <div className="tit-input-wrap">
-          <h2>제목</h2>
-          <input type="text" placeholder="제목을 입력해주세요.(50자 이내)" />
+          <label htmlFor="tit">제목</label>
+          <input
+            type="text"
+            id="id"
+            name="tit"
+            value={tit}
+            onChange={handleTitChange}
+            placeholder="제목을 입력해주세요.(50자 이내)"
+          />
         </div>
         <div className="category-wrap">
-          <h2>카테고리</h2>
+          <label>카테고리</label>
           <FilterSection
             openFilterDialog={openFilterDialog1}
             closeFilterDialog={closeFilterDialog1}
@@ -177,7 +243,7 @@ const recruitWrite = () => {
         </div>
         <div className="category-wrap">
           <div className="category-con">
-            <h2>레벨</h2>
+            <label>레벨</label>
             <FilterSection
               openFilterDialog={openFilterDialog4}
               closeFilterDialog={closeFilterDialog4}
@@ -187,6 +253,7 @@ const recruitWrite = () => {
               filterOptions={filterOptions.options4}
               title="레벨"
             />
+            {/* <select>{}</select> */}
             <span className="from-to-line"></span>
             <FilterSection
               openFilterDialog={openFilterDialog5}
@@ -201,28 +268,49 @@ const recruitWrite = () => {
         </div>
 
         <div className="input-wrap">
-          <h2>비용</h2>
+          <label htmlFor="cost">비용</label>
           <div className="input-box">
-            <input type="text" placeholder="금액을 입력해주세요." />
+            <input
+              type="text"
+              id="costNum"
+              name="costNum"
+              onChange={handleCostNumChange}
+              value={costNum}
+              placeholder="금액을 입력해주세요."
+            />
             <p>원</p>
           </div>
         </div>
 
         <div className="input-wrap">
-          <h2>모집정원</h2>
+          <label htmlFor="num">모집정원</label>
           <div className="input-box">
-            <input type="text" placeholder="정원을 입력해주세요." />
+            <input
+              type="text"
+              id="personNum"
+              name="personNum"
+              onChange={handlePersonNumChange}
+              value={personNum}
+              placeholder="정원을 입력해주세요."
+            />
             <p>명</p>
           </div>
         </div>
 
         <div className="tit-input-wrap">
-          <h2>내용</h2>
-          <textarea placeholder="내용을 입력해주세요.(500자 이내)" />
+          <label htmlFor="content">내용</label>
+          <textarea
+            id="content"
+            value={content}
+            name="content"
+            onChange={handleContentChange}
+            rows={4}
+            placeholder="내용을 입력해주세요.(500자 이내)"
+          />
         </div>
 
         <div className="tit-input-wrap">
-          <h2>주소</h2>
+          <label>주소</label>
           <FormAddress
             addressData={addressData}
             setAddressData={setAddressData}
@@ -230,7 +318,7 @@ const recruitWrite = () => {
         </div>
 
         <div className="tit-input-wrap">
-          <h2>날짜</h2>
+          <label>날짜</label>
           <DataPicker onChange={handleDateChange} />
           {/* <p>{selectedDate}</p> */}
         </div>

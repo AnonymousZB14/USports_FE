@@ -11,29 +11,7 @@ import Link from 'next/link'
 import { useRouter, useParams } from 'next/navigation'
 import axios from 'axios'
 import { Deletefetch, Putfetch, axiosInstance } from '@/func/fetchCall'
-
-interface recruitItemProps {
-  title: string
-  content: string
-  cost: number
-  gender: string
-  gradeFrom: number
-  gradeTo: number
-  lat: string
-  lnt: string
-  meetingDate: string
-  recruitId: number
-  memberId: number
-  placeName: string
-  recruitCount: number
-  recruitStatus: string
-  region: string
-  registeredAt: string
-  sportsId: number
-  streetNameAddr: string
-  streetNumberAddr: string
-  updatedAt: string
-}
+import { recruitItemProps } from '@/types/types'
 
 const recruitDetail = () => {
   const params = useParams()
@@ -42,7 +20,7 @@ const recruitDetail = () => {
   const [recruitData, setRecruitData] = useState<recruitItemProps | undefined>()
   const [formattedDate, setFormattedDate] = useState<string | undefined>()
 
-  console.log(params)
+  // console.log(params)
 
   useEffect(() => {
     const { id } = params
@@ -104,7 +82,7 @@ const recruitDetail = () => {
       </div>
       <div className="content-body">
         <div className="map-wrap">
-          <KaKaoMap Lat={37.566826} Lng={126.9786567} />
+          <KaKaoMap recruitData={recruitData} />
         </div>
         <div className="main-body-wrap">
           <div className="left-body-wrap">
@@ -116,7 +94,11 @@ const recruitDetail = () => {
                 <ul className="data-wrap">
                   <li className="data-box level-data">
                     <RiShieldStarLine size="20" fill="#f57e25" />
-                    <p>모든레벨</p>
+                    {recruitData && (
+                      <p className="grade-item">{recruitData.gradeFrom}</p>
+                    )}
+                    <span className="from-to-line"></span>
+                    {recruitData && <p>{recruitData.gradeTo}</p>}
                   </li>
                   <li className="data-box category-data">
                     <TbSoccerField size="20" stroke="#f57e25" />
@@ -132,13 +114,17 @@ const recruitDetail = () => {
                   </li>
                   <li className="data-box personnel-data">
                     <MdOutlinePeopleAlt size="20" fill="#f57e25" />
-                    {recruitData && <p>{recruitData.recruitCount}</p>}
+                    {recruitData && <p>{recruitData.recruitCount}명</p>}
                   </li>
                 </ul>
                 <div className="average-wrap">
                   <div className="average-title">
                     <span>참여자 평균 레벨 : </span>
-                    <span className="average-data">데이터</span>
+                    <span className="average-data">
+                      {recruitData && (
+                        <p>{recruitData.participantSportsSkillAverage}</p>
+                      )}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -148,7 +134,7 @@ const recruitDetail = () => {
                 <p>모집 내용</p>
               </div>
               <div className="match-content">
-                {recruitData && <p>{recruitData.cost}</p>}
+                {recruitData && <p>{recruitData.content}</p>}
               </div>
             </div>
           </div>
@@ -156,9 +142,10 @@ const recruitDetail = () => {
             <div className="apply-con">
               <div className="apply-main-section">
                 {recruitData && (
-                  <p className="match-person"> {recruitData.sportsId}</p>
+                  <p className="match-person">
+                    {recruitData.memberAccountName}
+                  </p>
                 )}
-                {/* 등록한 사람 */}
 
                 <div className="match-title">
                   {recruitData && <p>{recruitData.title}</p>}
@@ -182,7 +169,6 @@ const recruitDetail = () => {
                       </span>
                     </p>
                   )}
-                  {/* 서울특별시 영등포구 선유로 138 풋살파크장 */}
                 </div>
                 {recruitData && (
                   <p className="match-price">{recruitData.cost}원</p>
