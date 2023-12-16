@@ -32,7 +32,7 @@ const User = [
   },
 ]
 const ACCESSTOKEN =
-  'zzzzzzeyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYXBweWhzcnl1QGdtYWlsLmNvbSIsImlhdCI6MTcwMjM3Mjk5NywiZXhwIjoxNzAyNTg4OTk3fQ.WcUEwKNxFepfB9_fK3XAGQi71mfDefnNi_JIGxJZigD3Er8CeC5s0vBigzZVMGlYVD0th_Sv2tdzPtZo0wlhLw'
+  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYXBweWhzcnl1QGdtYWlsLmNvbSIsImlhdCI6MTcwMjM3Mjk5NywiZXhwIjoxNzAyNTg4OTk3fQ.WcUEwKNxFepfB9_fK3XAGQi71mfDefnNi_JIGxJZigD3Er8CeC5s0vBigzZVMGlYVD0th_Sv2tdzPtZo0wlhLw'
 export const handlers = [
   http.post('/member/login', ({ request }) => {
     console.log('로그인', request)
@@ -59,7 +59,7 @@ export const handlers = [
       },
     )
   }),
-  http.post('/api/logout', () => {
+  http.post('/member/logout', () => {
     console.log('로그아웃')
     return new HttpResponse(null, {
       headers: {
@@ -296,30 +296,90 @@ export const handlers = [
     const { accoutName } = params
     const url = new URL(request.url)
     const page = parseInt(url.searchParams.get('page') as string) || 0
-    return HttpResponse.json([
-      {
-        recordId: page + 1,
-        imageAddress: faker.image.urlPicsumPhotos(),
-      },
-      {
-        recordId: page + 2,
-        imageAddress: faker.image.urlPicsumPhotos(),
-      },
-      {
-        recordId: page + 3,
-        imageAddress: faker.image.urlPicsumPhotos(),
-      },
-      {
-        recordId: page + 4,
-        imageAddress: faker.image.urlPicsumPhotos(),
-      },
-      {
-        recordId: page + 5,
-        imageAddress: faker.image.urlPicsumPhotos(),
-      },
-    ])
+    return HttpResponse.json({
+      currentPage: page,
+      list: [
+        {
+          recordId: page + 1,
+          imageAddress: faker.image.urlPicsumPhotos(),
+        },
+        {
+          recordId: page + 2,
+          imageAddress: faker.image.urlPicsumPhotos(),
+        },
+        {
+          recordId: page + 3,
+          imageAddress: faker.image.urlPicsumPhotos(),
+        },
+        {
+          recordId: page + 4,
+          imageAddress: faker.image.urlPicsumPhotos(),
+        },
+        {
+          recordId: page + 5,
+          imageAddress: faker.image.urlPicsumPhotos(),
+        },
+        {
+          recordId: page + 6,
+          imageAddress: faker.image.urlPicsumPhotos(),
+        },
+      ],
+    })
   }),
   http.get('/profile/:accoutName', ({ request, params }) => {
-    return HttpResponse.json({})
+    const { accountName } = params
+    return HttpResponse.json({
+      memberProfile: {
+        accountName: accountName,
+        email: `test@gmail.com`,
+        interestSportsList: ['string'],
+        mannerScore: 7,
+        memberId: 0,
+        name: accountName,
+        plusAlpha: 0,
+        profileImage: faker.image.avatar(),
+      },
+      sportsSkills: [
+        {
+          sportsGrade: 'AMATEUR_1',
+          sportsName: 'string',
+          sportsSkillId: 0,
+        },
+      ],
+    })
+  }),
+  http.get('/profile/:accoutName/recruits', ({ request, params }) => {
+    const { accoutName } = params
+    const url = new URL(request.url)
+    const page = parseInt(url.searchParams.get('page') as string) || 0
+    return HttpResponse.json({
+      currentPage: 1,
+      list: [
+        {
+          content: faker.lorem.sentence(),
+          memberId: 0,
+          recruitId: page + 1,
+          recruitStatus: 'ALMOST_END',
+          sportsId: 0,
+          title: faker.lorem.sentence(3),
+        },
+        {
+          content: faker.lorem.sentence(),
+          memberId: 0,
+          recruitId: page + 2,
+          recruitStatus: 'ALMOST_END',
+          sportsId: 0,
+          title: faker.lorem.sentence(3),
+        },
+        {
+          content: faker.lorem.sentence(),
+          memberId: 0,
+          recruitId: page + 3,
+          recruitStatus: 'ALMOST_END',
+          sportsId: 0,
+          title: faker.lorem.sentence(3),
+        },
+      ],
+    })
   }),
 ]

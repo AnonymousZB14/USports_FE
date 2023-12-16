@@ -5,8 +5,10 @@ import Records from '@/app/(logged)/profile/_component/records'
 import Recruits, { Recruit } from '@/components/recruits'
 import { Getfetch } from '@/func/fetchCall'
 import React, { useEffect, useRef, useState } from 'react'
-import { QueryClient } from '@tanstack/react-query'
-
+import { QueryClient, useQuery } from '@tanstack/react-query'
+import { getProfileUser } from '../../_lib/getProfileUser'
+import { ProfileUserType } from '@/types/types'
+import UserAvatar from '@/components/userAvatar'
 const Content = ({ accountName }: { accountName: string }) => {
   const [number, setNum] = useState(0)
   const divRef = useRef<HTMLDivElement | null>(null)
@@ -14,6 +16,10 @@ const Content = ({ accountName }: { accountName: string }) => {
     const num = [...e.currentTarget.children].indexOf(e.target as HTMLLIElement)
     setNum(num)
   }
+  const { data, isFetching } = useQuery<ProfileUserType, Object>({
+    queryKey: ['profile', accountName],
+    queryFn: getProfileUser,
+  })
   useEffect(() => {
     ;[...(divRef.current as HTMLDivElement).children].forEach((div, idx) => {
       idx === number
@@ -21,17 +27,19 @@ const Content = ({ accountName }: { accountName: string }) => {
         : div.classList.remove('active')
     })
   }, [number])
+  useEffect(() => {
+    console.log(data)
+  },[data])
   return (
     <>
       <div className="profile_info">
         <div className="inner">
-          <Avatar />
+          <UserAvatar accountName={accountName} image={data?.memberProfile.profileImage!} />
           <div className="user_info">
             <h3>{accountName}</h3>
-            <p>@userId</p>
+            <p>{data?.memberProfile.email}</p>
           </div>
         </div>
-        
       </div>
       <div className="profile_contents">
         <CateUl onClick={cateOnclick} categories={['Record', 'Recruit']} />

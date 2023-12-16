@@ -31,20 +31,13 @@ export const {
             }),
           },
         )
-        let setCoo = req.headers.get('set-cookie')
-        console.log('set-cookie', setCoo)
         if (authResponse.headers['set-cookie']) {
           let setCookie = authResponse.headers['set-cookie'][0]
           if (setCookie) {
             const parsed = cookie.parse(setCookie)
-            cookies().set('connect.sid', parsed['connect.sid'], parsed) // 브라우저에 쿠키를 심어주는 것
+            cookies().set('connect.sid', parsed['connect.sid'], parsed)
           }
         }
-        const { user } = await authResponse.data
-        const { tokenDto } = user
-        console.log('User from server:', user, tokenDto)
-        axios.defaults.headers.common.Authorization = `Bearer ${tokenDto}`
-        localStorage.setItem('dd', tokenDto)
         if (authResponse.status === 401) {
           console.log('로그인 에러')
           throw new Error('로그인 실패')
@@ -52,9 +45,9 @@ export const {
           const { user } = await authResponse.data
           console.log('User from server:', user)
           return {
-            id: 1, // 임시
-            email: user.tokenDto,
-            name: user.email,
+            id: user.memberId, // 임시
+            email: user.email,
+            name: user.name,
             image: user.image,
             ...user,
           }

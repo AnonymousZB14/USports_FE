@@ -8,7 +8,7 @@ import axios from 'axios'
 import LocalStorage from '@/func/localstrage'
 import { useRecoilState } from 'recoil'
 import { UserState } from '@/store/user'
-import { getCookie } from '@/func/cookie_c'
+import { getCookie, removeCookie } from '@/func/cookie_c'
 import { axiosInstance, setHeaderToken } from '@/func/fetchCall'
 
 type Props = {
@@ -36,7 +36,7 @@ const LogoutBtn = ({ me }: Props) => {
     if (confirm('로그아웃 하시겠습니까?')) {
       alert('로그아웃되었습니다')
       signOut({ redirect: false }).then(() => {
-        axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/logout`, {
+        axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/member/logout`, {
           credentials: 'include',
         })
         setUser({
@@ -48,6 +48,7 @@ const LogoutBtn = ({ me }: Props) => {
         })
         LocalStorage.removeToken()
         router.replace('/login')
+        removeCookie('connect.sid')
       })
     }
   }

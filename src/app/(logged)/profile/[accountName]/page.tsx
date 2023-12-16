@@ -6,11 +6,16 @@ import {
   dehydrate,
 } from '@tanstack/react-query'
 import { getMyRecords } from '../_lib/getMyRecords'
+import { getProfileUser } from '../_lib/getProfileUser'
 type PageParams = {
   accountName: string
 }
 const page = async ({ params }: { params: PageParams }) => {
   const queryClient = new QueryClient()
+  await queryClient.prefetchQuery({
+    queryKey: ['profile', params.accountName],
+    queryFn: getProfileUser,
+  })
   await queryClient.prefetchInfiniteQuery({
     queryKey: ['records', params.accountName],
     queryFn: getMyRecords,
