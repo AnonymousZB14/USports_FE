@@ -1,39 +1,96 @@
-import React from "react";
-import UserInfoSec from "./userInfoSec";
-import Link from "next/link";
+import React, { Fragment, useEffect } from 'react'
+import UserInfoSec from './userInfoSec'
+import Link from 'next/link'
+import { useInView } from 'react-intersection-observer'
+import { InfiniteData, useInfiniteQuery, useQuery } from '@tanstack/react-query'
+import { getMyRecruits } from '@/app/(logged)/profile/_lib/getMyRecruits'
+import UserInfo from './userInfo'
+import { getProfileUser } from '@/app/(logged)/profile/_lib/getProfileUser'
+import { ProfileUserType } from '@/types/types'
+interface Recruits {
+  currentPage: number
+  list: Recruit[]
+}
+interface Recruit {
+  content: string
+  memberId: number
+  recruitId: number
+  recruitStatus: string
+  sportsId: number
+  title: string
+}
+const Recruits = ({ accoutName }: { accoutName: string }) => {
+  const { data: user } = useQuery<ProfileUserType>({
+    queryKey: ['profile', accoutName],
+    queryFn: getProfileUser,
+  })
+  const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery<
+    Recruits,
+    Object,
+    InfiniteData<Recruits>,
+    [_1: string, _2: string],
+    number
+  >({
+    queryKey: ['recruits', accoutName],
+    queryFn: getMyRecruits,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => lastPage.currentPage + 1,
+    staleTime: 60 * 1000,
+    gcTime: 300 * 1000,
+  })
+  const { ref, inView } = useInView({
+    threshold: 0,
+    delay: 0,
+  })
+  useEffect(() => {
+    if (inView) {
+      !isFetching && hasNextPage && fetchNextPage()
+    }
+  }, [inView, isFetching, hasNextPage, fetchNextPage])
 
-const Recruits = () => {
+  if (!data) return null
   return (
-    <ul>
-      <Recruit id={"001"} />
-      <Recruit id={"002"} />
-      <Recruit id={"003"} />
-      {/* <Recruit /> */}
-      {/* <Recruit /> */}
-    </ul>
-  );
-};
+    <>
+      <ul>
+        {data?.pages.map((page, itemIdx: number) => (
+          <Fragment key={itemIdx}>
+            {page.list.map((recruit) => (
+              <Recruit
+                key={recruit.recruitId + recruit.memberId}
+                item={recruit}
+                user={user!}
+              />
+            ))}
+          </Fragment>
+        ))}
+      </ul>
+      <div ref={ref} style={{ height: 50 }} />
+    </>
+  )
+}
 
-export const Recruit = ({ id }: { id: string }) => {
+export const Recruit = ({
+  item,
+  user,
+}: {
+  item: Recruit
+  user: ProfileUserType
+}) => {
   return (
     <li>
       <div className="recruit_head">
-        <UserInfoSec />
-        <Link href={`/recruit/${id}`}>자세히보기</Link>
+        <UserInfo
+          userId={user.memberProfile.email}
+          userImage={user.memberProfile.profileImage}
+          accountName={user.memberProfile.name}
+        />
+        <Link href={`/recruit/${item.recruitId}`}>자세히보기</Link>
       </div>
       <div className="recruit_body">
-        <h4>Lorem ipsum dolor sit amet</h4>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </p>
+        <h4>{item.title}</h4>
+        <p>{item.content}</p>
       </div>
     </li>
-  );
-};
-export default Recruits;
+  )
+}
+export default Recruits

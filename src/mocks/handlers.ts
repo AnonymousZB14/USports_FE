@@ -292,7 +292,7 @@ export const handlers = [
     ])
   }),
 
-  http.get('/profile/:accoutName-records', ({ request, params }) => {
+  http.get('/profile/:accoutName/records', ({ request, params }) => {
     const { accoutName } = params
     const url = new URL(request.url)
     const page = parseInt(url.searchParams.get('page') as string) || 0
@@ -330,14 +330,14 @@ export const handlers = [
     const { accountName } = params
     return HttpResponse.json({
       memberProfile: {
-        accountName: accountName,
+        accountName: 'accountName',
         email: `test@gmail.com`,
         interestSportsList: ['string'],
         mannerScore: 7,
         memberId: 0,
-        name: accountName,
+        name: 'name',
         plusAlpha: 0,
-        profileImage: faker.image.avatar(),
+        profileImage: '/nara1.PNG',
       },
       sportsSkills: [
         {

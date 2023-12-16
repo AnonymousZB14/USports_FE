@@ -50,7 +50,7 @@ const Content = ({ accountName }: { accountName: string }) => {
             </div>
           ) : (
             <div className="recruits">
-              <Recruits />
+              <Recruits accoutName={accountName} />
             </div>
           )}
         </div>
