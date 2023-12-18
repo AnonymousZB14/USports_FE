@@ -5,10 +5,12 @@ import SwitchButton from '@/components/switchButton'
 import Title from '@/components/title'
 import { useEffect, useState } from 'react'
 import { filterOptions } from '../../../types/data'
-import Button from '@/components/button'
+import Button from '@/components/commonButton'
 import Pagination from '@/components/pagination'
+import { useRouter } from 'next/navigation'
 
 const explore = () => {
+  const router = useRouter()
   const [isOn, setIsOn] = useState(false)
   const [isFilterDialogOpen1, setIsFilterDialogOpen1] = useState(false)
   const [selectedFilter1, setSelectedFilter1] = useState<string>('모든지역')
@@ -226,14 +228,26 @@ const explore = () => {
       </div>
       <div className="board-header">
         <p>총 {list.length}건</p>
-        <Button tailwindStyles="py-0 px-2" theme="blue">
+        <Button
+          tailwindStyles="py-0 px-2"
+          theme="blue"
+          onClick={() => {
+            router.replace(`/recruit/`)
+          }}
+        >
           모집글 작성하기
         </Button>
       </div>
 
       <ul className="board-list">
         {currentItems.map((el) => (
-          <li className="board-item" key={el.id}>
+          <li
+            className="board-item"
+            key={el.id}
+            onClick={() => {
+              router.replace(`/recruit/${el.id}`)
+            }}
+          >
             <div className="badge">{el.badge}</div>
             <div className="content">
               <p className="title">{el.title}</p>

@@ -1,5 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
+  async rewrites() {
+    return [
+      {
+        source: '/:path*',
+        destination: 'http://3.39.34.245:8080/:path*',
+      },
+    ]
+  },
+  trailingSlash: true,
   images: {
     remotePatterns: [
       {

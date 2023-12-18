@@ -1,24 +1,32 @@
 //func/fetchCall.ts
 import axios, { AxiosError } from 'axios'
-const API_TOKEN =
-  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYXBweWhzcnl1QGdtYWlsLmNvbSIsImlhdCI6MTcwMjM3Mjk5NywiZXhwIjoxNzAyNTg4OTk3fQ.WcUEwKNxFepfB9_fK3XAGQi71mfDefnNi_JIGxJZigD3Er8CeC5s0vBigzZVMGlYVD0th_Sv2tdzPtZo0wlhLw' // 서버에서 받아온 안전한 accountToken 사용
-export const axiosInstance = axios.create({
-  // baseURL: API_BASE_URL,
-  headers: {
-    credentials: 'include',
-    'Content-Type': 'application/json',
-    // Authorization: `Bearer ${API_TOKEN}`,
-  },
-})
-export const setHeaderToken = async (token: string) => {
-  axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`
+
+const getAxiosInstance = (baseURL: string | undefined, token: string) => {
+  if (!baseURL) {
+    throw new Error('Base URL is not defined.')
+  }
+
+  return axios.create({
+    baseURL,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  })
 }
 
-export const setInterceptor = (token: string) => {
-  if (!token) return false
-  axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`
-  return true
+const baseURL = process.env.NEXT_PUBLIC_BACKEND_SERVER
+
+if (!baseURL) {
+  throw new Error(
+    'NEXT_PUBLIC_BACKEND_SERVER is not defined in the environment.',
+  )
 }
+
+export const axiosInstance = getAxiosInstance(
+  baseURL,
+  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYXBweWhzcnl1QGdtYWlsLmNvbSIsImlhdCI6MTcwMjg2OTg0NiwiZXhwIjoxNzAzMDg1ODQ2fQ.Rq7sGPQr41ITjHJMO0D8oplAbsTYoWDXxsfDdR4Dj-DleqrRp2bc-wsw8iWnmPVI1Wx6_JLc6jsnEjXbRvWvew',
+)
 
 export async function Postfetch(url: string, data?: any, accesstoken?: string) {
   try {
@@ -26,7 +34,6 @@ export async function Postfetch(url: string, data?: any, accesstoken?: string) {
     return response.data
   } catch (error) {
     const axiosError = error as AxiosError
-    // Handle errors here
     throw axiosError
   }
 }
@@ -36,7 +43,26 @@ export async function Getfetch(url: string, accessToken?: string) {
     return response.data
   } catch (error) {
     const axiosError = error as AxiosError
-    // Handle errors here
+    throw axiosError
+  }
+}
+
+export async function Putfetch(url: string, data?: any) {
+  try {
+    const response = await axiosInstance.put(url, data)
+    return response.data
+  } catch (error) {
+    const axiosError = error as AxiosError
+    throw axiosError
+  }
+}
+
+export async function Deletefetch(url: string) {
+  try {
+    const response = await axiosInstance.delete(url)
+    return response.data
+  } catch (error) {
+    const axiosError = error as AxiosError
     throw axiosError
   }
 }
@@ -54,22 +80,6 @@ export async function GetPOSTfetch(url: string, tags: string[]) {
       },
     })
     return response.json()
-  } catch (error) {
-    const axiosError = error as AxiosError
-    // Handle errors here
-    throw axiosError
-  }
-}
-
-export async function postFormData(url: string, data: any) {
-  try {
-    const response = await axiosInstance.post(url, data, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        accept: 'application/json;charset=UTF-8',
-      },
-    })
-    return response
   } catch (error) {
     const axiosError = error as AxiosError
     // Handle errors here

@@ -1,26 +1,68 @@
 'use client'
 import KaKaoMap from '@/components/kakaoMap'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { RiShieldStarLine } from 'react-icons/ri'
 import { TbSoccerField } from 'react-icons/tb'
 import { IoMaleFemaleSharp } from 'react-icons/io5'
 import { MdPlace } from 'react-icons/md'
 import { MdOutlinePeopleAlt } from 'react-icons/md'
-import Button from '@/components/button'
+import Button from '@/components/commonButton'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-// import router from 'next/router'
+import { useRouter, useParams } from 'next/navigation'
+import axios from 'axios'
+import { Deletefetch, Putfetch, axiosInstance } from '@/func/fetchCall'
+import { recruitItemProps } from '@/types/types'
 
 const recruitDetail = () => {
-  const route = useRouter()
+  const params = useParams()
+  const router = useRouter()
+
+  const [recruitData, setRecruitData] = useState<recruitItemProps | undefined>()
+  const [formattedDate, setFormattedDate] = useState<string | undefined>()
+
+  // console.log(params)
+
+  useEffect(() => {
+    const { id } = params
+
+    axiosInstance
+      .get(`/recruit/${id}`)
+      .then((res) => {
+        setRecruitData(res.data)
+        console.log(res.data)
+        const formattedDate = formatDate(res.data.meetingDate)
+        setFormattedDate(formattedDate)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
+
+  function formatDate(inputDateStr: string) {
+    let inputDate = new Date(inputDateStr)
+
+    let options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      weekday: 'long',
+      hour: '2-digit',
+      minute: '2-digit',
+    }
+
+    let formattedDate = inputDate.toLocaleString('ko-KR', options)
+
+    return formattedDate
+  }
+
   return (
     <div className="recruit-detail-wrap">
       <div className="content-header">
         <button
           className="back-arrow"
-          // onClick={() => {
-          //   router.back()
-          // }}
+          onClick={() => {
+            router.back()
+          }}
         >
           <i>
             <span className="sr-only">back</span>
@@ -40,7 +82,7 @@ const recruitDetail = () => {
       </div>
       <div className="content-body">
         <div className="map-wrap">
-          <KaKaoMap Lat={37.566826} Lng={126.9786567} />
+          <KaKaoMap recruitData={recruitData} />
         </div>
         <div className="main-body-wrap">
           <div className="left-body-wrap">
@@ -52,29 +94,37 @@ const recruitDetail = () => {
                 <ul className="data-wrap">
                   <li className="data-box level-data">
                     <RiShieldStarLine size="20" fill="#f57e25" />
-                    <p>모든레벨</p>
+                    {recruitData && (
+                      <p className="grade-item">{recruitData.gradeFrom}</p>
+                    )}
+                    <span className="from-to-line"></span>
+                    {recruitData && <p>{recruitData.gradeTo}</p>}
                   </li>
                   <li className="data-box category-data">
                     <TbSoccerField size="20" stroke="#f57e25" />
-                    <p>축구</p>
+                    {recruitData && <p>{recruitData.sportsName}</p>}
                   </li>
                   <li className="data-box gender-data">
                     <IoMaleFemaleSharp size="20" fill="#f57e25" />
-                    <p>남자만</p>
+                    {recruitData && <p>{recruitData.gender}</p>}
                   </li>
                   <li className="data-box place-data">
                     <MdPlace size="20" fill="#f57e25" />
-                    <p>서울</p>
+                    {recruitData && <p>{recruitData.region}</p>}
                   </li>
                   <li className="data-box personnel-data">
                     <MdOutlinePeopleAlt size="20" fill="#f57e25" />
-                    <p>12명</p>
+                    {recruitData && <p>{recruitData.recruitCount}명</p>}
                   </li>
                 </ul>
                 <div className="average-wrap">
                   <div className="average-title">
                     <span>참여자 평균 레벨 : </span>
-                    <span className="average-data">데이터</span>
+                    <span className="average-data">
+                      {recruitData && (
+                        <p>{recruitData.participantSportsSkillAverage}</p>
+                      )}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -84,29 +134,52 @@ const recruitDetail = () => {
                 <p>모집 내용</p>
               </div>
               <div className="match-content">
-                <p>시청역 풋살파크에서 축구같이합시다!!</p>
+                {recruitData && <p>{recruitData.content}</p>}
               </div>
             </div>
           </div>
           <div className="right-body-wrap">
             <div className="apply-con">
               <div className="apply-main-section">
-                <p className="match-person">등록한 사람</p>
+                {recruitData && (
+                  <p className="match-person">
+                    {recruitData.memberAccountName}
+                  </p>
+                )}
+
                 <div className="match-title">
-                  <p>용인 풋살 같이 하실분.</p>
+                  {recruitData && <p>{recruitData.title}</p>}
                 </div>
                 <div className="match-time">
-                  <span className="match-time-info">일자</span>12월 9일 토요일
-                  19:00
+                  <div className="match-time-info">일자</div>
+                  {recruitData && <p>{formattedDate}</p>}
                 </div>
                 <div className="match-place">
-                  <span className="match-place-info">장소</span>서울특별시
-                  영등포구 선유로 138 풋살파크장
+                  <div className="match-place-info">장소</div>
+                  {recruitData && (
+                    <p className="info-box">
+                      <span className="place-space">
+                        {recruitData.streetNameAddr}
+                      </span>
+                      <span className="place-space">
+                        {recruitData.streetNumberAddr}
+                      </span>
+                      <span className="place-space">
+                        {recruitData.placeName}
+                      </span>
+                    </p>
+                  )}
                 </div>
-                <p className="match-price">50,000원</p>
+                {recruitData && (
+                  <p className="match-price">{recruitData.cost}원</p>
+                )}
               </div>
               <div className="apply-register-section">
-                <div className="apply-status">모집중</div>
+                {recruitData && (
+                  <div className="apply-status">
+                    {recruitData.recruitStatus}
+                  </div>
+                )}
                 <Button type="submit" tailwindStyles="py-0 px-2" theme="blue">
                   신청하기
                 </Button>
