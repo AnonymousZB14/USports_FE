@@ -14,20 +14,21 @@ import FilterSection from '@/components/filterSection'
 import { useRouter, useParams } from 'next/navigation'
 import axios from 'axios'
 import { Getfetch, axiosInstance } from '@/func/fetchCall'
+import { optionProps } from '@/types/types'
 
 interface recruit {
+  sportsName: string
   title: string
   content: string
   region: string
-  sportsID: number
+  cost: number
+  recruitCount: number
   gender: string
   gradeFrom: number
   gradeTo: number
-  cost: number
-  recruitCount: number
   address: string
   postCode: number
-  additional: string
+  placeName: string
   meetingDate: string
 }
 
@@ -41,16 +42,16 @@ const recruitWrite = () => {
   const [costNum, setCostNum] = useState('')
   const [personNum, setPersonNum] = useState('')
   const [reviewModalContent, setReviewModalContent] = useState('')
+  const [selectedRegion, setSelectedRegion] = useState<string>('모든지역')
+  const [selectedSports, setSelectedSports] = useState<string>('운동종목')
+  const [selectedGender, setSelectedGender] = useState<string>('성별')
+  const [selectedGradeFrom, setSelectedGradeFrom] = useState<string>('레벨')
+  const [selectedGradeTo, setSelectedGradeTo] = useState<string>('레벨')
   const [isFilterDialogOpen1, setIsFilterDialogOpen1] = useState(false)
-  const [selectedFilter1, setSelectedFilter1] = useState<string>('모든지역')
   const [isFilterDialogOpen2, setIsFilterDialogOpen2] = useState(false)
-  const [selectedFilter2, setSelectedFilter2] = useState<string>('운동종목')
   const [isFilterDialogOpen3, setIsFilterDialogOpen3] = useState(false)
-  const [selectedFilter3, setSelectedFilter3] = useState<string>('성별')
   const [isFilterDialogOpen4, setIsFilterDialogOpen4] = useState(false)
-  const [selectedFilter4, setSelectedFilter4] = useState<string>('레벨')
   const [isFilterDialogOpen5, setIsFilterDialogOpen5] = useState(false)
-  const [selectedFilter5, setSelectedFilter5] = useState<string>('레벨')
 
   const openFilterDialog1 = () => {
     setIsFilterDialogOpen1(true)
@@ -62,7 +63,7 @@ const recruitWrite = () => {
 
   const applyFilter1 = (filter: string) => {
     console.log('Applying filter 1:', filter)
-    setSelectedFilter1(filter)
+    setSelectedRegion(filter)
   }
 
   const openFilterDialog2 = () => {
@@ -75,7 +76,7 @@ const recruitWrite = () => {
 
   const applyFilter2 = (filter: string) => {
     console.log('Applying filter 2:', filter)
-    setSelectedFilter2(filter)
+    setSelectedSports(filter)
   }
 
   const openFilterDialog3 = () => {
@@ -88,7 +89,7 @@ const recruitWrite = () => {
 
   const applyFilter3 = (filter: string) => {
     console.log('Applying filter 3:', filter)
-    setSelectedFilter3(filter)
+    setSelectedGender(filter)
   }
 
   const openFilterDialog4 = () => {
@@ -101,7 +102,7 @@ const recruitWrite = () => {
 
   const applyFilter4 = (filter: string) => {
     console.log('Applying filter 4:', filter)
-    setSelectedFilter4(filter)
+    setSelectedGradeFrom(filter)
   }
 
   const openFilterDialog5 = () => {
@@ -113,7 +114,7 @@ const recruitWrite = () => {
   }
 
   const applyFilter5 = (filter: string) => {
-    setSelectedFilter5(filter)
+    setSelectedGradeTo(filter)
   }
 
   const handleDateChange = (
@@ -123,6 +124,22 @@ const recruitWrite = () => {
   ) => {
     setSelectedDate(dateStr)
   }
+
+  // const handleDateChange = (
+  //   selectedDates: Date[],
+  //   dateStr: string,
+  //   instance: flatpickr.Instance,
+  // ) => {
+  //   // Check if the dateStr is a valid date
+  //   const isValidDate = !isNaN(new Date(dateStr).getTime())
+
+  //   if (isValidDate) {
+  //     setSelectedDate(dateStr)
+  //   } else {
+  //     // Handle invalid date if needed
+  //     console.error('Invalid date selected:', dateStr)
+  //   }
+  // }
 
   const handleTitChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTit(event.target.value)
@@ -140,6 +157,21 @@ const recruitWrite = () => {
     setPersonNum(event.target.value)
   }
 
+  const [optionList, setOptionList] = useState<optionProps | undefined>()
+
+  useEffect(() => {
+    axiosInstance
+      .get(`/api/types`)
+      .then((res) => {
+        setOptionList(res.data)
+
+        console.log('optionList: ', res.data, optionList?.genderList)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
@@ -148,43 +180,57 @@ const recruitWrite = () => {
 
       recruitData.append('tit', tit)
       recruitData.append('content', content)
-      recruitData.append('region', selectedFilter1)
-      recruitData.append('sportsID', selectedFilter2)
-      recruitData.append('gender', selectedFilter3)
-      recruitData.append('gradeFrom', selectedFilter4)
-      recruitData.append('gradeTo', selectedFilter5)
       recruitData.append('cost', costNum)
-      recruitData.append('recruitCount', String(personNum))
-      recruitData.append('additional', JSON.stringify(addressData))
+      recruitData.append('recruitCount', personNum)
+      recruitData.append('additional', JSON.stringify(addressData || {}))
       recruitData.append('meetingDate', selectedDate)
+      recruitData.append('region', selectedRegion)
+      recruitData.append('sports', selectedSports)
+      recruitData.append('gender', selectedGender)
+      recruitData.append('gradeFrom', selectedGradeFrom)
+      recruitData.append('gradeTo', selectedGradeTo)
 
-      const res = await axiosInstance.post(`/recruit`, recruitData)
+      console.log('Recruit Data:', Object.fromEntries(recruitData))
+
+      // const res = await axiosInstance.post(`/recruit`, recruitData)
+      const res = await axiosInstance.post(`/recruit`, {
+        tit,
+        content,
+        cost: costNum,
+        recruitCount: personNum,
+        additional: JSON.stringify(addressData || {}),
+        meetingDate: selectedDate,
+        region: selectedRegion,
+        sports: selectedSports,
+        gender: selectedGender,
+        gradeFrom: selectedGradeFrom,
+        gradeTo: selectedGradeTo,
+      })
+      console.log('Response:', res)
 
       if (res.status === 200) {
+        setTit('')
         setContent('')
+        setCostNum('')
+        setPersonNum('')
+        setAddressData(null)
+        setSelectedDate('')
+        setSelectedRegion('')
+        setSelectedSports('')
+        setSelectedGender('')
+        setSelectedGradeFrom('')
+        setSelectedGradeTo('')
 
-        console.log('게시글 작성됐나?', tit, content, selectedFilter1)
+        setReviewModalContent('게시글 작성이 완료되었습니다.')
+        console.log('게시글 작성됐나?', tit, content, selectedRegion)
 
         setReviewModalContent('게시글 작성이 완료되었습니다.')
       }
     } catch (error) {
-      console.error('review 등록 중 오류:', error)
+      console.error('등록 중 오류:', error)
       setReviewModalContent('게시글 작성에 실패하였습니다.')
     }
   }
-
-  useEffect(() => {
-    const { id } = params
-
-    axiosInstance
-      .get(`/recruit/${id}`)
-      .then((res) => {
-        console.log('dfsdf', res.data.gradeFrom, res.data.gradeTo)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }, [])
 
   return (
     <>
@@ -216,8 +262,8 @@ const recruitWrite = () => {
             closeFilterDialog={closeFilterDialog1}
             applyFilter={applyFilter1}
             isFilterDialogOpen={isFilterDialogOpen1}
-            selectedFilter={selectedFilter1}
-            filterOptions={filterOptions.options1}
+            selectedFilter={selectedRegion}
+            filterOptions={optionList?.regionList || []}
             title="모든지역"
           />
 
@@ -226,8 +272,8 @@ const recruitWrite = () => {
             closeFilterDialog={closeFilterDialog2}
             applyFilter={applyFilter2}
             isFilterDialogOpen={isFilterDialogOpen2}
-            selectedFilter={selectedFilter2}
-            filterOptions={filterOptions.options2}
+            selectedFilter={selectedSports}
+            filterOptions={optionList?.sportsList || []}
             title="운동종목"
           />
 
@@ -236,8 +282,8 @@ const recruitWrite = () => {
             closeFilterDialog={closeFilterDialog3}
             applyFilter={applyFilter3}
             isFilterDialogOpen={isFilterDialogOpen3}
-            selectedFilter={selectedFilter3}
-            filterOptions={filterOptions.options3}
+            selectedFilter={selectedGender}
+            filterOptions={optionList?.genderList || []}
             title="성별"
           />
         </div>
@@ -249,19 +295,18 @@ const recruitWrite = () => {
               closeFilterDialog={closeFilterDialog4}
               applyFilter={applyFilter4}
               isFilterDialogOpen={isFilterDialogOpen4}
-              selectedFilter={selectedFilter4}
-              filterOptions={filterOptions.options4}
+              selectedFilter={selectedGradeFrom}
+              filterOptions={optionList?.sportsLevelList || []}
               title="레벨"
             />
-            {/* <select>{}</select> */}
             <span className="from-to-line"></span>
             <FilterSection
               openFilterDialog={openFilterDialog5}
               closeFilterDialog={closeFilterDialog5}
               applyFilter={applyFilter5}
               isFilterDialogOpen={isFilterDialogOpen5}
-              selectedFilter={selectedFilter5}
-              filterOptions={filterOptions.options5}
+              selectedFilter={selectedGradeTo}
+              filterOptions={optionList?.sportsLevelList || []}
               title="레벨"
             />
           </div>

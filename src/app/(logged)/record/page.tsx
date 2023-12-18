@@ -55,16 +55,15 @@ const recordWrite = () => {
     <>
       <Title title="Explore" />
 
+      <h1 className="write-tit">기록 글을 작성해주세요.</h1>
       <form onSubmit={handleSubmit} className="explore-form">
-        <h1>기록 글을 작성해주세요.</h1>
-
         <div className="tit-input-wrap">
-          <h2>제목</h2>
+          <label htmlFor="tit">제목</label>
           <input type="text" placeholder="제목을 입력해주세요.(50자 이내)" />
         </div>
 
         <div className="category-wrap">
-          <h2>카테고리</h2>
+          <label>카테고리</label>
           <ul className="category-con">
             <li>
               <button
@@ -88,12 +87,12 @@ const recordWrite = () => {
         </div>
 
         <div className="tit-input-wrap">
-          <h2>내용</h2>
+          <label>내용</label>
           <textarea placeholder="내용을 입력해주세요.(500자 이내)" />
         </div>
 
         <div className="tit-input-wrap">
-          <h2>사진</h2>
+          <label>사진</label>
           <div className="upload-wrap">
             <label htmlFor="input-file">
               <input

@@ -102,7 +102,7 @@ const recruitDetail = () => {
                   </li>
                   <li className="data-box category-data">
                     <TbSoccerField size="20" stroke="#f57e25" />
-                    {recruitData && <p>{recruitData.sportsId}</p>}
+                    {recruitData && <p>{recruitData.sportsName}</p>}
                   </li>
                   <li className="data-box gender-data">
                     <IoMaleFemaleSharp size="20" fill="#f57e25" />

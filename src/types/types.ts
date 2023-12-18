@@ -73,8 +73,15 @@ export interface recruitItemProps {
   recruitStatus: string
   region: string
   registeredAt: string
-  sportsId: number
+  sportsName: string
   streetNameAddr: string
   streetNumberAddr: string
   updatedAt: string
+}
+
+export interface optionProps {
+  genderList: string[]
+  regionList: string[]
+  sportsLevelList: string[]
+  sportsList: string[]
 }
