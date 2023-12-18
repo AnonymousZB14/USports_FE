@@ -1,23 +1,27 @@
 'use client'
 import { Postfetch } from '@/func/fetchCall'
-import axios from 'axios'
-
-import { redirect } from 'next/dist/server/api-utils'
-import React, { FormEvent, useLayoutEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import React from 'react'
 import { useForm } from 'react-hook-form'
 const SignUpModal = () => {
   const { register, handleSubmit } = useForm()
+  const route = useRouter()
   const onsubmitHandler = (e: any) => {
     console.log(e)
-    // postFormData(`${process.env.NEXT_PUBLIC_BACKEND_URL}/member/register`, e)
-    /*     axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/member/register`, e, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }) */
-    const callbackUrl = `${process.env.NEXT_PUBLIC_LOCAL}/home`
-    Postfetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/member/register`, e)
-
+    try {
+      const res = Postfetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/member/register`,
+        e,
+      ).then((res) => {
+        if (res.status === 200) {
+          alert('회원가입 성공!')
+          route.replace('/login')
+        }
+      })
+      
+    } catch (error) {
+      console.log(error)
+    }
   }
   return (
     <div className="createAccountP notLoggedP centered">
@@ -25,26 +29,28 @@ const SignUpModal = () => {
       <form onSubmit={handleSubmit(onsubmitHandler)}>
         <div>
           <div>
+            <p>닉네임</p>
             <input
               type="text"
               // name="accountName"
               id="accountName"
               {...register('accountName')}
-              placeholder="id 입력"
+              placeholder="계정명 ex)userId"
               onChange={() => {
                 console.log('x')
               }}
             />
-            <p>닉네임</p>
+
             <input
               type="text"
               {...register('name')}
               name="name"
               id="name"
-              placeholder="이름 입력"
+              placeholder="이름 ex)Nick"
             />
           </div>
           <div>
+            <p>이메일</p>
             <input
               {...register('email')}
               type="email"
@@ -53,7 +59,6 @@ const SignUpModal = () => {
               placeholder="이메일"
               required
             />
-            <button>이메일 인증</button>
           </div>
           {/*           <div className="verificationNum">
             <input
@@ -64,14 +69,17 @@ const SignUpModal = () => {
             />
             <button>인증하기</button>
           </div> */}
-          <input
-            {...register('password')}
-            type="password"
-            name="password"
-            id="password"
-            placeholder="비밀번호"
-            required
-          />
+          <div>
+            <p>비밀번호</p>
+            <input
+              {...register('password')}
+              type="password"
+              name="password"
+              id="password"
+              placeholder="비밀번호"
+              required
+            />
+          </div>
           {/*           <input
             type="password"
             name="verifypassword"

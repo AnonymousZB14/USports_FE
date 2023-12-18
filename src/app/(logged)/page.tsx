@@ -6,6 +6,8 @@ export default function Home() {
   console.log(role)
   if (role === 'UNAUTH') {
     redirect('/mypage')
+  } else {
+    redirect('/home')
   }
   return null
 }

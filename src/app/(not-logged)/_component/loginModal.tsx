@@ -32,25 +32,8 @@ const LoginModal = () => {
       onLoginSuccess(res?.data)
       LocalStorage.setAccessToken(res.data.tokenDto.accessToken)
       setHeaderToken(res.data.tokenDto.accessToken)
-      setUser({
-        ...user,
-        accountName: res.data.member.accountName,
-        email: res.data.member.email,
-        gender: res.data.member.gender,
-        role: res.data.member.role,
-        password: res.data.member.password,
-        memberId: res.data.member.memberId,
-        name: res.data.member.name,
-        phoneNumber: res.data.member.phoneNumber,
-        profileImage: res.data.member.profileImage,
-        username: res.data.member.username,
-        profileOpen: res.data.member.profileOpen,
-        tokenDto: {
-          accessToken: res.data.tokenDto.accessToken,
-          refreshToken: res.data.tokenDto.refreshToken,
-          tokenType: res.data.tokenDto.tokenType,
-        },
-      })
+      LocalStorage.setItem('user', JSON.stringify(res.data))
+      setUser(res.data)
     } catch (error) {
       console.error(error)
     }
@@ -93,7 +76,6 @@ const LoginModal = () => {
       <div className="socialLogBtn">
         <button
           className="kakaoBtn"
-          // onClick={() => signIn('kakao', { redirect: true, callbackUrl: '/' })}
         >
           카카오로 로그인
         </button>

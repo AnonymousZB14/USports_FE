@@ -46,10 +46,15 @@ export const onLoginSuccess = (res: any) => {
   axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`
   // setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000)
 }
-export const onLogoutFun = () => {
-  axiosInstance.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/member/logout`)
+export const onLogoutFun = (accessToken?:string) => {
+  axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/member/logout`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    }
+  })
   removeCookie('accessToken')
   removeCookie('refreshToken')
   removeCookie('role')
   LocalStorage.removeToken()
+  LocalStorage.removeItem('user')
 }

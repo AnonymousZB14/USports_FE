@@ -110,7 +110,7 @@ export interface Post {
 }
 
 export interface ProfileUserType {
-  memberProfile: {
+  memberInfo: {
     accountName: string
     email: string
     interestSportsList: string[]

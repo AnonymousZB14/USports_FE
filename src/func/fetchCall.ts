@@ -31,7 +31,7 @@ export const axiosInstance = getAxiosInstance(
 export async function Postfetch(url: string, data?: any, accesstoken?: string) {
   try {
     const response = await axiosInstance.post(url, data)
-    return response.data
+    return response
   } catch (error) {
     const axiosError = error as AxiosError
     throw axiosError

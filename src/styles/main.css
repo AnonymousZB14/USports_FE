@@ -2348,7 +2348,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
 .editUser form > div > * {
   font-size: var(--text-size-base);
 }
-.editUser form > div input:not([type=submit], [type=button]) {
+.editUser form > div input:not([type=submit], [type=button]), .editUser form > div button.resend {
   border: 1px solid #ccc;
   height: 40px;
   padding-left: 10px;

@@ -6,30 +6,38 @@ import axios from 'axios'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { use, useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { useRecoilState } from 'recoil'
 
-export const data = {
-  accountName: 'userId',
-  name: 'NaraLee',
-  phoneNum: '01028335328',
-  birth: '1997-12-23',
-  gener: 'female',
-  accountOpen: true,
-  profileContent: '배고파',
-  profileImg: '/tomatoA.png',
-  addrCity: '구리시',
-  interestSports: ['클라이밍', '러닝'],
-}
 const Page = () => {
-  const [userInfo, setUserInfo] = useState(data)
   const router = useRouter()
+  const [message, setMessage] = useState('')
+  const [isLoading, setLoding] = useState(false)
   const [user, setUser] = useRecoilState(UserDetailState)
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, control } = useForm()
+
+  const resendEmail = async () => {
+    setLoding(false)
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/member/${user.member.memberId}/resend-email-auth`,
+        {
+          headers: {
+            credentials: 'include',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${user.tokenDto.accessToken}`,
+          },
+        },
+      )
+      setLoding(false)
+    } catch (error) {}
+  }
   const onsubmitHandler = async (e: any) => {
+    setLoding(true)
+    setMessage('')
     try {
       const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/member/${user.memberId}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/member/${user.member.memberId}`,
         e,
         {
           headers: {
@@ -39,24 +47,33 @@ const Page = () => {
           },
         },
       )
-      if (!(res.status == 200)) return
-      const { data } = res
-      setUser({
+      // if (!(res.status == 200)) return
+      if (res.status == 400) {
+        const { data } = res
+        localStorage.setItem('user', data)
+      } else {
+        return '오류 발생'
+      }
+      /*       setUser({
         ...user,
-        accountName: data.accountName,
-        activeRegion: data.activeRegion,
-        birthDate: data.birthDate,
-        email: data.email,
-        gender: data.gender,
-        interestedSports: data.interestedSports,
-        name: data.name,
-        phoneNumber: data.phoneNumber,
-        profileImage: data.profileImage,
-        profileOpen: data.profileOpen,
-      })
-    } catch (error) {
-      console.error(error)
+        member: {
+          ...user.member,
+          accountName: data.accountName,
+          activeRegion: data.activeRegion,
+          birthDate: data.birthDate,
+          email: data.email,
+          gender: data.gender,
+          interestedSports: data.interestedSports,
+          name: data.name,
+          phoneNumber: data.phoneNumber,
+          profileImage: data.profileImage,
+          profileOpen: data.profileOpen,
+        },
+      }) */
+    } catch (e) {
+      console.error(e)
     }
+    setLoding(false)
 
     // router.replace('/')
   }
@@ -68,7 +85,53 @@ const Page = () => {
       <div className="editUser">
         <p>내 정보 수정</p>
         <form onSubmit={handleSubmit(onsubmitHandler)}>
+          {/*           {fields.map((field, index) => {
+            return (
+              <div key={field.id}>
+                <input
+                  type="number"
+                  {...register(`interestedSports[${index}]`)}
+                />
+                {index > 0 && (
+                  <button type="button" onClick={() => remove(index)}>
+                    Remove
+                  </button>
+                )}
+              </div>
+            )
+          })}
+          <button type="button" onClick={() => append({ number: '' })}>
+            Add phone number
+          </button> */}
           <div>
+            <label htmlFor="interestedSports">관심 운동 종목</label>
+            <input
+              type="checkbox"
+              id="interestedSports"
+              {...register('interestedSports')}
+              value={1}
+              // checked={user.member.gender === 'FEMALE'}
+              // checked={user.member.interestedSports.includes('1')}
+            />
+            축구
+            <input
+              type="checkbox"
+              {...register('interestedSports')}
+              id="interestedSports"
+              value={2}
+              // checked={user.member.interestedSports.includes('2')}
+            />
+            야구
+            <input
+              type="checkbox"
+              {...register('interestedSports')}
+              id="interestedSports"
+              value={3}
+              // checked={user.member.interestedSports.includes('3')}
+            />
+            클라이밍
+          </div>
+          {/*           <div>
             <label>프로필사진</label>
             <label htmlFor="profileImg">
               <Image
@@ -79,17 +142,29 @@ const Page = () => {
               />
             </label>
             <input type="file" id="profileImg" accept="image/*,svg/*" />
-          </div>
-          <div>
-            <label htmlFor="emailAuthNumber">* emailAuthNumber</label>
-            <input
-              type="text"
-              id="emailAuthNumber"
-              {...register('emailAuthNumber')}
-              required
-              // value={userInfo.accountName}
-            />
-          </div>
+          </div> */}
+          {user.member.role === 'UNAUTH' ? (
+            <div>
+              <label htmlFor="emailAuthNumber">* 이메일 인증번호</label>
+              <input
+                type="text"
+                id="emailAuthNumber"
+                {...register('emailAuthNumber')}
+
+                // value={user.accountName}
+              />
+              <button
+                className="resend"
+                disabled={!setLoding}
+                onClick={resendEmail}
+              >
+                이메일 다시 발송하기
+              </button>
+            </div>
+          ) : (
+            <></>
+          )}
+          <div></div>
           <div>
             <label htmlFor="phoneNumber">* 번호</label>
             <input
@@ -97,7 +172,7 @@ const Page = () => {
               id="phoneNumber"
               {...register('phoneNumber')}
               // required
-              value={userInfo.phoneNum}
+              value={user.member.phoneNumber}
             />
           </div>
           <div>
@@ -107,19 +182,19 @@ const Page = () => {
               id="activeRegion"
               {...register('activeRegion')}
               // required
-              // value={userInfo.phoneNum}
+              value={user.member.activeRegion}
             />
           </div>
-          <div>
+          {/*           <div>
             <label htmlFor="interestedSports">* 관심 운동</label>
             <input
               type="text"
               id="interestedSports"
               {...register('interestedSports')}
               // required
-              // value={userInfo.phoneNum}
+              value={user.member.interestedSports}
             />
-          </div>
+          </div> */}
           <div>
             <label htmlFor="accountName">@AccountName</label>
             <input
@@ -127,7 +202,7 @@ const Page = () => {
               id="accountName"
               {...register('accountName')}
               // required
-              value={userInfo.accountName}
+              value={user.member.accountName}
             />
           </div>
           <div>
@@ -137,14 +212,19 @@ const Page = () => {
               id="name"
               {...register('name')}
               required
-              value={userInfo.name}
+              value={user.member.name}
             />
           </div>
-
-          {/*           <div>
+          <div>
             <label htmlFor="birth">@생년월일</label>
-            <input type="date" id="birth" required value={userInfo.birth} />
-          </div> */}
+            <input
+              type="date"
+              id="birth"
+              required
+              {...register('birthDate')}
+              value={user.member.birthDate}
+            />
+          </div>
           <div>
             <label htmlFor="gener">성별</label>
             <input
@@ -153,7 +233,7 @@ const Page = () => {
               {...register('gender')}
               required
               value={'FEMALE'}
-              checked={userInfo.gener === 'female'}
+              checked={user.member.gender === 'FEMALE'}
             />
             여성
             <input
@@ -162,7 +242,7 @@ const Page = () => {
               id="gener"
               required
               value={'MALE'}
-              checked={userInfo.gener === 'male'}
+              checked={user.member.gender === 'MALE'}
             />
             남성
           </div>
@@ -174,7 +254,7 @@ const Page = () => {
               required
               {...register('profileOpen')}
               value={'open'}
-              checked={userInfo.accountOpen}
+              checked={user.member.profileOpen}
             />
             공개
             <input
@@ -183,7 +263,7 @@ const Page = () => {
               {...register('profileOpen')}
               required
               value={'close'}
-              checked={!userInfo.accountOpen}
+              checked={!user.member.profileOpen}
             />
             비공개
           </div>
@@ -206,6 +286,7 @@ const Page = () => {
             <input type="submit" value="제출하기" />
           </div>
         </form>
+        <p>{message}</p>
       </div>
     </Modal>
   )

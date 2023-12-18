@@ -5,6 +5,7 @@ import { MSWComponent } from '@/app/_component/MSWComponent'
 import axios from 'axios'
 import RecoilRootWrapper from '@/containers/recoilRootWrapper'
 import RQProvider from './(logged)/_component/RQProvider'
+import UserInfoProvider from './_component/UserInfoProvider'
 
 export const metadata: Metadata = {
   title: 'USports',
@@ -22,7 +23,9 @@ export default async function RootLayout({
       <body>
         <RecoilRootWrapper>
           <MSWComponent />
-          <RQProvider>{children}</RQProvider>
+          <UserInfoProvider>
+            <RQProvider>{children}</RQProvider>
+          </UserInfoProvider>
         </RecoilRootWrapper>
         <script
           src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_APP_KEY}&autoload=false`}
