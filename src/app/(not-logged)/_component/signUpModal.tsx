@@ -1,6 +1,8 @@
 'use client'
-import { Postfetch, postFormData } from '@/func/fetchCall'
+import { Postfetch } from '@/func/fetchCall'
 import axios from 'axios'
+
+import { redirect } from 'next/dist/server/api-utils'
 import React, { FormEvent, useLayoutEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 const SignUpModal = () => {
@@ -13,7 +15,9 @@ const SignUpModal = () => {
         'Content-Type': 'application/json',
       },
     }) */
+    const callbackUrl = `${process.env.NEXT_PUBLIC_LOCAL}/home`
     Postfetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/member/register`, e)
+
   }
   return (
     <div className="createAccountP notLoggedP centered">

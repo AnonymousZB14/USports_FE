@@ -2,35 +2,27 @@
 import Link from 'next/link'
 import { ChangeEventHandler, FormEventHandler, useState } from 'react'
 import { redirect, useRouter } from 'next/navigation'
-import { signIn, signOut } from 'next-auth/react'
+
 import { useForm } from 'react-hook-form'
 import { Postfetch } from '@/func/fetchCall'
 import { useRecoilState } from 'recoil'
-import { onLoginSuccess } from '@/func/authServices'
-// import { LoginState } from '@/store/user'
+import { loginFun, onLoginSuccess } from '@/func/service'
+import axios from 'axios'
+
 const LoginModal = () => {
   const router = useRouter()
-  // const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState)
   const [message, setMessage] = useState('')
+  
   const { register, handleSubmit } = useForm()
   /*  
   happyhsryu@gmail.com
   a123456789!
   */
 
-  const onsubmitHandler = (e: any) => {
-    const callbackUrl = `${process.env.NEXT_PUBLIC_LOCAL}/home`
-    console.log(e)
-    signIn('credentials', {
-      email: e.email,
-      password: e.password,
-      redirect: true,
-      callbackUrl,
-    })
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((err) => console.log(err))
+  const onsubmitHandler = async (e: any) => {
+    const res = await loginFun(e.email, e.password)
+    onLoginSuccess(res)
+    router.replace('/home')
   }
 
   return (
@@ -66,7 +58,7 @@ const LoginModal = () => {
       <div className="socialLogBtn">
         <button
           className="kakaoBtn"
-          onClick={() => signIn('kakao', { redirect: true, callbackUrl: '/' })}
+          // onClick={() => signIn('kakao', { redirect: true, callbackUrl: '/' })}
         >
           카카오로 로그인
         </button>

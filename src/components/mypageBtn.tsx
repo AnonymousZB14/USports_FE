@@ -2,16 +2,13 @@
 import Link from 'next/link'
 import React, { useLayoutEffect } from 'react'
 import { FaRegUserCircle } from 'react-icons/fa'
-import { useSession } from 'next-auth/react'
+
 import { useRecoilState } from 'recoil'
 import { UserState, UserState as userstate } from '@/store/user'
 const MypageBtn = () => {
-  const { data: session, status } = useSession()
+  
   const [user, setUser] = useRecoilState(UserState)
 
-  if (status === 'authenticated') {
-    // console.log(session)
-  }
   return (
     <Link href={'/mypage'}>
       <FaRegUserCircle />

@@ -382,4 +382,60 @@ export const handlers = [
       ],
     })
   }),
+  http.get('/record/:recordId', ({ request, params }) => {
+    const { recordId } = params
+    const url = new URL(request.url)
+    // const page = parseInt(url.searchParams.get('page') as string) || 0
+    return HttpResponse.json({
+      accountName: 'nara',
+      commentList: [
+        {
+          accountName: faker.person.firstName(),
+          commentId: 0,
+          content: faker.lorem.sentence(),
+          memberId: 0,
+          name: faker.person.firstName(),
+          parentId: 0,
+          profileImage: faker.image.avatar(),
+          recordId: 0,
+          registerAt: '2023-12-18T04:20:57.627Z',
+          updatedAt: '2023-12-18T04:20:57.627Z',
+        },
+        {
+          accountName: faker.person.firstName(),
+          commentId: 0,
+          content: faker.lorem.sentence(),
+          memberId: 0,
+          name: faker.person.firstName(),
+          parentId: 0,
+          profileImage: faker.image.avatar(),
+          recordId: 0,
+          registerAt: '2023-12-18T04:20:57.627Z',
+          updatedAt: '2023-12-18T04:20:57.627Z',
+        },
+        {
+          accountName: faker.person.firstName(),
+          commentId: 0,
+          content: faker.lorem.sentence(),
+          memberId: 0,
+          name: faker.person.firstName(),
+          parentId: 0,
+          profileImage: faker.image.avatar(),
+          recordId: 0,
+          registerAt: '2023-12-18T04:20:57.627Z',
+          updatedAt: '2023-12-18T04:20:57.627Z',
+        },
+      ],
+      countComment: 0,
+      imageAddressList: [faker.image.urlPicsumPhotos(),faker.image.urlPicsumPhotos()],
+      memberId: 0,
+      name: faker.person.firstName(),
+      profileImage: faker.image.avatar(),
+      recordContent: '러닝 오운완',
+      recordId: recordId,
+      registeredAt: '2023-12-18T04:20:57.627Z',
+      sportsId: 0,
+      updatedAt: '2023-12-18T04:20:57.627Z',
+    })
+  }),
 ]

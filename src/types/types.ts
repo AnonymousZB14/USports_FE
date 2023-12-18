@@ -25,6 +25,32 @@ export type Record = {
   sportsId: number
   updatedAt: Date
 }
+export interface RecordDetailComment {
+  accountName: string
+  commentId: number
+  content: string
+  memberId: number
+  name: string
+  parentId: number
+  profileImage: string
+  recordId: number
+  registerAt: Date
+  updatedAt: Date
+}
+export interface RecordDetail {
+  accountName: string
+  commentList: RecordDetailComment[]
+  countComment: number
+  imageAddressList: string[]
+  memberId: number
+  name: string
+  profileImage: string
+  recordContent: string
+  recordId: number
+  registeredAt: Date
+  sportsId: number
+  updatedAt: Date
+}
 export type Records = Record[]
 
 export interface FilterDialogProps {
@@ -72,4 +98,36 @@ export interface ProfileUserType {
       sportsSkillId: number
     },
   ]
+}
+
+export interface optionProps {
+  genderList: string[]
+  regionList: string[]
+  sportsLevelList: string[]
+  sportsList: string[]
+}
+
+export interface recruitItemProps {
+  title: string
+  content: string
+  cost: number
+  gender: string
+  gradeFrom: number
+  gradeTo: number
+  lat: number
+  lnt: number
+  memberAccountName: string
+  participantSportsSkillAverage: string
+  meetingDate: string
+  recruitId: number
+  memberId: number
+  placeName: string
+  recruitCount: number
+  recruitStatus: string
+  region: string
+  registeredAt: string
+  sportsName: string
+  streetNameAddr: string
+  streetNumberAddr: string
+  updatedAt: string
 }

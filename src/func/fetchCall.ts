@@ -19,7 +19,7 @@ const baseURL = process.env.NEXT_PUBLIC_BACKEND_SERVER
 
 if (!baseURL) {
   throw new Error(
-    'NEXT_PUBLIC_BACKEND_SERVER is not defined in the environment.',
+    'NEXT_PUBLIC_BACKENRecordDetailComment_SERVER is not defined in the environment.',
   )
 }
 
@@ -85,4 +85,7 @@ export async function GetPOSTfetch(url: string, tags: string[]) {
     // Handle errors here
     throw axiosError
   }
+}
+export const setHeaderToken = async (token: string) => {
+  axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`
 }
