@@ -9,7 +9,7 @@ const page = () => {
   const [user, setUser] = useRecoilState(UserDetailState)
   const route = useRouter()
   useEffect(() => {
-    route.replace(`profile/${user.member.accountName}`)
+    route.replace(`profile/nara`)
   }, [])
   return null
 }

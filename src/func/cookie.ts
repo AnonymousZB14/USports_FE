@@ -6,9 +6,7 @@ export const setCookie = (key: string, value: string, option?: any) => {
   cookies().set(key, value, { ...option })
 }
 
-export const setCookieToken = (accesstoken: any) => {
-  cookies().set('Authorization', `Bearer ${accesstoken}`)
-}
+
 
 export const getCookie = (key: string) => {
   return cookieStore.get(key)

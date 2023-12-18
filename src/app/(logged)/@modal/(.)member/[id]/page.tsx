@@ -14,8 +14,15 @@ const Page = () => {
   const [message, setMessage] = useState('')
   const [isLoading, setLoding] = useState(false)
   const [user, setUser] = useRecoilState(UserDetailState)
-  const { register, handleSubmit, control } = useForm()
-
+  const { register, handleSubmit, control, watch } = useForm()
+  const [imagePreview, setImagePreview] = useState('')
+  const profileImage = watch('profileImage')
+  useEffect(() => {
+    if (profileImage && profileImage.length > 0) {
+      const file = profileImage[0]
+      setImagePreview(URL.createObjectURL(file))
+    }
+  }, [profileImage])
   const resendEmail = async () => {
     setLoding(false)
     try {
@@ -85,24 +92,6 @@ const Page = () => {
       <div className="editUser">
         <p>내 정보 수정</p>
         <form onSubmit={handleSubmit(onsubmitHandler)}>
-          {/*           {fields.map((field, index) => {
-            return (
-              <div key={field.id}>
-                <input
-                  type="number"
-                  {...register(`interestedSports[${index}]`)}
-                />
-                {index > 0 && (
-                  <button type="button" onClick={() => remove(index)}>
-                    Remove
-                  </button>
-                )}
-              </div>
-            )
-          })}
-          <button type="button" onClick={() => append({ number: '' })}>
-            Add phone number
-          </button> */}
           <div>
             <label htmlFor="interestedSports">관심 운동 종목</label>
             <input
@@ -131,18 +120,23 @@ const Page = () => {
             />
             클라이밍
           </div>
-          {/*           <div>
+          <div>
             <label>프로필사진</label>
             <label htmlFor="profileImg">
               <Image
                 width={100}
                 height={100}
-                alt="avatar"
-                src={'/tomatoA.svg'}
+                alt="profileImage"
+                src={imagePreview}
               />
             </label>
-            <input type="file" id="profileImg" accept="image/*,svg/*" />
-          </div> */}
+            <input
+              type="file"
+              id="profileImg"
+              {...register('profileImage')}
+              accept="image/*,svg/*"
+            />
+          </div>
           {user.member.role === 'UNAUTH' ? (
             <div>
               <label htmlFor="emailAuthNumber">* 이메일 인증번호</label>

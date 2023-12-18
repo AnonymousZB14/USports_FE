@@ -3,11 +3,10 @@ import type { Metadata } from 'next'
 import '../../styles/main.css'
 import '../globals.css'
 import { redirect } from 'next/navigation'
-
 import Header from '@/containers/header'
-
 import { cookies } from 'next/headers'
-
+import LocalStorage from '@/func/localstrage'
+import { checkCookie } from '@/func/cookie'
 export const metadata: Metadata = {
   title: 'USports',
   description: 'usports',
@@ -20,7 +19,6 @@ export default async function RootLayout({
   children: React.ReactNode
   modal: React.ReactNode
 }) {
-
 
   return (
     <div id="wrap">

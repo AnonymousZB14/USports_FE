@@ -1,13 +1,8 @@
+import { checkCookie } from '@/func/cookie'
+import LocalStorage from '@/func/localstrage'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 export default function Home() {
-  const role = cookies().get('role')?.value
-  console.log(role)
-  if (role === 'UNAUTH') {
-    redirect('/mypage')
-  } else {
-    redirect('/home')
-  }
-  return null
+  redirect('/home')
 }

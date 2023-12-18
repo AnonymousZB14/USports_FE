@@ -5,6 +5,9 @@ import { MSWComponent } from '@/app/_component/MSWComponent'
 import { redirect } from 'next/navigation'
 import axios from 'axios'
 import RecoilRootWrapper from '@/containers/recoilRootWrapper'
+import { cookies } from 'next/headers'
+import { checkCookie } from '@/func/cookie'
+import LocalStorage from '@/func/localstrage'
 
 export const metadata: Metadata = {
   title: 'USports',

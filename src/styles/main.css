@@ -419,6 +419,39 @@ main:is(main > section) {
   transition: all 0.2s;
 }
 
+.rolebg {
+  position: fixed;
+  width: 100dvw;
+  height: 100dvh;
+  background-color: rgba(0, 0, 0, 0.6666666667);
+  z-index: 10;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rolebg .roleInner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.rolebg .roleInner p {
+  font-size: 20px;
+  text-align: center;
+  line-height: 1.5;
+  color: #fff;
+}
+.rolebg .roleInner a {
+  background-color: red;
+  color: #fff;
+  padding: 14px 30px;
+  border-radius: 10px;
+  font-size: 17px;
+}
+
 .records ul {
   margin-top: 0px;
   display: flex;
