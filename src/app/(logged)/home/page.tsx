@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 const page = async () => {
   const queryClient = new QueryClient()
   await queryClient.prefetchInfiniteQuery({
-    queryKey: ['posts', 'recommends'],
+    queryKey: ['records', 'recommends'],
     queryFn: getPostRecommends,
     initialPageParam: 0,
   })

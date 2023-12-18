@@ -5,29 +5,25 @@ import { useRecoilState } from 'recoil'
 import { UserState, UserState as userstate } from '@/store/user'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
-const Avatar = ({
+const UserAvatar = ({
   width,
   height,
   isItprofile,
+  image,
+  accountName,
 }: {
   width?: string
   height?: string
   isItprofile?: boolean
+  image: string
+  accountName: string
 }) => {
-  const [user, setUser] = useRecoilState(UserState)
-  const session = useSession()
   return (
     <div style={{ width: width, height: height }}>
       <div className="avatar_img">
-        {/* <p>{session.data?.user?.email}</p> */}
         {
-          <Link href={isItprofile ? '#none' : '/profile'}>
-            <img
-              src={
-                user.profileImage ? session.data?.user?.image! : '/tomatoA.svg'
-              }
-              alt="profileImage"
-            />
+          <Link href={isItprofile ? '#none' : `profile/${accountName}`}>
+            <img src={image} alt="profileImage" />
           </Link>
         }
       </div>
@@ -35,4 +31,4 @@ const Avatar = ({
   )
 }
 
-export default Avatar
+export default UserAvatar

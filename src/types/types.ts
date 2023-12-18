@@ -54,34 +54,22 @@ export interface Post {
   Images: []
 }
 
-export interface recruitItemProps {
-  title: string
-  content: string
-  cost: number
-  gender: string
-  gradeFrom: number
-  gradeTo: number
-  lat: number
-  lnt: number
-  memberAccountName: string
-  participantSportsSkillAverage: string
-  meetingDate: string
-  recruitId: number
-  memberId: number
-  placeName: string
-  recruitCount: number
-  recruitStatus: string
-  region: string
-  registeredAt: string
-  sportsName: string
-  streetNameAddr: string
-  streetNumberAddr: string
-  updatedAt: string
-}
-
-export interface optionProps {
-  genderList: string[]
-  regionList: string[]
-  sportsLevelList: string[]
-  sportsList: string[]
+export interface ProfileUserType {
+  memberProfile: {
+    accountName: string
+    email: string
+    interestSportsList: string[]
+    mannerScore: number
+    memberId: number
+    name: string
+    plusAlpha: number
+    profileImage: string
+  }
+  sportsSkills: [
+    {
+      sportsGrade: string
+      sportsName: string
+      sportsSkillId: number
+    },
+  ]
 }

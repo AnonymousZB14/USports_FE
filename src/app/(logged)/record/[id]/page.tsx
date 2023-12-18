@@ -10,6 +10,7 @@ import CommentInput from '@/components/commentInput'
 import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
 import dayjs from 'dayjs'
+import { Getfetch } from '@/func/fetchCall'
 type PageParams = {
   id: string
 }
@@ -21,6 +22,7 @@ const page = ({ params }: { params: PageParams }) => {
     if (pageRef.current === null) return
     scrollHandler(pageRef.current)
   }, [pageRef])
+ 
   return (
     <>
       <section ref={pageRef} className="record_detail_sec">

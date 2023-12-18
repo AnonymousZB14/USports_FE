@@ -1,3 +1,4 @@
+//func/fetchCall.ts
 import axios, { AxiosError } from 'axios'
 
 const getAxiosInstance = (baseURL: string | undefined, token: string) => {
@@ -27,7 +28,7 @@ export const axiosInstance = getAxiosInstance(
   'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYXBweWhzcnl1QGdtYWlsLmNvbSIsImlhdCI6MTcwMjg2OTg0NiwiZXhwIjoxNzAzMDg1ODQ2fQ.Rq7sGPQr41ITjHJMO0D8oplAbsTYoWDXxsfDdR4Dj-DleqrRp2bc-wsw8iWnmPVI1Wx6_JLc6jsnEjXbRvWvew',
 )
 
-export async function Postfetch(url: string, data?: any) {
+export async function Postfetch(url: string, data?: any, accesstoken?: string) {
   try {
     const response = await axiosInstance.post(url, data)
     return response.data
@@ -36,8 +37,7 @@ export async function Postfetch(url: string, data?: any) {
     throw axiosError
   }
 }
-
-export async function Getfetch(url: string) {
+export async function Getfetch(url: string, accessToken?: string) {
   try {
     const response = await axiosInstance.get(url)
     return response.data
@@ -63,6 +63,26 @@ export async function Deletefetch(url: string) {
     return response.data
   } catch (error) {
     const axiosError = error as AxiosError
+    throw axiosError
+  }
+}
+export async function GetPOSTfetch(url: string, tags: string[]) {
+  try {
+    const response = await fetch(url, {
+      next: {
+        tags: tags,
+      },
+      credentials: 'include',
+      headers: {
+        credentials: 'include',
+        Authorization: `Bearer ${'API_TOKEN'}`,
+        'Content-Type': 'application/json',
+      },
+    })
+    return response.json()
+  } catch (error) {
+    const axiosError = error as AxiosError
+    // Handle errors here
     throw axiosError
   }
 }
