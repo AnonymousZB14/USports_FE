@@ -1,3 +1,32 @@
+export interface UserDetailInfo {
+  accountName: string
+  activeRegion?: string
+  birthDate?: Date
+  email?: string
+  evaluationCount?: 0
+  gender?: string
+  kindnessScore?: 0
+  passionScore?: 0
+  mannerScore?: 0
+  role?: string
+  password?: string
+  memberId?: 0
+  interestedSports?: number[]
+  name?: string
+  phoneNumber?: string
+  profileContent?: string
+  profileImage?: string
+  teamworkScore?: 0
+  updatedAt?: Date
+  username?: string
+  profileOpen?: string
+  tokenDto: {
+    accessToken: string
+    refreshToken: string
+    tokenType: string
+  }
+}
+
 export interface AddressType {
   address: string
   postCode: string

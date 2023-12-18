@@ -23,32 +23,15 @@ export default async function RootLayout({
   children: React.ReactNode
   modal: React.ReactNode
 }) {
-  
   const ttt = cookies().get('connect.sid')?.value
   console.log(ttt)
   // axiosInstance.defaults.headers.common.Authorization = `Bearer ${ttt}`
-  
 
   return (
-    <RecoilRootWrapper>
-      <html data-theme="light">
-        <body>
-          <MSWComponent />
-          
-            <RQProvider>
-              <div id="wrap">
-                <Header />
-                <main id="main">{children}</main>
-                {modal}
-              </div>
-            </RQProvider>
-          
-          <script
-            src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_APP_KEY}&autoload=false`}
-            type="text/javascript"
-          />
-        </body>
-      </html>
-    </RecoilRootWrapper>
+    <div id="wrap">
+      <Header />
+      <main id="main">{children}</main>
+      {modal}
+    </div>
   )
 }

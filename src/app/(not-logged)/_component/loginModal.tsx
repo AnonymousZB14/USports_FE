@@ -1,18 +1,24 @@
 'use client'
 import Link from 'next/link'
-import { ChangeEventHandler, FormEventHandler, useState } from 'react'
+import {
+  ChangeEventHandler,
+  FormEventHandler,
+  useEffect,
+  useState,
+} from 'react'
 import { redirect, useRouter } from 'next/navigation'
-
 import { useForm } from 'react-hook-form'
-import { Postfetch } from '@/func/fetchCall'
+import { Postfetch, setHeaderToken } from '@/func/fetchCall'
 import { useRecoilState } from 'recoil'
 import { loginFun, onLoginSuccess } from '@/func/service'
 import axios from 'axios'
+import { UserDetailState } from '@/store/user'
+import LocalStorage from '@/func/localstrage'
 
 const LoginModal = () => {
   const router = useRouter()
   const [message, setMessage] = useState('')
-  
+  const [user, setUser] = useRecoilState(UserDetailState)
   const { register, handleSubmit } = useForm()
   /*  
   happyhsryu@gmail.com
@@ -20,11 +26,40 @@ const LoginModal = () => {
   */
 
   const onsubmitHandler = async (e: any) => {
-    const res = await loginFun(e.email, e.password)
-    onLoginSuccess(res)
-    router.replace('/home')
-  }
+    try {
+      const res = await loginFun(e.email, e.password)
+      if (!(res?.status == 200)) return
+      onLoginSuccess(res?.data)
+      LocalStorage.setAccessToken(res.data.tokenDto.accessToken)
+      setHeaderToken(res.data.tokenDto.accessToken)
+      setUser({
+        ...user,
+        accountName: res.data.member.accountName,
+        email: res.data.member.email,
+        gender: res.data.member.gender,
+        role: res.data.member.role,
+        password: res.data.member.password,
+        memberId: res.data.member.memberId,
+        name: res.data.member.name,
+        phoneNumber: res.data.member.phoneNumber,
+        profileImage: res.data.member.profileImage,
+        username: res.data.member.username,
+        profileOpen: res.data.member.profileOpen,
+        tokenDto: {
+          accessToken: res.data.tokenDto.accessToken,
+          refreshToken: res.data.tokenDto.refreshToken,
+          tokenType: res.data.tokenDto.tokenType,
+        },
+      })
+    } catch (error) {
+      console.error(error)
+    }
 
+    router.replace('/')
+  }
+  useEffect(() => {
+    console.log(user)
+  }, [user])
   return (
     <div className="loginP notLoggedP centered">
       <h2>Log into USports</h2>

@@ -1,15 +1,11 @@
-
-
-import LocalStorage from '@/func/localstrage'
+import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-export default async function Home() {
-/*   const session = await auth()
-  if (session?.user) {
-    redirect('/home')
-  } else {
-    redirect('/login')
-  } */
-  redirect('/home')
-  return <></>
+export default function Home() {
+  const role = cookies().get('role')?.value
+  console.log(role)
+  if (role === 'UNAUTH') {
+    redirect('/mypage')
+  }
+  return null
 }

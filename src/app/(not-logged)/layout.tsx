@@ -4,6 +4,7 @@ import '../../styles/main.css'
 import { MSWComponent } from '@/app/_component/MSWComponent'
 import { redirect } from 'next/navigation'
 import axios from 'axios'
+import RecoilRootWrapper from '@/containers/recoilRootWrapper'
 
 export const metadata: Metadata = {
   title: 'USports',
@@ -16,12 +17,5 @@ export default async function RootLayout({
 }) {
   axios.defaults.withCredentials = true
 
-  return (
-    <html data-theme="light">
-      <body>
-        <MSWComponent />
-        {children}
-      </body>
-    </html>
-  )
+  return <>{children}</>
 }
