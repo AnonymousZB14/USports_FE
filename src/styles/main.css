@@ -219,7 +219,7 @@ body:has(.centered) {
   --text-size-base: 1.6rem;
   --text-size-sm: 1.4rem;
   --text-size-xs: 1.2rem;
-  --main-color1: rgb(0, 0, 0);
+  --main-color1: rgba(0, 0, 0, 0.646);
 }
 
 html[data-theme=dark] {
@@ -302,7 +302,6 @@ html[data-theme=light] {
   transition: all 0.1s;
   display: flex;
   align-items: center;
-  width: -moz-fit-content;
   width: fit-content;
   gap: 13px;
   padding: 15px 20px;
@@ -362,8 +361,7 @@ main:is(main > section) {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 #title {
@@ -453,8 +451,7 @@ main:is(main > section) {
   position: absolute;
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 .feed {
@@ -475,6 +472,19 @@ main:is(main > section) {
 }
 .feed .feed_content > div:first-child > div:first-child {
   flex: 1;
+}
+.feed .feed_content .body > a > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.feed .feed_content .body > a > div img {
+  border-radius: 14px;
+  display: block;
+  width: calc((100% - 10px) / 2);
+  flex-grow: 1;
+  max-height: 20rem;
+  object-fit: cover;
 }
 .feed .feed_content .body .record_contents {
   margin: 20px 0;
@@ -649,10 +659,6 @@ span.dayjs {
   font-size: var(--text-size-base);
   color: #ccc;
 }
-.commentInput .inner > input::-moz-placeholder {
-  color: #686868;
-  font-size: var(--text-size-base);
-}
 .commentInput .inner > input::placeholder {
   color: #686868;
   font-size: var(--text-size-base);
@@ -696,7 +702,6 @@ span.dayjs {
 }
 #modal .modalInner {
   min-width: 50dvw;
-  width: -moz-fit-content;
   width: fit-content;
   max-width: 100dvw;
   padding: 35px 20px;
@@ -972,8 +977,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   position: sticky;
   top: 0;
   padding-top: 40px;
-  -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 .home_section .top_section:is(.scrolled > div) {
   padding-top: 60px;
@@ -1140,7 +1144,6 @@ ul.recruitManagement > li .recruitItemCont p.status {
   transition: opacity 0.3s ease;
 }
 .explore-form .category-wrap .filter-dialog .modal-wrapper {
-  height: -moz-fit-content;
   height: fit-content;
   width: 36rem;
   right: 0;
@@ -1223,8 +1226,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   position: sticky;
   top: 0;
   padding: 2rem var(--side-padding) 2rem;
-  -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   z-index: 10;
 }
 .recruit-detail-wrap .content-header:is(.scrolled > div) {
@@ -1304,7 +1306,6 @@ ul.recruitManagement > li .recruitItemCont p.status {
   min-width: 38rem;
   margin-top: 1rem;
   margin-left: 1rem;
-  height: -moz-fit-content;
   height: fit-content;
   position: sticky;
   position: -webkit-sticky;
@@ -1688,7 +1689,6 @@ ul.recruitManagement > li .recruitItemCont p.status {
   transition: opacity 0.3s ease;
 }
 .category-wrap .filter-dialog .modal-wrapper {
-  height: -moz-fit-content;
   height: fit-content;
   width: 36rem;
   right: 0;
@@ -1843,8 +1843,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   padding: 0 var(--side-padding);
 }
 .record_detail_sec .page_top {
-  -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   background-color: transparent;
   transition: all 0.4s;
   padding: 40px 7% 30px;
@@ -1999,8 +1998,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   overflow: hidden;
 }
 .editUser form > div > label:has(img) img {
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   width: 100%;
   height: 100%;
 }
@@ -2050,7 +2048,6 @@ ul.recruitManagement > li .recruitItemCont p.status {
   min-height: 50vh;
   min-width: 40vw;
   margin: 0 auto;
-  width: -moz-fit-content;
   width: fit-content;
   max-width: 100vw;
   font-size: var(--text-size-base);
@@ -2089,9 +2086,6 @@ ul.recruitManagement > li .recruitItemCont p.status {
   border: 1px solid #ccc;
   border-radius: 6px;
   padding-left: 20px;
-}
-.notLoggedP form div input::-moz-placeholder {
-  color: #999;
 }
 .notLoggedP form div input::placeholder {
   color: #999;
@@ -2205,12 +2199,8 @@ ul.recruitManagement > li .recruitItemCont p.status {
 
 .tab_contents > div {
   min-height: 200px;
-  display: none;
-}
-.tab_contents > div.active {
-  display: block;
 }
 .tab_contents:is(.home_section > div) {
   padding-left: var(--side-padding);
   padding-right: var(--side-padding);
-}/*# sourceMappingURL=main.css.map */
+}

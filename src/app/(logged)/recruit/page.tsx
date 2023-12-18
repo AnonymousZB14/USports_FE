@@ -11,7 +11,6 @@ import FilterDialog from '@/components/filterDialog'
 import Button from '@/components/button'
 import { SlArrowDown } from 'react-icons/sl'
 import FilterSection from '@/components/filterSection'
-
 const recruitWrite = () => {
   const [addressData, setAddressData] = useState<AddressType | null>(null)
   const [selectedDate, setSelectedDate] = useState('')

@@ -10,9 +10,11 @@ export const FeedContent = ({ item }: { item: Record }) => {
       </div>
       <div className="body">
         <Link href={`record/${item.recordId}`}>
-          {item.imageAddressList.map((img, idx) => {
-            return <img key={idx} src={img} alt="img" />
-          })}
+          <div className={item.imageAddressList.length % 2 === 1 ? 'odd' : ''}>
+            {item.imageAddressList.map((img, idx) => (
+              <img key={idx} src={img} alt="img" />
+            ))}
+          </div>
         </Link>
         <div className="record_contents">
           <span>{item.accountName}</span>

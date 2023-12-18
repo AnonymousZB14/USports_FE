@@ -1,10 +1,7 @@
 .tab_contents {
   & > div {
     min-height: 200px;
-    display: none;
-    &.active {
-      display: block;
-    }
+
   }
   &:is(.home_section > div) {
     padding-left: var(--side-padding);

@@ -1,12 +1,14 @@
+import { auth } from '@/auth'
 type Props = { pageParam?: number }
-export async function getPostRecommends() {
+export async function getPostRecommends({ pageParam }: Props) {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/postRecommends`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/postRecommends?page=${pageParam}`,
     {
       next: {
-        tags: ['posts', 'recommends'],
+        tags: ['records', 'recommends'],
       },
-      cache: 'no-store',
+      credentials: 'include',
+      // cache: 'no-store',
     },
   )
   // The return value is *not* serialized

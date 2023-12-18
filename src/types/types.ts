@@ -53,3 +53,23 @@ export interface Post {
   createdAt: Date
   Images: []
 }
+
+export interface ProfileUserType {
+  memberProfile: {
+    accountName: string
+    email: string
+    interestSportsList: string[]
+    mannerScore: number
+    memberId: number
+    name: string
+    plusAlpha: number
+    profileImage: string
+  }
+  sportsSkills: [
+    {
+      sportsGrade: string
+      sportsName: string
+      sportsSkillId: number
+    },
+  ]
+}
