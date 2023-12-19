@@ -3,20 +3,20 @@ export interface UserDetailInfo {
   activeRegion?: string
   birthDate?: Date
   email?: string
-  evaluationCount?: 0
+  evaluationCount?: number
   gender?: string
-  kindnessScore?: 0
-  passionScore?: 0
-  mannerScore?: 0
+  kindnessScore?: number
+  passionScore?: number
+  mannerScore?: number
   role?: string
   password?: string
-  memberId?: 0
+  memberId?: number
   interestedSports?: number[]
   name?: string
   phoneNumber?: string
   profileContent?: string
   profileImage?: string
-  teamworkScore?: 0
+  teamworkScore?: number
   updatedAt?: Date
   username?: string
   profileOpen?: string
@@ -159,4 +159,35 @@ export interface recruitItemProps {
   streetNameAddr: string
   streetNumberAddr: string
   updatedAt: string
+}
+export interface HomeRecord {
+  currentPage: number
+  list: HomeRecordListItem[]
+}
+export interface HomeRecordListItem {
+  accountName: string
+  commentList: [
+    {
+      accountName: string
+      commentId: number
+      content: string
+      memberId: number
+      name: string
+      parentId: number
+      profileImage: string
+      recordId: number
+      registerAt: Date
+      updatedAt: Date
+    },
+  ]
+  countComment: number
+  imageAddressList: string[]
+  memberId: number
+  name: string
+  profileImage: string
+  recordContent: string
+  recordId: number
+  registeredAt: Date
+  sportsId: number
+  updatedAt: Date
 }

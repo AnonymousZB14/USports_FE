@@ -44,7 +44,7 @@ const page = ({ params }: { params: PageParams }) => {
           <div className="userInfoSec">
             <div style={{ width: '60px', height: '60px' }}>
               <div className="avatar_img">
-                <Link href={`profile/${data.accountName}`}>
+                <Link href={`/profile/${data.accountName}`}>
                   <img src={data.profileImage} alt="profileImage" />
                 </Link>
               </div>

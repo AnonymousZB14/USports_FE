@@ -17,13 +17,6 @@ export default function Home() {
     const num = [...e.currentTarget.children].indexOf(e.target as HTMLLIElement)
     setNum(num)
   }
-  /*   useEffect(() => {
-    ;[...(divRef.current as HTMLDivElement).children].forEach((div, idx) => {
-      idx === number
-        ? div.classList.add('active')
-        : div.classList.remove('active')
-    })
-  }, [number]) */
   return (
     <section ref={homeRef} className="padding0 home_section">
       <div className="top_section">

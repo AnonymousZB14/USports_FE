@@ -16,7 +16,7 @@ export const UserDetailState = atom({
     member: {
       accountName: '',
       activeRegion: '',
-      interestedSports: [''],
+      // interestedSports: [''],
       attributes: {},
       authorities: [
         {
@@ -50,5 +50,6 @@ export const UserDetailState = atom({
       refreshToken: '',
       tokenType: '',
     },
+    interestSportsList: [0],
   },
 })

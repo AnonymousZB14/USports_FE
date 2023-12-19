@@ -1,12 +1,23 @@
 import Link from 'next/link'
 import UserInfoSec from './userInfoSec'
 import { Record } from '@/types/types'
-export const FeedContent = ({ item }: { item: Record }) => {
+import Avatar from './avatar'
+import { HomeRecordListItem } from '@/types/types'
+export const FeedContent = ({ item }: { item: HomeRecordListItem }) => {
   return (
     <div className="feed_content">
       <div>
-        <UserInfoSec />
-        {/* <span className="dayjs">{String(item.registeredAt)}</span> */}
+        <div className="userInfoSec">
+          <Avatar
+            width="60px"
+            height="60px"
+            imgAddress={item.profileImage}
+          />
+          <div className="user_info">
+            <h3>{item.accountName}</h3>
+            <p>@{item.accountName}</p>
+          </div>
+        </div>
       </div>
       <div className="body">
         <Link href={`record/${item.recordId}`}>

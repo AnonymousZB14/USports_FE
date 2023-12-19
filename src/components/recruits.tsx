@@ -80,9 +80,9 @@ export const Recruit = ({
     <li>
       <div className="recruit_head">
         <UserInfo
-          userId={user.memberProfile.email}
-          userImage={user.memberProfile.profileImage}
-          accountName={user.memberProfile.name}
+          userId={user.memberInfo.email}
+          userImage={user.memberInfo.profileImage}
+          accountName={user.memberInfo.name}
         />
         <Link href={`/recruit/${item.recruitId}`}>자세히보기</Link>
       </div>

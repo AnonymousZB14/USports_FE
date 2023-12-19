@@ -2,16 +2,10 @@
 import React, { useEffect } from 'react'
 import { FiLogOut } from 'react-icons/fi'
 import { useRouter } from 'next/navigation'
-import axios from 'axios'
 import LocalStorage from '@/func/localstrage'
-import { useRecoilState } from 'recoil'
-import { UserDetailState, UserState } from '@/store/user'
-import { getCookie, removeCookie } from '@/func/cookie_c'
-import { axiosInstance, setHeaderToken } from '@/func/fetchCall'
 import { onLogoutFun } from '@/func/service'
 
 const LogoutBtn = () => {
-  const [user, setUser] = useRecoilState(UserDetailState)
   const router = useRouter()
 
   const onLogout = () => {

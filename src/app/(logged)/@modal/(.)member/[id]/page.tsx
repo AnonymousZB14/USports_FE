@@ -8,21 +8,34 @@ import { useRouter } from 'next/navigation'
 import React, { use, useEffect, useState } from 'react'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { useRecoilState } from 'recoil'
+export const interestedSportsList = [
+  { value: 1, name: '축구' },
+  { value: 2, name: '야구' },
+  { value: 3, name: '농구' },
+  { value: 4, name: '클라이밍' },
+  { value: 5, name: '배구' },
+  { value: 6, name: '필라테스' },
+]
 
 const Page = () => {
   const router = useRouter()
   const [message, setMessage] = useState('')
   const [isLoading, setLoding] = useState(false)
   const [user, setUser] = useRecoilState(UserDetailState)
+
   const { register, handleSubmit, control, watch } = useForm()
-  const [imagePreview, setImagePreview] = useState('')
-  const profileImage = watch('profileImage')
-  useEffect(() => {
-    if (profileImage && profileImage.length > 0) {
-      const file = profileImage[0]
-      setImagePreview(URL.createObjectURL(file))
-    }
-  }, [profileImage])
+  
+
+  const [accountName, setAccountName] = useState(user.member.accountName)
+  const [activeRegion, setactiveRegion] = useState(user.member.activeRegion)
+  const [birthDate, setbirthDate] = useState(user.member.birthDate)
+  const [phoneNumber, setPhoneNum] = useState(user.member.phoneNumber)
+  const [name, setname] = useState(user.member.name)
+  const [profileImage, setprofileImage] = useState(user.member.profileImage)
+  const [gender, setgender] = useState(user.member.gender)
+  const [profileOpen, setprofileOpen] = useState(user.member.profileOpen)
+  const [interestedSports, setinterestedSports] = useState<Number[]>([])
+
   const resendEmail = async () => {
     setLoding(false)
     try {
@@ -42,10 +55,21 @@ const Page = () => {
   const onsubmitHandler = async (e: any) => {
     setLoding(true)
     setMessage('')
+    console.log(e)
     try {
       const res = await axios.put(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/member/${user.member.memberId}`,
-        e,
+        {
+          accountName,
+          activeRegion,
+          birthDate,
+          phoneNumber,
+          name,
+          profileImage:"https://usportsbucket-kmj.s3.ap-northeast-2.amazonaws.com/5bce8834-659d-452e-8f69-6a0b9ccdc346KakaoTalk_Photo_2023-07-05-18-01-52.png",
+          gender,
+          profileOpen : JSON.stringify(profileImage),
+          interestedSports,
+        },
         {
           headers: {
             credentials: 'include',
@@ -55,28 +79,13 @@ const Page = () => {
         },
       )
       // if (!(res.status == 200)) return
-      if (res.status == 400) {
+      if (res.status == 200) {
         const { data } = res
-        localStorage.setItem('user', data)
+        // localStorage.setItem('user', data)
+        router.back()
       } else {
         return '오류 발생'
       }
-      /*       setUser({
-        ...user,
-        member: {
-          ...user.member,
-          accountName: data.accountName,
-          activeRegion: data.activeRegion,
-          birthDate: data.birthDate,
-          email: data.email,
-          gender: data.gender,
-          interestedSports: data.interestedSports,
-          name: data.name,
-          phoneNumber: data.phoneNumber,
-          profileImage: data.profileImage,
-          profileOpen: data.profileOpen,
-        },
-      }) */
     } catch (e) {
       console.error(e)
     }
@@ -94,31 +103,23 @@ const Page = () => {
         <form onSubmit={handleSubmit(onsubmitHandler)}>
           <div>
             <label htmlFor="interestedSports">관심 운동 종목</label>
-            <input
-              type="checkbox"
-              id="interestedSports"
-              {...register('interestedSports')}
-              value={1}
-              // checked={user.member.gender === 'FEMALE'}
-              // checked={user.member.interestedSports.includes('1')}
-            />
-            축구
-            <input
-              type="checkbox"
-              {...register('interestedSports')}
-              id="interestedSports"
-              value={2}
-              // checked={user.member.interestedSports.includes('2')}
-            />
-            야구
-            <input
-              type="checkbox"
-              {...register('interestedSports')}
-              id="interestedSports"
-              value={3}
-              // checked={user.member.interestedSports.includes('3')}
-            />
-            클라이밍
+            {interestedSportsList.map((sport, idx) => (
+              <>
+                <label htmlFor={sport.name}>{sport.name}</label>
+                <input
+                  key={idx}
+                  type="checkbox"
+                  id={sport.name}
+                  value={sport.value}
+                  onChange={(e) => {
+                    if (e.target.checked)
+                      setinterestedSports((prev) => {
+                        return [...prev, sport.value]
+                      })
+                  }}
+                />
+              </>
+            ))}
           </div>
           <div>
             <label>프로필사진</label>
@@ -127,26 +128,25 @@ const Page = () => {
                 width={100}
                 height={100}
                 alt="profileImage"
-                src={imagePreview}
+                src={profileImage}
               />
             </label>
             <input
               type="file"
               id="profileImg"
-              {...register('profileImage')}
               accept="image/*,svg/*"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                if (!e.target.files) return
+                const file = e?.target?.files[0]
+                const imgUrl = URL.createObjectURL(file)
+                setprofileImage(imgUrl)
+              }}
             />
           </div>
           {user.member.role === 'UNAUTH' ? (
             <div>
               <label htmlFor="emailAuthNumber">* 이메일 인증번호</label>
-              <input
-                type="text"
-                id="emailAuthNumber"
-                {...register('emailAuthNumber')}
-
-                // value={user.accountName}
-              />
+              <input type="text" id="emailAuthNumber" />
               <button
                 className="resend"
                 disabled={!setLoding}
@@ -163,10 +163,9 @@ const Page = () => {
             <label htmlFor="phoneNumber">* 번호</label>
             <input
               type="tel"
+              onChange={(e) => setPhoneNum(e.target.value)}
               id="phoneNumber"
-              {...register('phoneNumber')}
-              // required
-              value={user.member.phoneNumber}
+              value={phoneNumber}
             />
           </div>
           <div>
@@ -174,29 +173,19 @@ const Page = () => {
             <input
               type="text"
               id="activeRegion"
-              {...register('activeRegion')}
-              // required
-              value={user.member.activeRegion}
+              value={activeRegion}
+              onChange={(e) => setactiveRegion(e.target.value)}
             />
           </div>
-          {/*           <div>
-            <label htmlFor="interestedSports">* 관심 운동</label>
-            <input
-              type="text"
-              id="interestedSports"
-              {...register('interestedSports')}
-              // required
-              value={user.member.interestedSports}
-            />
-          </div> */}
+
           <div>
             <label htmlFor="accountName">@AccountName</label>
             <input
               type="text"
               id="accountName"
-              {...register('accountName')}
-              // required
-              value={user.member.accountName}
+              required
+              value={accountName}
+              onChange={(e) => setAccountName(e.target.value)}
             />
           </div>
           <div>
@@ -204,9 +193,9 @@ const Page = () => {
             <input
               type="text"
               id="name"
-              {...register('name')}
               required
-              value={user.member.name}
+              value={name}
+              onChange={(e) => setname(e.target.value)}
             />
           </div>
           <div>
@@ -215,8 +204,8 @@ const Page = () => {
               type="date"
               id="birth"
               required
-              {...register('birthDate')}
-              value={user.member.birthDate}
+              value={birthDate}
+              onChange={(e) => setbirthDate(e.target.value)}
             />
           </div>
           <div>
@@ -224,19 +213,21 @@ const Page = () => {
             <input
               type="radio"
               id="gener"
-              {...register('gender')}
               required
               value={'FEMALE'}
-              checked={user.member.gender === 'FEMALE'}
+              onChange={(e) => {
+                if (e.target.checked) setgender('FEMALE')
+              }}
             />
             여성
             <input
               type="radio"
-              {...register('gender')}
               id="gener"
               required
               value={'MALE'}
-              checked={user.member.gender === 'MALE'}
+              onChange={(e) => {
+                if (e.target.checked) setgender('MALE')
+              }}
             />
             남성
           </div>
@@ -246,29 +237,24 @@ const Page = () => {
               type="radio"
               id="accountOpen"
               required
-              {...register('profileOpen')}
-              value={'open'}
-              checked={user.member.profileOpen}
+              value={'true'}
+              onChange={(e) => {
+                if (e.target.checked) setprofileOpen(true)
+              }}
             />
             공개
             <input
               type="radio"
               id="accountOpen"
-              {...register('profileOpen')}
               required
-              value={'close'}
-              checked={!user.member.profileOpen}
+              value={'false'}
+              onChange={(e) => {
+                if (e.target.checked) setprofileOpen(false)
+              }}
             />
             비공개
           </div>
-          {/*           <div>
-            <label htmlFor="profileContent">상태 메세지</label>
-            <input
-              type="text"
-              id="profileContent"
-              value={userInfo.profileContent}
-            />
-          </div> */}
+
           <div>
             <input
               type="button"

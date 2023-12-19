@@ -1,4 +1,5 @@
 'use client'
+import { setHeaderToken } from '@/func/fetchCall'
 import { DarkModeState } from '@/store/mode'
 import { UserDetailState } from '@/store/user'
 import React, { useEffect } from 'react'
@@ -10,10 +11,12 @@ const UserInfoProvider = ({ children }: { children: React.ReactNode }) => {
   const localMode = localStorage.getItem('dark-mode')
   useEffect(() => {
     setUser(JSON.parse(localUser!))
+    console.log('change user')
     setMode(JSON.parse(localMode!))
   }, [localUser])
   useEffect(() => {
     console.log(user)
+    setHeaderToken(user.tokenDto.accessToken)
   }, [user])
   return <>{children}</>
 }
