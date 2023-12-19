@@ -1,20 +1,30 @@
-import React from "react";
-import Avatar from "./avatar";
+import React from 'react'
+import Avatar from './avatar'
+import { RecordDetailComment } from '@/types/types'
+import Link from 'next/link'
 
-const Comment = ({ depth }: { depth?: boolean }) => {
+const Comment = ({ comment }: { comment: RecordDetailComment }) => {
   return (
     <div className="comment">
-      <div className="avatar_wrap" style={{ width: "35px", height: "35px" }}>
-        <Avatar />
+      <div className="avatar_wrap" style={{ width: '35px', height: '35px' }}>
+        <div>
+          <div className="avatar_img">
+            {
+              <Link href={`profile/${comment.accountName}`}>
+                <img src={comment.profileImage} alt="profileImage" />
+              </Link>
+            }
+          </div>
+        </div>
       </div>
       <div className="comment_body">
         <ul>
           <li>
-            <span className="username">naraLee</span>
-            <span className="userid">@userid</span>
+            <span className="username">{comment.accountName}</span>
+            <span className="userid">@{comment.accountName}</span>
           </li>
           <li>
-            <p>운동 열심히 했ㄴㅔ</p>
+            <p>{comment.content}</p>
           </li>
           <li>
             <button>답글 달기</button>
@@ -22,7 +32,7 @@ const Comment = ({ depth }: { depth?: boolean }) => {
         </ul>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Comment;
+export default Comment

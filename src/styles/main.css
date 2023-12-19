@@ -3,18 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    'Open Sans',
-    'Helvetica Neue',
-    sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .padding0 {
@@ -149,7 +138,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
+  content: "";
   content: none;
 }
 
@@ -233,7 +222,7 @@ body:has(.centered) {
   --main-color1: rgba(0, 0, 0, 0.646);
 }
 
-html[data-theme='dark'] {
+html[data-theme=dark] {
   --main-color-brand: #256df9;
   --main-color-red: #e45141;
   --main-color-orange: #f57e25;
@@ -248,7 +237,7 @@ html[data-theme='dark'] {
   --bg-color-4: #464e5b;
 }
 
-html[data-theme='light'] {
+html[data-theme=light] {
   --main-color-brand: #256df9;
   --main-color-red: #e45141;
   --main-color-orange: #f57e25;
@@ -389,7 +378,7 @@ main:is(main > section) {
   font-weight: 400;
 }
 #title h2::after {
-  content: '';
+  content: "";
   display: block;
   background-color: var(--text-color-1);
   width: 100%;
@@ -430,6 +419,39 @@ main:is(main > section) {
   transition: all 0.2s;
 }
 
+.rolebg {
+  position: fixed;
+  width: 100dvw;
+  height: 100dvh;
+  background-color: rgba(0, 0, 0, 0.6666666667);
+  z-index: 10;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rolebg .roleInner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.rolebg .roleInner p {
+  font-size: 20px;
+  text-align: center;
+  line-height: 1.5;
+  color: #fff;
+}
+.rolebg .roleInner a {
+  background-color: red;
+  color: #fff;
+  padding: 14px 30px;
+  border-radius: 10px;
+  font-size: 17px;
+}
+
 .records ul {
   margin-top: 0px;
   display: flex;
@@ -446,7 +468,7 @@ main:is(main > section) {
 }
 .records ul li .thumbnail::after {
   display: block;
-  content: '';
+  content: "";
   padding-bottom: 100%;
 }
 .records ul li .thumbnail a {
@@ -713,7 +735,6 @@ span.dayjs {
 }
 #modal .modalInner {
   min-width: 70dvw;
-  width: -moz-fit-content;
   width: fit-content;
   max-width: 100dvw;
   padding: 35px 20px;
@@ -775,7 +796,7 @@ ul.evaluationList > li .evitemCont .cont .sub p.subCon {
   font-weight: 600;
 }
 ul.evaluationList > li .evitemCont .cont .sub p.subCon::before {
-  content: '●';
+  content: "●";
   display: inline-block;
   margin-right: 2px;
 }
@@ -930,7 +951,7 @@ ul.recruitManagement > li .recruitItemCont .cont .sub p.subCon {
   font-weight: 600;
 }
 ul.recruitManagement > li .recruitItemCont .cont .sub p.subCon::before {
-  content: '●';
+  content: "●";
   display: inline-block;
   margin-right: 2px;
 }
@@ -954,7 +975,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   padding-bottom: 30px;
 }
 .profile_info::after {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   background-color: var(--bg-color-2);
@@ -1215,7 +1236,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   vertical-align: middle;
 }
 .back-arrow > i:before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1276,68 +1297,32 @@ ul.recruitManagement > li .recruitItemCont p.status {
 .content-body .main-body-wrap .left-body-wrap .match-point-con .match-content {
   padding: 0 1.4rem 2.4rem 1.4rem;
 }
-.content-body
-  .main-body-wrap
-  .left-body-wrap
-  .match-point-con
-  .match-content
-  .data-wrap {
+.content-body .main-body-wrap .left-body-wrap .match-point-con .match-content .data-wrap {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 1rem;
 }
-.content-body
-  .main-body-wrap
-  .left-body-wrap
-  .match-point-con
-  .match-content
-  .data-wrap
-  .data-box {
+.content-body .main-body-wrap .left-body-wrap .match-point-con .match-content .data-wrap .data-box {
   width: 100%;
   display: inline-flex;
   align-items: center;
   padding: 1rem 0;
 }
-.content-body
-  .main-body-wrap
-  .left-body-wrap
-  .match-point-con
-  .match-content
-  .data-wrap
-  .data-box
-  > p {
+.content-body .main-body-wrap .left-body-wrap .match-point-con .match-content .data-wrap .data-box > p {
   padding: 0 1rem;
 }
-.content-body
-  .main-body-wrap
-  .left-body-wrap
-  .match-point-con
-  .match-content
-  .data-wrap
-  .data-box
-  > .from-to-line {
+.content-body .main-body-wrap .left-body-wrap .match-point-con .match-content .data-wrap .data-box > .from-to-line {
   width: 2rem;
   height: 0.1rem;
   background-color: var(--text-color-5);
   margin: 0 1rem 0 0.5rem;
 }
-.content-body
-  .main-body-wrap
-  .left-body-wrap
-  .match-point-con
-  .match-content
-  .average-wrap {
+.content-body .main-body-wrap .left-body-wrap .match-point-con .match-content .average-wrap {
   margin-top: 1rem;
   border-top: 0.1rem solid var(--text-color-5);
 }
-.content-body
-  .main-body-wrap
-  .left-body-wrap
-  .match-point-con
-  .match-content
-  .average-wrap
-  > .average-title {
+.content-body .main-body-wrap .left-body-wrap .match-point-con .match-content .average-wrap > .average-title {
   display: flex;
   margin-top: 2rem;
 }
@@ -1352,11 +1337,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   font-size: var(--text-size-base);
   padding: 2rem 1.4rem;
 }
-.content-body
-  .main-body-wrap
-  .left-body-wrap
-  .recruit-detail-con
-  .match-content {
+.content-body .main-body-wrap .left-body-wrap .recruit-detail-con .match-content {
   padding: 0 1.4rem 2.4rem 1.4rem;
   line-height: 1.35;
 }
@@ -1377,31 +1358,16 @@ ul.recruitManagement > li .recruitItemCont p.status {
   padding: 2rem 1.4rem;
   box-shadow: rgba(73, 73, 73, 0.1) 0 1.2rem 2.5rem 0;
 }
-.content-body
-  .main-body-wrap
-  .right-body-wrap
-  .apply-con
-  .apply-main-section
-  .match-person {
+.content-body .main-body-wrap .right-body-wrap .apply-con .apply-main-section .match-person {
   font-size: var(--text-size-sm);
   color: var(--text-color-3);
 }
-.content-body
-  .main-body-wrap
-  .right-body-wrap
-  .apply-con
-  .apply-main-section
-  .match-title {
+.content-body .main-body-wrap .right-body-wrap .apply-con .apply-main-section .match-title {
   font-weight: 600;
   font-size: var(--text-size-base);
   padding: 1.2rem 0 2rem;
 }
-.content-body
-  .main-body-wrap
-  .right-body-wrap
-  .apply-con
-  .apply-main-section
-  .match-time {
+.content-body .main-body-wrap .right-body-wrap .apply-con .apply-main-section .match-time {
   color: var(--text-color-1);
   font-size: var(--text-size-sm);
   padding-bottom: 1rem;
@@ -1409,13 +1375,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   display: flex;
   align-items: center;
 }
-.content-body
-  .main-body-wrap
-  .right-body-wrap
-  .apply-con
-  .apply-main-section
-  .match-time
-  .match-time-info {
+.content-body .main-body-wrap .right-body-wrap .apply-con .apply-main-section .match-time .match-time-info {
   color: var(--bg-color-1);
   background-color: var(--text-color-2);
   padding: 0.4rem 1rem;
@@ -1424,12 +1384,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   font-weight: 500;
   margin-right: 0.5rem;
 }
-.content-body
-  .main-body-wrap
-  .right-body-wrap
-  .apply-con
-  .apply-main-section
-  .match-place {
+.content-body .main-body-wrap .right-body-wrap .apply-con .apply-main-section .match-place {
   color: var(--text-color-1);
   font-size: var(--text-size-sm);
   padding-bottom: 3rem;
@@ -1437,13 +1392,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   display: flex;
   align-items: center;
 }
-.content-body
-  .main-body-wrap
-  .right-body-wrap
-  .apply-con
-  .apply-main-section
-  .match-place
-  .match-place-info {
+.content-body .main-body-wrap .right-body-wrap .apply-con .apply-main-section .match-place .match-place-info {
   color: var(--bg-color-1);
   background-color: var(--text-color-2);
   padding: 0.4rem 1rem;
@@ -1452,33 +1401,17 @@ ul.recruitManagement > li .recruitItemCont p.status {
   font-weight: 500;
   margin-right: 0.5rem;
 }
-.content-body
-  .main-body-wrap
-  .right-body-wrap
-  .apply-con
-  .apply-main-section
-  .match-place
-  .info-box
-  .place-space {
+.content-body .main-body-wrap .right-body-wrap .apply-con .apply-main-section .match-place .info-box .place-space {
   margin-right: 0.4rem;
 }
-.content-body
-  .main-body-wrap
-  .right-body-wrap
-  .apply-con
-  .apply-main-section
-  .match-price {
+.content-body .main-body-wrap .right-body-wrap .apply-con .apply-main-section .match-price {
   color: var(--main-color-red);
   font-size: var(--text-size-xl);
   padding-bottom: 1rem;
   font-weight: 700;
   line-height: 1.5;
 }
-.content-body
-  .main-body-wrap
-  .right-body-wrap
-  .apply-con
-  .apply-register-section {
+.content-body .main-body-wrap .right-body-wrap .apply-con .apply-register-section {
   margin-top: 1rem;
   padding-top: 1rem;
   border-top: 0.1rem solid var(--text-color-5);
@@ -1486,12 +1419,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   align-items: center;
   justify-content: space-between;
 }
-.content-body
-  .main-body-wrap
-  .right-body-wrap
-  .apply-con
-  .apply-register-section
-  .apply-status {
+.content-body .main-body-wrap .right-body-wrap .apply-con .apply-register-section .apply-status {
   color: var(--text-color-2);
   font-size: var(--text-size-lg);
   font-weight: 600;
@@ -1719,7 +1647,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   position: relative;
 }
 .apply-list > .apply-item > .cont > .info .bar::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0px;
   top: 50%;
@@ -1844,7 +1772,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   position: relative;
 }
 .mypageWrap > section .mpBtm ul.mpCategories li a::after {
-  content: '';
+  content: "";
   display: none;
   background-color: var(--text-color-1);
   width: 100%;
@@ -1958,16 +1886,12 @@ ul.recruitManagement > li .recruitItemCont p.status {
   font-size: var(--text-size-lg);
   font-weight: 700;
 }
-.my-info-wrap .my-info-body .manners-wrap > .manner-score,
-.my-info-wrap .my-info-body .manners-wrap > .passion-score,
-.my-info-wrap .my-info-body .manners-wrap > .teamwork-score {
+.my-info-wrap .my-info-body .manners-wrap > .manner-score, .my-info-wrap .my-info-body .manners-wrap > .passion-score, .my-info-wrap .my-info-body .manners-wrap > .teamwork-score {
   display: flex;
   align-items: center;
   margin-top: 2rem;
 }
-.my-info-wrap .my-info-body .manners-wrap > .manner-score > h3,
-.my-info-wrap .my-info-body .manners-wrap > .passion-score > h3,
-.my-info-wrap .my-info-body .manners-wrap > .teamwork-score > h3 {
+.my-info-wrap .my-info-body .manners-wrap > .manner-score > h3, .my-info-wrap .my-info-body .manners-wrap > .passion-score > h3, .my-info-wrap .my-info-body .manners-wrap > .teamwork-score > h3 {
   display: flex;
   padding: 1rem 1.2rem;
   margin-right: 1rem;
@@ -1977,9 +1901,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   border-radius: 0.3rem;
   justify-content: center;
 }
-.my-info-wrap .my-info-body .manners-wrap > .manner-score > p,
-.my-info-wrap .my-info-body .manners-wrap > .passion-score > p,
-.my-info-wrap .my-info-body .manners-wrap > .teamwork-score > p {
+.my-info-wrap .my-info-body .manners-wrap > .manner-score > p, .my-info-wrap .my-info-body .manners-wrap > .passion-score > p, .my-info-wrap .my-info-body .manners-wrap > .teamwork-score > p {
   font-weight: 500;
 }
 
@@ -2027,15 +1949,11 @@ ul.recruitManagement > li .recruitItemCont p.status {
   border-radius: 10rem;
   padding: 0 2rem;
 }
-.search-wrap > input:focus,
-.search-wrap > input:active {
+.search-wrap > input:focus, .search-wrap > input:active {
   border-color: var(--main-color-brand);
   outline: none;
 }
-.search-wrap > input::-webkit-search-decoration,
-.search-wrap > input::-webkit-search-cancel-button,
-.search-wrap > input::-webkit-search-results-button,
-.search-wrap > input::-webkit-search-results-decoration {
+.search-wrap > input::-webkit-search-decoration, .search-wrap > input::-webkit-search-cancel-button, .search-wrap > input::-webkit-search-results-button, .search-wrap > input::-webkit-search-results-decoration {
   -webkit-appearance: none;
 }
 .search-wrap > button {
@@ -2240,7 +2158,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   position: relative;
 }
 .board-list .board-item .content .condition .bar::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0px;
   top: 50%;
@@ -2381,7 +2299,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
 .editPwd form input {
   font-size: var(--text-size-base);
 }
-.editPwd form input[type='password'] {
+.editPwd form input[type=password] {
   width: 100%;
   padding: 13px;
   border: 1px solid var(--bg-color-4);
@@ -2440,7 +2358,6 @@ ul.recruitManagement > li .recruitItemCont p.status {
 }
 .editUser form > div > label {
   padding: 10px;
-  width: 100px;
 }
 .editUser form > div > label:has(img) {
   width: 75px;
@@ -2464,7 +2381,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
 .editUser form > div > * {
   font-size: var(--text-size-base);
 }
-.editUser form > div input:not([type='submit'], [type='button']) {
+.editUser form > div input:not([type=submit], [type=button]), .editUser form > div button.resend {
   border: 1px solid #ccc;
   height: 40px;
   padding-left: 10px;
@@ -2472,28 +2389,28 @@ ul.recruitManagement > li .recruitItemCont p.status {
   border-radius: 5px;
   background-color: transparent;
 }
-.editUser form > div input:not([type='radio']) {
+.editUser form > div input:not([type=radio]) {
   flex: 1;
 }
-.editUser form > div input[type='submit'],
-.editUser form > div input[type='button'] {
+.editUser form > div input[type=submit],
+.editUser form > div input[type=button] {
   flex: 1;
   color: #fff;
   padding: 20px 0;
   transition: all 0.1s;
   font-weight: 500;
 }
-.editUser form > div input[type='submit']:hover,
-.editUser form > div input[type='button']:hover {
+.editUser form > div input[type=submit]:hover,
+.editUser form > div input[type=button]:hover {
   opacity: 0.8;
 }
-.editUser form > div input[type='submit'] {
+.editUser form > div input[type=submit] {
   background-color: rgb(39, 193, 0);
 }
-.editUser form > div input[type='button'] {
+.editUser form > div input[type=button] {
   background-color: #a2a2a2;
 }
-.editUser form > div input[type='file'] {
+.editUser form > div input[type=file] {
   display: none;
 }
 
@@ -2543,7 +2460,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
 .notLoggedP form div input::placeholder {
   color: #999;
 }
-.notLoggedP form input[type='submit'] {
+.notLoggedP form input[type=submit] {
   cursor: pointer;
   background-color: #000;
   color: #fff;
@@ -2552,7 +2469,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   margin: 0 auto;
   transition: all 0.1s;
 }
-.notLoggedP form input[type='submit']:hover {
+.notLoggedP form input[type=submit]:hover {
   opacity: 0.8;
 }
 .notLoggedP .linkWrap {
@@ -2587,7 +2504,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   padding: 0 10px;
   font-weight: 500;
   display: block;
-  content: 'OR';
+  content: "OR";
   position: absolute;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -2607,7 +2524,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   font-weight: 500;
 }
 .notLoggedP .socialLogBtn button.kakaoBtn {
-  background-color: #fee500;
+  background-color: #FEE500;
 }
 .notLoggedP .socialLogBtn button.naverBtn {
   background-color: rgb(3, 199, 90);
@@ -2643,10 +2560,10 @@ ul.recruitManagement > li .recruitItemCont p.status {
   text-align: center;
   border-radius: 3px;
 }
-.createAccountP form > div div input[type='radio'] {
+.createAccountP form > div div input[type=radio] {
   flex: unset;
 }
-.createAccountP form input[type='submit'] {
+.createAccountP form input[type=submit] {
   margin-top: 40px !important;
 }
 

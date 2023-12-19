@@ -1,15 +1,8 @@
-import { auth } from '@/auth'
-
-import { setInterceptor } from '@/func/fetchCall'
+import { checkCookie } from '@/func/cookie'
 import LocalStorage from '@/func/localstrage'
+import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-export default async function Home() {
-  const session = await auth()
-  if (session?.user) {
-    redirect('/home')
-  } else {
-    redirect('/login')
-  }
-  return <></>
+export default function Home() {
+  redirect('/home')
 }

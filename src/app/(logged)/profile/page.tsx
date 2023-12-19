@@ -1,11 +1,16 @@
-import { auth } from '@/auth'
-import { redirect } from 'next/navigation'
-import React from 'react'
+'use client'
+import { UserDetailState } from '@/store/user'
+import { useRouter } from 'next/navigation'
 
-const page = async () => {
-  const session = await auth()
+import React, { useEffect } from 'react'
+import { useRecoilState } from 'recoil'
 
-  redirect(`/profile/${session?.user?.name}`)
+const page = () => {
+  const [user, setUser] = useRecoilState(UserDetailState)
+  const route = useRouter()
+  useEffect(() => {
+    route.replace(`profile/nara`)
+  }, [])
   return null
 }
 

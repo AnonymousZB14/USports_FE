@@ -4,7 +4,7 @@ import { useEffect, useLayoutEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { UserState, UserState as userstate } from '@/store/user'
 import Link from 'next/link'
-import { useSession } from 'next-auth/react'
+
 const Avatar = ({
   width,
   height,
@@ -15,7 +15,7 @@ const Avatar = ({
   isItprofile?: boolean
 }) => {
   const [user, setUser] = useRecoilState(UserState)
-  const session = useSession()
+  
   return (
     <div style={{ width: width, height: height }}>
       <div className="avatar_img">
@@ -24,7 +24,7 @@ const Avatar = ({
           <Link href={isItprofile ? '#none' : '/profile'}>
             <img
               src={
-                user.profileImage ? session.data?.user?.image! : '/tomatoA.svg'
+               '/tomatoA.svg'
               }
               alt="profileImage"
             />

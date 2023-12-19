@@ -17,7 +17,7 @@ export const EvaluationItem = () => {
   const btnRef = useRef<HTMLButtonElement | null>(null)
   const listRef = useRef<HTMLDivElement | null>(null)
   useEffect(() => {
-    console.log(showList)
+    // console.log(showList)
     btnRef.current?.classList.toggle('active')
     if (showList) {
       listRef.current?.classList.add('show')

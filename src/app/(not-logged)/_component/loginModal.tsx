@@ -1,38 +1,48 @@
 'use client'
 import Link from 'next/link'
-import { ChangeEventHandler, FormEventHandler, useState } from 'react'
+import {
+  ChangeEventHandler,
+  FormEventHandler,
+  useEffect,
+  useState,
+} from 'react'
 import { redirect, useRouter } from 'next/navigation'
-import { signIn, signOut } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
-import { Postfetch } from '@/func/fetchCall'
+import { Postfetch, setHeaderToken } from '@/func/fetchCall'
 import { useRecoilState } from 'recoil'
-import { onLoginSuccess } from '@/func/authServices'
-// import { LoginState } from '@/store/user'
+import { loginFun, onLoginSuccess } from '@/func/service'
+import axios from 'axios'
+import { UserDetailState } from '@/store/user'
+import LocalStorage from '@/func/localstrage'
+
 const LoginModal = () => {
   const router = useRouter()
-  // const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState)
   const [message, setMessage] = useState('')
+  const [user, setUser] = useRecoilState(UserDetailState)
   const { register, handleSubmit } = useForm()
   /*  
   happyhsryu@gmail.com
   a123456789!
   */
 
-  const onsubmitHandler = (e: any) => {
-    const callbackUrl = `${process.env.NEXT_PUBLIC_LOCAL}/home`
-    console.log(e)
-    signIn('credentials', {
-      email: e.email,
-      password: e.password,
-      redirect: true,
-      callbackUrl,
-    })
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((err) => console.log(err))
-  }
+  const onsubmitHandler = async (e: any) => {
+    try {
+      const res = await loginFun(e.email, e.password)
+      if (!(res?.status == 200)) return
+      onLoginSuccess(res?.data)
+      LocalStorage.setAccessToken(res.data.tokenDto.accessToken)
+      setHeaderToken(res.data.tokenDto.accessToken)
+      LocalStorage.setItem('user', JSON.stringify(res.data))
+      setUser(res.data)
+    } catch (error) {
+      console.error(error)
+    }
 
+    router.replace('/')
+  }
+  useEffect(() => {
+    console.log(user)
+  }, [user])
   return (
     <div className="loginP notLoggedP centered">
       <h2>Log into USports</h2>
@@ -66,7 +76,6 @@ const LoginModal = () => {
       <div className="socialLogBtn">
         <button
           className="kakaoBtn"
-          onClick={() => signIn('kakao', { redirect: true, callbackUrl: '/' })}
         >
           카카오로 로그인
         </button>

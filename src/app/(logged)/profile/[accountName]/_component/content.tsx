@@ -34,10 +34,10 @@ const Content = ({ accountName }: { accountName: string }) => {
     <>
       <div className="profile_info">
         <div className="inner">
-          <UserAvatar accountName={accountName} image={data?.memberProfile.profileImage!} />
+          <UserAvatar accountName={accountName} image={data?.memberInfo.profileImage!} />
           <div className="user_info">
             <h3>{accountName}</h3>
-            <p>{data?.memberProfile.email}</p>
+            <p>{data?.memberInfo.email}</p>
           </div>
         </div>
       </div>

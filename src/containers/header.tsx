@@ -10,7 +10,10 @@ import { MdExplore } from 'react-icons/md'
 import { IoMail, IoNotifications } from 'react-icons/io5'
 import { IoMdSettings } from 'react-icons/io'
 import WritingBtn from '@/components/writingBtn'
+import { cookies } from 'next/headers'
+import RoleChange from '@/components/roleChange'
 const Header = () => {
+
   const navList = [
     {
       href: '/',
@@ -45,6 +48,7 @@ const Header = () => {
   ]
   return (
     <header id="header">
+    <RoleChange />
       <div className="head_inner">
         <div className="user_profile">
           <Avatar width="100px" height="100px" />

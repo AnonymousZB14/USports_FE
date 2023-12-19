@@ -1,4 +1,4 @@
-import { auth } from '@/auth'
+
 import { Getfetch } from '@/func/fetchCall'
 type Props = { pageParam?: number }
 export function getPostFollowings({ pageParam }: Props) {

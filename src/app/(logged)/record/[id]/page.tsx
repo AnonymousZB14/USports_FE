@@ -11,10 +11,18 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
 import dayjs from 'dayjs'
 import { Getfetch } from '@/func/fetchCall'
+import { useQuery } from '@tanstack/react-query'
+import { RecordDetail } from '@/types/types'
+import { getRecordDetail } from './_lib/getRecordDetail'
+import Link from 'next/link'
 type PageParams = {
   id: string
 }
 const page = ({ params }: { params: PageParams }) => {
+  const { data, isSuccess } = useQuery<RecordDetail, Object>({
+    queryKey: ['record', params.id],
+    queryFn: getRecordDetail,
+  })
   const router = useRouter()
   const pageRef = useRef(null)
   const [showInput, setShowInput] = useState(false)
@@ -22,7 +30,10 @@ const page = ({ params }: { params: PageParams }) => {
     if (pageRef.current === null) return
     scrollHandler(pageRef.current)
   }, [pageRef])
- 
+  useEffect(() => {
+    console.log(data)
+  }, [data])
+  if (!isSuccess) return null
   return (
     <>
       <section ref={pageRef} className="record_detail_sec">
@@ -30,19 +41,30 @@ const page = ({ params }: { params: PageParams }) => {
           <button onClick={() => router.back()} className="hoverScaleAct">
             <IoChevronBackCircleSharp />
           </button>
-          <UserInfoSec />
+          <div className="userInfoSec">
+            <div style={{ width: '60px', height: '60px' }}>
+              <div className="avatar_img">
+                <Link href={`profile/${data.accountName}`}>
+                  <img src={data.profileImage} alt="profileImage" />
+                </Link>
+              </div>
+            </div>
+            <div className="user_info">
+              <h3>{data.accountName}</h3>
+              <p>@{data.accountName}</p>
+            </div>
+          </div>
         </div>
         <div className="page_mid">
           <div className="record_img_sec">
             <ul>
-              <li>
-                <div>
-                  <img
-                    src="https://firebasestorage.googleapis.com/v0/b/twitter-reloaded-d6dfe.appspot.com/o/tweets%2FWrKPYOJJdmRq3mOLYwBgAjsimIP2%2F9FoRsu6Pe6D3xVbS40NL?alt=media&token=c8e64337-3094-44c3-9450-259428dc7f6f"
-                    alt="img"
-                  />
-                </div>
-              </li>
+              {data!.imageAddressList.map((img: string) => (
+                <li>
+                  <div>
+                    <img src={img} alt="img" />
+                  </div>
+                </li>
+              ))}
             </ul>
           </div>
           <div className="icon_wrap">
@@ -58,14 +80,15 @@ const page = ({ params }: { params: PageParams }) => {
             </span>
           </div>
           <div className="record_contents">
-            <span>username</span>
-            <p>러닝 오운완</p>
+            <span>{data.accountName}</span>
+            <p>{data.recordContent}</p>
           </div>
         </div>
         <div className="page_btm">
           <div className="comments">
-            <Comment />
-            <Comment />
+            {data.commentList.map((comment) => (
+              <Comment comment={comment}/>
+            ))}
           </div>
         </div>
       </section>

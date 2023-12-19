@@ -1,7 +1,7 @@
 //func/fetchCall.ts
 import axios, { AxiosError } from 'axios'
 
-const getAxiosInstance = (baseURL: string | undefined, token: string) => {
+const getAxiosInstance = (baseURL: string | undefined, token?: string) => {
   if (!baseURL) {
     throw new Error('Base URL is not defined.')
   }
@@ -9,7 +9,7 @@ const getAxiosInstance = (baseURL: string | undefined, token: string) => {
   return axios.create({
     baseURL,
     headers: {
-      Authorization: `Bearer ${token}`,
+      // Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
   })
@@ -19,19 +19,19 @@ const baseURL = process.env.NEXT_PUBLIC_BACKEND_SERVER
 
 if (!baseURL) {
   throw new Error(
-    'NEXT_PUBLIC_BACKEND_SERVER is not defined in the environment.',
+    'NEXT_PUBLIC_BACKENRecordDetailComment_SERVER is not defined in the environment.',
   )
 }
 
 export const axiosInstance = getAxiosInstance(
   baseURL,
-  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYXBweWhzcnl1QGdtYWlsLmNvbSIsImlhdCI6MTcwMjg2OTg0NiwiZXhwIjoxNzAzMDg1ODQ2fQ.Rq7sGPQr41ITjHJMO0D8oplAbsTYoWDXxsfDdR4Dj-DleqrRp2bc-wsw8iWnmPVI1Wx6_JLc6jsnEjXbRvWvew',
+  // 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYXBweWhzcnl1QGdtYWlsLmNvbSIsImlhdCI6MTcwMjg2OTg0NiwiZXhwIjoxNzAzMDg1ODQ2fQ.Rq7sGPQr41ITjHJMO0D8oplAbsTYoWDXxsfDdR4Dj-DleqrRp2bc-wsw8iWnmPVI1Wx6_JLc6jsnEjXbRvWvew',
 )
 
 export async function Postfetch(url: string, data?: any, accesstoken?: string) {
   try {
     const response = await axiosInstance.post(url, data)
-    return response.data
+    return response
   } catch (error) {
     const axiosError = error as AxiosError
     throw axiosError
@@ -75,7 +75,7 @@ export async function GetPOSTfetch(url: string, tags: string[]) {
       credentials: 'include',
       headers: {
         credentials: 'include',
-        Authorization: `Bearer ${'API_TOKEN'}`,
+        // Authorization: `Bearer ${'API_TOKEN'}`,
         'Content-Type': 'application/json',
       },
     })
@@ -85,4 +85,7 @@ export async function GetPOSTfetch(url: string, tags: string[]) {
     // Handle errors here
     throw axiosError
   }
+}
+export const setHeaderToken = async (token: string) => {
+  axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`
 }
