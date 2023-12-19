@@ -1,6 +1,10 @@
 //func/fetchCall.ts
 import axios, { AxiosError } from 'axios'
 
+export const setHeaderToken = async (token: string) => {
+  axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`
+}
+
 const getAxiosInstance = (baseURL: string | undefined, token: string) => {
   if (!baseURL) {
     throw new Error('Base URL is not defined.')
@@ -25,7 +29,7 @@ if (!baseURL) {
 
 export const axiosInstance = getAxiosInstance(
   baseURL,
-  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYXBweWhzcnl1QGdtYWlsLmNvbSIsImlhdCI6MTcwMjg2OTg0NiwiZXhwIjoxNzAzMDg1ODQ2fQ.Rq7sGPQr41ITjHJMO0D8oplAbsTYoWDXxsfDdR4Dj-DleqrRp2bc-wsw8iWnmPVI1Wx6_JLc6jsnEjXbRvWvew',
+  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYXBweWhzcnl1QGdtYWlsLmNvbSIsImlhdCI6MTcwMjk2MDUyMiwiZXhwIjoxNzAzMTc2NTIyfQ.wvI458V8JrxRvGT0Pv4JxwYzvBayVMSChilyKL0pDRiUOlabpmGkbs5wf2lkw1NyqAsEzPXFY4HX5MThjV__Wg',
 )
 
 export async function Postfetch(url: string, data?: any, accesstoken?: string) {

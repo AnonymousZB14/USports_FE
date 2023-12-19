@@ -1,3 +1,4 @@
+import { Recruit } from '@/components/recruits'
 export interface AddressType {
   address: string
   postCode: string
@@ -72,4 +73,65 @@ export interface ProfileUserType {
       sportsSkillId: number
     },
   ]
+}
+
+// OptionProps
+export interface SportsLevel {
+  sportsGrade: string
+  description: string
+}
+
+export interface SportsItem {
+  sportsId: number
+  sportsName: string
+}
+
+export interface OptionProps {
+  genderList: string[]
+  regionList: string[]
+  sportsLevelList: SportsLevel[]
+  sportsList: SportsItem[]
+}
+
+// Recruit 모집글 작성
+export interface Recruit {
+  address: string
+  content: string
+  cost: number
+  gender: string
+  gradeFrom: string
+  gradeTo: string
+  meetingDate: string
+  placeName: string
+  postCode: string
+  recruitCount: number
+  region: string
+  sportsId: number
+  title: string
+}
+
+// Recruit 상세 페이지
+export interface recruitItemProps {
+  title: string
+  content: string
+  cost: number
+  gender: string
+  gradeFrom: number
+  gradeTo: number
+  lat: number
+  lnt: number
+  memberAccountName: string
+  participantSportsSkillAverage: string
+  meetingDate: string
+  recruitId: number
+  memberId: number
+  placeName: string
+  recruitCount: number
+  recruitStatus: string
+  region: string
+  registeredAt: string
+  sportsName: string
+  streetNameAddr: string
+  streetNumberAddr: string
+  updatedAt: string
 }

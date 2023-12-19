@@ -11,7 +11,7 @@ import AuthSession from '@/app/_component/AuthSession'
 import { auth } from '@/auth'
 import RQProvider from './_component/RQProvider'
 import { cookies } from 'next/headers'
-import { axiosInstance, setInterceptor } from '@/func/fetchCall'
+import { axiosInstance } from '@/func/fetchCall'
 export const metadata: Metadata = {
   title: 'USports',
   description: 'usports',
@@ -28,7 +28,7 @@ export default async function RootLayout({
   const ttt = cookies().get('connect.sid')?.value
   console.log(ttt)
   // axiosInstance.defaults.headers.common.Authorization = `Bearer ${ttt}`
-  
+
   if (!session?.user) {
     redirect('/login')
   } else {
