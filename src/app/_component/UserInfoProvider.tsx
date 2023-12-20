@@ -13,9 +13,12 @@ const UserInfoProvider = ({ children }: { children: React.ReactNode }) => {
   const [sports, setSports] = useRecoilState(SportsList)
   const [region, setRegion] = useRecoilState(RegionList)
   const [mode, setMode] = useRecoilState(DarkModeState)
-  const localUser = localStorage.getItem('user')
-  const localMode = localStorage.getItem('dark-mode')
+  let localUser,localMode
   useEffect(() => {
+    if (typeof localStorage !== 'undefined') {
+      localUser = localStorage.getItem('user')
+      localMode = localStorage.getItem('dark-mode')
+    }
     try {
       const data = axios
         .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/types`)
@@ -36,7 +39,7 @@ const UserInfoProvider = ({ children }: { children: React.ReactNode }) => {
     setMode(JSON.parse(localMode!))
   }, [localUser])
   useEffect(() => {
-    if (user?.tokenDto?.accessToken==null || user.tokenDto.accessToken == '')
+    if (user?.tokenDto?.accessToken == null || user.tokenDto.accessToken == '')
       return
     console.log(user)
     setHeaderToken(user.tokenDto.accessToken)

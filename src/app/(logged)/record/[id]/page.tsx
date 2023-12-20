@@ -15,6 +15,7 @@ import { useQuery } from '@tanstack/react-query'
 import { RecordDetail } from '@/types/types'
 import { getRecordDetail } from './_lib/getRecordDetail'
 import Link from 'next/link'
+import SwiperWrap from '@/components/swiper'
 type PageParams = {
   id: string
 }
@@ -57,7 +58,8 @@ const page = ({ params }: { params: PageParams }) => {
         </div>
         <div className="page_mid">
           <div className="record_img_sec">
-            <ul>
+            <SwiperWrap CarouselData={data!.imageAddressList} />
+{/*             <ul>
               {data!.imageAddressList.map((img: string) => (
                 <li>
                   <div>
@@ -65,7 +67,7 @@ const page = ({ params }: { params: PageParams }) => {
                   </div>
                 </li>
               ))}
-            </ul>
+            </ul> */}
           </div>
           <div className="icon_wrap">
             <FaHeart className="hoverScaleAct" />
@@ -87,7 +89,7 @@ const page = ({ params }: { params: PageParams }) => {
         <div className="page_btm">
           <div className="comments">
             {data.commentList.map((comment) => (
-              <Comment comment={comment}/>
+              <Comment comment={comment} />
             ))}
           </div>
         </div>

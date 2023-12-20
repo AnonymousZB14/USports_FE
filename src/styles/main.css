@@ -258,6 +258,7 @@ html[data-theme=light] {
   width: 24%;
 }
 #header .head_inner {
+  overflow-y: auto;
   padding-top: 40px;
   padding-bottom: 40px;
   display: flex;
@@ -381,7 +382,6 @@ main:is(main > section) {
   padding: 10px;
   font-size: var(--text-size-base);
   padding: 10px 30px;
-  font-weight: 500;
 }
 
 #title {
@@ -1034,6 +1034,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
 }
 .home_section .top_section:is(.scrolled > div) {
   padding-top: 60px;
+  z-index: 11;
   box-shadow: 0 0px 20px 0px rgba(0, 0, 0, 0.1215686275);
 }
 .home_section .top_section:is(.scrolled > div) ul {
@@ -1285,6 +1286,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
 }
 .recruit-detail-wrap .content-header:is(.scrolled > div) {
   padding-top: 6rem;
+  z-index: 11;
 }
 
 .content-body {
@@ -2204,6 +2206,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   color: var(--text-color-4);
   gap: 1rem;
   padding-top: 3rem;
+  margin-bottom: 50px;
 }
 .pagination .page-item {
   transition: all 0s ease 0s;
@@ -2234,6 +2237,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   padding: 0 var(--side-padding);
 }
 .record_detail_sec .page_top {
+  z-index: 11;
   backdrop-filter: blur(10px);
   background-color: transparent;
   transition: all 0.4s;

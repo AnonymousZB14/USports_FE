@@ -4,6 +4,7 @@
   .top_section {
     &:is(.scrolled > div) {
       padding-top: 60px;
+      z-index: 11;
       box-shadow: 0 0px 20px 0px #0000001f;
       ul {
         border-bottom: none;
@@ -41,9 +42,9 @@
     padding: 10px 20px;
     border-radius: 20px;
     color: var(--bg-color-2);
-    transition: all .1s;
+    transition: all 0.1s;
     &:hover {
-      opacity: .8;
+      opacity: 0.8;
     }
     svg {
       width: 25px;
