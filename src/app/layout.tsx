@@ -1,3 +1,4 @@
+import React from 'react'
 import type { Metadata } from 'next'
 import './globals.css'
 import '../styles/main.css'
@@ -7,7 +8,6 @@ import RecoilRootWrapper from '@/containers/recoilRootWrapper'
 import RQProvider from './(logged)/_component/RQProvider'
 import UserInfoProvider from './_component/UserInfoProvider'
 import Script from 'next/script'
-
 export const metadata: Metadata = {
   title: 'USports',
   description: 'usports',

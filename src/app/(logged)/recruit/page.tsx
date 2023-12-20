@@ -14,7 +14,7 @@ import FilterSection from '@/components/filterSection'
 import { useRouter, useParams } from 'next/navigation'
 import axios from 'axios'
 import { Getfetch, axiosInstance } from '@/func/fetchCall'
-import { optionProps } from '@/types/types'
+import { OptionProps } from '@/types/types'
 import SportsFilterSection from '@/components/sportsFilterSection'
 import { useRecoilState } from 'recoil'
 import { RegionList, SportsLevelList, SportsList } from '@/store/types'
@@ -151,7 +151,7 @@ const recruitWrite = () => {
     setPersonNum(event.target.value)
   }
 
-  const [optionList, setOptionList] = useState<optionProps | undefined>()
+  const [optionList, setOptionList] = useState<OptionProps | undefined>()
   const [sports, setSports] = useRecoilState(SportsList)
   const [sportsLevel, setRportsLevel] = useRecoilState(SportsLevelList)
   const [region, setRegion] = useRecoilState(RegionList)

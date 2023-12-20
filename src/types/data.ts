@@ -1,3 +1,4 @@
+// OptionProps 에서 받아와서 삭제 예정
 export const filterOptions = {
   options1: [
     '서울',

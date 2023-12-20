@@ -129,11 +129,39 @@ export interface ProfileUserType {
   ]
 }
 
-export interface optionProps {
+// OptionProps
+export interface SportsLevel {
+  sportsGrade: string
+  description: string
+}
+
+export interface SportsItem {
+  sportsId: number
+  sportsName: string
+}
+
+export interface OptionProps {
   genderList: string[]
   regionList: string[]
-  sportsLevelList: string[]
-  sportsList: string[]
+  sportsLevelList: SportsLevel[]
+  sportsList: SportsItem[]
+}
+
+// Recruit 모집글 작성
+export interface Recruit {
+  address: string
+  content: string
+  cost: number
+  gender: string
+  gradeFrom: string
+  gradeTo: string
+  meetingDate: string
+  placeName: string
+  postCode: string
+  recruitCount: number
+  region: string
+  sportsId: number
+  title: string
 }
 
 export type SportsList = { sportsId: number; sportsName: string }[]

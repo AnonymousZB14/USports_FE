@@ -29,12 +29,15 @@ const Content = ({ accountName }: { accountName: string }) => {
   }, [number])
   useEffect(() => {
     console.log(data)
-  },[data])
+  }, [data])
   return (
     <>
       <div className="profile_info">
         <div className="inner">
-          <UserAvatar accountName={accountName} image={data?.memberInfo.profileImage!} />
+          <UserAvatar
+            accountName={accountName}
+            image={data?.memberInfo.profileImage!}
+          />
           <div className="user_info">
             <h3>{accountName}</h3>
             <p>{data?.memberInfo.email}</p>
