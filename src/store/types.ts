@@ -2,7 +2,7 @@ import { atom } from 'recoil'
 
 export const SportsList = atom({
   key: 'sportsList',
-  default: [],
+  default: [{sportsId:0,sportsName:''}],
 })
 export const SportsLevelList = atom({
   key: 'sportsLevelList',

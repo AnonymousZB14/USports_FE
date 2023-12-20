@@ -1,4 +1,5 @@
-import React, { Fragment, useEffect } from 'react'
+'use client'
+import React, { Fragment, useEffect, useState } from 'react'
 import UserInfoSec from './userInfoSec'
 import Link from 'next/link'
 import { useInView } from 'react-intersection-observer'
@@ -6,11 +7,14 @@ import { InfiniteData, useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import { getMyRecruits } from '@/app/(logged)/profile/_lib/getMyRecruits'
 import UserInfo from './userInfo'
 import { getProfileUser } from '@/app/(logged)/profile/_lib/getProfileUser'
-import { ProfileUserType } from '@/types/types'
+import { ProfileUserType, recruitItemProps } from '@/types/types'
+import KaKaoMap from './kakaoMap'
+import { useRecoilState } from 'recoil'
+import { SportsList } from '@/store/types'
 interface Recruits {
   currentPage: number
-  totalPages:number,
-  list: Recruit[]
+  totalPages: number
+  list: recruitItemProps[]
 }
 interface Recruit {
   content: string
@@ -36,7 +40,8 @@ const Recruits = ({ accoutName }: { accoutName: string }) => {
     queryFn: getMyRecruits,
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
-      return lastPage.totalPages===0 || lastPage.totalPages === lastPage.currentPage
+      return lastPage.totalPages === 0 ||
+        lastPage.totalPages === lastPage.currentPage
         ? undefined
         : lastPage.currentPage + 1
     },
@@ -78,9 +83,18 @@ export const Recruit = ({
   item,
   user,
 }: {
-  item: Recruit
+  item: recruitItemProps
   user: ProfileUserType
 }) => {
+  const [sportList, _] = useRecoilState(SportsList)
+  const [sportname, setSportname] = useState('')
+  useEffect(() => {
+    sportList.map((sport) => {
+      if (sport.sportsId == item.sportsId) {
+        setSportname(sport.sportsName)
+      }
+    })
+  }, [sportList])
   return (
     <li>
       <div className="recruit_head">
@@ -92,8 +106,25 @@ export const Recruit = ({
         <Link href={`/recruit/${item.recruitId}`}>자세히보기</Link>
       </div>
       <div className="recruit_body">
-        <h4>{item.title}</h4>
-        <p>{item.content}</p>
+        <div className="mapWrap" style={{ width: 200 }}>
+          <KaKaoMap recruitData={item} />
+          <p>
+            {item.streetNameAddr} {item.placeName}
+          </p>
+        </div>
+        <div className="bodyWrap">
+          <div className="badgeWrap">
+            <span className="sport">{sportname}</span>
+            <span className="gender">{item.gender}</span>
+            <span className="level">
+              {item.gradeFrom}
+              &nbsp;~&nbsp;
+              {item.gradeTo}
+            </span>
+          </div>
+          <h4>{item.title}</h4>
+          <p>{item.content}</p>
+        </div>
       </div>
     </li>
   )
