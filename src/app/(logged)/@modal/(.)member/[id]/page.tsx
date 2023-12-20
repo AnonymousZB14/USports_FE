@@ -24,7 +24,6 @@ const Page = () => {
   const [user, setUser] = useRecoilState(UserDetailState)
 
   const { register, handleSubmit, control, watch } = useForm()
-  
 
   const [accountName, setAccountName] = useState(user.member.accountName)
   const [activeRegion, setactiveRegion] = useState(user.member.activeRegion)
@@ -65,9 +64,10 @@ const Page = () => {
           birthDate,
           phoneNumber,
           name,
-          profileImage:"https://usportsbucket-kmj.s3.ap-northeast-2.amazonaws.com/5bce8834-659d-452e-8f69-6a0b9ccdc346KakaoTalk_Photo_2023-07-05-18-01-52.png",
+          profileImage:
+            'https://usportsbucket-kmj.s3.ap-northeast-2.amazonaws.com/5bce8834-659d-452e-8f69-6a0b9ccdc346KakaoTalk_Photo_2023-07-05-18-01-52.png',
           gender,
-          profileOpen : JSON.stringify(profileImage),
+          profileOpen: JSON.stringify(profileImage),
           interestedSports,
         },
         {
@@ -122,15 +122,8 @@ const Page = () => {
             ))}
           </div>
           <div>
-            <label>프로필사진</label>
-            <label htmlFor="profileImg">
-              <Image
-                width={100}
-                height={100}
-                alt="profileImage"
-                src={profileImage}
-              />
-            </label>
+            <label htmlFor="profileImg">프로필사진</label>
+
             <input
               type="file"
               id="profileImg"
@@ -141,6 +134,7 @@ const Page = () => {
                 const imgUrl = URL.createObjectURL(file)
                 setprofileImage(imgUrl)
               }}
+              className="text-xl file:bg-blue-50 file:text-blue-500 hover:file:bg-blue-100 file:rounded-lg file:rounded-tr-none file:rounded-br-none file:px-6 file:py-4 file:mr-4 file:border-none hover:cursor-pointer border rounded-lg text-gray-400"
             />
           </div>
           {user.member.role === 'UNAUTH' ? (

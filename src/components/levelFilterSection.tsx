@@ -2,18 +2,19 @@
 import React, { useState } from 'react'
 import { SlArrowDown } from 'react-icons/sl'
 import FilterDialog from '@/components/filterDialog'
+import LevelFilterDialog from './levelFilterDialog'
 
 interface FilterSectionProps {
   openFilterDialog: () => void
   closeFilterDialog: () => void
-  applyFilter: (filter: string) => void
+  applyFilter: (sportsGrade: string, description: string) => void
   isFilterDialogOpen: boolean
   selectedFilter: string
-  filterOptions: string[]
+  filterOptions: { sportsGrade: string; description: string }[]
   title: string
 }
 
-const FilterSection: React.FC<FilterSectionProps> = ({
+const LevelFilterSection = ({
   openFilterDialog,
   closeFilterDialog,
   applyFilter,
@@ -21,7 +22,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({
   selectedFilter,
   filterOptions,
   title,
-}) => {
+}: FilterSectionProps) => {
   return (
     <>
       <div className="category-con">
@@ -38,8 +39,8 @@ const FilterSection: React.FC<FilterSectionProps> = ({
       </div>
 
       {isFilterDialogOpen && (
-        <FilterDialog
-          options={filterOptions}
+        <LevelFilterDialog
+          optionsList={filterOptions}
           onApplyFilter={applyFilter}
           onClose={closeFilterDialog}
           selectedFilterName={selectedFilter}
@@ -49,4 +50,4 @@ const FilterSection: React.FC<FilterSectionProps> = ({
   )
 }
 
-export default FilterSection
+export default LevelFilterSection

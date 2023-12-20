@@ -136,6 +136,8 @@ export interface optionProps {
   sportsList: string[]
 }
 
+export type SportsList = { sportsId: number; sportsName: string }[]
+export type LevelList = { sportsGrade: string; description: string }[]
 export interface recruitItemProps {
   title: string
   content: string
@@ -163,6 +165,7 @@ export interface recruitItemProps {
 export interface HomeRecord {
   currentPage: number
   list: HomeRecordListItem[]
+  totalPages: number
 }
 export interface HomeRecordListItem {
   accountName: string

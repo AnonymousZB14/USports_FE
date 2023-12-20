@@ -11,9 +11,14 @@ import axios from 'axios'
 import { UserDetailState } from '@/store/user'
 import { useRecoilState } from 'recoil'
 import { useRouter } from 'next/navigation'
+import { useQuery } from '@tanstack/react-query'
+import { SportsList } from '@/types/types'
+import { SportsList as SportsListStore } from '@/store/types'
+import SportsFilterDialog from '@/components/sportsFilterDialog'
 
 const recordWrite = () => {
   const [isFilterDialogOpen2, setIsFilterDialogOpen2] = useState(false)
+  const [sportsList, setSportsList] = useState<SportsList>([])
   const [user, setUser] = useRecoilState(UserDetailState)
   const [selectedFilter2, setSelectedFilter2] = useState<string>('운동종목')
   const [showImages, setShowImages] = useState([])
@@ -21,6 +26,16 @@ const recordWrite = () => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const route = useRouter()
+  const [sports, setSports] = useRecoilState<any>(SportsListStore)
+  useEffect(() => {
+    try {
+    } catch (e) {
+      console.log(e)
+    }
+  }, [])
+  useEffect(() => {
+    console.log(sports)
+  }, [sports])
   const openFilterDialog2 = () => {
     setIsFilterDialogOpen2(true)
   }
@@ -29,9 +44,9 @@ const recordWrite = () => {
     setIsFilterDialogOpen2(false)
   }
 
-  const applyFilter2 = (filter: string) => {
-    console.log('Applying filter 2:', filter)
-    setSelectedFilter2(filter)
+  const applyFilter2 = (sportsId: number, sportsName: string) => {
+    console.log('Applying filter 2:', sportsId)
+    setSelectedFilter2(sportsName)
   }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -96,13 +111,15 @@ const recordWrite = () => {
 
       <h1 className="write-tit">기록 글을 작성해주세요.</h1>
       <form onSubmit={handleSubmit} className="explore-form">
-
         <div className="category-wrap">
           <label>카테고리</label>
           <ul className="category-con">
             <li>
               <button
-                onClick={openFilterDialog2}
+                onClick={(e) => {
+                  e.preventDefault()
+                  openFilterDialog2()
+                }}
                 className={selectedFilter2 === '운동종목' ? '' : 'active'}
               >
                 {selectedFilter2}
@@ -112,8 +129,8 @@ const recordWrite = () => {
           </ul>
 
           {isFilterDialogOpen2 && (
-            <FilterDialog
-              options={filterOptions.options2}
+            <SportsFilterDialog
+              optionsList={sports}
               onApplyFilter={applyFilter2}
               onClose={closeFilterDialog2}
               selectedFilterName={selectedFilter2}

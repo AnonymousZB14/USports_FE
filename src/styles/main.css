@@ -2410,9 +2410,6 @@ ul.recruitManagement > li .recruitItemCont p.status {
 .editUser form > div input[type=button] {
   background-color: #a2a2a2;
 }
-.editUser form > div input[type=file] {
-  display: none;
-}
 
 .notLoggedP {
   min-height: 50vh;

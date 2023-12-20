@@ -15,6 +15,10 @@ import { useRouter, useParams } from 'next/navigation'
 import axios from 'axios'
 import { Getfetch, axiosInstance } from '@/func/fetchCall'
 import { optionProps } from '@/types/types'
+import SportsFilterSection from '@/components/sportsFilterSection'
+import { useRecoilState } from 'recoil'
+import { RegionList, SportsLevelList, SportsList } from '@/store/types'
+import LevelFilterSection from '@/components/levelFilterSection'
 
 interface recruit {
   sportsName: string
@@ -74,9 +78,9 @@ const recruitWrite = () => {
     setIsFilterDialogOpen2(false)
   }
 
-  const applyFilter2 = (filter: string) => {
-    console.log('Applying filter 2:', filter)
-    setSelectedSports(filter)
+  const applyFilter2 = (sportsId: number, sportsName: string) => {
+    console.log('Applying filter 2:', sportsId)
+    setSelectedSports(sportsName)
   }
 
   const openFilterDialog3 = () => {
@@ -114,6 +118,7 @@ const recruitWrite = () => {
   }
 
   const applyFilter5 = (filter: string) => {
+    console.log('Applying filter 5:', filter)
     setSelectedGradeTo(filter)
   }
 
@@ -158,7 +163,9 @@ const recruitWrite = () => {
   }
 
   const [optionList, setOptionList] = useState<optionProps | undefined>()
-
+  const [sports, setSports] = useRecoilState(SportsList)
+  const [sportsLevel, setRportsLevel] = useRecoilState(SportsLevelList)
+  const [region, setRegion] = useRecoilState(RegionList)
   useEffect(() => {
     axiosInstance
       .get(`/api/types`)
@@ -267,13 +274,13 @@ const recruitWrite = () => {
             title="모든지역"
           />
 
-          <FilterSection
+          <SportsFilterSection
             openFilterDialog={openFilterDialog2}
             closeFilterDialog={closeFilterDialog2}
             applyFilter={applyFilter2}
             isFilterDialogOpen={isFilterDialogOpen2}
             selectedFilter={selectedSports}
-            filterOptions={optionList?.sportsList || []}
+            filterOptions={sports}
             title="운동종목"
           />
 
@@ -290,23 +297,23 @@ const recruitWrite = () => {
         <div className="category-wrap">
           <div className="category-con">
             <label>레벨</label>
-            <FilterSection
+            <LevelFilterSection
               openFilterDialog={openFilterDialog4}
               closeFilterDialog={closeFilterDialog4}
               applyFilter={applyFilter4}
               isFilterDialogOpen={isFilterDialogOpen4}
               selectedFilter={selectedGradeFrom}
-              filterOptions={optionList?.sportsLevelList || []}
+              filterOptions={sportsLevel}
               title="레벨"
             />
             <span className="from-to-line"></span>
-            <FilterSection
+            <LevelFilterSection
               openFilterDialog={openFilterDialog5}
               closeFilterDialog={closeFilterDialog5}
               applyFilter={applyFilter5}
               isFilterDialogOpen={isFilterDialogOpen5}
               selectedFilter={selectedGradeTo}
-              filterOptions={optionList?.sportsLevelList || []}
+              filterOptions={sportsLevel}
               title="레벨"
             />
           </div>
