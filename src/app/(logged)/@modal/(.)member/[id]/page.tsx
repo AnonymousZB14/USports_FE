@@ -67,7 +67,7 @@ const Page = () => {
           profileImage:
             'https://usportsbucket-kmj.s3.ap-northeast-2.amazonaws.com/5bce8834-659d-452e-8f69-6a0b9ccdc346KakaoTalk_Photo_2023-07-05-18-01-52.png',
           gender,
-          profileOpen: JSON.stringify(profileImage),
+          profileOpen: JSON.stringify(profileOpen),
           interestedSports,
         },
         {

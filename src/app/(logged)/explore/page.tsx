@@ -72,7 +72,7 @@ const explore = () => {
     }[]
   >([])
   const [currentPage, setCurrentPage] = useState(1)
-  const postsPerPage = 10
+  const postsPerPage = 6
 
   const mockData = [
     {
