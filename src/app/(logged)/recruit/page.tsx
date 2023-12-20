@@ -1,38 +1,59 @@
 'use client'
-import { useRouter, useParams } from 'next/navigation'
-import { ChangeEvent, useEffect, useState } from 'react'
-import 'flatpickr/dist/flatpickr.min.css'
-import axios from 'axios'
-import flatpickr from 'flatpickr'
 import Title from '@/components/title'
+import { filterOptions } from '../../../types/data'
 import FormAddress from '../../../components/addressForm'
 import DataPicker from '../../../components/dataPicker'
-import Button from '@/components/commonButton'
-import {
-  OptionProps,
-  AddressType,
-  SportsItem,
-  SportsLevel,
-} from '@/types/types'
-import FilterSection from '@/components/filterSection'
+import { ChangeEvent, useEffect, useState } from 'react'
+import { AddressType } from '../../../types/types'
+import flatpickr from 'flatpickr'
+import 'flatpickr/dist/flatpickr.min.css'
 import FilterDialog from '@/components/filterDialog'
+import Button from '@/components/commonButton'
 import { SlArrowDown } from 'react-icons/sl'
+import FilterSection from '@/components/filterSection'
+import { useRouter, useParams } from 'next/navigation'
+import axios from 'axios'
 import { Getfetch, axiosInstance } from '@/func/fetchCall'
+import { OptionProps } from '@/types/types'
+import SportsFilterSection from '@/components/sportsFilterSection'
+import { useRecoilState } from 'recoil'
+import { RegionList, SportsLevelList, SportsList } from '@/store/types'
+import LevelFilterSection from '@/components/levelFilterSection'
 
+interface recruit {
+  sportsName: string
+  title: string
+  content: string
+  region: string
+  cost: number
+  recruitCount: number
+  gender: string
+  gradeFrom: number
+  gradeTo: number
+  address: string
+  postCode: number
+  placeName: string
+  meetingDate: string
+}
+interface Sport {
+  sportsId: number
+  sportsName: string
+}
 const recruitWrite = () => {
   const params = useParams()
   const router = useRouter()
-
   const [addressData, setAddressData] = useState<AddressType | null>(null)
   const [selectedDate, setSelectedDate] = useState('')
-  const [title, setTitle] = useState('')
+  const [tit, setTit] = useState('')
   const [content, setContent] = useState('')
   const [costNum, setCostNum] = useState('')
   const [personNum, setPersonNum] = useState('')
-  const [optionList, setOptionList] = useState<OptionProps | undefined>()
   const [reviewModalContent, setReviewModalContent] = useState('')
   const [selectedRegion, setSelectedRegion] = useState<string>('모든지역')
-  const [selectedSports, setSelectedSports] = useState<string>('운동종목')
+  const [selectedSports, setSelectedSports] = useState<Sport>({
+    sportsId: 0,
+    sportsName: '운동종목',
+  }) // 운동종목
   const [selectedGender, setSelectedGender] = useState<string>('성별')
   const [selectedGradeFrom, setSelectedGradeFrom] = useState<string>('레벨')
   const [selectedGradeTo, setSelectedGradeTo] = useState<string>('레벨')
@@ -63,9 +84,9 @@ const recruitWrite = () => {
     setIsFilterDialogOpen2(false)
   }
 
-  const applyFilter2 = (filter: string) => {
-    console.log('Applying filter 2:', filter)
-    setSelectedSports(filter)
+  const applyFilter2 = (sportsId: number, sportsName: string) => {
+    console.log('Applying filter 2:', sportsId)
+    setSelectedSports({ sportsId, sportsName })
   }
 
   const openFilterDialog3 = () => {
@@ -103,6 +124,7 @@ const recruitWrite = () => {
   }
 
   const applyFilter5 = (filter: string) => {
+    console.log('Applying filter 5:', filter)
     setSelectedGradeTo(filter)
   }
 
@@ -113,14 +135,8 @@ const recruitWrite = () => {
   ) => {
     setSelectedDate(dateStr)
   }
-
-  flatpickr('.date-selector', {
-    enableTime: true,
-    dateFormat: 'Y-m-d H:i',
-    onChange: handleDateChange,
-  })
   const handleTitChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value)
+    setTit(event.target.value)
   }
 
   const handleContentChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -135,6 +151,10 @@ const recruitWrite = () => {
     setPersonNum(event.target.value)
   }
 
+  const [optionList, setOptionList] = useState<OptionProps | undefined>()
+  const [sports, setSports] = useRecoilState(SportsList)
+  const [sportsLevel, setRportsLevel] = useRecoilState(SportsLevelList)
+  const [region, setRegion] = useRecoilState(RegionList)
   useEffect(() => {
     axiosInstance
       .get(`/api/types`)
@@ -153,77 +173,38 @@ const recruitWrite = () => {
 
     try {
       const recruitData = new FormData()
-
-      const selectedSportsItem = optionList?.sportsList.find(
-        (sport) => sport.sportsName === selectedSports,
-      )
-
-      if (selectedSportsItem) {
-        recruitData.append('sportsId', selectedSportsItem.sportsId.toString())
-      }
-      const selectedSportsLevel = optionList?.sportsLevelList.find(
-        (level) => level.description === selectedGradeFrom,
-      )
-
-      if (selectedSportsLevel) {
-        recruitData.append('gradeFrom', selectedSportsLevel.sportsGrade)
-      }
-
-      const selectedSportsLevelTo = optionList?.sportsLevelList.find(
-        (level) => level.description === selectedGradeTo,
-      )
-
-      if (selectedSportsLevelTo) {
-        recruitData.append('gradeTo', selectedSportsLevelTo.sportsGrade)
-      }
-
-      const { address, postCode, additional } = addressData || {}
-
-      const transformedAddressData = {
-        address: address ? address.split(' ').slice(1).join(' ') : '', // 두 번째 단어부터 마지막까지의 주소
-        postCode: postCode || '',
-        placeName: additional || '', // additional을 placeName으로 사용
-      }
-
-      recruitData.append('address', transformedAddressData.address)
-      recruitData.append('postCode', transformedAddressData.postCode)
-      recruitData.append('placeName', transformedAddressData.placeName)
-      recruitData.append('title', title)
-      recruitData.append('content', content)
-      recruitData.append('cost', costNum)
-      recruitData.append('recruitCount', personNum)
-      recruitData.append('meetingDate', selectedDate)
-      recruitData.append('region', selectedRegion)
-      recruitData.append('gender', selectedGender)
-      recruitData.append('gradeFrom', selectedGradeFrom)
-      recruitData.append('gradeTo', selectedGradeTo)
-
       console.log('Recruit Data:', Object.fromEntries(recruitData))
-
-      const res = await axios.post(`/recruit`, recruitData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+      const res = await axiosInstance.post(`/recruit`, {
+        title: tit,
+        content,
+        cost: costNum,
+        recruitCount: personNum,
+        address: addressData?.address,
+        meetingDate: new Date(selectedDate),
+        postCode: addressData?.postCode,
+        placeName: addressData?.additional,
+        region: selectedRegion,
+        sportsId: selectedSports.sportsId,
+        gender: selectedGender,
+        gradeFrom: selectedGradeFrom,
+        gradeTo: selectedGradeTo,
       })
-
       console.log('Response:', res)
 
-      if (res.status === 200) {
-        // 성공적인 경우
-        setTitle('')
+      if (res.status == 200) {
+        setTit('')
         setContent('')
         setCostNum('')
         setPersonNum('')
         setAddressData(null)
         setSelectedDate('')
         setSelectedRegion('')
-        setSelectedSports('')
+        setSelectedSports({ sportsId: 0, sportsName: '' })
         setSelectedGender('')
         setSelectedGradeFrom('')
         setSelectedGradeTo('')
-
-        console.log('게시글 작성됐나?', title, content, selectedRegion)
-        setReviewModalContent('게시글 작성이 완료되었습니다.')
+        alert('작성 완료!')
+        router.replace(`recruit/${res.data.recruitId}`)
       }
     } catch (error) {
       console.error('등록 중 오류:', error)
@@ -242,12 +223,12 @@ const recruitWrite = () => {
         className="explore-form"
       >
         <div className="tit-input-wrap">
-          <label htmlFor="title">제목</label>
+          <label htmlFor="tit">제목</label>
           <input
             type="text"
             id="id"
-            name="title"
-            value={title}
+            name="tit"
+            value={tit}
             onChange={handleTitChange}
             placeholder="제목을 입력해주세요.(50자 이내)"
           />
@@ -264,17 +245,13 @@ const recruitWrite = () => {
             title="모든지역"
           />
 
-          <FilterSection
+          <SportsFilterSection
             openFilterDialog={openFilterDialog2}
             closeFilterDialog={closeFilterDialog2}
             applyFilter={applyFilter2}
             isFilterDialogOpen={isFilterDialogOpen2}
             selectedFilter={selectedSports}
-            filterOptions={
-              optionList?.sportsList.map(
-                (sports: SportsItem) => sports.sportsName,
-              ) || []
-            }
+            filterOptions={sports}
             title="운동종목"
           />
 
@@ -291,31 +268,23 @@ const recruitWrite = () => {
         <div className="category-wrap">
           <div className="category-con">
             <label>레벨</label>
-            <FilterSection
+            <LevelFilterSection
               openFilterDialog={openFilterDialog4}
               closeFilterDialog={closeFilterDialog4}
               applyFilter={applyFilter4}
               isFilterDialogOpen={isFilterDialogOpen4}
               selectedFilter={selectedGradeFrom}
-              filterOptions={
-                optionList?.sportsLevelList.map(
-                  (level: SportsLevel) => level.description,
-                ) || []
-              }
+              filterOptions={sportsLevel}
               title="레벨"
             />
             <span className="from-to-line"></span>
-            <FilterSection
+            <LevelFilterSection
               openFilterDialog={openFilterDialog5}
               closeFilterDialog={closeFilterDialog5}
               applyFilter={applyFilter5}
               isFilterDialogOpen={isFilterDialogOpen5}
               selectedFilter={selectedGradeTo}
-              filterOptions={
-                optionList?.sportsLevelList.map(
-                  (level: SportsLevel) => level.description,
-                ) || []
-              }
+              filterOptions={sportsLevel}
               title="레벨"
             />
           </div>
@@ -373,9 +342,7 @@ const recruitWrite = () => {
 
         <div className="tit-input-wrap">
           <label>날짜</label>
-          {/* <input type="text" className="date-selector" /> */}
           <DataPicker onChange={handleDateChange} />
-          {/* <p>{selectedDate}</p> */}
         </div>
 
         <div className="flex gap-5 mt-20 justify-center">

@@ -6,18 +6,20 @@ import React, { Fragment, Suspense, useEffect, useState } from 'react'
 import { Record, Records } from '@/types/types'
 import { getPostRecommends } from '../../_lib/getPostRecommends'
 import { useInView } from 'react-intersection-observer'
+import { HomeRecord } from '@/types/types'
+
 const RecmdFeed = () => {
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery<
-    Record[],
+    HomeRecord,
     Object,
-    InfiniteData<Record[]>,
+    InfiniteData<HomeRecord>,
     [_1: string, _2: string],
     number
   >({
     queryKey: ['records', 'recommends'],
     queryFn: getPostRecommends,
-    initialPageParam: 0,
-    getNextPageParam: (lastPage) => lastPage.at(-1)?.recordId,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => lastPage.currentPage + 1,
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
   })
@@ -30,25 +32,14 @@ const RecmdFeed = () => {
       !isFetching && hasNextPage && fetchNextPage()
     }
   }, [inView, isFetching, hasNextPage, fetchNextPage])
-/*   const [list, setList] = useState([])
-  useEffect(() => {
-    try {
-      Getfetch(`/home?page=1`).then(
-        (resp) => {
-          setList(resp.list)
-        },
-      )
-    } catch (error) {
-      console.log(error)
-    }
-  }, []) */
+
   return (
     <>
       <div className="feed">
-        {data?.pages.map((page, itemIdx: number) => (
+        {data?.pages.map((page, itemIdx) => (
           <Fragment key={itemIdx}>
-            {page.map((item) => (
-              <FeedContent item={item} key={item.recordId} />
+            {page.list.map((item, idx) => (
+              <FeedContent item={item} key={idx} />
             ))}
           </Fragment>
         ))}

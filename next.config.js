@@ -15,9 +15,9 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'assets.example.com',
-        port: '',
-        pathname: '/account123/**',
+        hostname: 'usportsbucket-kmj.s3.ap-northeast-2.amazonaws.com',
+        /*         port: '',
+        pathname: '/account123/**', */
       },
     ],
   },

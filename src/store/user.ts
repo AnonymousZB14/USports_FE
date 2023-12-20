@@ -1,5 +1,4 @@
 import { atom } from 'recoil'
-const token = localStorage.getItem('usportsAccessToekn')
 export const UserState = atom({
   key: 'userState',
   default: {
@@ -7,7 +6,7 @@ export const UserState = atom({
     name: '',
     email: '',
     profileImage: 'https://via.placeholder.com/200',
-    accessToken: token || '',
+    accessToken: '',
   },
 })
 export const UserDetailState = atom({
@@ -16,7 +15,7 @@ export const UserDetailState = atom({
     member: {
       accountName: '',
       activeRegion: '',
-      interestedSports: [''],
+      // interestedSports: [''],
       attributes: {},
       authorities: [
         {
@@ -50,5 +49,6 @@ export const UserDetailState = atom({
       refreshToken: '',
       tokenType: '',
     },
+    interestSportsList: [0],
   },
 })

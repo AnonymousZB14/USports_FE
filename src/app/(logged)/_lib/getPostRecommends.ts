@@ -1,23 +1,11 @@
+import { Getfetch } from '@/func/fetchCall'
 
 type Props = { pageParam?: number }
-export async function getPostRecommends({ pageParam }: Props) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/postRecommends?page=${pageParam}`,
-    {
-      next: {
-        tags: ['records', 'recommends'],
-      },
-      credentials: 'include',
-      // cache: 'no-store',
-    },
-  )
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data')
-  }
-
-  return res.json()
+export function getPostRecommends({ pageParam }: Props) {
+  const res = Getfetch(
+    // `${process.env.NEXT_PUBLIC_BASE_URL}/api/postRecommends?page=${pageParam}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/home/recommend?page=${pageParam}`,
+    // `${process.env.NEXT_PUBLIC_BASE_URL}/home?type={recommend}&page=${pageParam}`,
+  ).then((res) => res)
+  return res
 }

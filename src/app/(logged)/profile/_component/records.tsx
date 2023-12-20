@@ -9,22 +9,27 @@ import axios from 'axios'
 import { InfiniteData, useInfiniteQuery } from '@tanstack/react-query'
 import { useInView } from 'react-intersection-observer'
 import { getMyRecords } from '../_lib/getMyRecords'
+import { HomeRecord, HomeRecordListItem } from '@/types/types'
 interface Record2 {
   currentPage: number
   list: { recordId: number; imageAddress: string }[]
 }
 const Records = ({ accoutName }: { accoutName: string }) => {
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery<
-    Record2,
+    HomeRecord,
     Object,
-    InfiniteData<Record2>,
+    InfiniteData<HomeRecord>,
     [_1: string, _2: string],
     number
   >({
     queryKey: ['records', accoutName],
     queryFn: getMyRecords,
     initialPageParam: 1,
-    getNextPageParam: (lastPage) => lastPage.currentPage+1,
+    getNextPageParam: (lastPage) => {
+      return lastPage.totalPages === lastPage.currentPage
+        ? undefined
+        : lastPage.currentPage + 1
+    },
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
   })
@@ -47,7 +52,7 @@ const Records = ({ accoutName }: { accoutName: string }) => {
             {page.list.map((record) => (
               <Record
                 key={record.recordId}
-                imageAddress={record.imageAddress}
+                imageAddress={record.imageAddressList[0]}
                 recordId={record.recordId}
               />
             ))}

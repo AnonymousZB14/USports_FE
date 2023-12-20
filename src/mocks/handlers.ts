@@ -101,7 +101,7 @@ export const handlers = [
           readAt: '2023-12-12T06:40:27.057Z',
           targetEntityId: 0,
           type: 'ALERT',
-          url: 'string',
+          url: '',
         },
         {
           createdAt: '2023-12-12T06:40:27.057Z',
@@ -112,7 +112,7 @@ export const handlers = [
           readAt: '2023-12-12T06:40:27.057Z',
           targetEntityId: 0,
           type: 'ALERT',
-          url: 'string',
+          url: '',
         },
         {
           createdAt: '2023-12-12T06:40:27.057Z',
@@ -123,7 +123,7 @@ export const handlers = [
           readAt: '2023-12-12T06:40:27.057Z',
           targetEntityId: 0,
           type: 'ALERT',
-          url: 'string',
+          url: '',
         },
         {
           createdAt: '2023-12-12T06:40:27.057Z',
@@ -134,7 +134,7 @@ export const handlers = [
           readAt: '2023-12-12T06:40:27.057Z',
           targetEntityId: 0,
           type: 'ALERT',
-          url: 'string',
+          url: '',
         },
         {
           createdAt: '2023-12-12T06:40:27.057Z',
@@ -145,7 +145,7 @@ export const handlers = [
           readAt: '2023-12-12T06:40:27.057Z',
           targetEntityId: 0,
           type: 'ALERT',
-          url: 'string',
+          url: '',
         },
       ],
     })
@@ -291,7 +291,74 @@ export const handlers = [
       },
     ])
   }),
+  http.get('/home/recommend', ({ request, params }) => {
+    const url = new URL(request.url)
+    const page = parseInt(url.searchParams.get('page') as string) || 0
+    return HttpResponse.json({
+      // currentElements: 0,
+      currentPage: page,
+      list: [
 
+        {
+          accountName: faker.person.firstName(),
+          commentList: [
+            {
+              accountName: faker.person.firstName(),
+              commentId: 0,
+              content: faker.lorem.sentence(),
+              memberId: 0,
+              name: faker.person.firstName(),
+              parentId: 0,
+              profileImage: faker.image.avatar(),
+              recordId: 0,
+              registerAt: '2023-12-19T10:13:43.449Z',
+              updatedAt: '2023-12-19T10:13:43.449Z',
+            },
+          ],
+          countComment: 0,
+          imageAddressList: [faker.image.urlPicsumPhotos(),faker.image.urlPicsumPhotos(),faker.image.urlPicsumPhotos()],
+          memberId: 0,
+          name: faker.person.firstName(),
+          profileImage: faker.image.avatar(),
+          recordContent: faker.lorem.sentence(),
+          recordId: 0,
+          registeredAt: '2023-12-19T10:13:43.449Z',
+          sportsId: 0,
+          updatedAt: '2023-12-19T10:13:43.449Z',
+        },
+        {
+          accountName: faker.person.firstName(),
+          commentList: [
+            {
+              accountName: faker.person.firstName(),
+              commentId: 0,
+              content: faker.lorem.sentence(),
+              memberId: 0,
+              name: faker.person.firstName(),
+              parentId: 0,
+              profileImage: faker.image.avatar(),
+              recordId: 0,
+              registerAt: '2023-12-19T10:13:43.449Z',
+              updatedAt: '2023-12-19T10:13:43.449Z',
+            },
+          ],
+          countComment: 0,
+          imageAddressList: [faker.image.urlPicsumPhotos(),faker.image.urlPicsumPhotos(),faker.image.urlPicsumPhotos(),faker.image.urlPicsumPhotos()],
+          memberId: 0,
+          name: faker.person.firstName(),
+          profileImage: faker.image.avatar(),
+          recordContent: faker.lorem.sentence(),
+          recordId: 0,
+          registeredAt: '2023-12-19T10:13:43.449Z',
+          sportsId: 0,
+          updatedAt: '2023-12-19T10:13:43.449Z',
+        },
+      ],
+      // pageSize: 0,
+      // totalElements: 0,
+      // totalPages: 0,
+    })
+  }),
   http.get('/profile/:accoutName/records', ({ request, params }) => {
     const { accoutName } = params
     const url = new URL(request.url)
@@ -332,7 +399,7 @@ export const handlers = [
       memberProfile: {
         accountName: 'accountName',
         email: `test@gmail.com`,
-        interestSportsList: ['string'],
+        interestSportsList: [''],
         mannerScore: 7,
         memberId: 0,
         name: 'name',
@@ -342,7 +409,7 @@ export const handlers = [
       sportsSkills: [
         {
           sportsGrade: 'AMATEUR_1',
-          sportsName: 'string',
+          sportsName: '',
           sportsSkillId: 0,
         },
       ],
@@ -427,7 +494,10 @@ export const handlers = [
         },
       ],
       countComment: 0,
-      imageAddressList: [faker.image.urlPicsumPhotos(),faker.image.urlPicsumPhotos()],
+      imageAddressList: [
+        faker.image.urlPicsumPhotos(),
+        faker.image.urlPicsumPhotos(),
+      ],
       memberId: 0,
       name: faker.person.firstName(),
       profileImage: faker.image.avatar(),

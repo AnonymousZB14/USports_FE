@@ -221,6 +221,7 @@
   .content-header {
     &:is(.scrolled > div) {
       padding-top: 6rem;
+      z-index: 11;
     }
     display: flex;
     justify-content: space-between;

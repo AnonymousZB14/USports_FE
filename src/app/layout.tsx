@@ -1,3 +1,4 @@
+import React from 'react'
 import type { Metadata } from 'next'
 import './globals.css'
 import '../styles/main.css'
@@ -6,7 +7,7 @@ import axios from 'axios'
 import RecoilRootWrapper from '@/containers/recoilRootWrapper'
 import RQProvider from './(logged)/_component/RQProvider'
 import UserInfoProvider from './_component/UserInfoProvider'
-
+import Script from 'next/script'
 export const metadata: Metadata = {
   title: 'USports',
   description: 'usports',
@@ -28,7 +29,7 @@ export default async function RootLayout({
           </UserInfoProvider>
         </RecoilRootWrapper>
         <script
-          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_APP_KEY}&autoload=false`}
+          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_KEY}&autoload=false&libraries=services,clusterer`}
           type="text/javascript"
         />
       </body>

@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { Map, MapMarker } from 'react-kakao-maps-sdk'
+import { Map, MapMarker, useKakaoLoader } from 'react-kakao-maps-sdk'
 import { recruitItemProps } from '@/types/types'
 
 interface KaKaoMapProps {
@@ -8,6 +8,9 @@ interface KaKaoMapProps {
 }
 
 const KaKaoMap: React.FC<KaKaoMapProps> = ({ recruitData }) => {
+  const [loading, error] = useKakaoLoader({
+    appkey: process.env.NEXT_PUBLIC_KAKAO_APP_KEY!, // 발급 받은 APPKEY
+  })
   const [centerMove, setCenterMove] = useState({
     lat: recruitData?.lat || 37.56667437551163,
     lng: recruitData?.lnt || 126.95764417493172,
@@ -23,7 +26,7 @@ const KaKaoMap: React.FC<KaKaoMapProps> = ({ recruitData }) => {
   }, [recruitData])
   return (
     <>
-      {/* <p>Latitude: {centerMove.lat}</p>
+{/*       <p>Latitude: {centerMove.lat}</p>
       <p>Longitude: {centerMove.lng}</p> */}
       <div id="map">
         <Map
