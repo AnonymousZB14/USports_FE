@@ -186,6 +186,7 @@ export interface recruitItemProps {
   region: string
   registeredAt: string
   sportsName: string
+  sportsId: number
   streetNameAddr: string
   streetNumberAddr: string
   updatedAt: string

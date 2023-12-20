@@ -10,10 +10,6 @@ import { InfiniteData, useInfiniteQuery } from '@tanstack/react-query'
 import { useInView } from 'react-intersection-observer'
 import { getMyRecords } from '../_lib/getMyRecords'
 import { HomeRecord, HomeRecordListItem } from '@/types/types'
-interface Record2 {
-  currentPage: number
-  list: { recordId: number; imageAddress: string }[]
-}
 const Records = ({ accoutName }: { accoutName: string }) => {
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery<
     HomeRecord,
@@ -26,7 +22,8 @@ const Records = ({ accoutName }: { accoutName: string }) => {
     queryFn: getMyRecords,
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
-      return lastPage.totalPages === lastPage.currentPage
+      return lastPage.totalPages === 0 ||
+        lastPage.totalPages === lastPage.currentPage
         ? undefined
         : lastPage.currentPage + 1
     },

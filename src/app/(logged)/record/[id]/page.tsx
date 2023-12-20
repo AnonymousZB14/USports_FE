@@ -59,15 +59,7 @@ const page = ({ params }: { params: PageParams }) => {
         <div className="page_mid">
           <div className="record_img_sec">
             <SwiperWrap CarouselData={data!.imageAddressList} />
-{/*             <ul>
-              {data!.imageAddressList.map((img: string) => (
-                <li>
-                  <div>
-                    <img src={img} alt="img" />
-                  </div>
-                </li>
-              ))}
-            </ul> */}
+
           </div>
           <div className="icon_wrap">
             <FaHeart className="hoverScaleAct" />
@@ -78,7 +70,7 @@ const page = ({ params }: { params: PageParams }) => {
               }}
             />
             <span className="dayjs" style={{ marginLeft: 'auto' }}>
-              {dayjs(Date.now()).format('MM/DD/YYYY')}
+              {dayjs(data.updatedAt).format('MM/DD/YYYY')}
             </span>
           </div>
           <div className="record_contents">

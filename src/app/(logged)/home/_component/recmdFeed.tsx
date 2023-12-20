@@ -19,7 +19,12 @@ const RecmdFeed = () => {
     queryKey: ['records', 'recommends'],
     queryFn: getPostRecommends,
     initialPageParam: 1,
-    getNextPageParam: (lastPage) => lastPage.currentPage + 1,
+    getNextPageParam: (lastPage) => {
+      return lastPage.totalPages === 0 ||
+        lastPage.totalPages === lastPage.currentPage
+        ? undefined
+        : lastPage.currentPage + 1
+    },
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
   })

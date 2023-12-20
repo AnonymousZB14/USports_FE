@@ -8,7 +8,7 @@ import { LuPencilLine } from 'react-icons/lu'
 import { useRecoilState } from 'recoil'
 const WritingBtn = () => {
   const onClickHandler = () => {
-    setMode(true)
+    setMode((prev)=>!prev)
   }
   const [mode, setMode] = useRecoilState(WitingMode)
 
