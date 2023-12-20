@@ -12,6 +12,7 @@ import { useRouter, useParams } from 'next/navigation'
 import axios from 'axios'
 import { Deletefetch, Putfetch, axiosInstance } from '@/func/fetchCall'
 import { recruitItemProps } from '@/types/types'
+import KaKaoMap2 from '@/components/kakaoMap2'
 
 const recruitDetail = () => {
   const params = useParams()
@@ -83,6 +84,7 @@ const recruitDetail = () => {
       <div className="content-body">
         <div className="map-wrap">
           <KaKaoMap recruitData={recruitData} />
+          {/* <KaKaoMap2 Lat={37.566826} Lng={126.9786567} /> */}
         </div>
         <div className="main-body-wrap">
           <div className="left-body-wrap">

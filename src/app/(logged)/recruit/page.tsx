@@ -35,7 +35,10 @@ interface recruit {
   placeName: string
   meetingDate: string
 }
-
+interface Sport {
+  sportsId: number
+  sportsName: string
+}
 const recruitWrite = () => {
   const params = useParams()
   const router = useRouter()
@@ -47,7 +50,10 @@ const recruitWrite = () => {
   const [personNum, setPersonNum] = useState('')
   const [reviewModalContent, setReviewModalContent] = useState('')
   const [selectedRegion, setSelectedRegion] = useState<string>('모든지역')
-  const [selectedSports, setSelectedSports] = useState<string>('운동종목')
+  const [selectedSports, setSelectedSports] = useState<Sport>({
+    sportsId: 0,
+    sportsName: '운동종목',
+  }) // 운동종목
   const [selectedGender, setSelectedGender] = useState<string>('성별')
   const [selectedGradeFrom, setSelectedGradeFrom] = useState<string>('레벨')
   const [selectedGradeTo, setSelectedGradeTo] = useState<string>('레벨')
@@ -80,7 +86,7 @@ const recruitWrite = () => {
 
   const applyFilter2 = (sportsId: number, sportsName: string) => {
     console.log('Applying filter 2:', sportsId)
-    setSelectedSports(sportsName)
+    setSelectedSports({ sportsId, sportsName })
   }
 
   const openFilterDialog3 = () => {
@@ -129,23 +135,6 @@ const recruitWrite = () => {
   ) => {
     setSelectedDate(dateStr)
   }
-
-  // const handleDateChange = (
-  //   selectedDates: Date[],
-  //   dateStr: string,
-  //   instance: flatpickr.Instance,
-  // ) => {
-  //   // Check if the dateStr is a valid date
-  //   const isValidDate = !isNaN(new Date(dateStr).getTime())
-
-  //   if (isValidDate) {
-  //     setSelectedDate(dateStr)
-  //   } else {
-  //     // Handle invalid date if needed
-  //     console.error('Invalid date selected:', dateStr)
-  //   }
-  // }
-
   const handleTitChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTit(event.target.value)
   }
@@ -184,38 +173,25 @@ const recruitWrite = () => {
 
     try {
       const recruitData = new FormData()
-
-      recruitData.append('tit', tit)
-      recruitData.append('content', content)
-      recruitData.append('cost', costNum)
-      recruitData.append('recruitCount', personNum)
-      recruitData.append('additional', JSON.stringify(addressData || {}))
-      recruitData.append('meetingDate', selectedDate)
-      recruitData.append('region', selectedRegion)
-      recruitData.append('sports', selectedSports)
-      recruitData.append('gender', selectedGender)
-      recruitData.append('gradeFrom', selectedGradeFrom)
-      recruitData.append('gradeTo', selectedGradeTo)
-
       console.log('Recruit Data:', Object.fromEntries(recruitData))
-
-      // const res = await axiosInstance.post(`/recruit`, recruitData)
       const res = await axiosInstance.post(`/recruit`, {
-        tit,
+        title: tit,
         content,
         cost: costNum,
         recruitCount: personNum,
-        additional: JSON.stringify(addressData || {}),
-        meetingDate: selectedDate,
+        address: addressData?.address,
+        meetingDate: new Date(selectedDate),
+        postCode: addressData?.postCode,
+        placeName: addressData?.additional,
         region: selectedRegion,
-        sports: selectedSports,
+        sportsId: selectedSports.sportsId,
         gender: selectedGender,
         gradeFrom: selectedGradeFrom,
         gradeTo: selectedGradeTo,
       })
       console.log('Response:', res)
 
-      if (res.status === 200) {
+      if (res.status == 200) {
         setTit('')
         setContent('')
         setCostNum('')
@@ -223,15 +199,12 @@ const recruitWrite = () => {
         setAddressData(null)
         setSelectedDate('')
         setSelectedRegion('')
-        setSelectedSports('')
+        setSelectedSports({ sportsId: 0, sportsName: '' })
         setSelectedGender('')
         setSelectedGradeFrom('')
         setSelectedGradeTo('')
-
-        setReviewModalContent('게시글 작성이 완료되었습니다.')
-        console.log('게시글 작성됐나?', tit, content, selectedRegion)
-
-        setReviewModalContent('게시글 작성이 완료되었습니다.')
+        alert('작성 완료!')
+        router.replace(`recruit/${res.data.recruitId}`)
       }
     } catch (error) {
       console.error('등록 중 오류:', error)
@@ -246,8 +219,6 @@ const recruitWrite = () => {
       <h1 className="write-tit">모집 글을 작성해주세요.</h1>
       <form
         onSubmit={handleSubmit}
-        // action="/recruit"
-        // method="POST"
         encType="multipart/form-data"
         className="explore-form"
       >
@@ -372,7 +343,6 @@ const recruitWrite = () => {
         <div className="tit-input-wrap">
           <label>날짜</label>
           <DataPicker onChange={handleDateChange} />
-          {/* <p>{selectedDate}</p> */}
         </div>
 
         <div className="flex gap-5 mt-20 justify-center">

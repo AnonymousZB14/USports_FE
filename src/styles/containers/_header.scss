@@ -5,6 +5,7 @@
   min-width: 300px;
   width: 24%;
   .head_inner {
+    overflow-y: auto;
     padding-top: 40px;
     padding-bottom: 40px;
     display: flex;

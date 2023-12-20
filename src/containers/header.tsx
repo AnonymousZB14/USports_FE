@@ -49,7 +49,7 @@ const Header = () => {
   return (
     <header id="header">
       <RoleChange />
-      <div className="head_inner">
+      <div className="head_inner" style={{overflowY:'auto'}}>
         <UserProfile />
         <nav>
           <ul>

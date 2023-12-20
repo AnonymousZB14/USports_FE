@@ -9,7 +9,7 @@ interface FilterSectionProps {
   closeFilterDialog: () => void
   applyFilter: (sportsId: number, sportsName: string) => void
   isFilterDialogOpen: boolean
-  selectedFilter: string
+  selectedFilter: { sportsId: number; sportsName: string }
   filterOptions: { sportsId: number; sportsName: string }[]
   title: string
 }
@@ -31,9 +31,9 @@ const SportsFilterSection: React.FC<FilterSectionProps> = ({
             e.preventDefault()
             openFilterDialog()
           }}
-          className={selectedFilter === title ? '' : 'active'}
+          className={selectedFilter.sportsName === '운동종목' ? '' : 'active'}
         >
-          {selectedFilter}
+          {selectedFilter.sportsName}
           <SlArrowDown className="category-arrow" />
         </button>
       </div>

@@ -15,12 +15,18 @@ import { useQuery } from '@tanstack/react-query'
 import { SportsList } from '@/types/types'
 import { SportsList as SportsListStore } from '@/store/types'
 import SportsFilterDialog from '@/components/sportsFilterDialog'
-
+interface Sport {
+  sportsId: number
+  sportsName: string
+}
 const recordWrite = () => {
   const [isFilterDialogOpen2, setIsFilterDialogOpen2] = useState(false)
   const [sportsList, setSportsList] = useState<SportsList>([])
   const [user, setUser] = useRecoilState(UserDetailState)
-  const [selectedFilter2, setSelectedFilter2] = useState<string>('운동종목')
+  const [selectedFilter2, setSelectedFilter2] = useState<Sport>({
+    sportsId: 0,
+    sportsName: '운동종목',
+  })
   const [showImages, setShowImages] = useState([])
   const [images, setImages] = useState<File[]>([])
   const [title, setTitle] = useState('')
@@ -46,7 +52,7 @@ const recordWrite = () => {
 
   const applyFilter2 = (sportsId: number, sportsName: string) => {
     console.log('Applying filter 2:', sportsId)
-    setSelectedFilter2(sportsName)
+    setSelectedFilter2({ sportsId, sportsName })
   }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -120,9 +126,9 @@ const recordWrite = () => {
                   e.preventDefault()
                   openFilterDialog2()
                 }}
-                className={selectedFilter2 === '운동종목' ? '' : 'active'}
+                className={selectedFilter2.sportsId === 0 ? '' : 'active'}
               >
-                {selectedFilter2}
+                {selectedFilter2.sportsName}
                 <SlArrowDown className="category-arrow" />
               </button>
             </li>

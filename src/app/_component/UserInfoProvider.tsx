@@ -36,7 +36,8 @@ const UserInfoProvider = ({ children }: { children: React.ReactNode }) => {
     setMode(JSON.parse(localMode!))
   }, [localUser])
   useEffect(() => {
-    if (!user.tokenDto.accessToken || user.tokenDto.accessToken == '') return
+    if (user?.tokenDto?.accessToken==null || user.tokenDto.accessToken == '')
+      return
     console.log(user)
     setHeaderToken(user.tokenDto.accessToken)
   }, [user])

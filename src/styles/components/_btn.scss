@@ -1,0 +1,26 @@
+.writingPageList{
+  position: fixed;
+  width: 100dvw;
+  height: 100dvh;
+  background-color: #00000081;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &>div{
+    // background-color: #fff;
+    ul{
+      li{
+        a{
+          display: block;
+          width: max-content;
+          padding: 10px;
+          font-size: var(--text-size-base);
+          padding: 10px 30px;
+          font-weight: ;
+        }
+      }
+    }
+  }
+}

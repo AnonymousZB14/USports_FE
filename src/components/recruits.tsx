@@ -9,6 +9,7 @@ import { getProfileUser } from '@/app/(logged)/profile/_lib/getProfileUser'
 import { ProfileUserType } from '@/types/types'
 interface Recruits {
   currentPage: number
+  totalPages:number,
   list: Recruit[]
 }
 interface Recruit {
@@ -34,7 +35,11 @@ const Recruits = ({ accoutName }: { accoutName: string }) => {
     queryKey: ['recruits', accoutName],
     queryFn: getMyRecruits,
     initialPageParam: 1,
-    getNextPageParam: (lastPage) => lastPage.currentPage + 1,
+    getNextPageParam: (lastPage) => {
+      return lastPage.totalPages===0 || lastPage.totalPages === lastPage.currentPage
+        ? undefined
+        : lastPage.currentPage + 1
+    },
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
   })

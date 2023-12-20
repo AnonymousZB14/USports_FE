@@ -81,7 +81,7 @@ const Page = () => {
       // if (!(res.status == 200)) return
       if (res.status == 200) {
         const { data } = res
-        // localStorage.setItem('user', data)
+        localStorage.setItem('user', data)
         router.back()
       } else {
         return '오류 발생'

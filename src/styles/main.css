@@ -364,6 +364,26 @@ main:is(main > section) {
   object-fit: cover;
 }
 
+.writingPageList {
+  position: fixed;
+  width: 100dvw;
+  height: 100dvh;
+  background-color: rgba(0, 0, 0, 0.5058823529);
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.writingPageList > div ul li a {
+  display: block;
+  width: max-content;
+  padding: 10px;
+  font-size: var(--text-size-base);
+  padding: 10px 30px;
+  font-weight: 500;
+}
+
 #title {
   --padding-1: 25px;
   border-bottom: 1px solid var(--text-color-3);
