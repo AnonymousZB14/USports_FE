@@ -151,7 +151,7 @@ const recruitWrite = () => {
     setPersonNum(event.target.value)
   }
 
-  const [optionList, setOptionList] = useState<optionProps | undefined>()
+  const [optionList, setOptionList] = useState<OptionProps | undefined>()
   const [sports, setSports] = useRecoilState(SportsList)
   const [sportsLevel, setRportsLevel] = useRecoilState(SportsLevelList)
   const [region, setRegion] = useRecoilState(RegionList)
