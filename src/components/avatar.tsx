@@ -15,11 +15,13 @@ const Avatar = ({
   height,
   isItprofile,
   imgAddress,
+  linkAddress,
 }: {
   width?: string
   height?: string
   isItprofile?: boolean
   imgAddress?: string
+  linkAddress?: string
 }) => {
   const [user, setUser] = useRecoilState(UserDetailState)
 
@@ -27,9 +29,13 @@ const Avatar = ({
     <div style={{ width: width, height: height }}>
       <div className="avatar_img">
         {
-          <Link href={isItprofile ? '#none' : '/profile'}>
+          <Link
+            href={
+              linkAddress ? `/profile/${linkAddress}` : isItprofile ? '#none' : '/profile'
+            }
+          >
             <img
-              src={imgAddress ? imgAddress : '/tomatoA.svg'}
+              src={imgAddress ? imgAddress : '/basicProfile.png'}
               alt="profile"
               width={100}
               height={100}

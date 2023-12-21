@@ -9,7 +9,20 @@ const MpUserInfoSec = () => {
   return (
     <>
       <div className="basicInfo">
-        <Avatar />
+        <div>
+          <div className="avatar_img">
+            {
+              <Link href={'/profile'}>
+                <img
+                  src={'/basicProfile.png'}
+                  alt="profile"
+                  width={100}
+                  height={100}
+                />
+              </Link>
+            }
+          </div>
+        </div>
         <div>
           <h4>Username</h4>
           <p>@userId</p>

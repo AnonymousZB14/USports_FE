@@ -20,7 +20,7 @@ export const filterOptions = {
     '제주',
   ],
   options2: ['축구', '야구', '테니스', '농구', '탁구', '러닝', '자전거'],
-  options3: ['남', '여', '남녀 모두'],
+  options3: ['MALE', 'FEMALE', 'BOTH'],
   options4: [
     '루키',
     '비기너 Low',

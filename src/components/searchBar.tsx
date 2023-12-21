@@ -6,13 +6,17 @@ interface SearchResult {
   id: number
   title: string
 }
-
-const SearchBar = () => {
+interface Prop {
+  onSearchHandler: (value: string) => void
+  value: string
+  isLoading: boolean
+  handleSearch:()=>void
+}
+const SearchBar = ({ onSearchHandler,value,isLoading,handleSearch }: Prop) => {
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [searchResults, setSearchResults] = useState<SearchResult[]>([])
 
-  const handleSearch = () => {
-    // API 패칭
+/*   const handleSearch = () => {
     const fakeSearchResults: SearchResult[] = [
       { id: 1, title: '운동' },
       { id: 2, title: '스피닝' },
@@ -21,14 +25,12 @@ const SearchBar = () => {
       { id: 5, title: '테니스' },
       { id: 6, title: '축구' },
     ]
-
     const filteredResults = fakeSearchResults.filter((result) =>
       result.title.includes(searchQuery),
     )
-
     setSearchResults(filteredResults)
     console.log(filteredResults)
-  }
+  } */
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
@@ -42,8 +44,8 @@ const SearchBar = () => {
         type="search"
         id="search"
         placeholder="검색어를 입력하세요"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
+        value={value}
+        onChange={(e) => onSearchHandler(e.target.value)}
         onKeyPress={handleKeyPress}
         contentEditable
         autoComplete="off"

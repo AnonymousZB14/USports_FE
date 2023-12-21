@@ -166,6 +166,12 @@ export interface Recruit {
 
 export type SportsList = { sportsId: number; sportsName: string }[]
 export type LevelList = { sportsGrade: string; description: string }[]
+export interface ExploreData {
+  currentPage: number
+  totalPages: number
+  list: recruitItemProps[]
+  totalElement: number
+}
 export interface recruitItemProps {
   title: string
   content: string
@@ -175,8 +181,8 @@ export interface recruitItemProps {
   gradeTo: number
   lat: number
   lnt: number
-  memberAccountName: string
-  participantSportsSkillAverage: string
+  memberAccountName?: string
+  participantSportsSkillAverage?: string
   meetingDate: string
   recruitId: number
   memberId: number
@@ -185,7 +191,7 @@ export interface recruitItemProps {
   recruitStatus: string
   region: string
   registeredAt: string
-  sportsName: string
+  sportsName?: string
   sportsId: number
   streetNameAddr: string
   streetNumberAddr: string

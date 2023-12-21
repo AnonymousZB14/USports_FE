@@ -21,7 +21,7 @@ const Page = () => {
               width={100}
               height={100}
               alt="avatar"
-              src={'/tomatoA.svg'}
+              src={'/basicProfile.png'}
             />
             <p>{userInfo.username}</p>
           </div>

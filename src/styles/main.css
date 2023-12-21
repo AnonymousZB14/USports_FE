@@ -274,6 +274,10 @@ html[data-theme=light] {
   justify-content: center;
   width: 100%;
 }
+#header .head_inner .user_profile > div {
+  border-radius: 50%;
+  background-color: #fff;
+}
 #header .head_inner nav {
   flex: 1;
   width: 100%;
@@ -537,7 +541,6 @@ main:is(main > section) {
   display: block;
   width: calc((100% - 10px) / 2);
   flex-grow: 1;
-  max-height: 20rem;
   object-fit: cover;
 }
 .feed .feed_content .body .record_contents {
@@ -1061,6 +1064,10 @@ ul.recruitManagement > li .recruitItemCont p.status {
   align-items: center;
   gap: 0 30px;
 }
+.profile_info .inner .avatar_img {
+  width: 180px;
+  height: 180px;
+}
 
 .profile_contents {
   background-color: var(--bg-color-2);
@@ -1366,6 +1373,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
 }
 .content-body .main-body-wrap .left-body-wrap .match-point-con .match-content {
   padding: 0 1.4rem 2.4rem 1.4rem;
+  word-break: break-all;
 }
 .content-body .main-body-wrap .left-body-wrap .match-point-con .match-content .data-wrap {
   display: flex;
@@ -1381,6 +1389,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
 }
 .content-body .main-body-wrap .left-body-wrap .match-point-con .match-content .data-wrap .data-box > p {
   padding: 0 1rem;
+  word-break: break-all;
 }
 .content-body .main-body-wrap .left-body-wrap .match-point-con .match-content .data-wrap .data-box > .from-to-line {
   width: 2rem;
@@ -1410,6 +1419,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
 .content-body .main-body-wrap .left-body-wrap .recruit-detail-con .match-content {
   padding: 0 1.4rem 2.4rem 1.4rem;
   line-height: 1.35;
+  word-break: break-all;
 }
 .content-body .main-body-wrap .right-body-wrap {
   width: 65%;
@@ -1731,6 +1741,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
 .apply-list > .apply-item > .cont > .info .manner {
   font-weight: 400;
 }
+
 .mypageWrap {
   padding: 0;
 }
