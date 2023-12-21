@@ -15,7 +15,8 @@ import { getRecruitsData } from './_lib/getRecruitsData'
 import { Getfetch } from '@/func/fetchCall'
 import { useRecoilState } from 'recoil'
 import { RegionList, SportsList } from '@/store/types'
-import e from 'cors'
+import LoadingScreen from '@/components/loading-screen'
+
 type Props = {
   searchParams: {
     page: string
@@ -71,7 +72,12 @@ const explore = ({ searchParams }: Props) => {
     handleSearchForm()
   }, [filter])
   const postsPerPage = 6
-  const { data } = useQuery<
+  const {
+    data,
+    isFetching,
+    isLoading: isDataLoading,
+    isPending,
+  } = useQuery<
     ExploreData,
     Object,
     ExploreData,
@@ -144,6 +150,7 @@ const explore = ({ searchParams }: Props) => {
     setFilter((prev) => {
       return {
         ...prev,
+        page: '1',
         search: searchQuery === '' ? '' : searchQuery,
       }
     })
@@ -151,6 +158,7 @@ const explore = ({ searchParams }: Props) => {
   }
   const toggleHandler = () => {
     setIsOn(!isOn)
+    setCurrentPage(1)
     setFilter((prev) => {
       return {
         ...prev,
@@ -213,7 +221,7 @@ const explore = ({ searchParams }: Props) => {
       </div>
       <div className="board-header">
         <p style={{ flex: '1' }}>총 {list.length}건</p>
-        <Button
+{/*         <Button
           tailwindStyles="py-0 px-2"
           theme="blue"
           onClick={() => {
@@ -221,11 +229,11 @@ const explore = ({ searchParams }: Props) => {
           }}
         >
           필터링 적용하기
-        </Button>
+        </Button> */}
         &nbsp;
         <Button
           tailwindStyles="py-0 px-2"
-          theme="gray"
+          theme="blue"
           onClick={() => {
             router.push(`/explore`)
             setSelectedFilter1('모든 지역')
@@ -240,12 +248,17 @@ const explore = ({ searchParams }: Props) => {
           모두 초기화
         </Button>
       </div>
-
-      <ul className="board-list">
-        {currentItems.map((el, idx) => (
-          <ExploreRecruitItem key={idx} item={el} />
-        ))}
-      </ul>
+      {!isPending && currentItems.length < 1 ? (
+        <div className="noData">
+          <p>검색 조건에 맞는 결과가 없습니다</p>
+        </div>
+      ) : (
+        <ul className="board-list">
+          {currentItems.map((el, idx) => (
+            <ExploreRecruitItem key={idx} item={el} />
+          ))}
+        </ul>
+      )}
       <Pagination
         postsPerPage={postsPerPage}
         totalPosts={data?.totalElement!}
@@ -261,7 +274,9 @@ export const ExploreRecruitItem = ({ item }: { item: recruitItemProps }) => {
   const [sportList, _] = useRecoilState(SportsList)
   const [sportname, setSportname] = useState('')
   useEffect(() => {
-    const selectedSport = sportList.find((sport) => sport.sportsId == item.sportsId)
+    const selectedSport = sportList.find(
+      (sport) => sport.sportsId == item.sportsId,
+    )
     console.log(selectedSport)
     setSportname(selectedSport?.sportsName!)
   }, [])
@@ -273,7 +288,7 @@ export const ExploreRecruitItem = ({ item }: { item: recruitItemProps }) => {
         router.replace(`/recruit/${item.recruitId}`)
       }}
     >
-      <div className="badge">{sportname}</div>
+      <div className="badge">{item.sportsName}</div>
       <div className="content">
         <p className="title">{item.title}</p>
         <div className="condition">

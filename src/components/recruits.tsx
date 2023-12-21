@@ -114,7 +114,7 @@ export const Recruit = ({
         </div>
         <div className="bodyWrap">
           <div className="badgeWrap">
-            <span className="sport">{sportname}</span>
+            <span className="sport">{item.sportsName}</span>
             <span className="gender">{item.gender}</span>
             <span className="level">
               {item.gradeFrom}

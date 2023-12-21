@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest) {
     request.nextUrl.pathname.startsWith('/login') ||
     request.nextUrl.pathname.startsWith('/createAccount')
   ) {
-    if (accessToken) return NextResponse.redirect('http://localhost:3000/home')
+    // if (accessToken) return NextResponse.redirect('http://localhost:3000/home')
   }
 }
 

@@ -738,6 +738,25 @@ span.dayjs {
   height: 23px;
 }
 
+.spinnerWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50%;
+  width: 100%;
+}
+.spinnerWrap.fixedSpinner {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+}
+.spinnerWrap span {
+  width: 60px;
+  height: 60px;
+  color: rgb(0, 0, 0);
+}
+
 .commentInput {
   position: absolute;
   bottom: 0;
@@ -2285,6 +2304,17 @@ ul.recruitManagement > li .recruitItemCont p.status {
 .pagination .page-item.active > .page-link {
   background: var(--main-color-brand);
   color: var(--bg-color-2);
+}
+
+.noData {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.noData p {
+  font-size: var(--text-size-sm);
+  padding: 30px 0;
+  text-align: center;
 }
 
 .record_detail_sec {

@@ -19,6 +19,7 @@ import SportsFilterSection from '@/components/sportsFilterSection'
 import { useRecoilState } from 'recoil'
 import { RegionList, SportsLevelList, SportsList } from '@/store/types'
 import LevelFilterSection from '@/components/levelFilterSection'
+import LoadingScreen from '@/components/loading-screen'
 
 interface recruit {
   sportsName: string
@@ -44,6 +45,7 @@ const recruitWrite = () => {
   const router = useRouter()
   const [addressData, setAddressData] = useState<AddressType | null>(null)
   const [selectedDate, setSelectedDate] = useState('')
+  const [isLoading, setLoading] = useState(false)
   const [tit, setTit] = useState('')
   const [content, setContent] = useState('')
   const [costNum, setCostNum] = useState('')
@@ -170,7 +172,7 @@ const recruitWrite = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-
+    setLoading(true)
     try {
       const recruitData = new FormData()
       console.log('Recruit Data:', Object.fromEntries(recruitData))
@@ -204,9 +206,11 @@ const recruitWrite = () => {
         setSelectedGradeFrom('')
         setSelectedGradeTo('')
         alert('작성 완료!')
+        setLoading(false)
         router.replace(`recruit/${res.data.recruitId}`)
       }
     } catch (error) {
+      setLoading(false)
       console.error('등록 중 오류:', error)
       setReviewModalContent('게시글 작성에 실패하였습니다.')
     }
@@ -215,6 +219,7 @@ const recruitWrite = () => {
   return (
     <>
       <Title title="Explore" />
+      {isLoading ?? <LoadingScreen fixed={true} />}
 
       <h1 className="write-tit">모집 글을 작성해주세요.</h1>
       <form

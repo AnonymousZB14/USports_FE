@@ -4,6 +4,7 @@ import { scrollHandler } from '@/func/scrollEvent'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import FollowFeed from '../home/_component/followFeed'
 import RecmdFeed from '../home/_component/recmdFeed'
+import LoadingScreen from '@/components/loading-screen'
 export default function Home() {
   const [number, setNum] = useState(0)
   const homeRef = useRef(null)
