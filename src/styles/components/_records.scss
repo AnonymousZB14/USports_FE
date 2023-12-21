@@ -53,8 +53,7 @@
     }
     .body {
       & > a > div {
-        &.odd {
-        }
+
         display: flex;
         flex-wrap: wrap;
         gap: 10px;

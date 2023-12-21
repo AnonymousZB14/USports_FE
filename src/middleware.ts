@@ -26,7 +26,7 @@ export const config = {
     '/notifications/:path*',
     '/record/:path*',
     '/recruit/:path*',
-    '/login',
-    '/createAccount',
+    // '/login',
+    // '/createAccount',
   ],
 }

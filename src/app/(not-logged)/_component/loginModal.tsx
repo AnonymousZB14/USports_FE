@@ -28,7 +28,10 @@ const LoginModal = () => {
   const onsubmitHandler = async (e: any) => {
     try {
       const res = await loginFun(e.email, e.password)
-      if (!(res?.status == 200)) return
+      if (res?.status !== 200) {
+        setMessage('아이디 혹은 비밀번호를 확인해주세요')
+        return
+      }
       onLoginSuccess(res?.data)
       LocalStorage.setAccessToken(res.data.tokenDto.accessToken)
       setHeaderToken(res.data.tokenDto.accessToken)
@@ -67,19 +70,16 @@ const LoginModal = () => {
 
         <input type="submit" value="Log in" />
       </form>
-
+      <p className='errorMsg'>{message}</p>
       <div className="linkWrap">
         <Link href={'/findPassword'}>Find Password</Link>
         <Link href={'/createAccount'}>Create Account</Link>
       </div>
       <hr />
       <div className="socialLogBtn">
-        <button
-          className="kakaoBtn"
-        >
-          카카오로 로그인
-        </button>
+        <button className="kakaoBtn">카카오로 로그인</button>
       </div>
+      
     </div>
   )
 }

@@ -2523,6 +2523,12 @@ ul.recruitManagement > li .recruitItemCont p.status {
   background-color: #a2a2a2;
 }
 
+.errorMsg {
+  color: rgb(237, 0, 0);
+  padding: 14px 0 0;
+  text-align: center;
+}
+
 .notLoggedP {
   min-height: 50vh;
   min-width: 40vw;
