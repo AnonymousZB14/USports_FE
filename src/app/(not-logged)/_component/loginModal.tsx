@@ -33,9 +33,9 @@ const LoginModal = () => {
         return
       }
       onLoginSuccess(res?.data)
-      LocalStorage.setAccessToken(res.data.tokenDto.accessToken)
+      // LocalStorage.setAccessToken(res.data.tokenDto.accessToken)
       setHeaderToken(res.data.tokenDto.accessToken)
-      LocalStorage.setItem('user', JSON.stringify(res.data))
+      // LocalStorage.setItem('user', JSON.stringify(res.data))
       setUser(res.data)
     } catch (error) {
       console.error(error)

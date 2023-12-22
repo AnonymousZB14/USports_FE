@@ -1,12 +1,19 @@
 'use client'
 import Modal from '@/components/modal'
 import { axiosInstance } from '@/func/fetchCall'
+import { SportsList } from '@/store/types'
 import { UserDetailState } from '@/store/user'
 import axios from 'axios'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React, { use, useEffect, useState } from 'react'
-import { Controller, useFieldArray, useForm } from 'react-hook-form'
+import React, { FormEventHandler, use, useEffect, useState } from 'react'
+import {
+  Controller,
+  FormSubmitHandler,
+  useFieldArray,
+  useForm,
+} from 'react-hook-form'
+import { IoCloseOutline } from 'react-icons/io5'
 import { useRecoilState } from 'recoil'
 export const interestedSportsList = [
   { value: 1, name: '축구' },
@@ -20,23 +27,48 @@ export const interestedSportsList = [
 const Page = () => {
   const router = useRouter()
   const [message, setMessage] = useState('')
-  const [isLoading, setLoding] = useState(false)
+  const [isLoading, setLoading] = useState(false)
   const [user, setUser] = useRecoilState(UserDetailState)
-
+  const [sportsList, setSportsList] = useRecoilState(SportsList)
   const { register, handleSubmit, control, watch } = useForm()
-
   const [accountName, setAccountName] = useState(user.member.accountName)
   const [activeRegion, setactiveRegion] = useState(user.member.activeRegion)
   const [birthDate, setbirthDate] = useState(user.member.birthDate)
   const [phoneNumber, setPhoneNum] = useState(user.member.phoneNumber)
+  const [emailAuthNumber, setEmailAuthNumber] = useState(0)
   const [name, setname] = useState(user.member.name)
   const [profileImage, setprofileImage] = useState(user.member.profileImage)
+  const [images, setImages] = useState<File[]>([])
   const [gender, setgender] = useState(user.member.gender)
   const [profileOpen, setprofileOpen] = useState(user.member.profileOpen)
-  const [interestedSports, setinterestedSports] = useState<Number[]>([])
-
+  const [interestedSportsList, setinterestedSports] = useState<Number[]>([])
+  const profileSubmitHandler: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+    const formData = new FormData()
+    try {
+      formData.append('profileImage', images[0])
+      const res = await axios.put(
+        `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/member/${user.member.memberId}/profile-image`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            credentials: 'include',
+            Authorization: `Bearer ${user.tokenDto.accessToken}`,
+          },
+        },
+      )
+      if (!(res.status === 200)) return
+      setLoading(false)
+      alert('프로필 변경 완료!')
+      router.back()
+    } catch (error) {
+      setLoading(false)
+    }
+  }
   const resendEmail = async () => {
-    setLoding(false)
+    setLoading(false)
     try {
       const res = await axios.get(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/member/${user.member.memberId}/resend-email-auth`,
@@ -48,28 +80,45 @@ const Page = () => {
           },
         },
       )
-      setLoding(false)
+      setLoading(false)
     } catch (error) {}
   }
+  const handleDeleteImage = (id: number) => {
+    setprofileImage('')
+    setImages([])
+  }
   const onsubmitHandler = async (e: any) => {
-    setLoding(true)
+    setLoading(true)
     setMessage('')
     console.log(e)
+
+    let formBody =
+      user.member.role === 'UNAUTH'
+        ? {
+            accountName,
+            activeRegion,
+            birthDate,
+            phoneNumber,
+            emailAuthNumber,
+            name,
+            gender,
+            profileOpen: JSON.stringify(profileOpen),
+            interestedSportsList,
+          }
+        : {
+            accountName,
+            activeRegion,
+            birthDate,
+            phoneNumber,
+            name,
+            gender,
+            profileOpen: JSON.stringify(profileOpen),
+            interestedSportsList,
+          }
     try {
       const res = await axios.put(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/member/${user.member.memberId}`,
-        {
-          accountName,
-          activeRegion,
-          birthDate,
-          phoneNumber,
-          name,
-          profileImage:
-            'https://usportsbucket-kmj.s3.ap-northeast-2.amazonaws.com/5bce8834-659d-452e-8f69-6a0b9ccdc346KakaoTalk_Photo_2023-07-05-18-01-52.png',
-          gender,
-          profileOpen: JSON.stringify(profileOpen),
-          interestedSports,
-        },
+        formBody,
         {
           headers: {
             credentials: 'include',
@@ -78,7 +127,6 @@ const Page = () => {
           },
         },
       )
-      // if (!(res.status == 200)) return
       if (res.status == 200) {
         const { data } = res
         localStorage.setItem('user', data)
@@ -89,9 +137,7 @@ const Page = () => {
     } catch (e) {
       console.error(e)
     }
-    setLoding(false)
-
-    // router.replace('/')
+    setLoading(false)
   }
   useEffect(() => {
     console.log(user)
@@ -100,50 +146,34 @@ const Page = () => {
     <Modal>
       <div className="editUser">
         <p>내 정보 수정</p>
-        <form onSubmit={handleSubmit(onsubmitHandler)}>
-          <div>
-            <label htmlFor="interestedSports">관심 운동 종목</label>
-            {interestedSportsList.map((sport, idx) => (
-              <>
-                <label htmlFor={sport.name}>{sport.name}</label>
-                <input
-                  key={idx}
-                  type="checkbox"
-                  id={sport.name}
-                  value={sport.value}
-                  onChange={(e) => {
-                    if (e.target.checked)
-                      setinterestedSports((prev) => {
-                        return [...prev, sport.value]
-                      })
-                  }}
-                />
-              </>
-            ))}
-          </div>
-          <div>
-            <label htmlFor="profileImg">프로필사진</label>
-
+        <form onSubmit={profileSubmitHandler}>
+          <div className="profileForm">
             <input
               type="file"
               id="profileImg"
               accept="image/*,svg/*"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 if (!e.target.files) return
+                setImages([e.target.files[0]])
                 const file = e?.target?.files[0]
                 const imgUrl = URL.createObjectURL(file)
                 setprofileImage(imgUrl)
               }}
               className="text-xl file:bg-blue-50 file:text-blue-500 hover:file:bg-blue-100 file:rounded-lg file:rounded-tr-none file:rounded-br-none file:px-6 file:py-4 file:mr-4 file:border-none hover:cursor-pointer border rounded-lg text-gray-400"
             />
+
+            <input type="submit" value={'프로필 변경'} />
           </div>
+        </form>
+
+        <form onSubmit={handleSubmit(onsubmitHandler)}>
           {user.member.role === 'UNAUTH' ? (
             <div>
               <label htmlFor="emailAuthNumber">* 이메일 인증번호</label>
-              <input type="text" id="emailAuthNumber" />
+              <input type="text" id="emailAuthNumber" value={emailAuthNumber} />
               <button
                 className="resend"
-                disabled={!setLoding}
+                disabled={!isLoading}
                 onClick={resendEmail}
               >
                 이메일 다시 발송하기
@@ -173,7 +203,7 @@ const Page = () => {
           </div>
 
           <div>
-            <label htmlFor="accountName">@AccountName</label>
+            <label htmlFor="accountName">계정명</label>
             <input
               type="text"
               id="accountName"
@@ -183,7 +213,7 @@ const Page = () => {
             />
           </div>
           <div>
-            <label htmlFor="name">@이름</label>
+            <label htmlFor="name">이름</label>
             <input
               type="text"
               id="name"
@@ -193,7 +223,7 @@ const Page = () => {
             />
           </div>
           <div>
-            <label htmlFor="birth">@생년월일</label>
+            <label htmlFor="birth">생년월일</label>
             <input
               type="date"
               id="birth"
@@ -201,6 +231,28 @@ const Page = () => {
               value={birthDate}
               onChange={(e) => setbirthDate(e.target.value)}
             />
+          </div>
+          <div>
+            <label htmlFor="interestedSports">관심 운동 종목</label>
+            <div className="sportOptionContainer">
+              {sportsList.map((sport, idx) => (
+                <div className="sportOptionWrap" style={{ display: 'flex' }}>
+                  <label htmlFor={sport.sportsName}>{sport.sportsName}</label>
+                  <input
+                    key={idx}
+                    type="checkbox"
+                    id={sport.sportsName}
+                    value={sport.sportsId}
+                    onChange={(e) => {
+                      if (e.target.checked)
+                        setinterestedSports((prev) => {
+                          return [...prev, sport.sportsId]
+                        })
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
           <div>
             <label htmlFor="gener">성별</label>

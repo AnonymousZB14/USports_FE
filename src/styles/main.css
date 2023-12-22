@@ -2468,6 +2468,10 @@ ul.recruitManagement > li .recruitItemCont p.status {
   align-items: center;
   gap: 7px;
 }
+.editUser form > div.profileForm input[type=submit] {
+  flex: none;
+  padding: 10px;
+}
 .editUser form > div > label {
   padding: 10px;
 }
@@ -2488,7 +2492,6 @@ ul.recruitManagement > li .recruitItemCont p.status {
   display: flex;
   gap: 10px;
   justify-content: space-between;
-  margin-top: 70px;
 }
 .editUser form > div > * {
   font-size: var(--text-size-base);
@@ -2521,6 +2524,18 @@ ul.recruitManagement > li .recruitItemCont p.status {
 }
 .editUser form > div input[type=button] {
   background-color: #a2a2a2;
+}
+.editUser form > div .sportOptionContainer {
+  display: flex;
+  flex: wrap;
+  gap: 10px;
+}
+.editUser form > div .sportOptionContainer .sportOptionWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 }
 
 .errorMsg {

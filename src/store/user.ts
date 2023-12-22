@@ -52,3 +52,13 @@ export const UserDetailState = atom({
     interestSportsList: [0],
   },
 })
+export const UserTokenState = atom({
+  key: 'userTokenState',
+  default: {
+    tokenDto: {
+      accessToken: '',
+      refreshToken: '',
+      tokenType: '',
+    },
+  },
+})
