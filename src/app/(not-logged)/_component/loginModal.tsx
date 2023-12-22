@@ -12,13 +12,14 @@ import { Postfetch, setHeaderToken } from '@/func/fetchCall'
 import { useRecoilState } from 'recoil'
 import { loginFun, onLoginSuccess } from '@/func/service'
 import axios from 'axios'
-import { UserDetailState } from '@/store/user'
+import { UserDetailState, UserTokenState } from '@/store/user'
 import LocalStorage from '@/func/localstrage'
 
 const LoginModal = () => {
   const router = useRouter()
   const [message, setMessage] = useState('')
   const [user, setUser] = useRecoilState(UserDetailState)
+  const [userToken, setUserToken] = useRecoilState(UserTokenState)
   const { register, handleSubmit } = useForm()
   /*  
   happyhsryu@gmail.com
@@ -36,7 +37,8 @@ const LoginModal = () => {
       // LocalStorage.setAccessToken(res.data.tokenDto.accessToken)
       setHeaderToken(res.data.tokenDto.accessToken)
       // LocalStorage.setItem('user', JSON.stringify(res.data))
-      setUser(res.data)
+      setUser(res.data.member)
+      setUserToken(res.data.tokenDto)
     } catch (error) {
       console.error(error)
     }
@@ -70,7 +72,7 @@ const LoginModal = () => {
 
         <input type="submit" value="Log in" />
       </form>
-      <p className='errorMsg'>{message}</p>
+      <p className="errorMsg">{message}</p>
       <div className="linkWrap">
         <Link href={'/findPassword'}>Find Password</Link>
         <Link href={'/createAccount'}>Create Account</Link>
@@ -79,7 +81,6 @@ const LoginModal = () => {
       <div className="socialLogBtn">
         <button className="kakaoBtn">카카오로 로그인</button>
       </div>
-      
     </div>
   )
 }

@@ -2,7 +2,7 @@
 import { setHeaderToken } from '@/func/fetchCall'
 import { DarkModeState } from '@/store/mode'
 import { RegionList, SportsLevelList, SportsList } from '@/store/types'
-import { UserDetailState } from '@/store/user'
+import { UserDetailState, UserTokenState } from '@/store/user'
 import { SportsList as SportsListType } from '@/types/types'
 import { Cookies } from 'react-cookie'
 import axios from 'axios'
@@ -11,15 +11,17 @@ import { useRecoilState } from 'recoil'
 import { checkCookie } from '@/func/service'
 const UserInfoProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useRecoilState(UserDetailState)
+  const [userToken, setUserToken] = useRecoilState(UserTokenState)
   const [sportsLevel, setRportsLevel] = useRecoilState(SportsLevelList)
   const [sports, setSports] = useRecoilState(SportsList)
   const [region, setRegion] = useRecoilState(RegionList)
   const [mode, setMode] = useRecoilState(DarkModeState)
-  let localUser, localMode
+  let localUser, localMode, localToken
   useEffect(() => {
     if (typeof localStorage !== 'undefined') {
       localUser = localStorage.getItem('user')
       localMode = localStorage.getItem('dark-mode')
+      localToken = localStorage.getItem('accessToken')
     }
     const cookieCheck = checkCookie()
     if (cookieCheck === false) {
@@ -43,12 +45,17 @@ const UserInfoProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     setUser(JSON.parse(localUser!))
     setMode(JSON.parse(localMode!))
-  }, [localUser])
+    setUserToken(JSON.parse(localToken!))
+    setHeaderToken(JSON.parse(localToken!))
+  }, [localUser, localToken])
   useEffect(() => {
-    if (user?.tokenDto?.accessToken == null || user.tokenDto.accessToken == '')
+    if (
+      userToken?.tokenDto?.accessToken == null ||
+      userToken.tokenDto.accessToken == ''
+    )
       return
-    setHeaderToken(user.tokenDto.accessToken)
-  }, [user])
+    setHeaderToken(userToken.tokenDto.accessToken)
+  }, [user, userToken])
   return <>{children}</>
 }
 

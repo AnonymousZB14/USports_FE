@@ -2,7 +2,7 @@
 import Modal from '@/components/modal'
 import { axiosInstance } from '@/func/fetchCall'
 import { SportsList } from '@/store/types'
-import { UserDetailState } from '@/store/user'
+import { UserDetailState, UserTokenState } from '@/store/user'
 import axios from 'axios'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -29,18 +29,19 @@ const Page = () => {
   const [message, setMessage] = useState('')
   const [isLoading, setLoading] = useState(false)
   const [user, setUser] = useRecoilState(UserDetailState)
+  const [userToken, _] = useRecoilState(UserTokenState)
   const [sportsList, setSportsList] = useRecoilState(SportsList)
   const { register, handleSubmit, control, watch } = useForm()
-  const [accountName, setAccountName] = useState(user.member.accountName)
-  const [activeRegion, setactiveRegion] = useState(user.member.activeRegion)
-  const [birthDate, setbirthDate] = useState(user.member.birthDate)
-  const [phoneNumber, setPhoneNum] = useState(user.member.phoneNumber)
+  const [accountName, setAccountName] = useState(user.accountName)
+  const [activeRegion, setactiveRegion] = useState(user.activeRegion)
+  const [birthDate, setbirthDate] = useState(user.birthDate)
+  const [phoneNumber, setPhoneNum] = useState(user.phoneNumber)
   const [emailAuthNumber, setEmailAuthNumber] = useState(0)
-  const [name, setname] = useState(user.member.name)
-  const [profileImage, setprofileImage] = useState(user.member.profileImage)
+  const [name, setname] = useState(user.name)
+  const [profileImage, setprofileImage] = useState(user.profileImage)
   const [images, setImages] = useState<File[]>([])
-  const [gender, setgender] = useState(user.member.gender)
-  const [profileOpen, setprofileOpen] = useState(user.member.profileOpen)
+  const [gender, setgender] = useState(user.gender)
+  const [profileOpen, setprofileOpen] = useState(user.profileOpen)
   const [interestedSportsList, setinterestedSports] = useState<Number[]>([])
   const profileSubmitHandler: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
@@ -49,13 +50,13 @@ const Page = () => {
     try {
       formData.append('profileImage', images[0])
       const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/member/${user.member.memberId}/profile-image`,
+        `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/member/${user.memberId}/profile-image`,
         formData,
         {
           headers: {
             'Content-Type': 'multipart/form-data',
             credentials: 'include',
-            Authorization: `Bearer ${user.tokenDto.accessToken}`,
+            Authorization: `Bearer ${userToken.tokenDto.accessToken}`,
           },
         },
       )
@@ -71,12 +72,12 @@ const Page = () => {
     setLoading(false)
     try {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/member/${user.member.memberId}/resend-email-auth`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/member/${user.memberId}/resend-email-auth`,
         {
           headers: {
             credentials: 'include',
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${user.tokenDto.accessToken}`,
+            Authorization: `Bearer ${userToken.tokenDto.accessToken}`,
           },
         },
       )
@@ -93,7 +94,7 @@ const Page = () => {
     console.log(e)
 
     let formBody =
-      user.member.role === 'UNAUTH'
+      user.role === 'UNAUTH'
         ? {
             accountName,
             activeRegion,
@@ -117,13 +118,13 @@ const Page = () => {
           }
     try {
       const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/member/${user.member.memberId}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/member/${user.memberId}`,
         formBody,
         {
           headers: {
             credentials: 'include',
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${user.tokenDto.accessToken}`,
+            Authorization: `Bearer ${userToken.tokenDto.accessToken}`,
           },
         },
       )
@@ -167,7 +168,7 @@ const Page = () => {
         </form>
 
         <form onSubmit={handleSubmit(onsubmitHandler)}>
-          {user.member.role === 'UNAUTH' ? (
+          {user.role === 'UNAUTH' ? (
             <div>
               <label htmlFor="emailAuthNumber">* 이메일 인증번호</label>
               <input type="text" id="emailAuthNumber" value={emailAuthNumber} />

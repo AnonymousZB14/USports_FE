@@ -861,6 +861,8 @@ ul.evaluationList > li .evitemCont {
   gap: 10px;
 }
 ul.evaluationList > li .evitemCont .sportsBadge {
+  text-align: center;
+  width: 63px;
   padding: 3px 10px;
   background-color: springgreen;
   color: #222;
@@ -955,6 +957,8 @@ ul.applicationsList > li .applicationCont {
   gap: 10px;
 }
 ul.applicationsList > li .applicationCont .sportsBadge {
+  text-align: center;
+  width: 63px;
   padding: 3px 10px;
   background-color: springgreen;
   color: #222;
@@ -1016,6 +1020,8 @@ ul.recruitManagement > li .recruitItemCont {
   gap: 10px;
 }
 ul.recruitManagement > li .recruitItemCont .sportsBadge {
+  text-align: center;
+  width: 63px;
   padding: 3px 10px;
   background-color: springgreen;
   color: #222;
@@ -1492,6 +1498,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   align-items: center;
 }
 .content-body .main-body-wrap .right-body-wrap .apply-con .apply-main-section .match-place .match-place-info {
+  word-break: keep-all;
   color: var(--bg-color-1);
   background-color: var(--text-color-2);
   padding: 0.4rem 1rem;
@@ -1849,6 +1856,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   margin-top: 50px;
 }
 .mypageWrap > section .mpBtm ul.mpCategories {
+  margin-top: 50px;
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid var(--text-color-1);
@@ -1881,8 +1889,11 @@ ul.recruitManagement > li .recruitItemCont p.status {
   bottom: -2px;
 }
 .mypageWrap > section .mpBtm section {
-  min-height: 300px;
+  min-height: 100px;
   padding: 0 var(--side-padding);
+}
+.mypageWrap > section .mpBtm section:last-child {
+  margin-bottom: 120px;
 }
 .mypageWrap > section .mpBtm section p.info {
   text-align: center;

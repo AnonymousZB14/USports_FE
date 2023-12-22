@@ -25,7 +25,7 @@ const RoleChange = () => {
           <br />
           추가 정보를 입력하고 어플을 이용해주시기 바랍니다 🙇🏻‍♀️
         </p>
-        <Link href={`/member/${user.member.memberId}`}>인증하러 가기</Link>
+        <Link href={`/member/${user.memberId}`}>인증하러 가기</Link>
       </div>
     </div>
   )

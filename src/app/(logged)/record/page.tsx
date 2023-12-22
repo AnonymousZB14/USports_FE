@@ -8,7 +8,7 @@ import { SlArrowDown } from 'react-icons/sl'
 import { IoCloseOutline } from 'react-icons/io5'
 import { axiosInstance } from '@/func/fetchCall'
 import axios from 'axios'
-import { UserDetailState } from '@/store/user'
+import { UserDetailState, UserTokenState } from '@/store/user'
 import { useRecoilState } from 'recoil'
 import { useRouter } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
@@ -24,6 +24,7 @@ const recordWrite = () => {
   const [isFilterDialogOpen2, setIsFilterDialogOpen2] = useState(false)
   const [sportsList, setSportsList] = useState<SportsList>([])
   const [user, setUser] = useRecoilState(UserDetailState)
+  const [userToken, setUserToken] = useRecoilState(UserTokenState)
   const [selectedFilter2, setSelectedFilter2] = useState<Sport>({
     sportsId: 0,
     sportsName: '운동종목',
@@ -67,7 +68,7 @@ const recordWrite = () => {
           headers: {
             'Content-Type': 'multipart/form-data',
             credentials: 'include',
-            Authorization: `Bearer ${user.tokenDto.accessToken}`,
+            Authorization: `Bearer ${userToken.tokenDto.accessToken}`,
           },
         },
       )

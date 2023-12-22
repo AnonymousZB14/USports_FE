@@ -1,6 +1,8 @@
 //func/fetchCall.ts
 import axios, { AxiosError } from 'axios'
+import { getCookie } from './cookie_c'
 
+const TOKEN = getCookie('accessToken')
 const getAxiosInstance = (baseURL: string | undefined, token?: string) => {
   if (!baseURL) {
     throw new Error('Base URL is not defined.')
@@ -9,8 +11,8 @@ const getAxiosInstance = (baseURL: string | undefined, token?: string) => {
   return axios.create({
     baseURL,
     headers: {
-      // Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
     },
   })
 }
@@ -23,10 +25,7 @@ if (!baseURL) {
   )
 }
 
-export const axiosInstance = getAxiosInstance(
-  baseURL,
-  // 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYXBweWhzcnl1QGdtYWlsLmNvbSIsImlhdCI6MTcwMjg2OTg0NiwiZXhwIjoxNzAzMDg1ODQ2fQ.Rq7sGPQr41ITjHJMO0D8oplAbsTYoWDXxsfDdR4Dj-DleqrRp2bc-wsw8iWnmPVI1Wx6_JLc6jsnEjXbRvWvew',
-)
+export const axiosInstance = getAxiosInstance(baseURL, TOKEN?TOKEN+'':undefined)
 
 export async function Postfetch(url: string, data?: any, accesstoken?: string) {
   try {

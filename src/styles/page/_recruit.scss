@@ -374,6 +374,7 @@
             align-items: center;
 
             .match-place-info {
+              word-break: keep-all;
               color: var(--bg-color-1);
               background-color: var(--text-color-2);
               padding: 0.4rem 1rem;

@@ -87,6 +87,7 @@
     .mpBtm {
       margin-top: 50px;
       ul.mpCategories {
+        margin-top: 50px;
         display: flex;
         justify-content: space-between;
         border-bottom: 1px solid var(--text-color-1);
@@ -119,8 +120,11 @@
         }
       }
       section {
-        min-height: 300px;
+        min-height: 100px;
         padding: 0 var(--side-padding);
+        &:last-child{
+          margin-bottom: 120px;
+        }
         p.info {
           text-align: center;
           padding: 20px 0;

@@ -4,10 +4,30 @@ import Modal from '@/components/modal'
 import { useRouter } from 'next/navigation'
 import Button from '@/components/commonButton'
 import ApplyStatus from '@/components/applyStatus'
+import { useQuery } from '@tanstack/react-query'
 
 export const data = {
   accountName: 'userId',
   name: 'NaraLee',
+}
+export interface Data {
+  currentElements: number
+  currentPage: number
+  list: {
+    confirmedAt: Date
+    evaluationAt: Date
+    meetingDate: Date
+    memberId: number
+    participantId: number
+    recruitId: number
+    registeredAt: Date
+    sportsSkill: string
+    status: string
+  }[]
+
+  pageSize: number
+  totalElement: number
+  totalPages: number
 }
 const Page = () => {
   const router = useRouter()

@@ -3,21 +3,50 @@ import React from 'react'
 import { list1 } from '@/app/(logged)/mypage/_data/mock'
 import Link from 'next/link'
 import { MdKeyboardArrowUp } from 'react-icons/md'
-const ApplicationStatus = () => {
+import { useQuery } from '@tanstack/react-query'
+
+interface Prop {
+  list: {
+    recruitTile: string
+    sportsName: string
+    status: string
+  }[]
+}
+const ApplicationStatus = ({ list }: Prop) => {
   return (
     <ul className="applicationsList">
-      <ApplicationItem />
+      {list.map((item, idx) => (
+        <ApplicationItem key={idx} item={item} />
+      ))}
     </ul>
   )
 }
-
-export const ApplicationItem = () => {
+interface ItemProp {
+  item: {
+    recruitTile: string
+    sportsName: string
+    status: string
+  }
+}
+export const ApplicationItem = ({ item }: ItemProp) => {
+  const changeKor = (value: string) => {
+    switch (value) {
+      case 'ACCEPTED':
+        return '수락됨';
+      case 'ACCEPTED':
+        return '수락됨';
+      case 'ACCEPTED':
+        return '수락됨';
+      case 'ACCEPTED':
+        return '수락됨';
+    }
+  }
   return (
     <li>
       <div className="applicationCont">
-        <div className="sportsBadge">축구</div>
+        <div className="sportsBadge">{item.sportsName}</div>
         <div className="cont">
-          <p className="title">안양 평촌 칼라힐</p>
+          <p className="title">{item.recruitTile}</p>
         </div>
         <div className="buttonWrap">
           <button className="cancle">신청취소</button>

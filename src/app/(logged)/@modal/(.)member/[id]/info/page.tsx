@@ -1,16 +1,40 @@
 'use client'
 import Modal from '@/components/modal'
+import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React, { use, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
+import { getMyDetailData } from './_lib/getMyDetailData'
 
-export const data = {
-  username: '홍길동',
-  profileImg: '/tomatoA.png',
+interface UserInfo {
+  memberInfo: {
+    accountName: string
+    email: string
+    interestSportsList: {
+      sportsId: number
+      sportsName: string
+    }[]
+    mannerScore: number
+    memberId: number
+    name: string
+    profileImage: string
+  }
+  sportsSkills: {
+    sportsGrade: string
+    sportsName: string
+    sportsSkillId: number
+  }[]
 }
 const Page = () => {
-  const [userInfo, setUserInfo] = useState(data)
   const router = useRouter()
+  const { data, isFetching } = useQuery<UserInfo, Object>({
+    queryKey: ['mypage'],
+    queryFn: getMyDetailData,
+  })
+  const [userInfo, setUserInfo] = useState<UserInfo>()
+  useEffect(() => {
+    if (data) setUserInfo(data)
+  }, [data])
   return (
     <Modal>
       <div className="my-info-wrap">
@@ -21,9 +45,9 @@ const Page = () => {
               width={100}
               height={100}
               alt="avatar"
-              src={'/basicProfile.png'}
+              src={userInfo?.memberInfo.profileImage!}
             />
-            <p>{userInfo.username}</p>
+            <p>{userInfo?.memberInfo.accountName}</p>
           </div>
         </div>
         <div className="my-info-body">
