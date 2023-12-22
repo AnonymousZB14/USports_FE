@@ -10,7 +10,7 @@ const UserProfile = () => {
       <Avatar
         width="100px"
         height="100px"
-        imgAddress={user.member.profileImage}
+        imgAddress={user.profileImage}
       />
     </div>
   )

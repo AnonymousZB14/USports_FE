@@ -274,6 +274,10 @@ html[data-theme=light] {
   justify-content: center;
   width: 100%;
 }
+#header .head_inner .user_profile > div {
+  border-radius: 50%;
+  background-color: #fff;
+}
 #header .head_inner nav {
   flex: 1;
   width: 100%;
@@ -372,6 +376,7 @@ main:is(main > section) {
   background-color: rgba(0, 0, 0, 0.5058823529);
   left: 0;
   top: 0;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -536,7 +541,6 @@ main:is(main > section) {
   display: block;
   width: calc((100% - 10px) / 2);
   flex-grow: 1;
-  max-height: 20rem;
   object-fit: cover;
 }
 .feed .feed_content .body .record_contents {
@@ -734,6 +738,25 @@ span.dayjs {
   height: 23px;
 }
 
+.spinnerWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50%;
+  width: 100%;
+}
+.spinnerWrap.fixedSpinner {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+}
+.spinnerWrap span {
+  width: 60px;
+  height: 60px;
+  color: rgb(0, 0, 0);
+}
+
 .commentInput {
   position: absolute;
   bottom: 0;
@@ -815,6 +838,7 @@ span.dayjs {
   min-height: 200px;
   overflow-y: auto;
   height: 100%;
+  max-height: 70vh;
 }
 
 ul.evaluationList {
@@ -837,6 +861,8 @@ ul.evaluationList > li .evitemCont {
   gap: 10px;
 }
 ul.evaluationList > li .evitemCont .sportsBadge {
+  text-align: center;
+  width: 63px;
   padding: 3px 10px;
   background-color: springgreen;
   color: #222;
@@ -931,6 +957,8 @@ ul.applicationsList > li .applicationCont {
   gap: 10px;
 }
 ul.applicationsList > li .applicationCont .sportsBadge {
+  text-align: center;
+  width: 63px;
   padding: 3px 10px;
   background-color: springgreen;
   color: #222;
@@ -992,6 +1020,8 @@ ul.recruitManagement > li .recruitItemCont {
   gap: 10px;
 }
 ul.recruitManagement > li .recruitItemCont .sportsBadge {
+  text-align: center;
+  width: 63px;
   padding: 3px 10px;
   background-color: springgreen;
   color: #222;
@@ -1058,6 +1088,10 @@ ul.recruitManagement > li .recruitItemCont p.status {
   flex-direction: row;
   align-items: center;
   gap: 0 30px;
+}
+.profile_info .inner .avatar_img {
+  width: 180px;
+  height: 180px;
 }
 
 .profile_contents {
@@ -1364,6 +1398,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
 }
 .content-body .main-body-wrap .left-body-wrap .match-point-con .match-content {
   padding: 0 1.4rem 2.4rem 1.4rem;
+  word-break: break-all;
 }
 .content-body .main-body-wrap .left-body-wrap .match-point-con .match-content .data-wrap {
   display: flex;
@@ -1379,6 +1414,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
 }
 .content-body .main-body-wrap .left-body-wrap .match-point-con .match-content .data-wrap .data-box > p {
   padding: 0 1rem;
+  word-break: break-all;
 }
 .content-body .main-body-wrap .left-body-wrap .match-point-con .match-content .data-wrap .data-box > .from-to-line {
   width: 2rem;
@@ -1408,6 +1444,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
 .content-body .main-body-wrap .left-body-wrap .recruit-detail-con .match-content {
   padding: 0 1.4rem 2.4rem 1.4rem;
   line-height: 1.35;
+  word-break: break-all;
 }
 .content-body .main-body-wrap .right-body-wrap {
   width: 65%;
@@ -1461,6 +1498,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   align-items: center;
 }
 .content-body .main-body-wrap .right-body-wrap .apply-con .apply-main-section .match-place .match-place-info {
+  word-break: keep-all;
   color: var(--bg-color-1);
   background-color: var(--text-color-2);
   padding: 0.4rem 1rem;
@@ -1729,6 +1767,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
 .apply-list > .apply-item > .cont > .info .manner {
   font-weight: 400;
 }
+
 .mypageWrap {
   padding: 0;
 }
@@ -1817,6 +1856,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   margin-top: 50px;
 }
 .mypageWrap > section .mpBtm ul.mpCategories {
+  margin-top: 50px;
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid var(--text-color-1);
@@ -1849,8 +1889,11 @@ ul.recruitManagement > li .recruitItemCont p.status {
   bottom: -2px;
 }
 .mypageWrap > section .mpBtm section {
-  min-height: 300px;
+  min-height: 100px;
   padding: 0 var(--side-padding);
+}
+.mypageWrap > section .mpBtm section:last-child {
+  margin-bottom: 120px;
 }
 .mypageWrap > section .mpBtm section p.info {
   text-align: center;
@@ -2274,6 +2317,17 @@ ul.recruitManagement > li .recruitItemCont p.status {
   color: var(--bg-color-2);
 }
 
+.noData {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.noData p {
+  font-size: var(--text-size-sm);
+  padding: 30px 0;
+  text-align: center;
+}
+
 .record_detail_sec {
   overflow-y: auto;
   height: 100%;
@@ -2402,7 +2456,6 @@ ul.recruitManagement > li .recruitItemCont p.status {
 
 .editUser {
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
   font-size: var(--text-size-base);
@@ -2426,6 +2479,10 @@ ul.recruitManagement > li .recruitItemCont p.status {
   align-items: center;
   gap: 7px;
 }
+.editUser form > div.profileForm input[type=submit] {
+  flex: none;
+  padding: 10px;
+}
 .editUser form > div > label {
   padding: 10px;
 }
@@ -2446,7 +2503,6 @@ ul.recruitManagement > li .recruitItemCont p.status {
   display: flex;
   gap: 10px;
   justify-content: space-between;
-  margin-top: 70px;
 }
 .editUser form > div > * {
   font-size: var(--text-size-base);
@@ -2479,6 +2535,24 @@ ul.recruitManagement > li .recruitItemCont p.status {
 }
 .editUser form > div input[type=button] {
   background-color: #a2a2a2;
+}
+.editUser form > div .sportOptionContainer {
+  display: flex;
+  flex: wrap;
+  gap: 10px;
+}
+.editUser form > div .sportOptionContainer .sportOptionWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.errorMsg {
+  color: rgb(237, 0, 0);
+  padding: 14px 0 0;
+  text-align: center;
 }
 
 .notLoggedP {

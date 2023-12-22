@@ -7,8 +7,13 @@ import {
 } from '@tanstack/react-query'
 import { getMyRecords } from '../_lib/getMyRecords'
 import { getProfileUser } from '../_lib/getProfileUser'
+import { Metadata } from 'next'
 type PageParams = {
   accountName: string
+}
+export const metadata: Metadata = {
+  title: 'USports : 프로필',
+  description: 'USports : 프로필',
 }
 const page = async ({ params }: { params: PageParams }) => {
   const queryClient = new QueryClient()

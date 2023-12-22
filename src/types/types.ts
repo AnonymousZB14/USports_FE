@@ -20,11 +20,6 @@ export interface UserDetailInfo {
   updatedAt?: Date
   username?: string
   profileOpen?: string
-  tokenDto: {
-    accessToken: string
-    refreshToken: string
-    tokenType: string
-  }
 }
 
 export interface AddressType {
@@ -166,6 +161,12 @@ export interface Recruit {
 
 export type SportsList = { sportsId: number; sportsName: string }[]
 export type LevelList = { sportsGrade: string; description: string }[]
+export interface ExploreData {
+  currentPage: number
+  totalPages: number
+  list: recruitItemProps[]
+  totalElement: number
+}
 export interface recruitItemProps {
   title: string
   content: string
@@ -175,8 +176,8 @@ export interface recruitItemProps {
   gradeTo: number
   lat: number
   lnt: number
-  memberAccountName: string
-  participantSportsSkillAverage: string
+  memberAccountName?: string
+  participantSportsSkillAverage?: string
   meetingDate: string
   recruitId: number
   memberId: number
@@ -185,7 +186,7 @@ export interface recruitItemProps {
   recruitStatus: string
   region: string
   registeredAt: string
-  sportsName: string
+  sportsName?: string
   sportsId: number
   streetNameAddr: string
   streetNumberAddr: string
@@ -222,4 +223,101 @@ export interface HomeRecordListItem {
   registeredAt: Date
   sportsId: number
   updatedAt: Date
+}
+
+export interface MypageData {
+  memberProfile: {
+    accountName: string
+    email: string
+    interestSportsList: {
+      sportsId: number
+      sportsName: string
+    }[]
+    mannerScore: number
+    memberId: number
+    name: string
+    profileImage: string
+  }
+  myRecruitList: {
+    gender: string
+    recruitId: number
+    sportsName: string
+    status: string
+    title: string
+  }[]
+
+  participateList: {
+    recruitTile: string
+    sportsName: string
+    status: string
+  }[]
+
+  recruitAndParticipants: {
+    memberList: [
+      {
+        accountName: string
+        accountNonExpired: boolean
+        accountNonLocked: boolean
+        activeRegion: string
+        attributes: {}
+        authorities: {
+          authority: string
+        }[]
+
+        birthDate: Date
+        credentialsNonExpired: boolean
+        email: string
+        emailAuthAt: Date
+        enabled: boolean
+        evaluationCount: number
+        gender: string
+        kindnessScore: number
+        loginBy: string
+        mannerScore: number
+        memberId: number
+        name: string
+        passionScore: number
+        password: string
+        penaltyCount: number
+        phoneNumber: string
+        profileImage: string
+        profileOpen: boolean
+        registeredAt: Date
+        role: string
+        teamworkScore: number
+        updatedAt: Date
+        username: string
+      },
+    ]
+    recruit: {
+      content: string
+      cost: number
+      gender: string
+      gradeFrom: string
+      gradeTo: string
+      lat: string
+      lnt: string
+      meetingDate: Date
+      memberId: number
+      placeName: string
+      recruitCount: number
+      recruitId: number
+      recruitStatus: string
+      region: string
+      registeredAt: Date
+      sportsName: string
+      streetNameAddr: string
+      streetNumberAddr: string
+      title: string
+      updatedAt: Date
+    }
+  }[]
+
+  sportsSkills: [
+    {
+      sportsGrade: 'AMATEUR_1'
+      sportsName: string
+      sportsSkillId: number
+    },
+  ]
 }

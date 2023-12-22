@@ -8,8 +8,8 @@ import {
 } from '@tanstack/react-query'
 import { getPostRecommends } from '../_lib/getPostRecommends'
 export const metadata: Metadata = {
-  title: '홈',
-  description: '홈',
+  title: 'USports : 홈',
+  description: 'USports : 홈',
 }
 
 const page = async () => {

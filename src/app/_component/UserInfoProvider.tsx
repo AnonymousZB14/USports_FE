@@ -2,29 +2,42 @@
 import { setHeaderToken } from '@/func/fetchCall'
 import { DarkModeState } from '@/store/mode'
 import { RegionList, SportsLevelList, SportsList } from '@/store/types'
-import { UserDetailState } from '@/store/user'
+import { UserDetailState, UserTokenState } from '@/store/user'
 import { SportsList as SportsListType } from '@/types/types'
+import { Cookies } from 'react-cookie'
 import axios from 'axios'
 import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
+import { checkCookie } from '@/func/service'
 const UserInfoProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useRecoilState(UserDetailState)
+  const [userToken, setUserToken] = useRecoilState(UserTokenState)
   const [sportsLevel, setRportsLevel] = useRecoilState(SportsLevelList)
   const [sports, setSports] = useRecoilState(SportsList)
   const [region, setRegion] = useRecoilState(RegionList)
   const [mode, setMode] = useRecoilState(DarkModeState)
-  let localUser,localMode
+  let localUser, localMode, localToken
+  useEffect(() => {
+    console.log(user)
+    console.log(userToken)
+  }, [user])
   useEffect(() => {
     if (typeof localStorage !== 'undefined') {
       localUser = localStorage.getItem('user')
       localMode = localStorage.getItem('dark-mode')
+      localToken = localStorage.getItem('accessToken')
+    }
+    const cookieCheck = checkCookie()
+    if (cookieCheck === false) {
+      localStorage.removeItem('accessToken')
+      localStorage.removeItem('user')
     }
     try {
       const data = axios
         .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/types`)
         .then((res) => {
           const cont = res.data
-          console.log(cont)
+          // console.log(cont)
           setRegion(cont.regionList)
           setSports(cont.sportsList)
           setRportsLevel(cont.sportsLevelList)
@@ -35,15 +48,18 @@ const UserInfoProvider = ({ children }: { children: React.ReactNode }) => {
   }, [])
   useEffect(() => {
     setUser(JSON.parse(localUser!))
-    console.log('change user')
     setMode(JSON.parse(localMode!))
-  }, [localUser])
+    setUserToken(JSON.parse(localToken!))
+    // setHeaderToken(JSON.parse(localToken!))
+  }, [localUser, localToken])
   useEffect(() => {
-    if (user?.tokenDto?.accessToken == null || user.tokenDto.accessToken == '')
+    if (
+      userToken?.accessToken == null ||
+      userToken.accessToken == ''
+    )
       return
-    console.log(user)
-    setHeaderToken(user.tokenDto.accessToken)
-  }, [user])
+    setHeaderToken(userToken.accessToken)
+  }, [user, userToken])
   return <>{children}</>
 }
 

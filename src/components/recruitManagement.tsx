@@ -3,35 +3,66 @@ import React from 'react'
 import { list1 } from '@/app/(logged)/mypage/_data/mock'
 import Link from 'next/link'
 import { MdKeyboardArrowUp } from 'react-icons/md'
-const RecruitManagement = () => {
+import { MypageData } from '@/types/types'
+interface Prop {
+  list: {
+    gender: string
+    recruitId: number
+    sportsName: string
+    status: string
+    title: string
+  }[]
+}
+const RecruitManagement = ({ list }: Prop) => {
   return (
     <ul className="recruitManagement">
-      <RecruitManagementItem />
-      <RecruitManagementItem />
-      <RecruitManagementItem />
+      {list.map((item) => (
+        <RecruitManagementItem key={item.recruitId} item={item} />
+      ))}
     </ul>
   )
 }
-
-export const RecruitManagementItem = () => {
+interface ItemProp {
+  item: {
+    gender: string
+    recruitId: number
+    sportsName: string
+    status: string
+    title: string
+  }
+}
+export const RecruitManagementItem = ({ item }: ItemProp) => {
+  const changeKor = (value: string) => {
+    switch (value) {
+      case 'ALMOST_END':
+        return '마감 임박'
+        break
+      case 'END':
+        return '마감'
+        break
+      case 'RECRUITING':
+        return '모집중'
+        break
+    }
+  }
   return (
     <li>
       <div className="recruitItemCont">
-        <div className="sportsBadge">클라이밍</div>
+        <div className="sportsBadge">{item.sportsName}</div>
         <div className="cont">
           <div className="title">
-            <p>강동 알레 클라이밍 12/4</p>
+            <p>{item.title}</p>
           </div>
           <div className="sub">
-            <p className="subCon">21:00</p>
+            <p className="subCon">{item.gender}</p>
             <p className="conditions">
-              <span>남녀모두</span>
-              <span>모든 레벨</span>
+              <span></span>
+              {/* <span>모든 레벨</span> */}
             </p>
           </div>
         </div>
-        <p className="status">모집중</p>
-        <Link href="/profile">관리 ⇀</Link>
+        <p className="status">{changeKor(item.status)}</p>
+        <Link href={`/recruit/${item.recruitId}`}>관리 ⇀</Link>
       </div>
     </li>
   )

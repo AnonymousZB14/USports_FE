@@ -8,13 +8,14 @@ import { SlArrowDown } from 'react-icons/sl'
 import { IoCloseOutline } from 'react-icons/io5'
 import { axiosInstance } from '@/func/fetchCall'
 import axios from 'axios'
-import { UserDetailState } from '@/store/user'
+import { UserDetailState, UserTokenState } from '@/store/user'
 import { useRecoilState } from 'recoil'
 import { useRouter } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
 import { SportsList } from '@/types/types'
 import { SportsList as SportsListStore } from '@/store/types'
 import SportsFilterDialog from '@/components/sportsFilterDialog'
+import LoadingScreen from '@/components/loading-screen'
 interface Sport {
   sportsId: number
   sportsName: string
@@ -23,25 +24,18 @@ const recordWrite = () => {
   const [isFilterDialogOpen2, setIsFilterDialogOpen2] = useState(false)
   const [sportsList, setSportsList] = useState<SportsList>([])
   const [user, setUser] = useRecoilState(UserDetailState)
+  const [userToken, setUserToken] = useRecoilState(UserTokenState)
   const [selectedFilter2, setSelectedFilter2] = useState<Sport>({
     sportsId: 0,
     sportsName: '운동종목',
   })
-  const [showImages, setShowImages] = useState([])
+  const [showImages, setShowImages] = useState<string[]>([])
   const [images, setImages] = useState<File[]>([])
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const route = useRouter()
   const [sports, setSports] = useRecoilState<any>(SportsListStore)
-  useEffect(() => {
-    try {
-    } catch (e) {
-      console.log(e)
-    }
-  }, [])
-  useEffect(() => {
-    console.log(sports)
-  }, [sports])
+  const [isLoading, setLoading] = useState(false)
   const openFilterDialog2 = () => {
     setIsFilterDialogOpen2(true)
   }
@@ -51,12 +45,13 @@ const recordWrite = () => {
   }
 
   const applyFilter2 = (sportsId: number, sportsName: string) => {
-    console.log('Applying filter 2:', sportsId)
+    // console.log('Applying filter 2:', sportsId)
     setSelectedFilter2({ sportsId, sportsName })
   }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    setLoading(true)
     const formData = new FormData()
     // formData.append('images', images[0])
     images.map((file) => formData.append('images', file))
@@ -64,9 +59,8 @@ const recordWrite = () => {
       type: 'application/json',
     })
     formData.append('request', blob)
-
     try {
-      console.dir(images)
+      // console.dir(images)
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/record`,
         formData,
@@ -74,14 +68,16 @@ const recordWrite = () => {
           headers: {
             'Content-Type': 'multipart/form-data',
             credentials: 'include',
-            Authorization: `Bearer ${user.tokenDto.accessToken}`,
+            Authorization: `Bearer ${userToken.accessToken}`,
           },
         },
       )
       if (!(res.status === 200)) return
       alert('작성 완료!')
+      setLoading(false)
       route.replace(`record/${res.data.recordId}`)
     } catch (error) {
+      setLoading(false)
       console.log
     }
   }
@@ -94,8 +90,8 @@ const recordWrite = () => {
   const handleAddImages = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return
     setImages([...images, event.target.files[0]])
-    /*     const imageLists = event.target.files ?? []
-    let imageUrlLists = [...showImages]
+    const imageLists = event.target.files ?? []
+    let imageUrlLists: string[] = [...showImages]
     for (let i = 0; i < imageLists.length; i++) {
       const currentImageUrl = URL.createObjectURL(imageLists[i])
       imageUrlLists.push(currentImageUrl)
@@ -103,18 +99,20 @@ const recordWrite = () => {
     if (imageUrlLists.length > 5) {
       imageUrlLists = imageUrlLists.slice(0, 5)
     }
-    setShowImages(imageUrlLists) */
+    setShowImages(imageUrlLists)
   }
 
   // X버튼 클릭 시 이미지 삭제
   const handleDeleteImage = (id: number) => {
+    // console.log('파일',images)
+    console.log('미리보기', showImages)
     setShowImages(showImages.filter((_, index) => index !== id))
+    setImages(images.filter((_, index) => index !== id))
   }
-
   return (
     <>
+      {isLoading ?? <LoadingScreen fixed={true} />}
       <Title title="Explore" />
-
       <h1 className="write-tit">기록 글을 작성해주세요.</h1>
       <form onSubmit={handleSubmit} className="explore-form">
         <div className="category-wrap">

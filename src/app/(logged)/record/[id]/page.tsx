@@ -19,6 +19,19 @@ import SwiperWrap from '@/components/swiper'
 type PageParams = {
   id: string
 }
+interface CommentType {
+  accountName: string
+  commentId: number
+  content: string
+  memberId: number
+  name: string
+  parentId: number
+  profileImage: string
+  recordId: number
+  registerAt: Date
+  updatedAt: Date
+}
+type CommentListType = CommentType[]
 const page = ({ params }: { params: PageParams }) => {
   const { data, isSuccess } = useQuery<RecordDetail, Object>({
     queryKey: ['record', params.id],
@@ -27,12 +40,37 @@ const page = ({ params }: { params: PageParams }) => {
   const router = useRouter()
   const pageRef = useRef(null)
   const [showInput, setShowInput] = useState(false)
+  const [commentList, setCommentList] = useState<CommentListType>([])
+  const setCommentListHandler = (
+    content: string,
+    accountName: string,
+    profileImage: string,
+  ) => {
+    setCommentList([
+      ...commentList,
+      {
+        accountName: accountName,
+        commentId: 0,
+        content: content,
+        memberId: 0,
+        name: accountName,
+        parentId: 0,
+        profileImage: profileImage,
+        recordId: 0,
+        registerAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ])
+  }
   useLayoutEffect(() => {
     if (pageRef.current === null) return
     scrollHandler(pageRef.current)
   }, [pageRef])
   useEffect(() => {
     console.log(data)
+    if (data?.commentList) {
+      setCommentList(data?.commentList)
+    }
   }, [data])
   if (!isSuccess) return null
   return (
@@ -59,7 +97,6 @@ const page = ({ params }: { params: PageParams }) => {
         <div className="page_mid">
           <div className="record_img_sec">
             <SwiperWrap CarouselData={data!.imageAddressList} />
-
           </div>
           <div className="icon_wrap">
             <FaHeart className="hoverScaleAct" />
@@ -80,13 +117,13 @@ const page = ({ params }: { params: PageParams }) => {
         </div>
         <div className="page_btm">
           <div className="comments">
-            {data.commentList.map((comment) => (
+            {commentList.map((comment) => (
               <Comment comment={comment} />
             ))}
           </div>
         </div>
       </section>
-      {showInput && <CommentInput setShowInput={setShowInput} />}
+      {showInput && <CommentInput id={params.id} setShowInput={setShowInput} setCommentListHandler={setCommentListHandler} />}
     </>
   )
 }

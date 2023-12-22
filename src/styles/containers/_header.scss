@@ -19,6 +19,10 @@
       align-items: center;
       justify-content: center;
       width: 100%;
+      &>div{
+        border-radius: 50%;
+        background-color: #fff;
+      }
     }
     nav {
       flex: 1;

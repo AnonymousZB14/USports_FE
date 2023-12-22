@@ -2,8 +2,12 @@ import Notifications from '@/components/notifications'
 import Title from '@/components/title'
 import { Getfetch } from '@/func/fetchCall'
 import axios from 'axios'
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
+import { GetServerSideProps, InferGetServerSidePropsType, Metadata } from 'next'
 import React from 'react'
+export const metadata: Metadata = {
+  title: 'USports : 알림내역',
+  description: 'USports : 알림내역',
+}
 const page = () => {
   return (
     <>

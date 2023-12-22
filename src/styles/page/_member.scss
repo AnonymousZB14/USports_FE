@@ -1,6 +1,5 @@
 .editUser {
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
   font-size: var(--text-size-base);
@@ -18,6 +17,12 @@
     flex-direction: column;
     gap: 10px;
     & > div {
+      &.profileForm{
+        input[type='submit']{
+          flex: none;
+          padding: 10px;
+        }
+      }
       display: flex;
       align-items: center;
       gap: 7px;
@@ -42,7 +47,7 @@
         display: flex;
         gap: 10px;
         justify-content: space-between;
-        margin-top: 70px;
+        
       }
       & > * {
         font-size: var(--text-size-base);
@@ -75,7 +80,19 @@
       input[type='button'] {
         background-color: #a2a2a2;
       }
-
+      .sportOptionContainer{
+        display: flex;
+        flex: wrap;
+        gap: 10px;
+          .sportOptionWrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+          }
+        }
+        
     }
   }
 }

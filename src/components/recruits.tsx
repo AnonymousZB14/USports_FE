@@ -64,12 +64,8 @@ const Recruits = ({ accoutName }: { accoutName: string }) => {
       <ul>
         {data?.pages.map((page, itemIdx: number) => (
           <Fragment key={itemIdx}>
-            {page.list.map((recruit) => (
-              <Recruit
-                key={recruit.recruitId + recruit.memberId}
-                item={recruit}
-                user={user!}
-              />
+            {page.list.map((recruit, idx) => (
+              <Recruit key={idx} item={recruit} user={user!} />
             ))}
           </Fragment>
         ))}
@@ -114,7 +110,7 @@ export const Recruit = ({
         </div>
         <div className="bodyWrap">
           <div className="badgeWrap">
-            <span className="sport">{sportname}</span>
+            <span className="sport">{item.sportsName}</span>
             <span className="gender">{item.gender}</span>
             <span className="level">
               {item.gradeFrom}

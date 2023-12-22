@@ -14,10 +14,19 @@ export const setCookie = (name: string, value: string, options?: any) => {
 export const removeCookie = (name: string) => {
   return cookies.remove(name)
 }
-
-export const loginFun = (email: string, password: string) => {
+export const checkCookie = () => {
+  const access = cookies.get('accessToken')
+  const refresh = cookies.get('refreshToken')
+  const role = cookies.get('role')
+  if (access && refresh && role) {
+    return true
+  } else {
+    return false
+  }
+}
+export const loginFun = async (email: string, password: string) => {
   try {
-    const res = axios.post(
+    const res = await axios.post(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/member/login`,
       JSON.stringify({
         email: email,
@@ -37,20 +46,21 @@ export const loginFun = (email: string, password: string) => {
 export const onLoginSuccess = (res: any) => {
   const JWT_EXPIRY_TIME = 3600000 // 1시간
   const { accessToken, refreshToken } = res.tokenDto
-  const {role} = res.member
+  const { role } = res.memberResponse
   // 로그인 성공시 쿠키에 accessToken 저장
-  localStorage.setItem('accessToken', JSON.stringify(accessToken))
+  localStorage.setItem('accessToken', JSON.stringify(res.tokenDto))
+  localStorage.setItem('user', JSON.stringify(res.memberResponse))
   setCookie('accessToken', accessToken, { path: '/' })
   setCookie('refreshToken', refreshToken, { path: '/' })
   setCookie('role', role, { path: '/' })
   axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`
   // setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000)
 }
-export const onLogoutFun = (accessToken?:string) => {
+export const onLogoutFun = (accessToken?: string) => {
   axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/member/logout`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
-    }
+    },
   })
   removeCookie('accessToken')
   removeCookie('refreshToken')

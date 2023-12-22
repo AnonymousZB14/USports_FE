@@ -12,6 +12,7 @@ export const FeedContent = ({ item }: { item: HomeRecordListItem }) => {
             width="60px"
             height="60px"
             imgAddress={item.profileImage}
+            linkAddress={item.accountName}
           />
           <div className="user_info">
             <h3>{item.accountName}</h3>
