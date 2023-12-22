@@ -41,19 +41,27 @@ const page = ({ params }: { params: PageParams }) => {
   const pageRef = useRef(null)
   const [showInput, setShowInput] = useState(false)
   const [commentList, setCommentList] = useState<CommentListType>([])
-/*   const setCommentListHandler = (content:string) => {
-    setCommentList([...commentList, {
-      accountName: 'string',
-      commentId: number,
-      content: 'string',
-      memberId: 'number',
-      name: 'string',
-      parentId: 'number',
-      profileImage: 'string',
-      recordId: number,
-      registerAt: Date
-      updatedAt: Date}])
-  } */
+  const setCommentListHandler = (
+    content: string,
+    accountName: string,
+    profileImage: string,
+  ) => {
+    setCommentList([
+      ...commentList,
+      {
+        accountName: accountName,
+        commentId: 0,
+        content: content,
+        memberId: 0,
+        name: accountName,
+        parentId: 0,
+        profileImage: profileImage,
+        recordId: 0,
+        registerAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ])
+  }
   useLayoutEffect(() => {
     if (pageRef.current === null) return
     scrollHandler(pageRef.current)
@@ -109,13 +117,13 @@ const page = ({ params }: { params: PageParams }) => {
         </div>
         <div className="page_btm">
           <div className="comments">
-            {data.commentList.map((comment) => (
+            {commentList.map((comment) => (
               <Comment comment={comment} />
             ))}
           </div>
         </div>
       </section>
-      {showInput && <CommentInput id={params.id} setShowInput={setShowInput} />}
+      {showInput && <CommentInput id={params.id} setShowInput={setShowInput} setCommentListHandler={setCommentListHandler} />}
     </>
   )
 }

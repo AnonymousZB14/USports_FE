@@ -9,9 +9,15 @@ import { useRouter } from 'next/navigation'
 const CommentInput = ({
   setShowInput,
   id,
+  setCommentListHandler,
 }: {
   setShowInput: Dispatch<SetStateAction<boolean>>
   id: string
+  setCommentListHandler: (
+    content: string,
+    profileImage: string,
+    accountName: string,
+  ) => void
 }) => {
   const [user, _] = useRecoilState(UserDetailState)
   const [comment, setComment] = useState('')
@@ -27,6 +33,8 @@ const CommentInput = ({
           alert('댓글 작성 완료!')
           // route.replace(`/record/${id}`)
           route.refresh()
+          setCommentListHandler(comment, user.accountName, user.profileImage)
+          setComment('')
         }
       })
     } catch (error) {}
