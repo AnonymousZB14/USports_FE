@@ -6,7 +6,10 @@ import { QueryClient, useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 import { getMypageData } from '@/app/(logged)/mypage/_lib/getMypageData'
 import { MypageData } from '@/types/types'
+import { useRecoilState } from 'recoil'
+import { UserDetailState } from '@/store/user'
 const MpUserInfoSec = () => {
+  const [user,_]=useRecoilState(UserDetailState)
   const { data, isFetching } = useQuery<MypageData, Object>({
     queryKey: ['mypage'],
     queryFn: getMypageData,
@@ -23,7 +26,7 @@ const MpUserInfoSec = () => {
             {
               <Link href={'/profile'}>
                 <img
-                  src={data.memberProfile.profileImage || ''}
+                  src={user.profileImage || ''}
                   alt="profile"
                   width={100}
                   height={100}

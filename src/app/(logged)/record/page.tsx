@@ -68,7 +68,7 @@ const recordWrite = () => {
           headers: {
             'Content-Type': 'multipart/form-data',
             credentials: 'include',
-            Authorization: `Bearer ${userToken.tokenDto.accessToken}`,
+            Authorization: `Bearer ${userToken.accessToken}`,
           },
         },
       )

@@ -46,10 +46,10 @@ export const loginFun = async (email: string, password: string) => {
 export const onLoginSuccess = (res: any) => {
   const JWT_EXPIRY_TIME = 3600000 // 1시간
   const { accessToken, refreshToken } = res.tokenDto
-  const { role } = res.member
+  const { role } = res.memberResponse
   // 로그인 성공시 쿠키에 accessToken 저장
-  localStorage.setItem('accessToken', JSON.stringify(accessToken))
-  localStorage.setItem('user', JSON.stringify(res.member))
+  localStorage.setItem('accessToken', JSON.stringify(res.tokenDto))
+  localStorage.setItem('user', JSON.stringify(res.memberResponse))
   setCookie('accessToken', accessToken, { path: '/' })
   setCookie('refreshToken', refreshToken, { path: '/' })
   setCookie('role', role, { path: '/' })

@@ -17,6 +17,7 @@ import KaKaoMap2 from '@/components/kakaoMap2'
 const recruitDetail = () => {
   const params = useParams()
   const router = useRouter()
+  const { id } = params
 
   const [recruitData, setRecruitData] = useState<recruitItemProps | undefined>()
   const [formattedDate, setFormattedDate] = useState<string | undefined>()
@@ -24,7 +25,6 @@ const recruitDetail = () => {
   // console.log(params)
 
   useEffect(() => {
-    const { id } = params
 
     axiosInstance
       .get(`/recruit/${id}`)
@@ -55,7 +55,15 @@ const recruitDetail = () => {
 
     return formattedDate
   }
-
+  const applyHandler = async () => {
+    try {
+      const res = await axiosInstance.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/recruit/${id}/join`)
+      if (res.status == 200)
+        alert('신청 완료!')
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <div className="recruit-detail-wrap">
       <div className="content-header">
@@ -182,7 +190,12 @@ const recruitDetail = () => {
                     {recruitData.recruitStatus}
                   </div>
                 )}
-                <Button type="submit" tailwindStyles="py-0 px-2" theme="blue">
+                <Button
+                  type="submit"
+                  tailwindStyles="py-0 px-2"
+                  theme="blue"
+                  onClick={applyHandler}
+                >
                   신청하기
                 </Button>
               </div>

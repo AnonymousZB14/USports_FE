@@ -64,12 +64,8 @@ const Recruits = ({ accoutName }: { accoutName: string }) => {
       <ul>
         {data?.pages.map((page, itemIdx: number) => (
           <Fragment key={itemIdx}>
-            {page.list.map((recruit) => (
-              <Recruit
-                key={recruit.recruitId + recruit.memberId}
-                item={recruit}
-                user={user!}
-              />
+            {page.list.map((recruit, idx) => (
+              <Recruit key={idx} item={recruit} user={user!} />
             ))}
           </Fragment>
         ))}

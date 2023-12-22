@@ -21,10 +21,6 @@ const LoginModal = () => {
   const [user, setUser] = useRecoilState(UserDetailState)
   const [userToken, setUserToken] = useRecoilState(UserTokenState)
   const { register, handleSubmit } = useForm()
-  /*  
-  happyhsryu@gmail.com
-  a123456789!
-  */
 
   const onsubmitHandler = async (e: any) => {
     try {
@@ -37,7 +33,7 @@ const LoginModal = () => {
       // LocalStorage.setAccessToken(res.data.tokenDto.accessToken)
       setHeaderToken(res.data.tokenDto.accessToken)
       // LocalStorage.setItem('user', JSON.stringify(res.data))
-      setUser(res.data.member)
+      setUser(res.data.memberResponse)
       setUserToken(res.data.tokenDto)
     } catch (error) {
       console.error(error)
@@ -45,9 +41,7 @@ const LoginModal = () => {
 
     router.replace('/')
   }
-  useEffect(() => {
-    console.log(user)
-  }, [user])
+
   return (
     <div className="loginP notLoggedP centered">
       <h2>Log into USports</h2>

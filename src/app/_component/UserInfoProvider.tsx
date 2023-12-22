@@ -18,6 +18,10 @@ const UserInfoProvider = ({ children }: { children: React.ReactNode }) => {
   const [mode, setMode] = useRecoilState(DarkModeState)
   let localUser, localMode, localToken
   useEffect(() => {
+    console.log(user)
+    console.log(userToken)
+  }, [user])
+  useEffect(() => {
     if (typeof localStorage !== 'undefined') {
       localUser = localStorage.getItem('user')
       localMode = localStorage.getItem('dark-mode')
@@ -46,15 +50,15 @@ const UserInfoProvider = ({ children }: { children: React.ReactNode }) => {
     setUser(JSON.parse(localUser!))
     setMode(JSON.parse(localMode!))
     setUserToken(JSON.parse(localToken!))
-    setHeaderToken(JSON.parse(localToken!))
+    // setHeaderToken(JSON.parse(localToken!))
   }, [localUser, localToken])
   useEffect(() => {
     if (
-      userToken?.tokenDto?.accessToken == null ||
-      userToken.tokenDto.accessToken == ''
+      userToken?.accessToken == null ||
+      userToken.accessToken == ''
     )
       return
-    setHeaderToken(userToken.tokenDto.accessToken)
+    setHeaderToken(userToken.accessToken)
   }, [user, userToken])
   return <>{children}</>
 }

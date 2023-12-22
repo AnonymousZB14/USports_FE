@@ -53,10 +53,8 @@ export const UserDetailState = atom({
 export const UserTokenState = atom({
   key: 'userTokenState',
   default: {
-    tokenDto: {
-      accessToken: '',
-      refreshToken: '',
-      tokenType: '',
-    },
+    accessToken: '',
+    refreshToken: '',
+    tokenType: '',
   },
 })

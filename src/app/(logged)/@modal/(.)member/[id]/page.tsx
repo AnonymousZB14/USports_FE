@@ -56,11 +56,13 @@ const Page = () => {
           headers: {
             'Content-Type': 'multipart/form-data',
             credentials: 'include',
-            Authorization: `Bearer ${userToken.tokenDto.accessToken}`,
+            Authorization: `Bearer ${userToken.accessToken}`,
           },
         },
       )
       if (!(res.status === 200)) return
+      setUser(res.data)
+      localStorage.setItem('user', JSON.stringify(res.data))
       setLoading(false)
       alert('프로필 변경 완료!')
       router.back()
@@ -77,7 +79,7 @@ const Page = () => {
           headers: {
             credentials: 'include',
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${userToken.tokenDto.accessToken}`,
+            Authorization: `Bearer ${userToken.accessToken}`,
           },
         },
       )
@@ -124,13 +126,14 @@ const Page = () => {
           headers: {
             credentials: 'include',
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${userToken.tokenDto.accessToken}`,
+            Authorization: `Bearer ${userToken.accessToken}`,
           },
         },
       )
       if (res.status == 200) {
         const { data } = res
-        localStorage.setItem('user', data)
+        setUser(data)
+        localStorage.setItem('user', JSON.stringify(data))
         router.back()
       } else {
         return '오류 발생'
