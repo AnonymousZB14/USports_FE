@@ -119,17 +119,12 @@
           }
         }
       }
+
       section {
         min-height: 100px;
         padding: 0 var(--side-padding);
-        &:last-child{
+        &:last-child {
           margin-bottom: 120px;
-        }
-        p.info {
-          text-align: center;
-          padding: 20px 0;
-          font-size: var(--text-size-xs);
-          color: var(--text-color-3);
         }
         .editBtnWrap {
           padding-top: 40px;
@@ -264,4 +259,11 @@
       }
     }
   }
+}
+
+p.info {
+  text-align: center;
+  padding: 20px 0;
+  font-size: var(--text-size-xs);
+  color: var(--text-color-3);
 }

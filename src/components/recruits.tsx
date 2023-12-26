@@ -59,14 +59,21 @@ const Recruits = ({ accoutName }: { accoutName: string }) => {
   }, [inView, isFetching, hasNextPage, fetchNextPage])
 
   if (!data) return null
+
   return (
     <>
       <ul>
         {data?.pages.map((page, itemIdx: number) => (
           <Fragment key={itemIdx}>
-            {page.list.map((recruit, idx) => (
-              <Recruit key={idx} item={recruit} user={user!} />
-            ))}
+            {page.list.length < 1 ? (
+              <p className="info" style={{ width: '100%' }}>
+                No Data
+              </p>
+            ) : (
+              page.list.map((recruit, idx) => (
+                <Recruit key={idx} item={recruit} user={user!} />
+              ))
+            )}
           </Fragment>
         ))}
       </ul>

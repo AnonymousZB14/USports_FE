@@ -13,17 +13,16 @@ import axios from 'axios'
 import { Deletefetch, Putfetch, axiosInstance } from '@/func/fetchCall'
 import { recruitItemProps } from '@/types/types'
 import KaKaoMap2 from '@/components/kakaoMap2'
+import { useRecoilState } from 'recoil'
+import { UserDetailState } from '@/store/user'
 
 const recruitDetail = () => {
   const params = useParams()
   const router = useRouter()
   const { id } = params
-
+  const [user,_] = useRecoilState(UserDetailState)
   const [recruitData, setRecruitData] = useState<recruitItemProps | undefined>()
   const [formattedDate, setFormattedDate] = useState<string | undefined>()
-
-  // console.log(params)
-
   useEffect(() => {
 
     axiosInstance
@@ -82,12 +81,14 @@ const recruitDetail = () => {
             파트너 평가하기
           </Button>
         </Link>
-
-        <Link href={`/recruit/manage`}>
+        {
+          recruitData?.memberId === user.memberId &&
+          <Link href={`/recruit/manage/${id}`}>
           <Button tailwindStyles="py-0 px-2" theme="orange">
             신청자 관리하기
           </Button>
         </Link>
+        }
       </div>
       <div className="content-body">
         <div className="map-wrap">

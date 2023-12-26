@@ -13,17 +13,17 @@ const LogoutBtn = () => {
   const cookies = new Cookies()
   const router = useRouter()
   const [user, setUser] = useRecoilState(UserDetailState)
-  const onLogout = () => {
+  const onLogout = async () => {
     if (confirm('로그아웃 하시겠습니까?')) {
       // alert('로그아웃되었습니다')
-      delete axios.defaults.headers.common.Authorization
+      await onLogoutFun(LocalStorage.getItem('accessToken')!)
       removeCookie('accessToken')
       removeCookie('refreshToken')
       removeCookie('role')
       cookies.remove('accessToken')
       cookies.remove('refreshToken')
       cookies.remove('role')
-      onLogoutFun(LocalStorage.getItem('accessToken')!)
+      delete axios.defaults.headers.common.Authorization
       router.replace('/login')
     }
   }

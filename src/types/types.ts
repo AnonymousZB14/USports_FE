@@ -321,3 +321,24 @@ export interface MypageData {
     },
   ]
 }
+
+export interface RecruitApplicants {
+  acceptedList: AcceptedList[]
+  currentCount: number
+  ingList: IngList[]
+  totalCount: number
+}
+export interface AcceptedList {
+  accountName: string
+  gender: string
+  memberId: number
+  sportsSkill: string
+  status: string
+}
+export interface IngList {
+  accountName: string
+  gender: string
+  memberId: number
+  sportsSkill: string
+  status: string
+}

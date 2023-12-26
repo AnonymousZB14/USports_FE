@@ -1895,12 +1895,6 @@ ul.recruitManagement > li .recruitItemCont p.status {
 .mypageWrap > section .mpBtm section:last-child {
   margin-bottom: 120px;
 }
-.mypageWrap > section .mpBtm section p.info {
-  text-align: center;
-  padding: 20px 0;
-  font-size: var(--text-size-xs);
-  color: var(--text-color-3);
-}
 .mypageWrap > section .mpBtm section .editBtnWrap {
   padding-top: 40px;
   display: flex;
@@ -2014,6 +2008,13 @@ ul.recruitManagement > li .recruitItemCont p.status {
 }
 .my-info-wrap .my-info-body .manners-wrap > .manner-score > p, .my-info-wrap .my-info-body .manners-wrap > .passion-score > p, .my-info-wrap .my-info-body .manners-wrap > .teamwork-score > p {
   font-weight: 500;
+}
+
+p.info {
+  text-align: center;
+  padding: 20px 0;
+  font-size: var(--text-size-xs);
+  color: var(--text-color-3);
 }
 
 .notifications {

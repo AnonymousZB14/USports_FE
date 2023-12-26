@@ -21,6 +21,7 @@ const LoginModal = () => {
   const [user, setUser] = useRecoilState(UserDetailState)
   const [userToken, setUserToken] = useRecoilState(UserTokenState)
   const { register, handleSubmit } = useForm()
+  let isSuccessed = false
 
   const onsubmitHandler = async (e: any) => {
     try {
@@ -29,17 +30,19 @@ const LoginModal = () => {
         setMessage('아이디 혹은 비밀번호를 확인해주세요')
         return
       }
-      onLoginSuccess(res?.data)
+      await onLoginSuccess(res?.data)
       // LocalStorage.setAccessToken(res.data.tokenDto.accessToken)
-      setHeaderToken(res.data.tokenDto.accessToken)
+      await setHeaderToken(res.data.tokenDto.accessToken)
       // LocalStorage.setItem('user', JSON.stringify(res.data))
       setUser(res.data.memberResponse)
       setUserToken(res.data.tokenDto)
+      isSuccessed = true
     } catch (error) {
       console.error(error)
     }
-
-    router.replace('/')
+    if (isSuccessed) {
+      router.replace('/')
+    }
   }
 
   return (

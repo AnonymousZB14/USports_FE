@@ -36,7 +36,7 @@ const Page = () => {
   const [activeRegion, setactiveRegion] = useState(user.activeRegion)
   const [birthDate, setbirthDate] = useState(user.birthDate)
   const [phoneNumber, setPhoneNum] = useState(user.phoneNumber)
-  const [emailAuthNumber, setEmailAuthNumber] = useState(0)
+  const [emailAuthNumber, setEmailAuthNumber] = useState('0')
   const [name, setname] = useState(user.name)
   const [profileImage, setprofileImage] = useState(user.profileImage)
   const [images, setImages] = useState<File[]>([])
@@ -70,7 +70,9 @@ const Page = () => {
       setLoading(false)
     }
   }
-  const resendEmail = async () => {
+  const resendEmail = async (e: React.MouseEvent) => {
+    e.preventDefault()
+
     setLoading(false)
     try {
       const res = await axios.get(
@@ -174,10 +176,15 @@ const Page = () => {
           {user.role === 'UNAUTH' ? (
             <div>
               <label htmlFor="emailAuthNumber">* 이메일 인증번호</label>
-              <input type="text" id="emailAuthNumber" value={emailAuthNumber} />
+              <input
+                type="text"
+                id="emailAuthNumber"
+                value={emailAuthNumber}
+                onChange={(e) => setEmailAuthNumber(e.target.value)}
+              />
               <button
                 className="resend"
-                disabled={!isLoading}
+                disabled={isLoading}
                 onClick={resendEmail}
               >
                 이메일 다시 발송하기
