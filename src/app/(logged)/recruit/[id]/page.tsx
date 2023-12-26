@@ -20,11 +20,10 @@ const recruitDetail = () => {
   const params = useParams()
   const router = useRouter()
   const { id } = params
-  const [user,_] = useRecoilState(UserDetailState)
+  const [user, _] = useRecoilState(UserDetailState)
   const [recruitData, setRecruitData] = useState<recruitItemProps | undefined>()
   const [formattedDate, setFormattedDate] = useState<string | undefined>()
   useEffect(() => {
-
     axiosInstance
       .get(`/recruit/${id}`)
       .then((res) => {
@@ -37,7 +36,23 @@ const recruitDetail = () => {
         console.log(err)
       })
   }, [])
-
+  const deleteHandler = async () => {
+    let isSuccess = false
+    try {
+      const res = await axiosInstance.delete(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/recruit/${recruitData?.recruitId}`,
+      )
+      if (res.status === 200) {
+        alert('게시글이 삭제되었습니다')
+        isSuccess = true
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    if (isSuccess) {
+      router.back()
+    }
+  }
   function formatDate(inputDateStr: string) {
     let inputDate = new Date(inputDateStr)
 
@@ -56,9 +71,10 @@ const recruitDetail = () => {
   }
   const applyHandler = async () => {
     try {
-      const res = await axiosInstance.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/recruit/${id}/join`)
-      if (res.status == 200)
-        alert('신청 완료!')
+      const res = await axiosInstance.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/recruit/${id}/join`,
+      )
+      if (res.status == 200) alert('신청 완료!')
     } catch (error) {
       console.log(error)
     }
@@ -81,14 +97,13 @@ const recruitDetail = () => {
             파트너 평가하기
           </Button>
         </Link>
-        {
-          recruitData?.memberId === user.memberId &&
+        {recruitData?.memberId === user.memberId && (
           <Link href={`/recruit/manage/${id}`}>
-          <Button tailwindStyles="py-0 px-2" theme="orange">
-            신청자 관리하기
-          </Button>
-        </Link>
-        }
+            <Button tailwindStyles="py-0 px-2" theme="orange">
+              신청자 관리하기
+            </Button>
+          </Link>
+        )}
       </div>
       <div className="content-body">
         <div className="map-wrap">
@@ -203,6 +218,15 @@ const recruitDetail = () => {
             </div>
           </div>
         </div>
+        {recruitData?.memberId === user.memberId && (
+          <Button
+            tailwindStyles="py-0 px-2 float-right"
+            theme="red"
+            onClick={deleteHandler}
+          >
+            게시글 삭제
+          </Button>
+        )}
       </div>
     </div>
   )

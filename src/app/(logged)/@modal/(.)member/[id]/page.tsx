@@ -16,7 +16,6 @@ import {
 import { IoCloseOutline } from 'react-icons/io5'
 import { useRecoilState } from 'recoil'
 
-
 const Page = () => {
   const router = useRouter()
   const [message, setMessage] = useState('')
@@ -40,6 +39,7 @@ const Page = () => {
     e.preventDefault()
     setLoading(true)
     const formData = new FormData()
+    let isSuccess = false
     try {
       formData.append('profileImage', images[0])
       const res = await axios.put(
@@ -58,9 +58,12 @@ const Page = () => {
       localStorage.setItem('user', JSON.stringify(res.data))
       setLoading(false)
       alert('프로필 변경 완료!')
-      router.back()
+      isSuccess = true
     } catch (error) {
       setLoading(false)
+    }
+    if (isSuccess) {
+      router.back()
     }
   }
   const resendEmail = async (e: React.MouseEvent) => {

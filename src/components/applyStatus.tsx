@@ -50,7 +50,7 @@ export const ApplyItem = ({
       })
       if (res.status === 200) {
         alert('완료')
-        // route.back()
+        
         setListHandler(accept, item)
       }
     } catch (error) {}

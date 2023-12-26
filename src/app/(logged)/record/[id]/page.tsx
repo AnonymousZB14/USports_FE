@@ -10,12 +10,15 @@ import CommentInput from '@/components/commentInput'
 import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
 import dayjs from 'dayjs'
-import { Getfetch } from '@/func/fetchCall'
+import { Getfetch, axiosInstance } from '@/func/fetchCall'
 import { useQuery } from '@tanstack/react-query'
 import { RecordDetail } from '@/types/types'
 import { getRecordDetail } from './_lib/getRecordDetail'
 import Link from 'next/link'
 import SwiperWrap from '@/components/swiper'
+import Button from '@/components/commonButton'
+import { useRecoilState } from 'recoil'
+import { UserDetailState } from '@/store/user'
 type PageParams = {
   id: string
 }
@@ -39,6 +42,7 @@ const page = ({ params }: { params: PageParams }) => {
   })
   const router = useRouter()
   const pageRef = useRef(null)
+  const [user,_]= useRecoilState(UserDetailState)
   const [showInput, setShowInput] = useState(false)
   const [commentList, setCommentList] = useState<CommentListType>([])
   const setCommentListHandler = (
@@ -72,6 +76,22 @@ const page = ({ params }: { params: PageParams }) => {
       setCommentList(data?.commentList)
     }
   }, [data])
+  const deleteHandler = async () => {
+    let isSuccess=false
+    try {
+      const res = await axiosInstance.delete(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/record/${data?.recordId}`,
+      )
+      if (res.status === 200) {
+        alert('게시글이 삭제되었습니다')
+        isSuccess=true
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    if(isSuccess) router.back()
+    
+  }
   if (!isSuccess) return null
   return (
     <>
@@ -121,9 +141,25 @@ const page = ({ params }: { params: PageParams }) => {
               <Comment comment={comment} />
             ))}
           </div>
+          {
+            data.memberId === user.memberId &&  
+            <Button
+            tailwindStyles="py-0 px-2 float-right"
+            theme="red"
+            onClick={deleteHandler}
+            >
+            게시글 삭제
+          </Button>
+          }
         </div>
       </section>
-      {showInput && <CommentInput id={params.id} setShowInput={setShowInput} setCommentListHandler={setCommentListHandler} />}
+      {showInput && (
+        <CommentInput
+          id={params.id}
+          setShowInput={setShowInput}
+          setCommentListHandler={setCommentListHandler}
+        />
+      )}
     </>
   )
 }

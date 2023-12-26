@@ -59,6 +59,8 @@ const recordWrite = () => {
       type: 'application/json',
     })
     formData.append('request', blob)
+    let isSuccess = false
+    let recordId
     try {
       // console.dir(images)
       const res = await axios.post(
@@ -75,10 +77,14 @@ const recordWrite = () => {
       if (!(res.status === 200)) return
       alert('작성 완료!')
       setLoading(false)
-      route.replace(`record/${res.data.recordId}`)
+      recordId = res.data.recordId
+      isSuccess = true
     } catch (error) {
       setLoading(false)
       console.log
+    }
+    if (isSuccess && recordId) {
+      route.replace(`record/${recordId}`)
     }
   }
 
