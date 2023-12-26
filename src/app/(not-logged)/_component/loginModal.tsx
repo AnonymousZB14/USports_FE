@@ -30,9 +30,9 @@ const LoginModal = () => {
         setMessage('아이디 혹은 비밀번호를 확인해주세요')
         return
       }
-      await onLoginSuccess(res?.data)
-      // LocalStorage.setAccessToken(res.data.tokenDto.accessToken)
       await setHeaderToken(res.data.tokenDto.accessToken)
+      onLoginSuccess(res?.data)
+      // LocalStorage.setAccessToken(res.data.tokenDto.accessToken)
       // LocalStorage.setItem('user', JSON.stringify(res.data))
       setUser(res.data.memberResponse)
       setUserToken(res.data.tokenDto)

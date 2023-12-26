@@ -10,8 +10,9 @@ interface Prop {
   list: IngList[]
   accepted: boolean
   recruitId: number
+  setListHandler: (accept: boolean, item: IngList) => void
 }
-const ApplyStatus = ({ list, accepted, recruitId }: Prop) => {
+const ApplyStatus = ({ list, accepted, recruitId, setListHandler }: Prop) => {
   if (list.length < 1)
     return <p className="info">대기 중인 지원자가 없습니다</p>
   return (
@@ -22,6 +23,7 @@ const ApplyStatus = ({ list, accepted, recruitId }: Prop) => {
           item={item}
           accepted={accepted}
           recruitId={recruitId}
+          setListHandler={setListHandler}
         />
       ))}
     </ul>
@@ -32,21 +34,24 @@ export const ApplyItem = ({
   item,
   accepted,
   recruitId,
+  setListHandler,
 }: {
   item: IngList
   accepted: boolean
   recruitId: number
+  setListHandler: (accept: boolean, item: IngList) => void
 }) => {
   const route = useRouter()
-  const participantsHandler = async (boolean: boolean) => {
+  const participantsHandler = async (accept: boolean) => {
     try {
       const res = await Postfetch(`recruit/${recruitId}/manage`, {
-        accept: boolean,
+        accept: accept,
         applicantId: item.memberId,
       })
       if (res.status === 200) {
         alert('완료')
-        route.back()
+        // route.back()
+        setListHandler(accept, item)
       }
     } catch (error) {}
   }
