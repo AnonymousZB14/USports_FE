@@ -22,7 +22,6 @@ const LoginModal = () => {
   const [userToken, setUserToken] = useRecoilState(UserTokenState)
   const { register, handleSubmit } = useForm()
   let isSuccessed = false
-
   const onsubmitHandler = async (e: any) => {
     try {
       const res = await loginFun(e.email, e.password)

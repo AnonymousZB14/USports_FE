@@ -2,6 +2,12 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  exportPathMap: function () {
+    return {
+      '/': { page: '/' },
+      'src/app/(logged)/@modal/(.)member/:id': { page: '/member/:id' }, // correct
+    }
+  },
   async rewrites() {
     return [
       {

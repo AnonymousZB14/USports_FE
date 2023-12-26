@@ -15,14 +15,7 @@ import {
 } from 'react-hook-form'
 import { IoCloseOutline } from 'react-icons/io5'
 import { useRecoilState } from 'recoil'
-export const interestedSportsList = [
-  { value: 1, name: '축구' },
-  { value: 2, name: '야구' },
-  { value: 3, name: '농구' },
-  { value: 4, name: '클라이밍' },
-  { value: 5, name: '배구' },
-  { value: 6, name: '필라테스' },
-]
+
 
 const Page = () => {
   const router = useRouter()

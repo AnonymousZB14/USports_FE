@@ -245,8 +245,9 @@ export interface MypageData {
     status: string
     title: string
   }[]
-
+  
   participateList: {
+    recruitId: number
     recruitTile: string
     sportsName: string
     status: string
