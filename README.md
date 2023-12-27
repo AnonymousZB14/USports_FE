@@ -1,5 +1,6 @@
 # USports_FE
 
+## About
 > 나의 운동 <span style='color:green; font-weight:bold'>기록</span>들을
 >
 > > 다른 사람들과 서로 <span style='color:green; font-weight:bold'>공유</span>하며
@@ -8,12 +9,14 @@
 > > >
 > > > > _운동 전문 SNS_
 
-<div style='display:flex; border:4px solid green'>
-<img src="public/usports_logo2.png" alt="logo" style='display:block; width:200px; object-fit:contain'>
-<img src="public/usports_logo1.png" alt="logo" style='display:block; width:200px; object-fit:contain'>
-</div>
+<br>
+<br>
 <br>
 
+## Logo
+
+<img src="public/usports_logo2.png" alt="logo" style='display:inline-block; width:40%; object-fit:contain'>
+<img src="public/usports_logo1.png" alt="logo" style='display:inline-block; width:40%; object-fit:contain'>
 <br>
 <br>
 <br>
