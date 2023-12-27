@@ -5,7 +5,7 @@ export async function middleware(request: NextRequest) {
   const cookieStore = cookies()
   const accessToken = cookieStore.get('accessToken')
   if (!accessToken) {
-    return NextResponse.rewrite(new URL('/login', request.url))
+    return NextResponse.redirect(new URL('/login', request.url))
   } else {
     setHeaderToken(accessToken + '')
   }
@@ -13,7 +13,7 @@ export async function middleware(request: NextRequest) {
     request.nextUrl.pathname.startsWith('/login') ||
     request.nextUrl.pathname.startsWith('/createAccount')
   ) {
-    if (accessToken) return NextResponse.rewrite(new URL('/home', request.url))
+    if (accessToken) return NextResponse.redirect(new URL('/home', request.url))
   }
 }
 
