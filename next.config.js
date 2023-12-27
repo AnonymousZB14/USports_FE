@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: false,
+  reactStrictMode: true,
   swcMinify: true,
   async generateStaticParams() {
     return {
@@ -11,7 +11,7 @@ const nextConfig = {
     return [
       {
         // matching all API routes
-        source: 'http://3.39.34.245:8080/:path*',
+        source: '/usports/:path*',
         headers: [
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
           { key: 'Access-Control-Allow-Origin', value: '*' },
