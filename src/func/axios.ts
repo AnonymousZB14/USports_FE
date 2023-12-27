@@ -8,8 +8,8 @@ axios.interceptors.request.use(
     const cookieStore = cookies()
     const c_accessToken = cookieStore.get('connect.sid')
 
-    config.headers['Authorization'] = `Bearer ${accessToken}` // 여기에 설정하면 모든 요청에 Authrization 토큰이 포함된다.
-    config.headers['Authorization'] = `Bearer ${c_accessToken}` // 여기에 설정하면 모든 요청에 Authrization 토큰이 포함된다.
+    config.headers['Authorization'] = `Bearer ${accessToken}` 
+    config.headers['Authorization'] = `Bearer ${c_accessToken}` 
 
     return config
   },

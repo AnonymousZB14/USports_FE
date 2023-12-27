@@ -30,7 +30,6 @@ const LoginModal = () => {
         return
       }
       await setHeaderToken(res.data.tokenDto.accessToken)
-      axiosInstance
       onLoginSuccess(res?.data)
       // LocalStorage.setAccessToken(res.data.tokenDto.accessToken)
       // LocalStorage.setItem('user', JSON.stringify(res.data))
