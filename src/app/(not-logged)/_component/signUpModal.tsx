@@ -8,16 +8,15 @@ const SignUpModal = () => {
   const { register, handleSubmit } = useForm()
   const route = useRouter()
   let isSuccess = false
-  const onsubmitHandler = (e: any) => {
+  const onsubmitHandler = async (e: any) => {
     console.log(e)
     try {
-      const res = axios.post(`/member/register`, e).then((res) => {
-        if (res.status === 200) {
-          alert('회원가입 성공!')
-          isSuccess = true
-          route.push('/login')
-        }
-      })
+      const res = await axios.post(`/usports/member/register`, e)
+      if (res.status === 200) {
+        alert('회원가입 성공!')
+        isSuccess = true
+        route.push('/login')
+      }
     } catch (error) {
       console.log(error)
     }
