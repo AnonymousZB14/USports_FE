@@ -10,7 +10,6 @@ const nextConfig = {
   async headers() {
     return [
       {
-        // matching all API routes
         source: '/usports/:path*',
         headers: [
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
@@ -33,6 +32,10 @@ const nextConfig = {
       {
         source: '/usports/:path*',
         destination: 'http://3.39.34.245:8080/:path*',
+      },
+      {
+        source: '/usports/:path*/',
+        destination: 'http://3.39.34.245:8080/:path*/',
       },
     ]
   },

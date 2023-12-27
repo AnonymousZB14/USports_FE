@@ -1,9 +1,13 @@
+'use client'
 //func/fetchCall.ts
 import axios, { AxiosError } from 'axios'
 import { getCookie } from './cookie_c'
+import { useRecoilState } from 'recoil'
+import { UserTokenState } from '@/store/user'
+import LocalStorage from './localstrage'
 
 const TOKEN = getCookie('accessToken')
-const getAxiosInstance = (baseURL: string | undefined, token?: string) => {
+const getAxiosInstance = (baseURL: string | undefined) => {
   if (!baseURL) {
     throw new Error('Base URL is not defined.')
   }
@@ -12,16 +16,21 @@ const getAxiosInstance = (baseURL: string | undefined, token?: string) => {
     baseURL,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
+      // Authorization: `Bearer ${TOKEN}`,
     },
   })
 }
 
-export const axiosInstance = getAxiosInstance(
-  '/usports',
-  TOKEN ? TOKEN + '' : undefined,
-)
+export const axiosInstance = getAxiosInstance('/usports')
+axiosInstance.interceptors.request.use((config) => {
+  const accessToken = LocalStorage.getItem('accessToken')
+  const c_accessToken = getCookie('accessToken')
 
+  config.headers['Authorization'] = `Bearer ${accessToken}` // 여기에 설정하면 모든 요청에 Authrization 토큰이 포함된다.
+  config.headers['Authorization'] = `Bearer ${c_accessToken}` // 여기에 설정하면 모든 요청에 Authrization 토큰이 포함된다.
+
+  return config
+})
 export async function Postfetch(url: string, data?: any, accesstoken?: string) {
   try {
     const response = await axiosInstance.post(url, data)
@@ -80,6 +89,6 @@ export async function GetPOSTfetch(url: string, tags: string[]) {
     throw axiosError
   }
 }
-export const setHeaderToken = async (token: string) => {
+export const setHeaderToken = (token: string) => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`
 }

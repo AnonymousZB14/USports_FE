@@ -8,7 +8,7 @@ import {
 } from 'react'
 import { redirect, useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
-import { Postfetch, setHeaderToken } from '@/func/fetchCall'
+import { Postfetch, axiosInstance, setHeaderToken } from '@/func/fetchCall'
 import { useRecoilState } from 'recoil'
 import { loginFun, onLoginSuccess } from '@/func/service'
 import axios from 'axios'
@@ -30,6 +30,7 @@ const LoginModal = () => {
         return
       }
       await setHeaderToken(res.data.tokenDto.accessToken)
+      axiosInstance
       onLoginSuccess(res?.data)
       // LocalStorage.setAccessToken(res.data.tokenDto.accessToken)
       // LocalStorage.setItem('user', JSON.stringify(res.data))

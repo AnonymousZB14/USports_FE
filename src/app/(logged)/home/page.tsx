@@ -7,6 +7,7 @@ import {
   QueryClient,
 } from '@tanstack/react-query'
 import { getPostRecommends } from '../_lib/getPostRecommends'
+
 export const metadata: Metadata = {
   title: 'USports : 홈',
   description: 'USports : 홈',
