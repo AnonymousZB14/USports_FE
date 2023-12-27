@@ -37,7 +37,7 @@ const RecmdFeed = () => {
       !isFetching && hasNextPage && fetchNextPage()
     }
   }, [inView, isFetching, hasNextPage, fetchNextPage])
-
+  if (isFetching) return <p>...</p>
   return (
     <>
       <div className="feed">

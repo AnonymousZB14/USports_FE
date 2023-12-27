@@ -16,6 +16,7 @@ import { Getfetch } from '@/func/fetchCall'
 import { useRecoilState } from 'recoil'
 import { RegionList, SportsList } from '@/store/types'
 import LoadingScreen from '@/components/loading-screen'
+import { ExploreRecruitItem } from './_component/ExploreRecruitItem'
 
 type Props = {
   searchParams: {
@@ -221,7 +222,7 @@ const explore = ({ searchParams }: Props) => {
       </div>
       <div className="board-header">
         <p style={{ flex: '1' }}>총 {list.length}건</p>
-{/*         <Button
+        {/*         <Button
           tailwindStyles="py-0 px-2"
           theme="blue"
           onClick={() => {
@@ -269,38 +270,4 @@ const explore = ({ searchParams }: Props) => {
   )
 }
 
-export const ExploreRecruitItem = ({ item }: { item: recruitItemProps }) => {
-  const router = useRouter()
-  const [sportList, _] = useRecoilState(SportsList)
-  const [sportname, setSportname] = useState('')
-  useEffect(() => {
-    const selectedSport = sportList.find(
-      (sport) => sport.sportsId == item.sportsId,
-    )
-    console.log(selectedSport)
-    setSportname(selectedSport?.sportsName!)
-  }, [])
-  return (
-    <li
-      className="board-item"
-      key={item.recruitId}
-      onClick={() => {
-        router.replace(`/recruit/${item.recruitId}`)
-      }}
-    >
-      <div className="badge">{item.sportsName}</div>
-      <div className="content">
-        <p className="title">{item.title}</p>
-        <div className="condition">
-          <span className="gender">{item.gender}</span>
-          <span className="bar"></span>
-          <span className="level">
-            {item.gradeFrom}~{item.gradeTo}
-          </span>
-        </div>
-      </div>
-      <div className="status">{item.recruitStatus}</div>
-    </li>
-  )
-}
 export default explore

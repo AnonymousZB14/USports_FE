@@ -1,29 +1,27 @@
 'use client'
 import { Postfetch } from '@/func/fetchCall'
+import axios from 'axios'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 const SignUpModal = () => {
   const { register, handleSubmit } = useForm()
   const route = useRouter()
-  const onsubmitHandler = (e: any) => {
+  let isSuccess = false
+  const onsubmitHandler = async (e: any) => {
     console.log(e)
-    let isSuccess = false
     try {
-      const res = Postfetch(
-        `/member/register`,
-        e,
-      ).then((res) => {
-        if (res.status === 200) {
-          alert('회원가입 성공!')
-          isSuccess = true
-        }
-      })
+      const res = await axios.post(`/usports/member/register`, e)
+      if (res.status === 200) {
+        alert('회원가입 성공!')
+        isSuccess = true
+        route.push('/login')
+      }
     } catch (error) {
       console.log(error)
     }
-    if (isSuccess) route.replace('/login')
   }
+
   return (
     <div className="createAccountP notLoggedP centered">
       <h2>Create Account</h2>

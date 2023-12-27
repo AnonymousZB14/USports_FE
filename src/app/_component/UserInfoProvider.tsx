@@ -9,6 +9,7 @@ import axios from 'axios'
 import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { checkCookie } from '@/func/service'
+import { useRouter } from 'next/navigation'
 const UserInfoProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useRecoilState(UserDetailState)
   const [userToken, setUserToken] = useRecoilState(UserTokenState)
@@ -21,6 +22,7 @@ const UserInfoProvider = ({ children }: { children: React.ReactNode }) => {
     console.log(user)
     console.log(userToken)
   }, [user])
+  const route = useRouter()
   useEffect(() => {
     if (typeof localStorage !== 'undefined') {
       localUser = localStorage.getItem('user')
@@ -51,9 +53,15 @@ const UserInfoProvider = ({ children }: { children: React.ReactNode }) => {
     // setHeaderToken(JSON.parse(localToken!))
   }, [localUser, localToken])
   useEffect(() => {
-    if (userToken?.accessToken == null || userToken.accessToken == '') return
+
+    if (
+      userToken?.accessToken == null ||
+      userToken.accessToken == '' ||
+      userToken.accessToken == undefined
+    )
+      return
     setHeaderToken(userToken.accessToken)
-  }, [user, userToken])
+  }, [userToken])
   return <>{children}</>
 }
 
