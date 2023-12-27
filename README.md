@@ -9,12 +9,10 @@
 > > > > _운동 전문 SNS_
 
 <div style='display:flex; border:4px solid green'>
-<img src="public/usports_logo2.png" alt="logo" style='display:block; width:50%; object-fit:contain'>
-<img src="public/usports_logo1.png" alt="logo" style='display:block; width:50%; object-fit:contain'>
+<img src="public/usports_logo2.png" alt="logo" style='display:block; width:200px; object-fit:contain'>
+<img src="public/usports_logo1.png" alt="logo" style='display:block; width:200px; object-fit:contain'>
 </div>
 <br>
-
-
 
 <br>
 <br>
@@ -32,7 +30,7 @@
 <br>
 <br>
 
-## Skills
+## FE Skills
 
 | `TYPE`        | `SKILLS`                                                                                                                                                                                                                                                                                                                                    |
 | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
