@@ -15,14 +15,6 @@ import {
 } from 'react-hook-form'
 import { IoCloseOutline } from 'react-icons/io5'
 import { useRecoilState } from 'recoil'
-export const interestedSportsList = [
-  { value: 1, name: '축구' },
-  { value: 2, name: '야구' },
-  { value: 3, name: '농구' },
-  { value: 4, name: '클라이밍' },
-  { value: 5, name: '배구' },
-  { value: 6, name: '필라테스' },
-]
 
 const Page = () => {
   const router = useRouter()
@@ -36,7 +28,7 @@ const Page = () => {
   const [activeRegion, setactiveRegion] = useState(user.activeRegion)
   const [birthDate, setbirthDate] = useState(user.birthDate)
   const [phoneNumber, setPhoneNum] = useState(user.phoneNumber)
-  const [emailAuthNumber, setEmailAuthNumber] = useState(0)
+  const [emailAuthNumber, setEmailAuthNumber] = useState('0')
   const [name, setname] = useState(user.name)
   const [profileImage, setprofileImage] = useState(user.profileImage)
   const [images, setImages] = useState<File[]>([])
@@ -47,10 +39,11 @@ const Page = () => {
     e.preventDefault()
     setLoading(true)
     const formData = new FormData()
+    let isSuccess = false
     try {
       formData.append('profileImage', images[0])
       const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/member/${user.memberId}/profile-image`,
+        `/usports/member/${user.memberId}/profile-image`,
         formData,
         {
           headers: {
@@ -65,16 +58,21 @@ const Page = () => {
       localStorage.setItem('user', JSON.stringify(res.data))
       setLoading(false)
       alert('프로필 변경 완료!')
-      router.back()
+      isSuccess = true
     } catch (error) {
       setLoading(false)
     }
+    if (isSuccess) {
+      router.back()
+    }
   }
-  const resendEmail = async () => {
+  const resendEmail = async (e: React.MouseEvent) => {
+    e.preventDefault()
+
     setLoading(false)
     try {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/member/${user.memberId}/resend-email-auth`,
+        `/usports/member/${user.memberId}/resend-email-auth`,
         {
           headers: {
             credentials: 'include',
@@ -120,7 +118,7 @@ const Page = () => {
           }
     try {
       const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/member/${user.memberId}`,
+        `/usports/member/${user.memberId}`,
         formBody,
         {
           headers: {
@@ -174,10 +172,15 @@ const Page = () => {
           {user.role === 'UNAUTH' ? (
             <div>
               <label htmlFor="emailAuthNumber">* 이메일 인증번호</label>
-              <input type="text" id="emailAuthNumber" value={emailAuthNumber} />
+              <input
+                type="text"
+                id="emailAuthNumber"
+                value={emailAuthNumber}
+                onChange={(e) => setEmailAuthNumber(e.target.value)}
+              />
               <button
                 className="resend"
-                disabled={!isLoading}
+                disabled={isLoading}
                 onClick={resendEmail}
               >
                 이메일 다시 발송하기

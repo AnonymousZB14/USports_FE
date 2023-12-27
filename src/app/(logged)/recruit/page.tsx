@@ -173,6 +173,7 @@ const recruitWrite = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setLoading(true)
+    let isSuccess, recruitId
     try {
       const recruitData = new FormData()
       console.log('Recruit Data:', Object.fromEntries(recruitData))
@@ -207,13 +208,15 @@ const recruitWrite = () => {
         setSelectedGradeTo('')
         alert('작성 완료!')
         setLoading(false)
-        router.replace(`recruit/${res.data.recruitId}`)
+        recruitId = res.data.recruitId
+        isSuccess = true
       }
     } catch (error) {
       setLoading(false)
       console.error('등록 중 오류:', error)
       setReviewModalContent('게시글 작성에 실패하였습니다.')
     }
+    if (isSuccess && recruitId) router.replace(`recruit/${recruitId}`)
   }
 
   return (

@@ -26,14 +26,11 @@ export default async (prevState: any, formData: FormData) => {
 
   let shouldRedirect = false
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/member/register`,
-      {
-        method: 'post',
-        body: formData,
-        credentials: 'include',
-      },
-    )
+    const response = await fetch(`/usports/member/register`, {
+      method: 'post',
+      body: formData,
+      credentials: 'include',
+    })
     console.log(response.status)
     console.log(formData)
     // console.log(await response.data)

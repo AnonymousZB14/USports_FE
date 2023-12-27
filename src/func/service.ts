@@ -27,7 +27,7 @@ export const checkCookie = () => {
 export const loginFun = async (email: string, password: string) => {
   try {
     const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/member/login`,
+      `/usports/member/login`,
       JSON.stringify({
         email: email,
         password: password,
@@ -57,7 +57,7 @@ export const onLoginSuccess = (res: any) => {
   // setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000)
 }
 export const onLogoutFun = (accessToken?: string) => {
-  axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/member/logout`, {
+  axios.post(`/usports/member/logout`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },

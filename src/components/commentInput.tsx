@@ -26,7 +26,7 @@ const CommentInput = ({
     e.preventDefault()
     try {
       const res = Postfetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/record/${id}/comment`,
+        `/record/${id}/comment`,
         comment,
       ).then((res) => {
         if (res.status === 200) {

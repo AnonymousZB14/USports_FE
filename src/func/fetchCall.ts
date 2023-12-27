@@ -17,15 +17,10 @@ const getAxiosInstance = (baseURL: string | undefined, token?: string) => {
   })
 }
 
-const baseURL = process.env.NEXT_PUBLIC_BACKEND_SERVER
-
-if (!baseURL) {
-  throw new Error(
-    'NEXT_PUBLIC_BACKENRecordDetailComment_SERVER is not defined in the environment.',
-  )
-}
-
-export const axiosInstance = getAxiosInstance(baseURL, TOKEN?TOKEN+'':undefined)
+export const axiosInstance = getAxiosInstance(
+  '/usports',
+  TOKEN ? TOKEN + '' : undefined,
+)
 
 export async function Postfetch(url: string, data?: any, accesstoken?: string) {
   try {
@@ -86,5 +81,5 @@ export async function GetPOSTfetch(url: string, tags: string[]) {
   }
 }
 export const setHeaderToken = async (token: string) => {
-  axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`
 }

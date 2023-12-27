@@ -1,5 +1,5 @@
 'use client'
-import { getCookie } from '@/func/cookie_c'
+import { getCookie, setCookie } from '@/func/cookie_c'
 import { UserDetailState } from '@/store/user'
 import Link from 'next/link'
 import React, { useEffect, useLayoutEffect, useState } from 'react'
@@ -11,11 +11,13 @@ const RoleChange = () => {
   const [role, setRole] = useState('')
   useLayoutEffect(() => {
     const cookieRole = getCookie('role')
-    if (cookieRole) {
+    /*     if (cookieRole) {
       setRole(cookieRole)
-    }
+    } */
+    setRole(user.role)
+    setCookie('role', user.role, { path: '/' })
     console.log(role, cookieRole)
-  }, [])
+  }, [user])
   if (role !== 'UNAUTH') return null
   return (
     <div className="rolebg">

@@ -245,8 +245,9 @@ export interface MypageData {
     status: string
     title: string
   }[]
-
+  
   participateList: {
+    recruitId: number
     recruitTile: string
     sportsName: string
     status: string
@@ -320,4 +321,25 @@ export interface MypageData {
       sportsSkillId: number
     },
   ]
+}
+
+export interface RecruitApplicants {
+  acceptedList: AcceptedList[]
+  currentCount: number
+  ingList: IngList[]
+  totalCount: number
+}
+export interface AcceptedList {
+  accountName: string
+  gender: string
+  memberId: number
+  sportsSkill: string
+  status: string
+}
+export interface IngList {
+  accountName: string
+  gender: string
+  memberId: number
+  sportsSkill: string
+  status: string
 }

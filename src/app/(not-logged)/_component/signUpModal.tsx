@@ -8,20 +8,21 @@ const SignUpModal = () => {
   const route = useRouter()
   const onsubmitHandler = (e: any) => {
     console.log(e)
+    let isSuccess = false
     try {
       const res = Postfetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/member/register`,
+        `/member/register`,
         e,
       ).then((res) => {
         if (res.status === 200) {
           alert('회원가입 성공!')
-          route.replace('/login')
+          isSuccess = true
         }
       })
-      
     } catch (error) {
       console.log(error)
     }
+    if (isSuccess) route.replace('/login')
   }
   return (
     <div className="createAccountP notLoggedP centered">

@@ -46,13 +46,17 @@ const Records = ({ accoutName }: { accoutName: string }) => {
       <ul>
         {data?.pages.map((page, itemIdx: number) => (
           <Fragment key={itemIdx}>
-            {page.list.map((record) => (
-              <Record
-                key={record.recordId}
-                imageAddress={record.imageAddressList[0]}
-                recordId={record.recordId}
-              />
-            ))}
+            {page.list.length < 1 ? (
+              <p className='info' style={{ width:'100%'}}>No Data</p>
+            ) : (
+              page.list.map((record) => (
+                <Record
+                  key={record.recordId}
+                  imageAddress={record.imageAddressList[0]}
+                  recordId={record.recordId}
+                />
+              ))
+            )}
           </Fragment>
         ))}
       </ul>

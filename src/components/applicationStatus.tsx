@@ -4,12 +4,15 @@ import { list1 } from '@/app/(logged)/mypage/_data/mock'
 import Link from 'next/link'
 import { MdKeyboardArrowUp } from 'react-icons/md'
 import { useQuery } from '@tanstack/react-query'
+import { axiosInstance } from '@/func/fetchCall'
+import { redirect, useRouter } from 'next/navigation'
 
 interface Prop {
   list: {
     recruitTile: string
     sportsName: string
     status: string
+    recruitId: number
   }[]
 }
 const ApplicationStatus = ({ list }: Prop) => {
@@ -26,20 +29,35 @@ interface ItemProp {
     recruitTile: string
     sportsName: string
     status: string
+    recruitId: number
   }
 }
 export const ApplicationItem = ({ item }: ItemProp) => {
   const changeKor = (value: string) => {
     switch (value) {
       case 'ACCEPTED':
-        return '수락됨';
+        return <button className="accepted">수락됨</button>
+      case 'ING':
+        return <button className="applying">신청중</button>
       case 'ACCEPTED':
-        return '수락됨';
+        return <button className="accepted">수락됨</button>
       case 'ACCEPTED':
-        return '수락됨';
-      case 'ACCEPTED':
-        return '수락됨';
+        return <button className="accepted">수락됨</button>
     }
+  }
+  const route = useRouter()
+  const cancleHandler: React.MouseEventHandler<HTMLButtonElement> = async (
+    e,
+  ) => {
+    try {
+      const res = await axiosInstance.put(
+        `/recruit/${item.recruitId}/cancel`,
+      )
+      if (res.status === 200) {
+        alert('신청이 취소되었습니다')
+        location.reload()
+      }
+    } catch (error) {}
   }
   return (
     <li>
@@ -49,10 +67,13 @@ export const ApplicationItem = ({ item }: ItemProp) => {
           <p className="title">{item.recruitTile}</p>
         </div>
         <div className="buttonWrap">
-          <button className="cancle">신청취소</button>
-          <button className="applying">신청중</button>
+          <button className="cancle" onClick={cancleHandler}>
+            신청취소
+          </button>
+          {changeKor(item.status)}
+          {/*           <button className="applying">신청중</button>
           <button className="rejected">거절됨</button>
-          <button className="accepted">수락됨</button>
+          <button className="accepted">수락됨</button> */}
         </div>
       </div>
     </li>

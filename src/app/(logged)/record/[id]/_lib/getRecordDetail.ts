@@ -5,7 +5,7 @@ export function getRecordDetail({ queryKey }: any) {
   const {accessToken} = JSON.parse(localStorage.getItem('accessToken')!)
   const [_1, recordId] = queryKey
   const res = axios
-    .get(`${process.env.NEXT_PUBLIC_BACKEND_SERVER}/record/${recordId}`, {
+    .get(`/usports/record/${recordId}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },

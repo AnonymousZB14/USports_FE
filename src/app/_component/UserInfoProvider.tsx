@@ -33,15 +33,13 @@ const UserInfoProvider = ({ children }: { children: React.ReactNode }) => {
       localStorage.removeItem('user')
     }
     try {
-      const data = axios
-        .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/types`)
-        .then((res) => {
-          const cont = res.data
-          // console.log(cont)
-          setRegion(cont.regionList)
-          setSports(cont.sportsList)
-          setRportsLevel(cont.sportsLevelList)
-        })
+      const data = axios.get(`/usports/api/types`).then((res) => {
+        const cont = res.data
+        // console.log(cont)
+        setRegion(cont.regionList)
+        setSports(cont.sportsList)
+        setRportsLevel(cont.sportsLevelList)
+      })
     } catch (error) {
       console.log(error)
     }
@@ -53,11 +51,7 @@ const UserInfoProvider = ({ children }: { children: React.ReactNode }) => {
     // setHeaderToken(JSON.parse(localToken!))
   }, [localUser, localToken])
   useEffect(() => {
-    if (
-      userToken?.accessToken == null ||
-      userToken.accessToken == ''
-    )
-      return
+    if (userToken?.accessToken == null || userToken.accessToken == '') return
     setHeaderToken(userToken.accessToken)
   }, [user, userToken])
   return <>{children}</>

@@ -11,7 +11,6 @@ export default function Home() {
   useLayoutEffect(() => {
     if (homeRef.current === null) return
     scrollHandler(homeRef.current)
-
   }, [homeRef])
   const divRef = useRef<HTMLDivElement | null>(null)
   const cateOnclick = (e: React.MouseEvent<HTMLUListElement>) => {
