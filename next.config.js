@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  exportPathMap: function () {
+  generateStaticParams: function () {
     return {
       '/': { page: '/' },
       'src/app/(logged)/@modal/(.)member/:id': { page: '/member/:id' }, // correct
