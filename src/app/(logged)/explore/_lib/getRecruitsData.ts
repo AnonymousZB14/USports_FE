@@ -29,9 +29,7 @@ export const getRecruitsData: QueryFunction<
   const [_1, _2, searchParams] = queryKey
   const urlSearchParams = new URLSearchParams(searchParams)
   const res = Getfetch(
-    `${
-      process.env.NEXT_PUBLIC_BACKEND_URL
-    }/recruits?${urlSearchParams.toString()}`,
+    `/recruits?${urlSearchParams.toString()}`,
   ).then((res) => res)
   return res
 }

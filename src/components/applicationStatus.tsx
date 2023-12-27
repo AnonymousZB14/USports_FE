@@ -51,7 +51,7 @@ export const ApplicationItem = ({ item }: ItemProp) => {
   ) => {
     try {
       const res = await axiosInstance.put(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/recruit/${item.recruitId}/cancel`,
+        `/recruit/${item.recruitId}/cancel`,
       )
       if (res.status === 200) {
         alert('신청이 취소되었습니다')

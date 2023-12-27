@@ -40,7 +40,7 @@ const recruitDetail = () => {
     let isSuccess = false
     try {
       const res = await axiosInstance.delete(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/recruit/${recruitData?.recruitId}`,
+        `/recruit/${recruitData?.recruitId}`,
       )
       if (res.status === 200) {
         alert('게시글이 삭제되었습니다')
@@ -72,7 +72,7 @@ const recruitDetail = () => {
   const applyHandler = async () => {
     try {
       const res = await axiosInstance.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/recruit/${id}/join`,
+        `/recruit/${id}/join`,
       )
       if (res.status == 200) alert('신청 완료!')
     } catch (error) {

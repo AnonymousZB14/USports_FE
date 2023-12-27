@@ -43,7 +43,7 @@ const Page = () => {
     try {
       formData.append('profileImage', images[0])
       const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/member/${user.memberId}/profile-image`,
+        `/usports/member/${user.memberId}/profile-image`,
         formData,
         {
           headers: {
@@ -72,7 +72,7 @@ const Page = () => {
     setLoading(false)
     try {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/member/${user.memberId}/resend-email-auth`,
+        `/usports/member/${user.memberId}/resend-email-auth`,
         {
           headers: {
             credentials: 'include',
@@ -118,7 +118,7 @@ const Page = () => {
           }
     try {
       const res = await axios.put(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/member/${user.memberId}`,
+        `/usports/member/${user.memberId}`,
         formBody,
         {
           headers: {

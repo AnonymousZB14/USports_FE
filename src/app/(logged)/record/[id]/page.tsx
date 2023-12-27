@@ -80,7 +80,7 @@ const page = ({ params }: { params: PageParams }) => {
     let isSuccess=false
     try {
       const res = await axiosInstance.delete(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/record/${data?.recordId}`,
+        `/record/${data?.recordId}`,
       )
       if (res.status === 200) {
         alert('게시글이 삭제되었습니다')

@@ -11,7 +11,7 @@ const SignUpModal = () => {
     let isSuccess = false
     try {
       const res = Postfetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/member/register`,
+        `/member/register`,
         e,
       ).then((res) => {
         if (res.status === 200) {

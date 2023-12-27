@@ -64,7 +64,7 @@ const recordWrite = () => {
     try {
       // console.dir(images)
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/record`,
+        `/usports/record`,
         formData,
         {
           headers: {
