@@ -64,7 +64,7 @@ interface PropItem {
   }
 }
 const EvaluationList = ({ list }: Prop) => {
-  if(list.length<1) return <p className='info'>평가할 모집글이 없습니다</p>
+  if (list.length < 1) return <p className="info">평가할 모집글이 없습니다</p>
   return (
     <ul className="evaluationList">
       {list.map((item) => (
@@ -90,20 +90,23 @@ export const EvaluationItem = ({ item }: { item: PropItem }) => {
   return (
     <li>
       <div className="evitemCont">
-        <div className="sportsBadge">축구</div>
+        <div className="sportsBadge">{item.recruit.sportsName}</div>
         <div className="cont">
           <div className="title">
-            <p>안양 평촌 칼라힐</p>
+            <p>{item.recruit.title}</p>
           </div>
           <div className="sub">
-            <p className="subCon">21:numbernumber</p>
+            <p className="subCon">{item.recruit.region}</p>
             <p className="conditions">
-              <span>남녀모두</span>
-              <span>모든 레벨</span>
+              <span>{item.recruit.gender}</span>
+              &nbsp;
+              <span>
+                {item.recruit.gradeFrom}~{item.recruit.gradeTo}
+              </span>
             </p>
           </div>
         </div>
-        <Link href="/profile">평가하기</Link>
+
         <button
           ref={btnRef}
           className="toggleBtn"
@@ -116,18 +119,17 @@ export const EvaluationItem = ({ item }: { item: PropItem }) => {
       </div>
       <div className="evitemList" ref={listRef}>
         <ul>
-          <li>
-            <p>{'NaraLee'}</p>
-            <span>{`@${'nar***'}`}</span>
-          </li>
-          <li>
-            <p>{'NaraLee'}</p>
-            <span>{`@${'nar***'}`}</span>
-          </li>
-          <li>
-            <p>{'NaraLee'}</p>
-            <span>{`(@${'nar***'})`}</span>
-          </li>
+          {item.memberList.map((person) => (
+            <li>
+              <p>{person.accountName}</p>
+              <Link
+                className="linkbutton"
+                href={`/recruit/partner/${person.memberId}`}
+              >
+                평가하기
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
     </li>

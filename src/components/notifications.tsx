@@ -8,11 +8,9 @@ import { Notification as N } from '@/types/types'
 const Notifications = () => {
   const [list, setList] = useState<N[]>([])
   useLayoutEffect(() => {
-    Getfetch(`${process.env.NEXT_PUBLIC_BASE_URL}/notifications`).then(
-      (resp) => {
-        setList(resp.list)
-      },
-    )
+    Getfetch(`/notifications`).then((resp) => {
+      setList(resp)
+    })
   }, [])
   return (
     <ul>

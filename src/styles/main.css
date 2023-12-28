@@ -376,7 +376,7 @@ main:is(main > section) {
   background-color: rgba(0, 0, 0, 0.5058823529);
   left: 0;
   top: 0;
-  z-index: 2;
+  z-index: 12;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -387,6 +387,13 @@ main:is(main > section) {
   padding: 10px;
   font-size: var(--text-size-base);
   padding: 10px 30px;
+}
+
+.follow button {
+  width: max-content;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 #title {
@@ -895,12 +902,6 @@ ul.evaluationList > li .evitemCont .cont .sub p.subCon::before {
 ul.evaluationList > li .evitemCont .cont .sub p.conditions span {
   color: var(--text-color-3);
 }
-ul.evaluationList > li .evitemCont > a {
-  background-color: var(--text-color-3);
-  font-size: var(--text-size-xs);
-  color: var(--bg-color-2);
-  padding: 5px 10px;
-}
 ul.evaluationList > li .evitemCont button {
   transition: all 0.2s;
 }
@@ -910,6 +911,12 @@ ul.evaluationList > li .evitemCont button svg {
 }
 ul.evaluationList > li .evitemCont button.active {
   transform: rotate(180deg);
+}
+ul.evaluationList > li a.linkbutton {
+  background-color: var(--text-color-3);
+  font-size: var(--text-size-xs);
+  color: var(--bg-color-2);
+  padding: 5px 10px;
 }
 ul.evaluationList > li .evitemList {
   display: none;
@@ -923,19 +930,30 @@ ul.evaluationList > li .evitemList ul {
   flex-wrap: wrap;
 }
 ul.evaluationList > li .evitemList ul li {
-  padding: 16px 0;
+  padding: 16px 20px 16px 30px;
   width: 50%;
-  text-align: center;
   list-style: circle;
   list-style-position: inside;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
 }
 ul.evaluationList > li .evitemList ul li p {
   display: inline-block;
   font-size: var(--text-size-base);
   font-weight: 600;
 }
-ul.evaluationList > li .evitemList ul li span {
-  font-size: var(--text-size-xs);
+ul.evaluationList > li .evitemList ul li p::before {
+  display: block;
+  content: "";
+  width: 5px;
+  height: 5px;
+  background-color: #222;
+  position: absolute;
+  border-radius: 50%;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 ul.applicationsList {
@@ -1455,7 +1473,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   position: sticky;
   position: -webkit-sticky;
   top: 11rem;
-  z-index: 3;
+  z-index: 0;
 }
 .content-body .main-body-wrap .right-body-wrap .apply-con {
   background-color: var(--bg-color-2);

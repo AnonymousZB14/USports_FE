@@ -105,6 +105,7 @@ export interface Post {
 }
 
 export interface ProfileUserType {
+  followStatus: string | null
   memberInfo: {
     accountName: string
     email: string
@@ -245,7 +246,7 @@ export interface MypageData {
     status: string
     title: string
   }[]
-  
+
   participateList: {
     recruitId: number
     recruitTile: string
