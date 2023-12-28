@@ -24,7 +24,7 @@ const UserAvatar = ({
         {
           <Link href={isItprofile ? '#none' : `profile/${accountName}`}>
             <img
-              src={image && image !== '' ? image : 'basicProfile.png'}
+              src={image && image !== '' ? image : '/basicProfile.png'}
               alt="profileImage"
             />
           </Link>

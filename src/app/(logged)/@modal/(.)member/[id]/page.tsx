@@ -3,7 +3,7 @@ import Modal from '@/components/modal'
 import { axiosInstance } from '@/func/fetchCall'
 import { SportsList } from '@/store/types'
 import { UserDetailState, UserTokenState } from '@/store/user'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { FormEventHandler, use, useEffect, useState } from 'react'
@@ -53,7 +53,11 @@ const Page = () => {
           },
         },
       )
-      if (!(res.status === 200)) return
+      if (!(res.status === 200)) {
+        setMessage(res.data.errorMessage)
+        console.log(res.statusText)
+        return
+      }
       setUser(res.data)
       localStorage.setItem('user', JSON.stringify(res.data))
       setLoading(false)
@@ -66,6 +70,9 @@ const Page = () => {
       router.back()
     }
   }
+  useEffect(() => {
+    if (message !== '') alert(message)
+  }, [])
   const resendEmail = async (e: React.MouseEvent) => {
     e.preventDefault()
 
@@ -81,6 +88,9 @@ const Page = () => {
           },
         },
       )
+      if (res.status === 200) {
+        alert('이메일 발송 완료! 메일함을 확인해주세요')
+      }
       setLoading(false)
     } catch (error) {}
   }
@@ -91,8 +101,8 @@ const Page = () => {
   const onsubmitHandler = async (e: any) => {
     setLoading(true)
     setMessage('')
+    let isSuccess = false
     console.log(e)
-
     let formBody =
       user.role === 'UNAUTH'
         ? {
@@ -132,14 +142,15 @@ const Page = () => {
         const { data } = res
         setUser(data)
         localStorage.setItem('user', JSON.stringify(data))
-        router.back()
-      } else {
-        return '오류 발생'
+        setLoading(false)
+        alert('변경 완료!')
+        isSuccess = true
       }
     } catch (e) {
+      setLoading(false)
       console.error(e)
     }
-    setLoading(false)
+    if (isSuccess) router.back()
   }
   useEffect(() => {
     console.log(user)
@@ -153,7 +164,7 @@ const Page = () => {
             <input
               type="file"
               id="profileImg"
-              accept="image/*,svg/*"
+              accept="image/*"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 if (!e.target.files) return
                 setImages([e.target.files[0]])
@@ -319,7 +330,6 @@ const Page = () => {
             <input type="submit" value="제출하기" />
           </div>
         </form>
-        <p>{message}</p>
       </div>
     </Modal>
   )

@@ -6,6 +6,7 @@ import { HomeRecord, Record, Records } from '@/types/types'
 import { getPostFollowings } from '../../_lib/getPostFollowings'
 import { useInView } from 'react-intersection-observer'
 import { Getfetch } from '@/func/fetchCall'
+import { GoToFollow } from '@/components/gotoFollow'
 const FollowFeed = () => {
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery<
     HomeRecord,
@@ -36,15 +37,20 @@ const FollowFeed = () => {
     }
   }, [inView, isFetching, hasNextPage, fetchNextPage])
 
-  if(!data) return null
+  if (!data) return null
+
   return (
     <>
       <div className="feed">
         {data?.pages.map((page, itemIdx: number) => (
           <Fragment key={itemIdx}>
-            {page.list.map((item, idx) => (
-              <FeedContent item={item} key={idx} />
-            ))}
+            {page.list.length < 1 ? (
+              <GoToFollow />
+            ) : (
+              page.list.map((item, idx) => (
+                <FeedContent item={item} key={idx} />
+              ))
+            )}
           </Fragment>
         ))}
       </div>
