@@ -42,7 +42,7 @@ const page = ({ params }: { params: PageParams }) => {
   })
   const router = useRouter()
   const pageRef = useRef(null)
-  const [user,_]= useRecoilState(UserDetailState)
+  const [user, _] = useRecoilState(UserDetailState)
   const [showInput, setShowInput] = useState(false)
   const [commentList, setCommentList] = useState<CommentListType>([])
   const setCommentListHandler = (
@@ -77,20 +77,17 @@ const page = ({ params }: { params: PageParams }) => {
     }
   }, [data])
   const deleteHandler = async () => {
-    let isSuccess=false
+    let isSuccess = false
     try {
-      const res = await axiosInstance.delete(
-        `/record/${data?.recordId}`,
-      )
+      const res = await axiosInstance.delete(`/record/${data?.recordId}`)
       if (res.status === 200) {
         alert('게시글이 삭제되었습니다')
-        isSuccess=true
+        isSuccess = true
       }
     } catch (error) {
       console.log(error)
     }
-    if(isSuccess) router.back()
-    
+    if (isSuccess) router.back()
   }
   if (!isSuccess) return null
   return (
@@ -104,7 +101,10 @@ const page = ({ params }: { params: PageParams }) => {
             <div style={{ width: '60px', height: '60px' }}>
               <div className="avatar_img">
                 <Link href={`/profile/${data.accountName}`}>
-                  <img src={data.profileImage} alt="profileImage" />
+                  <img
+                    src={data.profileImage || '/basicProfile.png'}
+                    alt="profileImage"
+                  />
                 </Link>
               </div>
             </div>
@@ -141,16 +141,15 @@ const page = ({ params }: { params: PageParams }) => {
               <Comment comment={comment} />
             ))}
           </div>
-          {
-            data.memberId === user.memberId &&  
+          {data.memberId === user.memberId && (
             <Button
-            tailwindStyles="py-0 px-2 float-right"
-            theme="red"
-            onClick={deleteHandler}
+              tailwindStyles="py-0 px-2 float-right"
+              theme="red"
+              onClick={deleteHandler}
             >
-            게시글 삭제
-          </Button>
-          }
+              게시글 삭제
+            </Button>
+          )}
         </div>
       </section>
       {showInput && (

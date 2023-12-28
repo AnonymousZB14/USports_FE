@@ -53,12 +53,6 @@ ul.evaluationList {
           }
         }
       }
-      & > a {
-        background-color: var(--text-color-3);
-        font-size: var(--text-size-xs);
-        color: var(--bg-color-2);
-        padding: 5px 10px;
-      }
       button {
         transition: all 0.2s;
         svg {
@@ -70,6 +64,13 @@ ul.evaluationList {
         }
       }
     }
+    a.linkbutton {
+      background-color: var(--text-color-3);
+      // border-radius: 4px;
+      font-size: var(--text-size-xs);
+      color: var(--bg-color-2);
+      padding: 5px 10px;
+    }
     .evitemList {
       display: none;
       &.show {
@@ -80,19 +81,31 @@ ul.evaluationList {
         display: flex;
         flex-wrap: wrap;
         li {
-          padding: 16px 0;
+          padding: 16px 20px 16px 30px;
           width: 50%;
-          text-align: center;
+          // text-align: center;
           list-style: circle;
           list-style-position: inside;
-
+          display: flex;
+          justify-content: space-between;
+          position: relative;
+          
           p {
             display: inline-block;
             font-size: var(--text-size-base);
             font-weight: 600;
-          }
-          span {
-            font-size: var(--text-size-xs);
+            &::before {
+              display: block;
+              content: '';
+              width: 5px;
+              height: 5px;
+              background-color: #222;
+              position: absolute;
+              border-radius: 50%;
+              left: 15px;
+              top: 50%;
+              transform: translateY(-50%);
+            }
           }
         }
       }

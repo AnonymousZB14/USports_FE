@@ -85,12 +85,12 @@ export interface FilterDialogProps {
 }
 
 export interface Notification {
-  createdAt: string
+  createdAt: Date
   entityType: string
   memberId: number
   message: string
   notificationId: number
-  readAt: string
+  readAt: Date
   targetEntityId: number
   type: string
   url: string
@@ -105,6 +105,7 @@ export interface Post {
 }
 
 export interface ProfileUserType {
+  followStatus: string | null
   memberInfo: {
     accountName: string
     email: string
@@ -245,7 +246,7 @@ export interface MypageData {
     status: string
     title: string
   }[]
-  
+
   participateList: {
     recruitId: number
     recruitTile: string

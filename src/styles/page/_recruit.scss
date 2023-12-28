@@ -328,9 +328,7 @@
       position: sticky;
       position: -webkit-sticky;
       top: 11rem;
-
-      z-index: 3;
-
+      z-index: 0;
       .apply-con {
         background-color: var(--bg-color-2);
         border-radius: 1rem;
