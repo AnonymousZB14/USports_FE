@@ -85,12 +85,12 @@ export interface FilterDialogProps {
 }
 
 export interface Notification {
-  createdAt: string
+  createdAt: Date
   entityType: string
   memberId: number
   message: string
   notificationId: number
-  readAt: string
+  readAt: Date
   targetEntityId: number
   type: string
   url: string

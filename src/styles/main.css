@@ -2041,7 +2041,10 @@ p.info {
 .notifications ul {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 25px;
+}
+.notifications ul li.readed {
+  opacity: 0.5;
 }
 .notifications ul li .alert {
   cursor: pointer;
@@ -2054,10 +2057,17 @@ p.info {
 .notifications ul li .alert > div {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 5px;
+}
+.notifications ul li .alert > div h3 {
+  font-size: var(--text-size-base);
+}
+.notifications ul li .alert > div span {
+  font-size: 11px;
+  color: #888;
 }
 .notifications ul li .alert:hover {
-  transform: scale(1.02);
+  filter: brightness(0.95);
 }
 .notifications ul li .alert svg {
   width: 25px;

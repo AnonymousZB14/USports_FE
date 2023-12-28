@@ -48,10 +48,12 @@ const Content = ({ accountName }: { accountName: string }) => {
   }
   const cancelFollow = async () => {
     try {
-      
-    } catch (error) {
-      
-    }
+      const res = await Postfetch(`follow/${data?.memberInfo.memberId}`)
+      if (res.status === 200) {
+        alert('팔로우 취소 완료')
+        setFollowStatus(null)
+      }
+    } catch (error) {}
   }
   return (
     <>
@@ -71,7 +73,7 @@ const Content = ({ accountName }: { accountName: string }) => {
                 <Button
                   tailwindStyles="py-0 px-2"
                   theme="black"
-                  onClick={() => {}}
+                  onClick={cancelFollow}
                 >
                   팔로잉취소
                   <RiUserFollowLine />
