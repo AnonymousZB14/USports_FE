@@ -10,8 +10,11 @@ const Comment = ({ comment }: { comment: RecordDetailComment }) => {
         <div>
           <div className="avatar_img">
             {
-              <Link href={`profile/${comment.accountName}`}>
-                <img src={comment.profileImage} alt="profileImage" />
+              <Link href={`/profile/${comment.accountName}`}>
+                <img
+                  src={comment.profileImage || '/basicProfile.png'}
+                  alt="profileImage"
+                />
               </Link>
             }
           </div>
