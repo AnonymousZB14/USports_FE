@@ -36,13 +36,11 @@ export const ApplicationItem = ({ item }: ItemProp) => {
   const changeKor = (value: string) => {
     switch (value) {
       case 'ACCEPTED':
-        return <button className="accepted">수락됨</button>
+        return <button className="accepted">수락</button>
       case 'ING':
         return <button className="applying">신청중</button>
-      case 'ACCEPTED':
-        return <button className="accepted">수락됨</button>
-      case 'ACCEPTED':
-        return <button className="accepted">수락됨</button>
+      case 'REFUSED':
+        return <button className="accepted">거절</button>
     }
   }
   const route = useRouter()
@@ -50,9 +48,7 @@ export const ApplicationItem = ({ item }: ItemProp) => {
     e,
   ) => {
     try {
-      const res = await axiosInstance.put(
-        `/recruit/${item.recruitId}/cancel`,
-      )
+      const res = await axiosInstance.put(`/recruit/${item.recruitId}/cancel`)
       if (res.status === 200) {
         alert('신청이 취소되었습니다')
         location.reload()

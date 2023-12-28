@@ -1,7 +1,5 @@
 'use client'
 import React, { useEffect } from 'react'
-import Avatar from './avatar'
-import UserInfoSec from './userInfoSec'
 import { QueryClient, useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 import { getMypageData } from '@/app/(logged)/mypage/_lib/getMypageData'
@@ -9,6 +7,7 @@ import { MypageData } from '@/types/types'
 import { useRecoilState } from 'recoil'
 import { UserDetailState } from '@/store/user'
 import { useRouter } from 'next/navigation'
+import { sportsGrageKor } from '@/func/translateKor'
 const MpUserInfoSec = () => {
   const [user, _] = useRecoilState(UserDetailState)
   const route = useRouter()
@@ -16,6 +15,7 @@ const MpUserInfoSec = () => {
     queryKey: ['mypage'],
     queryFn: getMypageData,
   })
+
   useEffect(() => {
     console.log(data)
   }, [data])
@@ -70,12 +70,16 @@ const MpUserInfoSec = () => {
             <p className="title">관심 운동</p>
           </li>
           <li>
-            <p className="content">{data.memberProfile.mannerScore}</p>
+            <p className="content">
+              {data.memberProfile.mannerScore.toFixed(1)}
+            </p>
             <p className="title">매너 점수</p>
           </li>
           <li>
             <p className="content">
-              {data.sportsSkills[0]?.sportsGrade || 'no data'}
+              {data.sportsSkills[0]?.sportsGrade
+                ? sportsGrageKor(data.sportsSkills[0]?.sportsGrade)
+                : 'no data'}
             </p>
             <p className="title">운동별 능력</p>
           </li>

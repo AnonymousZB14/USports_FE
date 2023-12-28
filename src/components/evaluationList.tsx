@@ -79,11 +79,11 @@ export const EvaluationItem = ({ item }: { item: PropItem }) => {
   const btnRef = useRef<HTMLButtonElement | null>(null)
   const listRef = useRef<HTMLDivElement | null>(null)
   useEffect(() => {
-    // console.log(showList)
-    btnRef.current?.classList.toggle('active')
     if (showList) {
+      btnRef.current?.classList.add('active')
       listRef.current?.classList.add('show')
     } else {
+      btnRef.current?.classList.remove('active')
       listRef.current?.classList.remove('show')
     }
   }, [showList])
@@ -111,7 +111,7 @@ export const EvaluationItem = ({ item }: { item: PropItem }) => {
           ref={btnRef}
           className="toggleBtn"
           onClick={() => {
-            setShowList(!showList)
+            setShowList((prev) => !prev)
           }}
         >
           <IoIosArrowDown />

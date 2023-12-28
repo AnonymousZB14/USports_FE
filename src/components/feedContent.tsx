@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import UserInfoSec from './userInfoSec'
 import { Record } from '@/types/types'
 import Avatar from './avatar'
 import { HomeRecordListItem } from '@/types/types'
@@ -15,7 +14,7 @@ export const FeedContent = ({ item }: { item: HomeRecordListItem }) => {
             linkAddress={item.accountName}
           />
           <div className="user_info">
-            <h3>{item.accountName}</h3>
+            <h3>{item.name}</h3>
             <p>@{item.accountName}</p>
           </div>
         </div>

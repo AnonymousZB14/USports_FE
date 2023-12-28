@@ -1,5 +1,4 @@
 'use client'
-import UserInfoSec from '@/components/userInfoSec'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { scrollHandler } from '@/func/scrollEvent'
 import { useRouter } from 'next/navigation'
@@ -110,7 +109,7 @@ const page = ({ params }: { params: PageParams }) => {
             </div>
             <div className="user_info">
               <h3>{data.accountName}</h3>
-              <p>@{data.accountName}</p>
+              <p>@{data.name}</p>
             </div>
           </div>
         </div>
