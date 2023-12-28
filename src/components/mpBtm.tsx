@@ -21,25 +21,35 @@ const MpBtm = () => {
     <>
       <MpCategories activeCate="평가하기" activeSec="mp1" />
       <section id="mp1">
-        <EvaluationList list={data?.recruitAndParticipants?data?.recruitAndParticipants:[]}/>
+        <EvaluationList
+          list={
+            data?.recruitAndParticipants ? data?.recruitAndParticipants : []
+          }
+        />
       </section>
       <MpCategories activeCate="신청현황" activeSec="mp2" />
       <section id="mp2">
         <p className="info">마감된 모집글은 보여지지 않습니다</p>
-        <ApplicationStatus list={data?.participateList?data?.participateList:[]} />
+        <ApplicationStatus
+          list={data?.participateList ? data?.participateList : []}
+        />
       </section>
       <MpCategories activeCate="모집관리" activeSec="mp3" />
       <section id="mp3">
-        <RecruitManagement list={data?.myRecruitList?data?.myRecruitList:[]} />
+        <RecruitManagement
+          list={data?.myRecruitList ? data?.myRecruitList : []}
+        />
       </section>
       <MpCategories activeCate="정보수정" activeSec="mp4" />
       <section id="mp4">
         <div className="editBtnWrap">
-          <Link href={`/member/${'nara'}`}>
+          <Link href={`/member/${data?.memberProfile.accountName}`}>
             내 정보 수정하기
             <FaArrowAltCircleRight />
           </Link>
-          <Link href={`/member/${'nara'}/edit-password`}>
+          <Link
+            href={`/member/${data?.memberProfile.accountName}/edit-password`}
+          >
             비밀번호 변경하기 <FaArrowAltCircleRight />
           </Link>
         </div>

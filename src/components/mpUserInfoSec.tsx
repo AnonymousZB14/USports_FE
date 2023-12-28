@@ -8,8 +8,10 @@ import { getMypageData } from '@/app/(logged)/mypage/_lib/getMypageData'
 import { MypageData } from '@/types/types'
 import { useRecoilState } from 'recoil'
 import { UserDetailState } from '@/store/user'
+import { useRouter } from 'next/navigation'
 const MpUserInfoSec = () => {
   const [user, _] = useRecoilState(UserDetailState)
+  const route = useRouter()
   const { data, isFetching } = useQuery<MypageData, Object>({
     queryKey: ['mypage'],
     queryFn: getMypageData,
@@ -44,7 +46,14 @@ const MpUserInfoSec = () => {
           <Link className="link-btn" href={`/member/${'id'}/info`}>
             Info
           </Link>
-          <button className="link-btn">Edit</button>
+          <button
+            className="link-btn"
+            onClick={() => {
+              route.push(`/member/${data?.memberProfile.accountName}`)
+            }}
+          >
+            Edit
+          </button>
         </div>
       </div>
       <div className="ratingInfo">
