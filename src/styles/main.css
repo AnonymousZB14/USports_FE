@@ -549,6 +549,7 @@ main:is(main > section) {
   width: calc((100% - 10px) / 2);
   flex-grow: 1;
   object-fit: cover;
+  max-height: 60vh;
 }
 .feed .feed_content .body .record_contents {
   margin: 20px 0;

@@ -53,7 +53,6 @@
     }
     .body {
       & > a > div {
-
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
@@ -64,6 +63,7 @@
           flex-grow: 1;
           // max-height: 20rem;
           object-fit: cover;
+          max-height: 60vh;
         }
       }
       .record_contents {
