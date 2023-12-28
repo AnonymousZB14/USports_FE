@@ -1,42 +1,38 @@
-import React from "react";
-
+'use client'
+import BackBtn from '@/components/backBtn'
+import React from 'react'
+import { IoChevronBackCircleSharp } from 'react-icons/io5'
+import { ChatBubble_Me, ChatBubble_U } from '../_component/ChatBubble'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 const page = () => {
+  const route = useRouter()
   return (
-    <div>
-      <div className="chat chat-start">
-        <div className="chat-image avatar">
-          <div className="w-10 rounded-full">
-            <img
-              alt="Tailwind CSS chat bubble component"
-              src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-            />
-          </div>
+    <div className="chatDetailWrap">
+      <div className="topSection">
+        <IoChevronBackCircleSharp
+          className={'hoverScaleAct'}
+          onClick={() => {
+            route.back()
+          }}
+        />
+        <div>
+          <Link href={'/profile'}>
+            <img src="/basicProfile.png" />
+          </Link>
+          <p>username</p>
         </div>
-        <div className="chat-header">
-          Obi-Wan Kenobi
-          <time className="text-xs opacity-50">12:45</time>
-        </div>
-        <div className="chat-bubble">You were the Chosen One!</div>
-        <div className="chat-footer opacity-50">Delivered</div>
       </div>
-      <div className="chat chat-end">
-        <div className="chat-image avatar">
-          <div className="w-10 rounded-full">
-            <img
-              alt="Tailwind CSS chat bubble component"
-              src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-            />
-          </div>
+      <div className="bottomSection">
+        <div className="inner">
+          <ul>
+            <ChatBubble_U />
+            <ChatBubble_Me />
+          </ul>
         </div>
-        <div className="chat-header">
-          Anakin
-          <time className="text-xs opacity-50">12:46</time>
-        </div>
-        <div className="chat-bubble">I hate you!</div>
-        <div className="chat-footer opacity-50">Seen at 12:46</div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default page;
+export default page

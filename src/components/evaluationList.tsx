@@ -124,7 +124,7 @@ export const EvaluationItem = ({ item }: { item: PropItem }) => {
               <p>{person.accountName}</p>
               <Link
                 className="linkbutton"
-                href={`/recruit/partner/${person.memberId}`}
+                href={`/recruit/partner/${item.recruit.recruitId}/${person.memberId}`}
               >
                 평가하기
               </Link>
