@@ -1,12 +1,13 @@
 'use client'
 import { FeedContent } from '@/components/feedContent'
 import { InfiniteData, useInfiniteQuery, useQuery } from '@tanstack/react-query'
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, Suspense, useEffect, useState } from 'react'
 import { HomeRecord, Record, Records } from '@/types/types'
 import { getPostFollowings } from '../../_lib/getPostFollowings'
 import { useInView } from 'react-intersection-observer'
 import { Getfetch } from '@/func/fetchCall'
 import { GoToFollow } from '@/components/gotoFollow'
+import LoadingScreen from '@/components/loading-screen'
 const FollowFeed = () => {
   const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery<
     HomeRecord,
@@ -42,17 +43,19 @@ const FollowFeed = () => {
   return (
     <>
       <div className="feed">
-        {data?.pages.map((page, itemIdx: number) => (
-          <Fragment key={itemIdx}>
-            {page.list.length < 1 ? (
-              <GoToFollow />
-            ) : (
-              page.list.map((item, idx) => (
-                <FeedContent item={item} key={idx} />
-              ))
-            )}
-          </Fragment>
-        ))}
+        <Suspense fallback={<LoadingScreen />}>
+          {data?.pages.map((page, itemIdx: number) => (
+            <Fragment key={itemIdx}>
+              {page.list.length < 1 ? (
+                <GoToFollow />
+              ) : (
+                page.list.map((item, idx) => (
+                  <FeedContent item={item} key={idx} />
+                ))
+              )}
+            </Fragment>
+          ))}
+        </Suspense>
       </div>
       <div ref={ref} style={{ height: 50 }} />
     </>
