@@ -33,7 +33,9 @@ const Page = () => {
   const [profileImage, setprofileImage] = useState(user.profileImage)
   const [images, setImages] = useState<File[]>([])
   const [gender, setgender] = useState(user.gender)
-  const [profileOpen, setprofileOpen] = useState(user.profileOpen)
+  const [profileOpen, setprofileOpen] = useState<string | boolean>(
+    user.profileOpen,
+  )
   const [interestedSportsList, setinterestedSports] = useState<Number[]>([])
   const profileSubmitHandler: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
@@ -113,7 +115,7 @@ const Page = () => {
             emailAuthNumber,
             name,
             gender,
-            profileOpen: JSON.stringify(profileOpen),
+            profileOpen,
             interestedSportsList,
           }
         : {
@@ -123,7 +125,7 @@ const Page = () => {
             phoneNumber,
             name,
             gender,
-            profileOpen: JSON.stringify(profileOpen),
+            profileOpen,
             interestedSportsList,
           }
     try {
@@ -277,6 +279,7 @@ const Page = () => {
             <input
               type="radio"
               id="gener"
+              name="gener"
               required
               value={'FEMALE'}
               onChange={(e) => {
@@ -287,6 +290,7 @@ const Page = () => {
             <input
               type="radio"
               id="gener"
+              name="gener"
               required
               value={'MALE'}
               onChange={(e) => {
@@ -300,20 +304,20 @@ const Page = () => {
             <input
               type="radio"
               id="accountOpen"
-              required
-              value={'true'}
+              name="accountOpen"
+              value={'open'}
               onChange={(e) => {
-                if (e.target.checked) setprofileOpen(true)
+                if (e.target.checked) setprofileOpen('open')
               }}
             />
             공개
             <input
               type="radio"
               id="accountOpen"
-              required
-              value={'false'}
+              name="accountOpen"
+              value={'close'}
               onChange={(e) => {
-                if (e.target.checked) setprofileOpen(false)
+                if (e.target.checked) setprofileOpen('close')
               }}
             />
             비공개
