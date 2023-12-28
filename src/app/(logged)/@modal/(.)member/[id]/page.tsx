@@ -88,6 +88,9 @@ const Page = () => {
           },
         },
       )
+      if (res.status === 200) {
+        alert('이메일 발송 완료! 메일함을 확인해주세요')
+      }
       setLoading(false)
     } catch (error) {}
   }
