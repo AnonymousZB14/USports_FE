@@ -9,7 +9,7 @@ import { MypageData } from '@/types/types'
 import { useRecoilState } from 'recoil'
 import { UserDetailState } from '@/store/user'
 const MpUserInfoSec = () => {
-  const [user,_]=useRecoilState(UserDetailState)
+  const [user, _] = useRecoilState(UserDetailState)
   const { data, isFetching } = useQuery<MypageData, Object>({
     queryKey: ['mypage'],
     queryFn: getMypageData,
@@ -22,11 +22,11 @@ const MpUserInfoSec = () => {
     <>
       <div className="basicInfo">
         <div>
-          <div className="avatar_img" style={{width:100, height:100}}>
+          <div className="avatar_img" style={{ width: 100, height: 100 }}>
             {
               <Link href={'/profile'}>
                 <img
-                  src={user.profileImage || ''}
+                  src={user.profileImage || '/basicProfile.png'}
                   alt="profile"
                   width={100}
                   height={100}
@@ -52,9 +52,11 @@ const MpUserInfoSec = () => {
           <li>
             <p className="content">
               {data.memberProfile.interestSportsList.map((sport, idx) =>
-                idx < 3 ? sport.sportsName+' ' : '',
+                idx < 3 ? sport.sportsName + ' ' : '',
               )}
-              {data.memberProfile.interestSportsList.length>3?`+${data.memberProfile.interestSportsList.length-3}`:''}
+              {data.memberProfile.interestSportsList.length > 3
+                ? `+${data.memberProfile.interestSportsList.length - 3}`
+                : ''}
             </p>
             <p className="title">관심 운동</p>
           </li>
@@ -63,7 +65,9 @@ const MpUserInfoSec = () => {
             <p className="title">매너 점수</p>
           </li>
           <li>
-            <p className="content">{data.sportsSkills[0]?.sportsGrade||'no data'}</p>
+            <p className="content">
+              {data.sportsSkills[0]?.sportsGrade || 'no data'}
+            </p>
             <p className="title">운동별 능력</p>
           </li>
         </ul>
