@@ -75,7 +75,10 @@ const LoginModal = () => {
       </div>
       <hr />
       <div className="socialLogBtn">
-        <button className="kakaoBtn">카카오로 로그인</button>
+        <button className="kakaoBtn">
+          카카오로 로그인
+          {/* <Link href={'/oauth2/authorization/kakao'}>카카오로 로그인</Link> */}
+        </button>
       </div>
     </div>
   )

@@ -187,9 +187,11 @@ const recruitDetail = () => {
                       <span className="place-space">
                         {recruitData.streetNameAddr}
                       </span>
+                      <br />
                       <span className="place-space">
                         {recruitData.streetNumberAddr}
                       </span>
+                      <br />
                       <span className="place-space">
                         {recruitData.placeName}
                       </span>

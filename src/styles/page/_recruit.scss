@@ -134,6 +134,7 @@
       transition: opacity 0.3s ease;
 
       .modal-wrapper {
+
         height: fit-content;
         width: 36rem;
         right: 0;
@@ -162,6 +163,8 @@
 
       .modal-body {
         overflow-y: auto;
+        max-height: 85vh;
+        margin-bottom: 20px;
         padding: 1rem 1rem 1rem 2rem;
 
         & li {
@@ -369,7 +372,7 @@
             padding-bottom: 3rem;
             font-weight: 700;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
 
             .match-place-info {
               word-break: keep-all;
@@ -384,6 +387,7 @@
 
             .info-box .place-space {
               margin-right: 0.4rem;
+              line-height: 1.4;
             }
           }
           .match-price {

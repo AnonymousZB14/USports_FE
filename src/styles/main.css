@@ -1324,6 +1324,8 @@ ul.recruitManagement > li .recruitItemCont p.status {
 }
 .explore-form .category-wrap .filter-dialog .modal-body {
   overflow-y: auto;
+  max-height: 85vh;
+  margin-bottom: 20px;
   padding: 1rem 1rem 1rem 2rem;
 }
 .explore-form .category-wrap .filter-dialog .modal-body li {
@@ -1515,7 +1517,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   padding-bottom: 3rem;
   font-weight: 700;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 }
 .content-body .main-body-wrap .right-body-wrap .apply-con .apply-main-section .match-place .match-place-info {
   word-break: keep-all;
@@ -1529,6 +1531,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
 }
 .content-body .main-body-wrap .right-body-wrap .apply-con .apply-main-section .match-place .info-box .place-space {
   margin-right: 0.4rem;
+  line-height: 1.4;
 }
 .content-body .main-body-wrap .right-body-wrap .apply-con .apply-main-section .match-price {
   color: var(--main-color-red);
@@ -2226,7 +2229,9 @@ p.info {
   align-items: center;
 }
 .category-wrap .filter-dialog .modal-body {
+  max-height: 80vh;
   overflow-y: auto;
+  margin-bottom: 20px;
   padding: 1rem 1rem 1rem 2rem;
 }
 .category-wrap .filter-dialog .modal-body li {

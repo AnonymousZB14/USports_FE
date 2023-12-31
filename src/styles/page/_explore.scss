@@ -141,6 +141,7 @@
     transition: opacity 0.3s ease;
 
     .modal-wrapper {
+
       height: fit-content;
       width: 36rem;
       right: 0;
@@ -168,7 +169,9 @@
     }
 
     .modal-body {
+      max-height: 80vh;
       overflow-y: auto;
+      margin-bottom: 20px;
       padding: 1rem 1rem 1rem 2rem;
 
       & li {

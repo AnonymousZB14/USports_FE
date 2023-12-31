@@ -28,13 +28,13 @@ const SignUpModal = () => {
       <form onSubmit={handleSubmit(onsubmitHandler)}>
         <div>
           <div>
-            <p>닉네임</p>
+            <p>이름</p>
             <input
               type="text"
               // name="accountName"
               id="accountName"
               {...register('accountName')}
-              placeholder="계정명 ex)userId"
+              placeholder="계정명 ex)username"
               onChange={() => {
                 console.log('x')
               }}
@@ -45,7 +45,7 @@ const SignUpModal = () => {
               {...register('name')}
               name="name"
               id="name"
-              placeholder="이름 ex)Nick"
+              placeholder="실명입력 ex)김ㅁㅁ"
             />
           </div>
           <div>
@@ -55,7 +55,7 @@ const SignUpModal = () => {
               type="email"
               name="email"
               id="email"
-              placeholder="이메일"
+              placeholder="이메일을 입력해주세요"
               required
             />
           </div>
@@ -75,7 +75,7 @@ const SignUpModal = () => {
               type="password"
               name="password"
               id="password"
-              placeholder="비밀번호"
+              placeholder="비밀번호를 입력해주세요"
               required
             />
           </div>
