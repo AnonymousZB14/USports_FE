@@ -44,6 +44,13 @@ const LoginModal = () => {
     }
   }
 
+  const REST_API_KEY = '백엔드한테 달라하자1'
+  const REDIRECT_URI = '백엔드한테 달라하자2'
+  const link = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
+
+  const loginHandler = () => {
+    window.location.href = link
+  }
   return (
     <div className="loginP notLoggedP centered">
       <h2>Log into USports</h2>
@@ -75,9 +82,9 @@ const LoginModal = () => {
       </div>
       <hr />
       <div className="socialLogBtn">
-        <button className="kakaoBtn">
+        <button className="kakaoBtn" onClick={loginHandler}>
           카카오로 로그인
-          {/* <Link href={'/oauth2/authorization/kakao'}>카카오로 로그인</Link> */}
+          
         </button>
       </div>
     </div>

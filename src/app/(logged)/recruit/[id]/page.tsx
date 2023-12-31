@@ -50,7 +50,7 @@ const recruitDetail = () => {
       console.log(error)
     }
     if (isSuccess) {
-      router.back()
+      router.push('/explore')
     }
   }
   function formatDate(inputDateStr: string) {
@@ -71,9 +71,7 @@ const recruitDetail = () => {
   }
   const applyHandler = async () => {
     try {
-      const res = await axiosInstance.post(
-        `/recruit/${id}/join`,
-      )
+      const res = await axiosInstance.post(`/recruit/${id}/join`)
       if (res.status == 200) alert('신청 완료!')
     } catch (error) {
       console.log(error)
