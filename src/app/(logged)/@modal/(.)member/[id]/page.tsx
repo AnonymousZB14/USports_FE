@@ -1,4 +1,5 @@
 'use client'
+import Button from '@/components/commonButton'
 import Modal from '@/components/modal'
 import { axiosInstance } from '@/func/fetchCall'
 import { SportsList } from '@/store/types'
@@ -6,7 +7,13 @@ import { UserDetailState, UserTokenState } from '@/store/user'
 import axios, { AxiosError } from 'axios'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React, { FormEventHandler, use, useEffect, useState } from 'react'
+import React, {
+  FormEventHandler,
+  MouseEventHandler,
+  use,
+  useEffect,
+  useState,
+} from 'react'
 import {
   Controller,
   FormSubmitHandler,
@@ -37,8 +44,14 @@ const Page = () => {
     user.profileOpen,
   )
   const [interestedSportsList, setinterestedSports] = useState<Number[]>([])
-  const profileSubmitHandler: FormEventHandler<HTMLFormElement> = async (e) => {
+  const profileSubmitHandler: MouseEventHandler<HTMLButtonElement> = async (
+    e,
+  ) => {
     e.preventDefault()
+    if (images.length < 1) {
+      alert('이미지를 업로드해주세요')
+      return
+    }
     setLoading(true)
     const formData = new FormData()
     let isSuccess = false
@@ -99,6 +112,44 @@ const Page = () => {
   const handleDeleteImage = (id: number) => {
     setprofileImage('')
     setImages([])
+  }
+  const deleteProfilePhoto: MouseEventHandler<HTMLButtonElement> = async (
+    e,
+  ) => {
+    e.preventDefault()
+    setImages([])
+    setLoading(true)
+    const formData = new FormData()
+    let isSuccess = false
+    try {
+      formData.append('profileImage', 'null')
+      const res = await axios.put(
+        `/usports/member/${user.memberId}/profile-image`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            credentials: 'include',
+            Authorization: `Bearer ${userToken.accessToken}`,
+          },
+        },
+      )
+      if (!(res.status === 200)) {
+        setMessage(res.data.errorMessage)
+        console.log(res.statusText)
+        return
+      }
+      setUser(res.data)
+      localStorage.setItem('user', JSON.stringify(res.data))
+      setLoading(false)
+      alert('프로필 변경 완료!')
+      isSuccess = true
+    } catch (error) {
+      setLoading(false)
+    }
+    if (isSuccess) {
+      router.back()
+    }
   }
   const onsubmitHandler = async (e: any) => {
     setLoading(true)
@@ -161,23 +212,37 @@ const Page = () => {
     <Modal>
       <div className="editUser">
         <p>내 정보 수정</p>
-        <form onSubmit={profileSubmitHandler}>
+        <form>
           <div className="profileForm">
-            <input
-              type="file"
-              id="profileImg"
-              accept="image/*"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                if (!e.target.files) return
-                setImages([e.target.files[0]])
-                const file = e?.target?.files[0]
-                const imgUrl = URL.createObjectURL(file)
-                setprofileImage(imgUrl)
-              }}
-              className="text-xl file:bg-blue-50 file:text-blue-500 hover:file:bg-blue-100 file:rounded-lg file:rounded-tr-none file:rounded-br-none file:px-6 file:py-4 file:mr-4 file:border-none hover:cursor-pointer border rounded-lg text-gray-400"
-            />
+            <label>
+              <img
+                src={
+                  user.profileImage ? user.profileImage : '/basicProfile.png'
+                }
+              />
+            </label>
+            <div>
+              <input
+                type="file"
+                id="profileImg"
+                accept="image/*"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  if (!e.target.files) return
+                  setImages([e.target.files[0]])
+                  const file = e?.target?.files[0]
+                  const imgUrl = URL.createObjectURL(file)
+                  setprofileImage(imgUrl)
+                }}
+                className="text-xl file:bg-blue-50 file:text-blue-500 hover:file:bg-blue-100 file:rounded-lg file:rounded-tr-none file:rounded-br-none file:px-6 file:py-4 file:mr-4 file:border-none hover:cursor-pointer border rounded-lg text-gray-400"
+              />
 
-            <input type="submit" value={'프로필 변경'} />
+              <Button onClick={profileSubmitHandler} theme="black">
+                변경
+              </Button>
+              <Button onClick={deleteProfilePhoto} theme="gray">
+                삭제
+              </Button>
+            </div>
           </div>
         </form>
 
@@ -204,20 +269,22 @@ const Page = () => {
           )}
           <div></div>
           <div>
-            <label htmlFor="phoneNumber">* 번호</label>
+            <label htmlFor="phoneNumber">번호</label>
             <input
               type="tel"
               onChange={(e) => setPhoneNum(e.target.value)}
               id="phoneNumber"
+              placeholder="000-000-0000"
               value={phoneNumber}
             />
           </div>
           <div>
-            <label htmlFor="activeRegion">* 자주 활동하는 구역</label>
+            <label htmlFor="activeRegion">자주 활동하는 지역</label>
             <input
               type="text"
               id="activeRegion"
               value={activeRegion}
+              placeholder="서울"
               onChange={(e) => setactiveRegion(e.target.value)}
             />
           </div>
@@ -257,12 +324,12 @@ const Page = () => {
             <div className="sportOptionContainer">
               {sportsList.map((sport, idx) => (
                 <div className="sportOptionWrap" style={{ display: 'flex' }}>
-                  <label htmlFor={sport.sportsName}>{sport.sportsName}</label>
                   <input
                     key={idx}
                     type="checkbox"
                     id={sport.sportsName}
                     value={sport.sportsId}
+                    className="checkbox checkbox-warning"
                     onChange={(e) => {
                       if (e.target.checked)
                         setinterestedSports((prev) => {
@@ -270,6 +337,7 @@ const Page = () => {
                         })
                     }}
                   />
+                  <label htmlFor={sport.sportsName}>{sport.sportsName}</label>
                 </div>
               ))}
             </div>
@@ -280,6 +348,7 @@ const Page = () => {
               type="radio"
               id="gener"
               name="gener"
+              className="radio"
               required
               value={'FEMALE'}
               onChange={(e) => {
@@ -292,6 +361,7 @@ const Page = () => {
               id="gener"
               name="gener"
               required
+              className="radio"
               value={'MALE'}
               onChange={(e) => {
                 if (e.target.checked) setgender('MALE')
@@ -305,6 +375,7 @@ const Page = () => {
               type="radio"
               id="accountOpen"
               name="accountOpen"
+              className="radio"
               value={'open'}
               onChange={(e) => {
                 if (e.target.checked) setprofileOpen('open')
@@ -315,6 +386,7 @@ const Page = () => {
               type="radio"
               id="accountOpen"
               name="accountOpen"
+              className="radio"
               value={'close'}
               onChange={(e) => {
                 if (e.target.checked) setprofileOpen('close')

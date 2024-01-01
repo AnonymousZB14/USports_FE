@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: var(--text-size-base);
+  font-size: var(--text-size-xs);
   gap: 30px;
   p {
     font-size: var(--text-size-2xl);
@@ -13,27 +13,42 @@
   form {
     min-width: 80%;
     display: flex;
+    
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
+    &:last-child{
+      width: 80%;
+    }
     & > div {
-      &.profileForm{
-        input[type='submit']{
-          flex: none;
-          padding: 10px;
+      &.profileForm {
+        flex-direction: column;
+        div{
+          display: flex;
+          gap: 10px;
+          button{
+            height: 40px;
+          }
         }
+
       }
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 11px;
+      &:has(.sportOptionContainer) {
+        align-items: flex-start;
+      }
       & > label {
-        padding: 10px;
-        // width: 100px;
+        height: 40px;
+        line-height: 40px;
+        border: 1px dashed #ccccccef;
+        text-align: center;
+        width: 180px;
         &:has(img) {
-          width: 75px;
-          height: 75px;
+          width: 90px;
+          height: 90px;
           border-radius: 50%;
-          border: 1px solid #ccc;
+          border: 1px solid #cccccc45;
           opacity: 0.8;
           overflow: hidden;
           img {
@@ -45,23 +60,28 @@
       }
       &:last-child {
         display: flex;
-        gap: 10px;
+        gap: 20px;
         justify-content: space-between;
-        
       }
       & > * {
-        font-size: var(--text-size-base);
+        font-size: 13px;
       }
-      input:not([type='submit'], [type='button']),button.resend {
-        border: 1px solid #ccc;
+      input:not([type='submit'],[type='radio'], [type='button']),
+      button.resend {
+        border: 1px solid #cccccc45;
         height: 40px;
         padding-left: 10px;
         padding-right: 10px;
         border-radius: 5px;
-        background-color: transparent;
+        background-color: #f7f7f7d1;
       }
       input:not([type='radio']) {
         flex: 1;
+      }
+      input[type='radio'].radio {
+        width: 15px;
+        height: 15px;
+
       }
       input[type='submit'],
       input[type='button'] {
@@ -80,19 +100,23 @@
       input[type='button'] {
         background-color: #a2a2a2;
       }
-      .sportOptionContainer{
+      .sportOptionContainer {
         display: flex;
-        flex: wrap;
+        flex: 1;
+        flex-wrap: wrap;
         gap: 10px;
-          .sportOptionWrap {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
+        .sportOptionWrap {
+          display: flex;
+          
+          align-items: center;
+          justify-content: center;
+          gap: 5px;
+          input.checkbox {
+            height: 20px;
+            width: 20px;
           }
         }
-        
+      }
     }
   }
 }

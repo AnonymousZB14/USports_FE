@@ -90,11 +90,6 @@ const recruitDetail = () => {
             <span className="sr-only">back</span>
           </i>
         </button>
-        <Link href={`/recruit/partner`}>
-          <Button tailwindStyles="py-0 px-2" theme="red">
-            파트너 평가하기
-          </Button>
-        </Link>
         {recruitData?.memberId === user.memberId && (
           <Link href={`/recruit/manage/${id}`}>
             <Button tailwindStyles="py-0 px-2" theme="orange">

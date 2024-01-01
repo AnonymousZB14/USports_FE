@@ -295,6 +295,20 @@ html[data-theme=light] {
   background-color: transparent;
   transition: all 0.1s;
 }
+#header .head_inner nav ul li:nth-child(3) span {
+  position: relative;
+  /*               &::after{
+                  content: "";
+                  display: block;
+                  width: 6px;
+                  height: 6px;
+                  border-radius: 50%;
+                  background-color: rgb(0, 230, 23);
+                  position: absolute;
+                  top: 16px;
+                  left: 35px;
+                } */
+}
 #header .head_inner nav ul li a {
   display: block;
   width: 100%;
@@ -832,7 +846,7 @@ span.dayjs {
   background-color: rgba(0, 0, 0, 0.368627451);
 }
 #modal .modalInner {
-  min-width: 70dvw;
+  min-width: 60dvw;
   width: fit-content;
   max-width: 100dvw;
   padding: 35px 20px;
@@ -2494,7 +2508,7 @@ p.info {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: var(--text-size-base);
+  font-size: var(--text-size-xs);
   gap: 30px;
 }
 .editUser p {
@@ -2508,25 +2522,41 @@ p.info {
   display: flex;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
+}
+.editUser form:last-child {
+  width: 80%;
 }
 .editUser form > div {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 11px;
 }
-.editUser form > div.profileForm input[type=submit] {
-  flex: none;
-  padding: 10px;
+.editUser form > div.profileForm {
+  flex-direction: column;
+}
+.editUser form > div.profileForm div {
+  display: flex;
+  gap: 10px;
+}
+.editUser form > div.profileForm div button {
+  height: 40px;
+}
+.editUser form > div:has(.sportOptionContainer) {
+  align-items: flex-start;
 }
 .editUser form > div > label {
-  padding: 10px;
+  height: 40px;
+  line-height: 40px;
+  border: 1px dashed rgba(204, 204, 204, 0.937254902);
+  text-align: center;
+  width: 180px;
 }
 .editUser form > div > label:has(img) {
-  width: 75px;
-  height: 75px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
-  border: 1px solid #ccc;
+  border: 1px solid rgba(204, 204, 204, 0.2705882353);
   opacity: 0.8;
   overflow: hidden;
 }
@@ -2537,22 +2567,27 @@ p.info {
 }
 .editUser form > div:last-child {
   display: flex;
-  gap: 10px;
+  gap: 20px;
   justify-content: space-between;
 }
 .editUser form > div > * {
-  font-size: var(--text-size-base);
+  font-size: 13px;
 }
-.editUser form > div input:not([type=submit], [type=button]), .editUser form > div button.resend {
-  border: 1px solid #ccc;
+.editUser form > div input:not([type=submit], [type=radio], [type=button]),
+.editUser form > div button.resend {
+  border: 1px solid rgba(204, 204, 204, 0.2705882353);
   height: 40px;
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 5px;
-  background-color: transparent;
+  background-color: rgba(247, 247, 247, 0.8196078431);
 }
 .editUser form > div input:not([type=radio]) {
   flex: 1;
+}
+.editUser form > div input[type=radio].radio {
+  width: 15px;
+  height: 15px;
 }
 .editUser form > div input[type=submit],
 .editUser form > div input[type=button] {
@@ -2574,15 +2609,19 @@ p.info {
 }
 .editUser form > div .sportOptionContainer {
   display: flex;
-  flex: wrap;
+  flex: 1;
+  flex-wrap: wrap;
   gap: 10px;
 }
 .editUser form > div .sportOptionContainer .sportOptionWrap {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 5px;
+}
+.editUser form > div .sportOptionContainer .sportOptionWrap input.checkbox {
+  height: 20px;
+  width: 20px;
 }
 
 .errorMsg {

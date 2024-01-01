@@ -26,7 +26,9 @@ const Page = () => {
   const setListHandler = (accept: boolean, item: IngList) => {
     if (accept === true) {
       setIngList(ingList.filter((origin) => origin.memberId !== item.memberId))
-      setAcceptedList([...acceptedList, item])
+      const newItem = item
+      newItem.status = 'ACCEPTED'
+      setAcceptedList([...acceptedList, newItem])
     } else {
       setIngList(ingList.filter((origin) => origin.memberId !== item.memberId))
     }
@@ -34,7 +36,7 @@ const Page = () => {
   return (
     <Modal>
       <div className="modal-header">
-        <h3>모집 인원 관리 {recruitId}</h3>
+        <h3>모집 인원 관리</h3>
       </div>
       <div className="modal-body">
         <div className="accept-info-wrap">
