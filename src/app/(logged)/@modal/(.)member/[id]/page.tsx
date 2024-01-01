@@ -54,7 +54,7 @@ const Page = () => {
     }
     setLoading(true)
     const formData = new FormData()
-    let isSuccess = false
+
     try {
       formData.append('profileImage', images[0])
       const res = await axios.put(
@@ -77,12 +77,8 @@ const Page = () => {
       localStorage.setItem('user', JSON.stringify(res.data))
       setLoading(false)
       alert('프로필 변경 완료!')
-      isSuccess = true
     } catch (error) {
       setLoading(false)
-    }
-    if (isSuccess) {
-      router.back()
     }
   }
   const deleteProfilePhoto: MouseEventHandler<HTMLButtonElement> = async (
@@ -96,7 +92,7 @@ const Page = () => {
     let isSuccess = false
     try {
       formData.append('profileImage', 'null')
-      
+
       const res = await axios.put(
         `/usports/member/${user.memberId}/profile-image`,
         formData,
