@@ -27,7 +27,7 @@ const Page = () => {
     if (accept === true) {
       setIngList(ingList.filter((origin) => origin.memberId !== item.memberId))
       const newItem = item
-      newItem.status = 'ACCEPTED'
+      newItem.status = '수락'
       setAcceptedList([...acceptedList, newItem])
     } else {
       setIngList(ingList.filter((origin) => origin.memberId !== item.memberId))
