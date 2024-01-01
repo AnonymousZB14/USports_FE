@@ -36,11 +36,11 @@ export const ApplicationItem = ({ item }: ItemProp) => {
   const changeKor = (value: string) => {
     switch (value) {
       case 'ACCEPTED':
-        return <button className="accepted">수락</button>
+        return <button className="accepted">수락됨</button>
       case 'ING':
         return <button className="applying">신청중</button>
       case 'REFUSED':
-        return <button className="accepted">거절</button>
+        return <button className="rejected">거절됨</button>
     }
   }
   const route = useRouter()
@@ -63,9 +63,11 @@ export const ApplicationItem = ({ item }: ItemProp) => {
           <p className="title">{item.recruitTile}</p>
         </div>
         <div className="buttonWrap">
-          <button className="cancle" onClick={cancleHandler}>
-            신청취소
-          </button>
+          {item.status === 'ING' && (
+            <button className="cancle" onClick={cancleHandler}>
+              신청취소
+            </button>
+          )}
           {changeKor(item.status)}
           {/*           <button className="applying">신청중</button>
           <button className="rejected">거절됨</button>

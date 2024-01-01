@@ -35,7 +35,7 @@ const Page = () => {
   const [activeRegion, setactiveRegion] = useState(user.activeRegion)
   const [birthDate, setbirthDate] = useState(user.birthDate)
   const [phoneNumber, setPhoneNum] = useState(user.phoneNumber)
-  const [emailAuthNumber, setEmailAuthNumber] = useState('0')
+  const [emailAuthNumber, setEmailAuthNumber] = useState('')
   const [name, setname] = useState(user.name)
   const [profileImage, setprofileImage] = useState(user.profileImage)
   const [images, setImages] = useState<File[]>([])
@@ -278,13 +278,14 @@ const Page = () => {
               value={phoneNumber}
             />
           </div>
+
           <div>
             <label htmlFor="activeRegion">자주 활동하는 지역</label>
             <input
               type="text"
               id="activeRegion"
               value={activeRegion}
-              placeholder="서울"
+              placeholder="거주 혹은 주 활동 지역을 써주세요 ex)경기, 서울, 인천, 강원 등"
               onChange={(e) => setactiveRegion(e.target.value)}
             />
           </div>
@@ -306,6 +307,7 @@ const Page = () => {
               id="name"
               required
               value={name}
+              placeholder='되도록 실명을 입력해주세요'
               onChange={(e) => setname(e.target.value)}
             />
           </div>
