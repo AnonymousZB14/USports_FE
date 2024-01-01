@@ -38,7 +38,7 @@ const Page = () => {
   const [emailAuthNumber, setEmailAuthNumber] = useState('')
   const [name, setname] = useState(user.name)
   const [profileImage, setprofileImage] = useState(user.profileImage)
-  const [images, setImages] = useState<File[]>([])
+  const [images, setImages] = useState<File[] | null>([])
   const [gender, setgender] = useState(user.gender)
   const [profileOpen, setprofileOpen] = useState<string | boolean>(
     user.profileOpen,
@@ -48,7 +48,7 @@ const Page = () => {
     e,
   ) => {
     e.preventDefault()
-    if (images.length < 1) {
+    if (images == null || images.length < 1) {
       alert('이미지를 업로드해주세요')
       return
     }
@@ -57,6 +57,46 @@ const Page = () => {
     let isSuccess = false
     try {
       formData.append('profileImage', images[0])
+      const res = await axios.put(
+        `/usports/member/${user.memberId}/profile-image`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            credentials: 'include',
+            Authorization: `Bearer ${userToken.accessToken}`,
+          },
+        },
+      )
+      if (!(res.status === 200)) {
+        setMessage(res.data.errorMessage)
+        console.log(res.statusText)
+        return
+      }
+      setUser(res.data)
+      localStorage.setItem('user', JSON.stringify(res.data))
+      setLoading(false)
+      alert('프로필 변경 완료!')
+      isSuccess = true
+    } catch (error) {
+      setLoading(false)
+    }
+    if (isSuccess) {
+      router.back()
+    }
+  }
+  const deleteProfilePhoto: MouseEventHandler<HTMLButtonElement> = async (
+    e,
+  ) => {
+    e.preventDefault()
+    setImages(null)
+    setLoading(true)
+
+    const formData = new FormData()
+    let isSuccess = false
+    try {
+      formData.append('profileImage', 'null')
+      
       const res = await axios.put(
         `/usports/member/${user.memberId}/profile-image`,
         formData,
@@ -113,44 +153,7 @@ const Page = () => {
     setprofileImage('')
     setImages([])
   }
-  const deleteProfilePhoto: MouseEventHandler<HTMLButtonElement> = async (
-    e,
-  ) => {
-    e.preventDefault()
-    setImages([])
-    setLoading(true)
-    const formData = new FormData()
-    let isSuccess = false
-    try {
-      formData.append('profileImage', 'null')
-      const res = await axios.put(
-        `/usports/member/${user.memberId}/profile-image`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            credentials: 'include',
-            Authorization: `Bearer ${userToken.accessToken}`,
-          },
-        },
-      )
-      if (!(res.status === 200)) {
-        setMessage(res.data.errorMessage)
-        console.log(res.statusText)
-        return
-      }
-      setUser(res.data)
-      localStorage.setItem('user', JSON.stringify(res.data))
-      setLoading(false)
-      alert('프로필 변경 완료!')
-      isSuccess = true
-    } catch (error) {
-      setLoading(false)
-    }
-    if (isSuccess) {
-      router.back()
-    }
-  }
+
   const onsubmitHandler = async (e: any) => {
     setLoading(true)
     setMessage('')
@@ -307,7 +310,7 @@ const Page = () => {
               id="name"
               required
               value={name}
-              placeholder='되도록 실명을 입력해주세요'
+              placeholder="되도록 실명을 입력해주세요"
               onChange={(e) => setname(e.target.value)}
             />
           </div>

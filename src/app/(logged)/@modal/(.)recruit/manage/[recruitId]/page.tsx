@@ -7,6 +7,7 @@ import ApplyStatus from '@/components/applyStatus'
 import { useQuery } from '@tanstack/react-query'
 import { getApplicants } from './_lib/getApplicants'
 import { RecruitApplicants, IngList, AcceptedList } from '@/types/types'
+import axios from 'axios'
 
 const Page = () => {
   const params = useParams()
@@ -33,6 +34,14 @@ const Page = () => {
       setIngList(ingList.filter((origin) => origin.memberId !== item.memberId))
     }
   }
+  const endRecruitHandler = async () => {
+    try {
+      const res = await axios.put(`/recruit/${recruitId}/end`)
+      if (res.status === 200) {
+        alert('마감되었습니다')
+      }
+    } catch (error) {}
+  }
   return (
     <Modal>
       <div className="modal-header">
@@ -41,16 +50,17 @@ const Page = () => {
       <div className="modal-body">
         <div className="accept-info-wrap">
           <div className="accept-info">
-            <p>현재 수락된 인원 수 :</p>{' '}
+            <p>현재 수락된 인원 수 :</p>
             <span>
               {data?.currentCount} / {data?.totalCount} 명
             </span>
           </div>
+          
           <Button
             type="button"
             theme="blue"
             tailwindStyles="py-0 px-2 float-right"
-            onClick={() => {}}
+            onClick={endRecruitHandler}
             disabled={data?.totalCount === data?.acceptedList}
           >
             마감하기
