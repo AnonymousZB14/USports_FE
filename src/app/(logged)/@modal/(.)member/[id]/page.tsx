@@ -88,14 +88,10 @@ const Page = () => {
     setImages(null)
     setLoading(true)
 
-    const formData = new FormData()
     let isSuccess = false
     try {
-      formData.append('profileImage', 'null')
-
       const res = await axios.put(
-        `/usports/member/${user.memberId}/profile-image`,
-        formData,
+        `/usports/member/${user.memberId}/profile-image/remove`,
         {
           headers: {
             'Content-Type': 'multipart/form-data',
