@@ -2861,6 +2861,14 @@ p.info {
   display: flex;
   gap: 10px;
 }
+@media (max-width: 767px) {
+  .notLoggedP form {
+    flex-wrap: wrap;
+  }
+  .notLoggedP form > * {
+    width: 100%;
+  }
+}
 .notLoggedP form div {
   display: flex;
   flex-direction: column;
@@ -2971,6 +2979,11 @@ p.info {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+}
+@media (max-width: 767px) {
+  .createAccountP form > div div {
+    flex-wrap: wrap;
+  }
 }
 .createAccountP form > div div p,
 .createAccountP form > div div button {
