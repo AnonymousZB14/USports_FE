@@ -148,14 +148,7 @@ const recruitDetail = () => {
                 </div>
               </div>
             </div>
-            <div className="recruit-detail-con">
-              <div className="match-title">
-                <p>모집 내용</p>
-              </div>
-              <div className="match-content">
-                {recruitData && <p>{recruitData.content}</p>}
-              </div>
-            </div>
+
           </div>
           <div className="right-body-wrap">
             <div className="apply-con">
@@ -209,6 +202,14 @@ const recruitDetail = () => {
                 >
                   신청하기
                 </Button>
+              </div>
+            </div>
+            <div className="recruit-detail-con">
+              <div className="match-title">
+                <p>모집 내용</p>
+              </div>
+              <div className="match-content">
+                {recruitData && <p>{recruitData.content}</p>}
               </div>
             </div>
           </div>

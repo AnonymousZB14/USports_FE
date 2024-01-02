@@ -303,12 +303,16 @@
           }
         }
       }
+    }
+    
+    .right-body-wrap {
+      margin-bottom: 30px;
       .recruit-detail-con {
         margin-top: 1rem;
         background-color: var(--bg-color-2);
         border-radius: 1rem;
         box-shadow: rgba(73, 73, 73, 0.1) 0 1.2rem 2.5rem 0;
-
+  
         .match-title {
           font-weight: 600;
           font-size: var(--text-size-base);
@@ -320,9 +324,6 @@
           word-break: break-all;
         }
       }
-    }
-
-    .right-body-wrap {
       width: 65%;
       max-width: 100%;
       margin-top: 2rem;

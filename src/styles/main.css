@@ -395,6 +395,14 @@ main:is(main > section) {
   align-items: center;
   justify-content: center;
 }
+.writingPageList > div svg {
+  width: 35px;
+  height: 35px;
+  margin-left: auto;
+  cursor: pointer;
+  fill: #fff;
+  transform: translate(30px, -10px);
+}
 .writingPageList > div ul li a {
   display: block;
   width: max-content;
@@ -1483,23 +1491,8 @@ ul.recruitManagement > li .recruitItemCont p.status {
   display: flex;
   margin-top: 2rem;
 }
-.content-body .main-body-wrap .left-body-wrap .recruit-detail-con {
-  margin-top: 1rem;
-  background-color: var(--bg-color-2);
-  border-radius: 1rem;
-  box-shadow: rgba(73, 73, 73, 0.1) 0 1.2rem 2.5rem 0;
-}
-.content-body .main-body-wrap .left-body-wrap .recruit-detail-con .match-title {
-  font-weight: 600;
-  font-size: var(--text-size-base);
-  padding: 2rem 1.4rem;
-}
-.content-body .main-body-wrap .left-body-wrap .recruit-detail-con .match-content {
-  padding: 0 1.4rem 2.4rem 1.4rem;
-  line-height: 1.35;
-  word-break: break-all;
-}
 .content-body .main-body-wrap .right-body-wrap {
+  margin-bottom: 30px;
   width: 65%;
   max-width: 100%;
   margin-top: 2rem;
@@ -1509,6 +1502,22 @@ ul.recruitManagement > li .recruitItemCont p.status {
   position: -webkit-sticky;
   top: 11rem;
   z-index: 0;
+}
+.content-body .main-body-wrap .right-body-wrap .recruit-detail-con {
+  margin-top: 1rem;
+  background-color: var(--bg-color-2);
+  border-radius: 1rem;
+  box-shadow: rgba(73, 73, 73, 0.1) 0 1.2rem 2.5rem 0;
+}
+.content-body .main-body-wrap .right-body-wrap .recruit-detail-con .match-title {
+  font-weight: 600;
+  font-size: var(--text-size-base);
+  padding: 2rem 1.4rem;
+}
+.content-body .main-body-wrap .right-body-wrap .recruit-detail-con .match-content {
+  padding: 0 1.4rem 2.4rem 1.4rem;
+  line-height: 1.35;
+  word-break: break-all;
 }
 .content-body .main-body-wrap .right-body-wrap .apply-con {
   background-color: var(--bg-color-2);

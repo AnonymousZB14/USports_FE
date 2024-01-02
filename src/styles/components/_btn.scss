@@ -10,7 +10,14 @@
   align-items: center;
   justify-content: center;
   &>div{
-    // background-color: #fff;
+    svg{
+      width: 35px;
+      height: 35px;
+      margin-left: auto;
+      cursor: pointer;
+      fill: #fff;
+      transform: translate(30px, -10px);
+    }
     ul{
       li{
         a{
