@@ -13,6 +13,7 @@ const Notifications = () => {
       setList(resp)
     })
   }, [])
+  if (list.length < 1) return <p className="info">새로운 알림내역이 없습니다</p>
   return (
     <ul>
       {list.map((item, idx) => {
