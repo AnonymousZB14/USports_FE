@@ -1,10 +1,68 @@
 @charset "UTF-8";
+:root {
+  --side-padding: 3rem;
+  --padding-1: 1.6rem;
+  --padding-2: 1.2rem;
+  --padding-3: 0.8rem;
+  --padding-4: 0.4rem;
+  --margin-1: 1.6rem;
+  --margin-2: 1.2rem;
+  --margin-3: 0.8rem;
+  --margin-4: 0.4rem;
+  --text-size-5xl: 4.8rem;
+  --text-size-4xl: 3.6rem;
+  --text-size-3xl: 3rem;
+  --text-size-2xl: 2.4rem;
+  --text-size-xl: 2rem;
+  --text-size-lg: 1.8rem;
+  --text-size-base: 1.6rem;
+  --text-size-sm: 1.4rem;
+  --text-size-xs: 1.2rem;
+  --main-color1: rgb(80, 80, 80);
+}
+
+html[data-theme=dark] {
+  --main-color-brand: #256df9;
+  --main-color-red: #e45141;
+  --main-color-orange: #f57e25;
+  --text-color-1: #fff;
+  --text-color-2: #f2f2f2;
+  --text-color-3: #d8d8d8;
+  --text-color-4: #d8d8d8;
+  --text-color-5: #777;
+  --bg-color-1: #252a33;
+  --bg-color-2: #2a303d;
+  --bg-color-3: #3f4246;
+  --bg-color-4: #464e5b;
+}
+
+html[data-theme=light] {
+  --main-color-brand: #256df9;
+  --main-color-red: #e45141;
+  --main-color-orange: #f57e25;
+  --text-color-1: #242424;
+  --text-color-2: #555;
+  --text-color-3: #a5a5a5;
+  --text-color-4: #6f6f6f;
+  --text-color-5: #dfdfdf;
+  --bg-color-1: #eee;
+  --bg-color-2: #fff;
+  --bg-color-3: #f2f2f2;
+  --bg-color-4: #ececec;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   line-height: 1.2;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --side-padding: 1.5rem;
+  }
 }
 
 .padding0 {
@@ -178,58 +236,6 @@ a {
   margin: -1px;
   border: 0;
   clip: rect(0, 0, 0, 0);
-}
-
-:root {
-  --side-padding: 3.4rem;
-  --padding-1: 1.6rem;
-  --padding-2: 1.2rem;
-  --padding-3: 0.8rem;
-  --padding-4: 0.4rem;
-  --margin-1: 1.6rem;
-  --margin-2: 1.2rem;
-  --margin-3: 0.8rem;
-  --margin-4: 0.4rem;
-  --text-size-5xl: 4.8rem;
-  --text-size-4xl: 3.6rem;
-  --text-size-3xl: 3rem;
-  --text-size-2xl: 2.4rem;
-  --text-size-xl: 2rem;
-  --text-size-lg: 1.8rem;
-  --text-size-base: 1.6rem;
-  --text-size-sm: 1.4rem;
-  --text-size-xs: 1.2rem;
-  --main-color1: rgb(80, 80, 80);
-}
-
-html[data-theme=dark] {
-  --main-color-brand: #256df9;
-  --main-color-red: #e45141;
-  --main-color-orange: #f57e25;
-  --text-color-1: #fff;
-  --text-color-2: #f2f2f2;
-  --text-color-3: #d8d8d8;
-  --text-color-4: #d8d8d8;
-  --text-color-5: #777;
-  --bg-color-1: #252a33;
-  --bg-color-2: #2a303d;
-  --bg-color-3: #3f4246;
-  --bg-color-4: #464e5b;
-}
-
-html[data-theme=light] {
-  --main-color-brand: #256df9;
-  --main-color-red: #e45141;
-  --main-color-orange: #f57e25;
-  --text-color-1: #242424;
-  --text-color-2: #555;
-  --text-color-3: #a5a5a5;
-  --text-color-4: #6f6f6f;
-  --text-color-5: #dfdfdf;
-  --bg-color-1: #eee;
-  --bg-color-2: #fff;
-  --bg-color-3: #f2f2f2;
-  --bg-color-4: #ececec;
 }
 
 html,
