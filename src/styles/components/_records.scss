@@ -88,6 +88,23 @@
     font-weight: 500;
     font-size: var(--text-size-sm);
   }
+  div {
+    margin-left: auto;
+    display: flex;
+    gap: 10px;
+    align-content: center;
+    span {
+      display: flex;
+      gap: 3px;
+      align-items: center;
+      font-size: 14px;
+      color: var(--text-color-2);
+    }
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
 }
 
 span.dayjs {

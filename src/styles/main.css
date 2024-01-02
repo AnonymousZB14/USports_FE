@@ -585,6 +585,23 @@ main:is(main > section) {
   font-weight: 500;
   font-size: var(--text-size-sm);
 }
+.record_contents div {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+  align-content: center;
+}
+.record_contents div span {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  font-size: 14px;
+  color: var(--text-color-2);
+}
+.record_contents div svg {
+  width: 18px;
+  height: 18px;
+}
 
 span.dayjs {
   font-size: var(--text-size-xs);
@@ -885,8 +902,8 @@ ul.evaluationList > li .evitemCont {
 }
 ul.evaluationList > li .evitemCont .sportsBadge {
   text-align: center;
-  width: 63px;
-  padding: 3px 10px;
+  width: max-content;
+  padding: 4px 10px;
   background-color: springgreen;
   color: #222;
   font-size: var(--text-size-xs);
@@ -992,8 +1009,8 @@ ul.applicationsList > li .applicationCont {
 }
 ul.applicationsList > li .applicationCont .sportsBadge {
   text-align: center;
-  width: 63px;
-  padding: 3px 10px;
+  width: max-content;
+  padding: 4px 10px;
   background-color: springgreen;
   color: #222;
   font-size: var(--text-size-xs);
@@ -1055,8 +1072,8 @@ ul.recruitManagement > li .recruitItemCont {
 }
 ul.recruitManagement > li .recruitItemCont .sportsBadge {
   text-align: center;
-  width: 63px;
-  padding: 3px 10px;
+  width: max-content;
+  padding: 4px 10px;
   background-color: springgreen;
   color: #222;
   font-size: var(--text-size-xs);
@@ -2732,6 +2749,10 @@ p.info {
   align-items: center;
   gap: 10px;
 }
+.notLoggedP .socialLogBtn a {
+  display: block;
+  width: 100%;
+}
 .notLoggedP .socialLogBtn button {
   flex: 1;
   padding: 18px 0;
@@ -2740,7 +2761,8 @@ p.info {
   font-weight: 500;
 }
 .notLoggedP .socialLogBtn button.kakaoBtn {
-  background-color: #FEE500;
+  background-color: #fee500;
+  width: 100%;
 }
 .notLoggedP .socialLogBtn button.naverBtn {
   background-color: rgb(3, 199, 90);

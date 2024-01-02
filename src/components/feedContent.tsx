@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Record } from '@/types/types'
 import Avatar from './avatar'
 import { HomeRecordListItem } from '@/types/types'
+import { FaHeart, FaRegCommentAlt } from 'react-icons/fa'
 export const FeedContent = ({ item }: { item: HomeRecordListItem }) => {
   return (
     <div className="feed_content">
@@ -30,6 +31,16 @@ export const FeedContent = ({ item }: { item: HomeRecordListItem }) => {
         <div className="record_contents">
           <span>{item.accountName}</span>
           <p>{item.recordContent}</p>
+          <div className="iconWrap">
+            <span>
+              <FaHeart />
+              {item.countRecordLike}
+            </span>
+            <span>
+              <FaRegCommentAlt />
+              {item.countComment}
+            </span>
+          </div>
         </div>
       </div>
     </div>

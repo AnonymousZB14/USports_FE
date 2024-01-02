@@ -18,11 +18,13 @@ const Page = () => {
     queryFn: getApplicants,
   })
   const [ingList, setIngList] = useState<IngList[]>([])
+  const [status, setStatus] = useState('')
   const [acceptedList, setAcceptedList] = useState<IngList[]>([])
   useEffect(() => {
     if (!data) return
     setIngList(data?.ingList)
     setAcceptedList(data?.acceptedList)
+    setStatus(data.status)
   }, [data])
   const setListHandler = (accept: boolean, item: IngList) => {
     if (accept === true) {
@@ -36,11 +38,25 @@ const Page = () => {
   }
   const endRecruitHandler = async () => {
     try {
-      const res = await axios.put(`/recruit/${recruitId}/end`)
+      const res = await axios.put(`/usports/recruit/${recruitId}/end`)
       if (res.status === 200) {
         alert('마감되었습니다')
+        setStatus('END')
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const calcelEndRecruitHandler = async () => {
+    try {
+      const res = await axios.put(`/usports/recruit/${recruitId}/end`)
+      if (res.status === 200) {
+        alert('마감이 취소되었습니다')
+        setStatus('RECRUITING')
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
   return (
     <Modal>
@@ -55,16 +71,25 @@ const Page = () => {
               {data?.currentCount} / {data?.totalCount} 명
             </span>
           </div>
-          
-          <Button
-            type="button"
-            theme="blue"
-            tailwindStyles="py-0 px-2 float-right"
-            onClick={endRecruitHandler}
-            disabled={data?.totalCount === data?.acceptedList}
-          >
-            마감하기
-          </Button>
+          {status === 'END' ? (
+            <Button
+              type="button"
+              theme="gray"
+              tailwindStyles="py-0 px-2 float-right"
+              onClick={calcelEndRecruitHandler}
+            >
+              마감취소
+            </Button>
+          ) : (
+            <Button
+              type="button"
+              theme="blue"
+              tailwindStyles="py-0 px-2 float-right"
+              onClick={endRecruitHandler}
+            >
+              마감하기
+            </Button>
+          )}
         </div>
         <div className="apply-wrap">
           <label>지원자 현황</label>

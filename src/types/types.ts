@@ -215,6 +215,7 @@ export interface HomeRecordListItem {
     },
   ]
   countComment: number
+  countRecordLike: number
   imageAddressList: string[]
   memberId: number
   name: string
@@ -328,6 +329,7 @@ export interface RecruitApplicants {
   acceptedList: AcceptedList[]
   currentCount: number
   ingList: IngList[]
+  status: string
   totalCount: number
 }
 export interface AcceptedList {

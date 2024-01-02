@@ -14,7 +14,7 @@ import { loginFun, onLoginSuccess } from '@/func/service'
 import axios from 'axios'
 import { UserDetailState, UserTokenState } from '@/store/user'
 import LocalStorage from '@/func/localstrage'
-
+import { KAKAO_AUTH_URL } from '../_lib/kakao'
 const LoginModal = () => {
   const router = useRouter()
   const [message, setMessage] = useState('')
@@ -44,13 +44,7 @@ const LoginModal = () => {
     }
   }
 
-  const REST_API_KEY = '백엔드한테 달라하자1'
-  const REDIRECT_URI = '백엔드한테 달라하자2'
-  const link = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
 
-  const loginHandler = () => {
-    window.location.href = link
-  }
   return (
     <div className="loginP notLoggedP centered">
       <h2>Log into USports</h2>
@@ -82,10 +76,11 @@ const LoginModal = () => {
       </div>
       <hr />
       <div className="socialLogBtn">
-        <button className="kakaoBtn" onClick={loginHandler}>
-          카카오로 로그인
-          
-        </button>
+        <Link href={KAKAO_AUTH_URL}>
+          <button className="kakaoBtn">
+            카카오로 로그인
+          </button>
+        </Link>
       </div>
     </div>
   )
