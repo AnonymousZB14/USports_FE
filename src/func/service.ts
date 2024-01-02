@@ -64,6 +64,7 @@ export const onLogoutFun = (accessToken?: string) => {
   })
   removeCookie('accessToken')
   removeCookie('refreshToken')
+  removeCookie('connect.sid')
   removeCookie('role')
   LocalStorage.removeToken()
   LocalStorage.removeItem('user')

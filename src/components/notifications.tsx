@@ -13,6 +13,7 @@ const Notifications = () => {
       setList(resp)
     })
   }, [])
+  if (list.length < 1) return <p className="info">새로운 알림내역이 없습니다</p>
   return (
     <ul>
       {list.map((item, idx) => {
@@ -31,7 +32,7 @@ export const Notification = ({ item }: { item: N }) => {
     <li
       // className={isitPassed ? 'readed' : ''}
       onClick={() => {
-        route.push(`${item.url}`)
+        item.url != null && route.push(`${item.url}`)
       }}
     >
       <div role="alert" className="alert shadow-lg">

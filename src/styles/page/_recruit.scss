@@ -134,6 +134,7 @@
       transition: opacity 0.3s ease;
 
       .modal-wrapper {
+
         height: fit-content;
         width: 36rem;
         right: 0;
@@ -162,6 +163,8 @@
 
       .modal-body {
         overflow-y: auto;
+        max-height: 85vh;
+        margin-bottom: 20px;
         padding: 1rem 1rem 1rem 2rem;
 
         & li {
@@ -300,12 +303,16 @@
           }
         }
       }
+    }
+    
+    .right-body-wrap {
+      margin-bottom: 30px;
       .recruit-detail-con {
         margin-top: 1rem;
         background-color: var(--bg-color-2);
         border-radius: 1rem;
         box-shadow: rgba(73, 73, 73, 0.1) 0 1.2rem 2.5rem 0;
-
+  
         .match-title {
           font-weight: 600;
           font-size: var(--text-size-base);
@@ -317,9 +324,6 @@
           word-break: break-all;
         }
       }
-    }
-
-    .right-body-wrap {
       width: 65%;
       max-width: 100%;
       margin-top: 2rem;
@@ -369,7 +373,7 @@
             padding-bottom: 3rem;
             font-weight: 700;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
 
             .match-place-info {
               word-break: keep-all;
@@ -384,6 +388,7 @@
 
             .info-box .place-space {
               margin-right: 0.4rem;
+              line-height: 1.4;
             }
           }
           .match-price {

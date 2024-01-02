@@ -1,16 +1,15 @@
 'use client'
-import UserInfoSec from '@/components/userInfoSec'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { scrollHandler } from '@/func/scrollEvent'
 import { useRouter } from 'next/navigation'
 import { IoChevronBackCircleSharp } from 'react-icons/io5'
-import { FaRegCommentAlt, FaHeart } from 'react-icons/fa'
+import { FaRegCommentAlt, FaRegHeart, FaHeart } from 'react-icons/fa'
 import Comment from '@/components/comment'
 import CommentInput from '@/components/commentInput'
 import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
 import dayjs from 'dayjs'
-import { Getfetch, axiosInstance } from '@/func/fetchCall'
+import { Getfetch, Postfetch, axiosInstance } from '@/func/fetchCall'
 import { useQuery } from '@tanstack/react-query'
 import { RecordDetail } from '@/types/types'
 import { getRecordDetail } from './_lib/getRecordDetail'
@@ -42,6 +41,7 @@ const page = ({ params }: { params: PageParams }) => {
   })
   const router = useRouter()
   const pageRef = useRef(null)
+  const [likeStatus, setLikeStatus] = useState(false)
   const [user, _] = useRecoilState(UserDetailState)
   const [showInput, setShowInput] = useState(false)
   const [commentList, setCommentList] = useState<CommentListType>([])
@@ -72,6 +72,9 @@ const page = ({ params }: { params: PageParams }) => {
   }, [pageRef])
   useEffect(() => {
     console.log(data)
+    if (data?.currentUserLikes) {
+      setLikeStatus(data?.currentUserLikes)
+    }
     if (data?.commentList) {
       setCommentList(data?.commentList)
     }
@@ -88,6 +91,20 @@ const page = ({ params }: { params: PageParams }) => {
       console.log(error)
     }
     if (isSuccess) router.back()
+  }
+  const likeHandler = async (value: boolean) => {
+    if (data?.accountName === user.accountName) {
+      alert('본인 게시글에는 좋아요할 수 없습니다')
+      return;
+    }
+    try {
+      const res = await Postfetch(`/record/${params.id}/like`)
+      if (res.status === 200) {
+        setLikeStatus((prev) => !prev)
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
   if (!isSuccess) return null
   return (
@@ -110,7 +127,7 @@ const page = ({ params }: { params: PageParams }) => {
             </div>
             <div className="user_info">
               <h3>{data.accountName}</h3>
-              <p>@{data.accountName}</p>
+              <p>@{data.name}</p>
             </div>
           </div>
         </div>
@@ -119,7 +136,21 @@ const page = ({ params }: { params: PageParams }) => {
             <SwiperWrap CarouselData={data!.imageAddressList} />
           </div>
           <div className="icon_wrap">
-            <FaHeart className="hoverScaleAct" />
+            {likeStatus ? (
+              <FaHeart
+                className="hoverScaleAct"
+                onClick={() => {
+                  likeHandler(true)
+                }}
+              />
+            ) : (
+              <FaRegHeart
+                className="hoverScaleAct"
+                onClick={() => {
+                  likeHandler(true)
+                }}
+              />
+            )}
             <FaRegCommentAlt
               className="hoverScaleAct"
               onClick={() => {

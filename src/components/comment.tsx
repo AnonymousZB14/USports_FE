@@ -23,7 +23,7 @@ const Comment = ({ comment }: { comment: RecordDetailComment }) => {
       <div className="comment_body">
         <ul>
           <li>
-            <span className="username">{comment.accountName}</span>
+            <span className="username">{comment.name}</span>
             <span className="userid">@{comment.accountName}</span>
           </li>
           <li>

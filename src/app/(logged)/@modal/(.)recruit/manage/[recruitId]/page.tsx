@@ -7,6 +7,7 @@ import ApplyStatus from '@/components/applyStatus'
 import { useQuery } from '@tanstack/react-query'
 import { getApplicants } from './_lib/getApplicants'
 import { RecruitApplicants, IngList, AcceptedList } from '@/types/types'
+import axios from 'axios'
 
 const Page = () => {
   const params = useParams()
@@ -17,42 +18,78 @@ const Page = () => {
     queryFn: getApplicants,
   })
   const [ingList, setIngList] = useState<IngList[]>([])
+  const [status, setStatus] = useState('')
   const [acceptedList, setAcceptedList] = useState<IngList[]>([])
   useEffect(() => {
     if (!data) return
     setIngList(data?.ingList)
     setAcceptedList(data?.acceptedList)
+    setStatus(data.status)
   }, [data])
   const setListHandler = (accept: boolean, item: IngList) => {
     if (accept === true) {
       setIngList(ingList.filter((origin) => origin.memberId !== item.memberId))
-      setAcceptedList([...acceptedList, item])
+      const newItem = item
+      newItem.status = '수락'
+      setAcceptedList([...acceptedList, newItem])
     } else {
       setIngList(ingList.filter((origin) => origin.memberId !== item.memberId))
+    }
+  }
+  const endRecruitHandler = async () => {
+    try {
+      const res = await axios.put(`/usports/recruit/${recruitId}/end`)
+      if (res.status === 200) {
+        alert('마감되었습니다')
+        setStatus('END')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const calcelEndRecruitHandler = async () => {
+    try {
+      const res = await axios.put(`/usports/recruit/${recruitId}/end`)
+      if (res.status === 200) {
+        alert('마감이 취소되었습니다')
+        setStatus('RECRUITING')
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
   return (
     <Modal>
       <div className="modal-header">
-        <h3>모집 인원 관리 {recruitId}</h3>
+        <h3>모집 인원 관리</h3>
       </div>
       <div className="modal-body">
         <div className="accept-info-wrap">
           <div className="accept-info">
-            <p>현재 수락된 인원 수 :</p>{' '}
+            <p>현재 수락된 인원 수 :</p>
             <span>
               {data?.currentCount} / {data?.totalCount} 명
             </span>
           </div>
-          <Button
-            type="button"
-            theme="blue"
-            tailwindStyles="py-0 px-2 float-right"
-            onClick={() => {}}
-            disabled={data?.totalCount === data?.acceptedList}
-          >
-            마감하기
-          </Button>
+          {status === 'END' ? (
+            <Button
+              type="button"
+              theme="gray"
+              tailwindStyles="py-0 px-2 float-right"
+              onClick={calcelEndRecruitHandler}
+            >
+              마감취소
+            </Button>
+          ) : (
+            <Button
+              type="button"
+              theme="blue"
+              tailwindStyles="py-0 px-2 float-right"
+              onClick={endRecruitHandler}
+            >
+              마감하기
+            </Button>
+          )}
         </div>
         <div className="apply-wrap">
           <label>지원자 현황</label>

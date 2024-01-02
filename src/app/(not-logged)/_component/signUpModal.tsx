@@ -2,13 +2,19 @@
 import { Postfetch } from '@/func/fetchCall'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 const SignUpModal = () => {
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, getValues} = useForm()
+  const [verifypassword, setverifypassword] = useState('')
   const route = useRouter()
   let isSuccess = false
   const onsubmitHandler = async (e: any) => {
+    const pwd = getValues('password')
+    if (verifypassword !== pwd) {
+      alert('비밀번호를 동일하게 입력해주세요')
+      return
+    }
     console.log(e)
     try {
       const res = await axios.post(`/usports/member/register`, e)
@@ -28,13 +34,13 @@ const SignUpModal = () => {
       <form onSubmit={handleSubmit(onsubmitHandler)}>
         <div>
           <div>
-            <p>닉네임</p>
+            <p>이름</p>
             <input
               type="text"
               // name="accountName"
               id="accountName"
               {...register('accountName')}
-              placeholder="계정명 ex)userId"
+              placeholder="계정명 ex)username"
               onChange={() => {
                 console.log('x')
               }}
@@ -45,7 +51,7 @@ const SignUpModal = () => {
               {...register('name')}
               name="name"
               id="name"
-              placeholder="이름 ex)Nick"
+              placeholder="실명입력 ex)김ㅁㅁ"
             />
           </div>
           <div>
@@ -55,7 +61,7 @@ const SignUpModal = () => {
               type="email"
               name="email"
               id="email"
-              placeholder="이메일"
+              placeholder="이메일을 입력해주세요"
               required
             />
           </div>
@@ -75,16 +81,21 @@ const SignUpModal = () => {
               type="password"
               name="password"
               id="password"
-              placeholder="비밀번호"
+              placeholder="비밀번호를 입력해주세요"
               required
             />
           </div>
-          {/*           <input
-            type="password"
-            name="verifypassword"
-            id="verifypassword"
-            placeholder="비밀번호 확인"
-          /> */}
+          <div>
+            <p>비밀번호확인</p>
+            <input
+              type="password"
+              name="verifypassword"
+              value={verifypassword}
+              onChange={(e) => setverifypassword(e.target.value)}
+              id="verifypassword"
+              placeholder="비밀번호를 다시 입력해주세요"
+            />
+          </div>
           {/*          <input
             id="image"
             name="image"

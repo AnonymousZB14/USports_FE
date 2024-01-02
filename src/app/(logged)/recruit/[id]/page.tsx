@@ -50,7 +50,7 @@ const recruitDetail = () => {
       console.log(error)
     }
     if (isSuccess) {
-      router.back()
+      router.push('/explore')
     }
   }
   function formatDate(inputDateStr: string) {
@@ -71,9 +71,7 @@ const recruitDetail = () => {
   }
   const applyHandler = async () => {
     try {
-      const res = await axiosInstance.post(
-        `/recruit/${id}/join`,
-      )
+      const res = await axiosInstance.post(`/recruit/${id}/join`)
       if (res.status == 200) alert('신청 완료!')
     } catch (error) {
       console.log(error)
@@ -92,11 +90,6 @@ const recruitDetail = () => {
             <span className="sr-only">back</span>
           </i>
         </button>
-        <Link href={`/recruit/partner`}>
-          <Button tailwindStyles="py-0 px-2" theme="red">
-            파트너 평가하기
-          </Button>
-        </Link>
         {recruitData?.memberId === user.memberId && (
           <Link href={`/recruit/manage/${id}`}>
             <Button tailwindStyles="py-0 px-2" theme="orange">
@@ -155,14 +148,7 @@ const recruitDetail = () => {
                 </div>
               </div>
             </div>
-            <div className="recruit-detail-con">
-              <div className="match-title">
-                <p>모집 내용</p>
-              </div>
-              <div className="match-content">
-                {recruitData && <p>{recruitData.content}</p>}
-              </div>
-            </div>
+
           </div>
           <div className="right-body-wrap">
             <div className="apply-con">
@@ -187,9 +173,11 @@ const recruitDetail = () => {
                       <span className="place-space">
                         {recruitData.streetNameAddr}
                       </span>
+                      <br />
                       <span className="place-space">
                         {recruitData.streetNumberAddr}
                       </span>
+                      <br />
                       <span className="place-space">
                         {recruitData.placeName}
                       </span>
@@ -214,6 +202,14 @@ const recruitDetail = () => {
                 >
                   신청하기
                 </Button>
+              </div>
+            </div>
+            <div className="recruit-detail-con">
+              <div className="match-title">
+                <p>모집 내용</p>
+              </div>
+              <div className="match-content">
+                {recruitData && <p>{recruitData.content}</p>}
               </div>
             </div>
           </div>

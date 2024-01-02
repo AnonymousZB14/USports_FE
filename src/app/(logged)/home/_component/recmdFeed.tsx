@@ -25,8 +25,8 @@ const RecmdFeed = () => {
         ? undefined
         : lastPage.currentPage + 1
     },
-    staleTime: 60 * 1000,
-    gcTime: 300 * 1000,
+    // staleTime: 60 * 1000,
+    // gcTime: 300 * 1000,
   })
   const { ref, inView } = useInView({
     threshold: 0,

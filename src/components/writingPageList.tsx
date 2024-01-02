@@ -2,7 +2,7 @@
 import { WitingMode } from '@/store/mode'
 import Link from 'next/link'
 import { useRecoilState } from 'recoil'
-
+import { IoIosCloseCircle } from 'react-icons/io'
 export const WritingPageListWrap = () => {
   const onClickHandler = () => {
     setMode(false)
@@ -12,6 +12,7 @@ export const WritingPageListWrap = () => {
   return (
     <div className="writingPageList">
       <div>
+        <IoIosCloseCircle onClick={onClickHandler} />
         <ul className="menu menu-lg bg-base-200 rounded-box">
           <li>
             <Link href={'/recruit'} onClick={onClickHandler}>

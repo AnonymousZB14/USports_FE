@@ -16,8 +16,8 @@ ul.evaluationList {
       gap: 10px;
       .sportsBadge {
         text-align: center;
-        width: 63px;
-        padding: 3px 10px;
+        width: max-content;
+        padding: 4px 10px;
         background-color: springgreen;
         color: #222;
         font-size: var(--text-size-xs);
@@ -89,7 +89,7 @@ ul.evaluationList {
           display: flex;
           justify-content: space-between;
           position: relative;
-          
+
           p {
             display: inline-block;
             font-size: var(--text-size-base);

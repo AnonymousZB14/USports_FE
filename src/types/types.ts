@@ -63,6 +63,8 @@ export interface RecordDetailComment {
 }
 export interface RecordDetail {
   accountName: string
+  currentUserLikes: boolean
+  countRecordLike: number
   commentList: RecordDetailComment[]
   countComment: number
   imageAddressList: string[]
@@ -215,6 +217,7 @@ export interface HomeRecordListItem {
     },
   ]
   countComment: number
+  countRecordLike: number
   imageAddressList: string[]
   memberId: number
   name: string
@@ -328,6 +331,7 @@ export interface RecruitApplicants {
   acceptedList: AcceptedList[]
   currentCount: number
   ingList: IngList[]
+  status: string
   totalCount: number
 }
 export interface AcceptedList {

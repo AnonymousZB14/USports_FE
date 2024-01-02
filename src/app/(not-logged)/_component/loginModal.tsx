@@ -14,7 +14,7 @@ import { loginFun, onLoginSuccess } from '@/func/service'
 import axios from 'axios'
 import { UserDetailState, UserTokenState } from '@/store/user'
 import LocalStorage from '@/func/localstrage'
-
+import { KAKAO_AUTH_URL } from '../_lib/kakao'
 const LoginModal = () => {
   const router = useRouter()
   const [message, setMessage] = useState('')
@@ -75,7 +75,9 @@ const LoginModal = () => {
       </div>
       <hr />
       <div className="socialLogBtn">
-        <button className="kakaoBtn">카카오로 로그인</button>
+        <Link href={'http://3.39.34.245:8080/oauth2/authorization/kakao'}>
+          <button className="kakaoBtn">카카오로 로그인</button>
+        </Link>
       </div>
     </div>
   )
