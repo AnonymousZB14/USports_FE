@@ -32,7 +32,7 @@ export const Notification = ({ item }: { item: N }) => {
     <li
       // className={isitPassed ? 'readed' : ''}
       onClick={() => {
-        route.push(`${item.url}`)
+        item.url != null && route.push(`${item.url}`)
       }}
     >
       <div role="alert" className="alert shadow-lg">
