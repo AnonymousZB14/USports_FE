@@ -63,6 +63,8 @@ export interface RecordDetailComment {
 }
 export interface RecordDetail {
   accountName: string
+  currentUserLikes: boolean
+  countRecordLike: number
   commentList: RecordDetailComment[]
   countComment: number
   imageAddressList: string[]
