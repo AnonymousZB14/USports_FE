@@ -55,7 +55,7 @@ const recordWrite = () => {
     const formData = new FormData()
     // formData.append('images', images[0])
     images.map((file) => formData.append('images', file))
-    const blob = new Blob([JSON.stringify({ sportsId: 1, content: content })], {
+    const blob = new Blob([JSON.stringify({ sportsId: selectedFilter2.sportsId, content: content })], {
       type: 'application/json',
     })
     formData.append('request', blob)
