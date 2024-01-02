@@ -135,7 +135,11 @@ const recruitWrite = () => {
     dateStr: string,
     instance: flatpickr.Instance,
   ) => {
-    setSelectedDate(dateStr)
+    // console.log(selectedDates, dateStr)
+    const offset = 1000 * 60 * 60 * 9
+    const koreaNow = new Date(new Date(dateStr).getTime() + offset)
+    console.log(koreaNow.toISOString())
+    setSelectedDate(koreaNow.toISOString())
   }
   const handleTitChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTit(event.target.value)
@@ -183,7 +187,7 @@ const recruitWrite = () => {
         cost: costNum,
         recruitCount: personNum,
         address: addressData?.address,
-        meetingDate: new Date(selectedDate),
+        meetingDate: selectedDate,
         postCode: addressData?.postCode,
         placeName: addressData?.additional,
         region: selectedRegion,

@@ -23,6 +23,8 @@ const DatePicker: React.FC<DatePickerProps> = ({ onChange }) => {
       dateFormat: 'Y-m-d H:i',
       enableTime: true,
       onChange: onChange,
+      time_24hr: true,
+      // locale: 'ko',
     })
 
     return () => {
