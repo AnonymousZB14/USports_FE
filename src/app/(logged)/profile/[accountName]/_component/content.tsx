@@ -109,7 +109,7 @@ const Content = ({ accountName }: { accountName: string }) => {
         </div>
       </div>
       <div className="profile_contents">
-        {true ? (
+        {false ? (
           <div className="contents_lock">
             <HiOutlineLockClosed />
             <p>프로필 비공개 유저입니다</p>

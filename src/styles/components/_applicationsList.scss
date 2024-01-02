@@ -1,3 +1,5 @@
+@use '../themes/theme' as *;
+@use '../base/variables' as *;
 ul.applicationsList {
   display: flex;
   flex-direction: column;
@@ -27,6 +29,9 @@ ul.applicationsList {
           font-size: var(--text-size-base);
           color: var(--text-color-1);
           font-weight: 600;
+          @include mobile {
+            font-size: var(--text-size-xs);
+          }
         }
       }
       .buttonWrap {

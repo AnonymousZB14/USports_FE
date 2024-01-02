@@ -1,3 +1,4 @@
+@use '../themes/theme' as *;
 .profile_info {
   background-color: var(--bg-color-4);
   padding-top: 50px;
@@ -21,6 +22,17 @@
     flex-direction: row;
     align-items: center;
     gap: 0 20px;
+    @include mobile{
+      flex-wrap: wrap;
+      .user_info{
+        width: unset;
+      }
+      .follow{
+        display: flex;
+        justify-content: right;
+        width: 100%;
+      }
+    }
     .lock {
       svg {
         width: 40px;
@@ -30,6 +42,9 @@
     .avatar_img {
       width: 180px;
       height: 180px;
+      @include mobile{
+        width: 100px;height: 100px;
+      }
     }
   }
 }

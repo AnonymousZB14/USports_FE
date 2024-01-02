@@ -1,6 +1,7 @@
+'use client'
 import Avatar from '@/components/avatar'
 import Link from 'next/link'
-import React from 'react'
+import React, { useLayoutEffect } from 'react'
 import LogoutBtn from '@/components/logoutBtn'
 import ModeToggle from '@/components/modeToggle'
 import MypageBtn from '@/components/mypageBtn'
@@ -14,7 +15,17 @@ import { cookies } from 'next/headers'
 import RoleChange from '@/components/roleChange'
 import UserProfile from '@/components/user_profile'
 import { HamBtn } from '@/components/hambtn'
+import { useRecoilState } from 'recoil'
+import { OpenHeader } from '@/store/mode'
+import { usePathname } from 'next/navigation'
 const Header = () => {
+  const [openMode, setOpenmode] = useRecoilState(OpenHeader)
+  const pathname = usePathname()
+  useLayoutEffect(() => {
+    setOpenmode((prev) => {
+      return prev === true && false
+    })
+  }, [pathname])
   const navList = [
     {
       href: '/',
@@ -48,34 +59,36 @@ const Header = () => {
     },
   ]
   return (
-    <header id="header">
-      <RoleChange />
-      <div className="head_inner" style={{overflowY:'auto'}}>
-        <UserProfile />
-        <nav>
-          <ul>
-            {navList.map((cate, idx) => {
-              return (
-                <li key={idx}>
-                  <Link href={cate.href}>
-                    <span>
-                      {cate.icon}
-                      {cate.title}
-                    </span>
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
-        </nav>
-        <div className="iconWrap bg-primary">
-          <ModeToggle />
-          <LogoutBtn />
-          <MypageBtn />
-          <WritingBtn />
+    <>
+      <header id="header" className={openMode === true ? 'block' : ''}>
+        <RoleChange />
+        <div className="head_inner" style={{ overflowY: 'auto' }}>
+          <UserProfile />
+          <nav>
+            <ul>
+              {navList.map((cate, idx) => {
+                return (
+                  <li key={idx}>
+                    <Link href={cate.href}>
+                      <span>
+                        {cate.icon}
+                        {cate.title}
+                      </span>
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+          </nav>
         </div>
+      </header>
+      <div className="iconWrap bg-primary">
+        <ModeToggle />
+        <LogoutBtn />
+        <MypageBtn />
+        <WritingBtn />
       </div>
-    </header>
+    </>
   )
 }
 

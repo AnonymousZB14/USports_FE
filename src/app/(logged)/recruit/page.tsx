@@ -278,8 +278,8 @@ const recruitWrite = () => {
           />
         </div>
         <div className="category-wrap">
+          <label>레벨</label>
           <div className="category-con">
-            <label>레벨</label>
             <LevelFilterSection
               openFilterDialog={openFilterDialog4}
               closeFilterDialog={closeFilterDialog4}
@@ -344,7 +344,7 @@ const recruitWrite = () => {
           />
         </div>
 
-        <div className="tit-input-wrap">
+        <div className="tit-input-wrap addressWrap">
           <label>주소</label>
           <FormAddress
             addressData={addressData}

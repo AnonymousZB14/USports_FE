@@ -1,3 +1,5 @@
+@use '../themes/theme' as *;
+@use '../base/variables' as *;
 .records {
   ul {
     margin-top: 0px;
@@ -8,6 +10,10 @@
     padding-bottom: 50px;
     li {
       width: calc((100% - 10px) / 3);
+      @include mobile{
+        width: calc((100% - 5px) / 2);
+
+      }
       .thumbnail {
         position: relative;
         &::after {
@@ -64,6 +70,9 @@
           // max-height: 20rem;
           object-fit: cover;
           max-height: 60vh;
+          @include mobile {
+            max-height: 30vh;
+          }
         }
       }
       .record_contents {
@@ -83,6 +92,10 @@
   span {
     font-weight: 500;
     font-size: var(--text-size-lg);
+    @include mobile{
+      
+      font-size: var(--text-size-base);
+    }
   }
   p {
     font-weight: 500;

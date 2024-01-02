@@ -1,8 +1,24 @@
+'use client'
+
+import { OpenHeader } from '@/store/mode'
+import { useEffect } from 'react'
+import { useRecoilState } from 'recoil'
+
 export const HamBtn = () => {
+  const [openMode, setOpenmode] = useRecoilState(OpenHeader)
+  useEffect(() => {
+    console.log(openMode)
+  }, [openMode])
   return (
     <div className="ham">
       <label className="btn btn-circle swap swap-rotate theme-icon">
-        <input type="checkbox" />
+        <input
+          type="checkbox"
+          checked={openMode}
+          onClick={() => {
+            setOpenmode((prev) => !prev)
+          }}
+        />
         <svg
           className="swap-off fill-current"
           xmlns="http://www.w3.org/2000/svg"
