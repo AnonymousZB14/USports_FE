@@ -148,14 +148,15 @@ const recruitDetail = () => {
                 </div>
               </div>
             </div>
-
           </div>
           <div className="right-body-wrap">
             <div className="apply-con">
               <div className="apply-main-section">
                 {recruitData && (
                   <p className="match-person">
-                    {recruitData.memberAccountName}
+                    <Link href={`/profile/${recruitData.memberAccountName}`}>
+                      {recruitData.memberAccountName}
+                    </Link>
                   </p>
                 )}
 

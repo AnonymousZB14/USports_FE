@@ -4,6 +4,16 @@
   background-color: var(--main-color1);
   min-width: 300px;
   width: 24%;
+  height: 100%;
+  @include tablet {
+    position: absolute;
+    z-index: 8;
+  }
+  @include mobile {
+    position: absolute;
+    z-index: 8;
+  }
+
   .head_inner {
     overflow-y: auto;
     padding-top: 40px;
@@ -19,7 +29,7 @@
       align-items: center;
       justify-content: center;
       width: 100%;
-      &>div{
+      & > div {
         border-radius: 50%;
         background-color: #fff;
       }
@@ -38,10 +48,10 @@
           align-items: center;
           background-color: transparent;
           transition: all 0.1s;
-          &:nth-child(3){
-            span{
+          &:nth-child(3) {
+            span {
               position: relative;
-/*               &::after{
+              /*               &::after{
                 content: "";
                 display: block;
                 width: 6px;

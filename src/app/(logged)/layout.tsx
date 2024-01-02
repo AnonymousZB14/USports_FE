@@ -8,6 +8,7 @@ import { cookies } from 'next/headers'
 import LocalStorage from '@/func/localstrage'
 import { checkCookie } from '@/func/cookie'
 import { WritingPageListWrap } from '@/components/writingPageList'
+import { HamBtn } from '@/components/hambtn'
 export const metadata: Metadata = {
   title: 'USports',
   description: 'usports',
@@ -27,6 +28,7 @@ export default async function RootLayout({
         type="text/javascript"
       />
       <div id="wrap">
+        <HamBtn />
         <Header />
         <main id="main">{children}</main>
         <WritingPageListWrap />

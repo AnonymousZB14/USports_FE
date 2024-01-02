@@ -13,6 +13,7 @@ import WritingBtn from '@/components/writingBtn'
 import { cookies } from 'next/headers'
 import RoleChange from '@/components/roleChange'
 import UserProfile from '@/components/user_profile'
+import { HamBtn } from '@/components/hambtn'
 const Header = () => {
   const navList = [
     {

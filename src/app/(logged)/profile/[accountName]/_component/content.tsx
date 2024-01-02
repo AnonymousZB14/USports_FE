@@ -13,6 +13,7 @@ import Button from '@/components/commonButton'
 import { useRecoilState } from 'recoil'
 import { UserDetailState } from '@/store/user'
 import { RiUserFollowLine, RiUserFollowFill } from 'react-icons/ri'
+import { HiOutlineLockClosed } from 'react-icons/hi'
 const Content = ({ accountName }: { accountName: string }) => {
   const [number, setNum] = useState(0)
   const [user, _] = useRecoilState(UserDetailState)
@@ -27,6 +28,7 @@ const Content = ({ accountName }: { accountName: string }) => {
     queryFn: getProfileUser,
   })
   useEffect(() => {
+    if (divRef.current === null) return
     ;[...(divRef.current as HTMLDivElement).children].forEach((div, idx) => {
       idx === number
         ? div.classList.add('active')
@@ -42,7 +44,11 @@ const Content = ({ accountName }: { accountName: string }) => {
       const res = await Postfetch(`follow/${data?.memberInfo.memberId}`)
       if (res.status === 200) {
         alert('팔로우 신청 완료!')
-        setFollowStatus('ACTIVE')
+        if (true) {
+          setFollowStatus('ACTIVE')
+        } else {
+          setFollowStatus('WAITING')
+        }
       }
     } catch (error) {}
   }
@@ -63,6 +69,11 @@ const Content = ({ accountName }: { accountName: string }) => {
             accountName={accountName}
             image={data?.memberInfo.profileImage!}
           />
+          {!user.profileOpen && (
+            <div className="lock">
+              <HiOutlineLockClosed />
+            </div>
+          )}
           <div className="user_info">
             <h3>{accountName}</h3>
             <p>{data?.memberInfo.email}</p>
@@ -98,18 +109,27 @@ const Content = ({ accountName }: { accountName: string }) => {
         </div>
       </div>
       <div className="profile_contents">
-        <CateUl onClick={cateOnclick} categories={['Record', 'Recruit']} />
-        <div className="tab_contents" ref={divRef}>
-          {number === 0 ? (
-            <div className="records">
-              <Records accoutName={accountName} />
+        {true ? (
+          <div className="contents_lock">
+            <HiOutlineLockClosed />
+            <p>프로필 비공개 유저입니다</p>
+          </div>
+        ) : (
+          <>
+            <CateUl onClick={cateOnclick} categories={['Record', 'Recruit']} />
+            <div className="tab_contents" ref={divRef}>
+              {number === 0 ? (
+                <div className="records">
+                  <Records accoutName={accountName} />
+                </div>
+              ) : (
+                <div className="recruits">
+                  <Recruits accoutName={accountName} />
+                </div>
+              )}
             </div>
-          ) : (
-            <div className="recruits">
-              <Recruits accoutName={accountName} />
-            </div>
-          )}
-        </div>
+          </>
+        )}
       </div>
     </>
   )
