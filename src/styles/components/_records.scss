@@ -1,0 +1,126 @@
+@use '../themes/theme' as *;
+@use '../base/variables' as *;
+.records {
+  ul {
+    margin-top: 0px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    overflow-y: auto;
+    padding-bottom: 50px;
+    li {
+      width: calc((100% - 10px) / 3);
+      @include mobile{
+        width: calc((100% - 5px) / 2);
+
+      }
+      .thumbnail {
+        position: relative;
+        &::after {
+          display: block;
+          content: '';
+          padding-bottom: 100%;
+        }
+        a {
+          display: block;
+          width: 100%;
+          height: 100%;
+          transition: all 0.1s;
+          &:hover {
+            opacity: 0.9;
+          }
+          img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+      }
+    }
+  }
+}
+.feed {
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  .feed_content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    & > div:first-child {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      & > div:first-child {
+        flex: 1;
+      }
+    }
+    .body {
+      & > a > div {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        img {
+          border-radius: 14px;
+          display: block;
+          width: calc((100% - 10px) / 2);
+          flex-grow: 1;
+          // max-height: 20rem;
+          object-fit: cover;
+          max-height: 60vh;
+          @include mobile {
+            max-height: 30vh;
+          }
+        }
+      }
+      .record_contents {
+        margin: 20px 0;
+      }
+    }
+  }
+}
+
+.record_contents {
+  display: flex;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 20px 0;
+  align-items: center;
+  gap: 10px;
+  span {
+    font-weight: 500;
+    font-size: var(--text-size-lg);
+    @include mobile{
+      
+      font-size: var(--text-size-base);
+    }
+  }
+  p {
+    font-weight: 500;
+    font-size: var(--text-size-sm);
+  }
+  div {
+    margin-left: auto;
+    display: flex;
+    gap: 10px;
+    align-content: center;
+    span {
+      display: flex;
+      gap: 3px;
+      align-items: center;
+      font-size: 14px;
+      color: var(--text-color-2);
+    }
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+span.dayjs {
+  font-size: var(--text-size-xs);
+  color: var(--text-color-3);
+}

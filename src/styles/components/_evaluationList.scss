@@ -1,0 +1,114 @@
+ul.evaluationList {
+  margin: 30px 0 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  & > li {
+    background-color: var(--bg-color-3);
+    border-bottom: 1px solid var(--bg-color-3);
+    border-left: 1px solid var(--bg-color-3);
+    border-right: 1px solid var(--bg-color-3);
+    .evitemCont {
+      padding: 14px;
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      .sportsBadge {
+        text-align: center;
+        width: max-content;
+        padding: 4px 10px;
+        background-color: springgreen;
+        color: #222;
+        font-size: var(--text-size-xs);
+      }
+      .cont {
+        flex: 1;
+        .title {
+          p {
+            font-size: var(--text-size-base);
+            color: var(--text-color-1);
+            margin-bottom: 8px;
+            font-weight: 600;
+          }
+        }
+        .sub {
+          font-size: var(--text-size-xs);
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          p.subCon {
+            &::before {
+              content: '●';
+              display: inline-block;
+              margin-right: 2px;
+            }
+            color: var(--text-color-1);
+            font-weight: 600;
+          }
+          p.conditions {
+            span {
+              color: var(--text-color-3);
+            }
+          }
+        }
+      }
+      button {
+        transition: all 0.2s;
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+        &.active {
+          transform: rotate(180deg);
+        }
+      }
+    }
+    a.linkbutton {
+      background-color: var(--text-color-3);
+      // border-radius: 4px;
+      font-size: var(--text-size-xs);
+      color: var(--bg-color-2);
+      padding: 5px 10px;
+    }
+    .evitemList {
+      display: none;
+      &.show {
+        display: block;
+      }
+      ul {
+        background-color: var(--bg-color-2);
+        display: flex;
+        flex-wrap: wrap;
+        li {
+          padding: 16px 20px 16px 30px;
+          width: 50%;
+          // text-align: center;
+          list-style: circle;
+          list-style-position: inside;
+          display: flex;
+          justify-content: space-between;
+          position: relative;
+
+          p {
+            display: inline-block;
+            font-size: var(--text-size-base);
+            font-weight: 600;
+            &::before {
+              display: block;
+              content: '';
+              width: 5px;
+              height: 5px;
+              background-color: #222;
+              position: absolute;
+              border-radius: 50%;
+              left: 15px;
+              top: 50%;
+              transform: translateY(-50%);
+            }
+          }
+        }
+      }
+    }
+  }
+}

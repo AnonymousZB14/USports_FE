@@ -1,0 +1,73 @@
+.record_detail_sec {
+  overflow-y: auto;
+  height: 100%;
+  padding: 0;
+  & > * {
+    padding: 0 var(--side-padding);
+  }
+  .page_top {
+    z-index: 11;
+    &:is(.scrolled > div) {
+      margin: 20px;
+      top: 10px;
+      border-radius: 14px;
+      box-shadow: 0 0px 20px 0px #0000001f;
+      padding-left: 70px;
+      button {
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        svg {
+          width: 38px;
+          height: 38px;
+        }
+      }
+    }
+    backdrop-filter: blur(10px);
+    background-color: transparent;
+    transition: all 0.4s;
+    padding: 40px 7% 30px;
+    position: sticky;
+    top: 0;
+    button {
+      transition: all 0.3s;
+      position: absolute;
+      left: 15px;
+      top: 15px;
+      svg {
+        width: 33px;
+        height: 33px;
+        color: var(--text-color-1);
+        transform: scale(1);
+        path {
+        }
+      }
+    }
+  }
+  .page_mid {
+    .icon_wrap {
+      margin: 15px 0;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      svg {
+        width: 22px;
+        height: 22px;
+      }
+    }
+  }
+  .page_btm {
+    margin: 20px 0;
+  }
+}
+.object-cover {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  color: transparent;
+}
+
+.upload-wrap {
+  width: 100%;
+}

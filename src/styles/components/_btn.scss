@@ -1,0 +1,43 @@
+.writingPageList{
+  position: fixed;
+  width: 100dvw;
+  height: 100dvh;
+  background-color: #00000081;
+  left: 0;
+  top: 0;
+  z-index: 12;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &>div{
+    svg{
+      width: 35px;
+      height: 35px;
+      margin-left: auto;
+      cursor: pointer;
+      fill: #fff;
+      transform: translate(30px, -10px);
+    }
+    ul{
+      li{
+        a{
+          display: block;
+          width: max-content;
+          padding: 10px;
+          font-size: var(--text-size-base);
+          padding: 10px 30px;
+          
+        }
+      }
+    }
+  }
+}
+
+.follow{
+  button{
+    width: max-content;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+}

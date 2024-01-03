@@ -1,0 +1,178 @@
+@use '../themes/theme' as *;
+@use '../base/variables' as *;
+.errorMsg {
+  color: rgb(237, 0, 0);
+  padding: 14px 0 0;
+  text-align: center;
+}
+.notLoggedP {
+  min-height: 50vh;
+  min-width: 40vw;
+  margin: 0 auto;
+  width: fit-content;
+  max-width: 100vw;
+  font-size: var(--text-size-base);
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  overflow-y: auto;
+  max-height: 90dvh;
+  h2 {
+    strong {
+      font-weight: 500;
+    }
+    word-spacing: 5px;
+    letter-spacing: 3px;
+    text-align: center;
+    font-size: var(--text-size-5xl);
+    color: var(--text-color-2);
+    font-weight: 200;
+  }
+  form {
+    margin-top: 80px;
+    display: flex;
+    gap: 10px;
+    @include mobile{
+      flex-wrap: wrap;
+      &>*{
+        width: 100%;
+      }
+    }
+    div {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 10px;
+      input {
+        &::placeholder {
+          color: #999;
+        }
+        flex: 1;
+        padding: 10px 0;
+        background-color: transparent;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        padding-left: 20px;
+      }
+    }
+    input[type='submit'] {
+      cursor: pointer;
+      background-color: #000;
+      color: #fff;
+      padding: 20px 50px;
+      border-radius: 6px;
+      margin: 0 auto;
+      transition: all 0.1s;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+  .linkWrap {
+    margin: 40px 0;
+    display: flex;
+    gap: 10px;
+    a {
+      flex: 1;
+      text-align: center;
+      padding: 20px 0;
+      color: #fff;
+      background-color: #222;
+      transition: all 0.1s;
+      &:hover {
+        opacity: 0.8;
+      }
+      &:first-child {
+        background-color: #888;
+      }
+      &:last-child {
+        background-color: #444;
+      }
+    }
+  }
+  hr {
+    position: relative;
+    overflow: visible;
+    border-top: 1px solid #000;
+    &::after {
+      background-color: #f8f8f8;
+      padding: 0 10px;
+      font-weight: 500;
+      display: block;
+      content: 'OR';
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      top: 50%;
+    }
+  }
+  .socialLogBtn {
+    padding-top: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    // flex-direction: column;
+    a {
+      display: block;
+      width: 100%;
+    }
+    button {
+      flex: 1;
+      padding: 18px 0;
+      font-size: var(--text-size-base);
+      border-radius: 5px;
+      font-weight: 500;
+      &.kakaoBtn {
+        background-color: #fee500;
+        width: 100%;
+      }
+      &.naverBtn {
+        background-color: rgb(3, 199, 90);
+        color: #fff;
+      }
+    }
+  }
+}
+
+.findPwdP,
+.createAccountP {
+  form {
+    flex-direction: column;
+    input {
+      margin: unset !important;
+    }
+  }
+}
+.createAccountP {
+  form {
+    & > div {
+      gap: 14px;
+      div {
+        @include mobile{
+          flex-wrap: wrap;
+        }
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        p,
+        button {
+          padding: 12px 0;
+          width: 110px;
+          font-size: var(--text-size-base);
+          background-color: #909090;
+          color: #eee;
+          border-radius: 4px;
+          text-align: center;
+          border-radius: 3px;
+        }
+        input[type='radio'] {
+          flex: unset;
+        }
+      }
+    }
+    input[type='submit'] {
+      margin-top: 40px !important;
+    }
+  }
+}
