@@ -15,7 +15,8 @@ export const HamBtn = () => {
         <input
           type="checkbox"
           checked={openMode}
-          onClick={() => {
+          
+          onChange={() => {
             setOpenmode((prev) => !prev)
           }}
         />

@@ -67,8 +67,8 @@ const EvaluationList = ({ list }: Prop) => {
   if (list.length < 1) return <p className="info">평가할 모집글이 없습니다</p>
   return (
     <ul className="evaluationList">
-      {list.map((item) => (
-        <EvaluationItem key={item.recruit.recruitId} item={item} />
+      {list.map((item, idx) => (
+        <EvaluationItem key={idx} item={item} />
       ))}
     </ul>
   )
@@ -119,8 +119,8 @@ export const EvaluationItem = ({ item }: { item: PropItem }) => {
       </div>
       <div className="evitemList" ref={listRef}>
         <ul>
-          {item.memberList.map((person) => (
-            <li>
+          {item.memberList.map((person,idx) => (
+            <li key={idx}>
               <p>{person.accountName}</p>
               <Link
                 className="linkbutton"

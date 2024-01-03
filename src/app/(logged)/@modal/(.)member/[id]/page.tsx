@@ -1,11 +1,9 @@
 'use client'
 import Button from '@/components/commonButton'
 import Modal from '@/components/modal'
-import { axiosInstance } from '@/func/fetchCall'
 import { SportsList } from '@/store/types'
 import { UserDetailState, UserTokenState } from '@/store/user'
-import axios, { AxiosError } from 'axios'
-import Image from 'next/image'
+import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import React, {
   FormEventHandler,
@@ -41,7 +39,7 @@ const Page = () => {
   const [images, setImages] = useState<File[] | null>([])
   const [gender, setgender] = useState(user.gender)
   const [profileOpen, setprofileOpen] = useState<string | boolean>(
-    user.profileOpen,
+    user.profileOpen?'open':'close',
   )
   const [interestedSportsList, setinterestedSports] = useState<Number[]>([])
   const profileSubmitHandler: MouseEventHandler<HTMLButtonElement> = async (
@@ -202,6 +200,8 @@ const Page = () => {
   }
   useEffect(() => {
     console.log(user)
+
+    setinterestedSports(user.interestedSportsList.map((item) => item.sportsId))
   }, [user])
   return (
     <Modal>
@@ -320,18 +320,28 @@ const Page = () => {
             <label htmlFor="interestedSports">관심 운동 종목</label>
             <div className="sportOptionContainer">
               {sportsList.map((sport, idx) => (
-                <div className="sportOptionWrap" style={{ display: 'flex' }}>
+                <div
+                  className="sportOptionWrap"
+                  key={idx}
+                  style={{ display: 'flex' }}
+                >
                   <input
                     key={idx}
                     type="checkbox"
                     id={sport.sportsName}
                     value={sport.sportsId}
                     className="checkbox checkbox-warning"
+                    checked={interestedSportsList.includes(sport.sportsId)}
                     onChange={(e) => {
-                      if (e.target.checked)
-                        setinterestedSports((prev) => {
-                          return [...prev, sport.sportsId]
-                        })
+                      e.target.checked
+                        ? setinterestedSports((prev) => {
+                            return [...prev, sport.sportsId]
+                          })
+                        : setinterestedSports((prev) => {
+                            return prev.filter(
+                              (item) => item !== sport.sportsId,
+                            )
+                          })
                     }}
                   />
                   <label htmlFor={sport.sportsName}>{sport.sportsName}</label>
@@ -347,6 +357,7 @@ const Page = () => {
               name="gener"
               className="radio"
               required
+              checked={gender === 'FEMALE'}
               value={'FEMALE'}
               onChange={(e) => {
                 if (e.target.checked) setgender('FEMALE')
@@ -359,6 +370,7 @@ const Page = () => {
               name="gener"
               required
               className="radio"
+              checked={gender === 'MALE'}
               value={'MALE'}
               onChange={(e) => {
                 if (e.target.checked) setgender('MALE')
@@ -372,10 +384,13 @@ const Page = () => {
               type="radio"
               id="accountOpen"
               name="accountOpen"
+              required
               className="radio"
+              checked={profileOpen === 'open' || profileOpen === true}
               value={'open'}
               onChange={(e) => {
-                if (e.target.checked) setprofileOpen('open')
+                e.target.checked &&
+                setprofileOpen('open')
               }}
             />
             공개
@@ -383,10 +398,13 @@ const Page = () => {
               type="radio"
               id="accountOpen"
               name="accountOpen"
+              checked={profileOpen === 'close' || profileOpen === false}
               className="radio"
               value={'close'}
+              required
               onChange={(e) => {
-                if (e.target.checked) setprofileOpen('close')
+                e.target.checked &&
+                setprofileOpen('close')
               }}
             />
             비공개
