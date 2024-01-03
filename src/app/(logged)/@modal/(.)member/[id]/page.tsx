@@ -119,7 +119,6 @@ const Page = () => {
   }
   useEffect(() => {
     if (message !== '') alert(message)
-    setinterestedSports([...user.interestedSportsList])
   }, [])
   const resendEmail = async (e: React.MouseEvent) => {
     e.preventDefault()
@@ -151,7 +150,7 @@ const Page = () => {
     setLoading(true)
     setMessage('')
     let isSuccess = false
-    // console.log(e)
+    console.log(e)
     let formBody =
       user.role === 'UNAUTH'
         ? {
@@ -202,7 +201,7 @@ const Page = () => {
     if (isSuccess) router.back()
   }
   useEffect(() => {
-    // console.log(user)
+    console.log(user)
   }, [user])
   return (
     <Modal>
@@ -328,7 +327,6 @@ const Page = () => {
                     id={sport.sportsName}
                     value={sport.sportsId}
                     className="checkbox checkbox-warning"
-                    checked={true}
                     onChange={(e) => {
                       if (e.target.checked)
                         setinterestedSports((prev) => {
