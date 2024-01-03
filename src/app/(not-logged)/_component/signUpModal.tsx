@@ -1,16 +1,29 @@
 'use client'
 import { Postfetch } from '@/func/fetchCall'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 const SignUpModal = () => {
-  const { register, handleSubmit, getValues} = useForm()
+  const { register, handleSubmit, getValues } = useForm()
   const [verifypassword, setverifypassword] = useState('')
   const route = useRouter()
   let isSuccess = false
   const onsubmitHandler = async (e: any) => {
+    const pwdregex =
+      /^.*(?=^.{8,16}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/
     const pwd = getValues('password')
+    const emailregExp = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/i
+    const email = getValues('email')
+    if (!pwdregex.test(pwd)) {
+      alert('비밀번호는 영문, 숫자, 특수문자를 포함한 8~16자로 입력해주세요')
+      return
+    }
+    if (!emailregExp.test(email)) {
+      alert('이메일 형식이 잘못되었습니다')
+      return
+    }
+
     if (verifypassword !== pwd) {
       alert('비밀번호를 동일하게 입력해주세요')
       return
@@ -23,8 +36,13 @@ const SignUpModal = () => {
         isSuccess = true
         route.push('/login')
       }
+      if (res.status === 400) {
+        alert('닉네임이 이미 존재합니다')
+      }
     } catch (error) {
-      console.log(error)
+      if (axios.isAxiosError(error)) {
+        error.response?.status === 400 && alert('닉네임이 이미 존재합니다')
+      }
     }
   }
 

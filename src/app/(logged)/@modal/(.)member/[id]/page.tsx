@@ -39,7 +39,7 @@ const Page = () => {
   const [images, setImages] = useState<File[] | null>([])
   const [gender, setgender] = useState(user.gender)
   const [profileOpen, setprofileOpen] = useState<string | boolean>(
-    user.profileOpen?'open':'close',
+    user.profileOpen ? 'open' : 'close',
   )
   const [interestedSportsList, setinterestedSports] = useState<Number[]>([])
   const profileSubmitHandler: MouseEventHandler<HTMLButtonElement> = async (
@@ -68,7 +68,7 @@ const Page = () => {
       )
       if (!(res.status === 200)) {
         setMessage(res.data.errorMessage)
-        console.log(res.statusText)
+        // console.log(res.statusText)
         return
       }
       setUser(res.data)
@@ -100,7 +100,7 @@ const Page = () => {
       )
       if (!(res.status === 200)) {
         setMessage(res.data.errorMessage)
-        console.log(res.statusText)
+        // console.log(res.statusText)
         return
       }
       setUser(res.data)
@@ -148,7 +148,15 @@ const Page = () => {
     setLoading(true)
     setMessage('')
     let isSuccess = false
-    console.log(e)
+    const regPhone = /^\d{3}-\d{3,4}-\d{4}$/
+    if (!regPhone.test(phoneNumber)) {
+      alert('휴대폰 번호는 000-0000-0000 형식으로 입력해주세요')
+      return
+    }
+    if (interestedSportsList.length < 1) {
+      alert('최소 1개 이상의 운동 종목을 선택해주세요')
+      return
+    }
     let formBody =
       user.role === 'UNAUTH'
         ? {
@@ -199,7 +207,7 @@ const Page = () => {
     if (isSuccess) router.back()
   }
   useEffect(() => {
-    console.log(user)
+    // console.log(user)
 
     setinterestedSports(user.interestedSportsList.map((item) => item.sportsId))
   }, [user])
@@ -389,8 +397,7 @@ const Page = () => {
               checked={profileOpen === 'open' || profileOpen === true}
               value={'open'}
               onChange={(e) => {
-                e.target.checked &&
-                setprofileOpen('open')
+                e.target.checked && setprofileOpen('open')
               }}
             />
             공개
@@ -403,8 +410,7 @@ const Page = () => {
               value={'close'}
               required
               onChange={(e) => {
-                e.target.checked &&
-                setprofileOpen('close')
+                e.target.checked && setprofileOpen('close')
               }}
             />
             비공개
