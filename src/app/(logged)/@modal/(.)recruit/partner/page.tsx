@@ -84,7 +84,7 @@ const Page = () => {
   ]
 
   const handleSubmit = () => {
-    console.log('폼 제출:', evaluation)
+    // console.log('폼 제출:', evaluation)
   }
   return (
     <Modal>

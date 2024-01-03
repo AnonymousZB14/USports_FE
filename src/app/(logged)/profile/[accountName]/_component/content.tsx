@@ -36,7 +36,7 @@ const Content = ({ accountName }: { accountName: string }) => {
     })
   }, [number])
   useEffect(() => {
-    console.log(data)
+    // console.log(data)
     setFollowStatus(data?.followStatus!)
   }, [data])
   const goFollow = async () => {
@@ -44,7 +44,7 @@ const Content = ({ accountName }: { accountName: string }) => {
       const res = await Postfetch(`follow/${data?.memberInfo.memberId}`)
       if (res.status === 200) {
         alert('팔로우 신청 완료!')
-        if (true) {
+        if (data?.memberInfo.profileOpen === true) {
           setFollowStatus('ACTIVE')
         } else {
           setFollowStatus('WAITING')
@@ -69,7 +69,7 @@ const Content = ({ accountName }: { accountName: string }) => {
             accountName={accountName}
             image={data?.memberInfo.profileImage!}
           />
-          {!user.profileOpen && (
+          {data?.memberInfo.profileOpen === false && (
             <div className="lock">
               <HiOutlineLockClosed />
             </div>
@@ -109,7 +109,8 @@ const Content = ({ accountName }: { accountName: string }) => {
         </div>
       </div>
       <div className="profile_contents">
-        {false ? (
+        {data?.memberInfo.profileOpen === false &&
+        user.accountName !== data.memberInfo.accountName ? (
           <div className="contents_lock">
             <HiOutlineLockClosed />
             <p>프로필 비공개 유저입니다</p>

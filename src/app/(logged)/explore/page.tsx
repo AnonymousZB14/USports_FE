@@ -46,7 +46,7 @@ const explore = ({ searchParams }: Props) => {
   }
 
   useEffect(() => {
-    console.log(searchQuery)
+    // console.log(searchQuery)
   }, [searchQuery])
   const [list, setList] = useState<recruitItemProps[]>([])
   const [currentPage, setCurrentPage] = useState(1)
@@ -59,7 +59,7 @@ const explore = ({ searchParams }: Props) => {
     sports?: string
   }>({})
   useEffect(() => {
-    console.log(currentPage)
+    // console.log(currentPage)
     // setCurrentPage((current) => current)
     setFilter((prev) => {
       return {
@@ -69,7 +69,7 @@ const explore = ({ searchParams }: Props) => {
     })
   }, [currentPage])
   useEffect(() => {
-    console.log(filter)
+    // console.log(filter)
     handleSearchForm()
   }, [filter])
   const postsPerPage = 6
@@ -103,7 +103,7 @@ const explore = ({ searchParams }: Props) => {
     setIsFilterDialogOpen1(false)
   }
   const applyFilter1 = (filter: string) => {
-    console.log('Applying filter 1:', filter)
+    // console.log('Applying filter 1:', filter)
     setCurrentPage(1)
     setSelectedFilter1(filter)
     setFilter((prev) => {
@@ -120,7 +120,7 @@ const explore = ({ searchParams }: Props) => {
     setIsFilterDialogOpen2(false)
   }
   const applyFilter2 = (filter: string) => {
-    console.log('Applying filter 2:', filter)
+    // console.log('Applying filter 2:', filter)
     setCurrentPage(1)
     setSelectedFilter2(filter)
     setFilter((prev) => {
@@ -137,7 +137,7 @@ const explore = ({ searchParams }: Props) => {
     setIsFilterDialogOpen3(false)
   }
   const applyFilter3 = (filter: string) => {
-    console.log('Applying filter 3:', filter)
+    // console.log('Applying filter 3:', filter)
     setCurrentPage(1)
     setSelectedFilter3(filter)
     setFilter((prev) => {

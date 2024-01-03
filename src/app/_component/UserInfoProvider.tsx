@@ -19,8 +19,8 @@ const UserInfoProvider = ({ children }: { children: React.ReactNode }) => {
   const [mode, setMode] = useRecoilState(DarkModeState)
   let localUser, localMode, localToken
   useEffect(() => {
-    console.log(user)
-    console.log(userToken)
+    // console.log(user)
+    // console.log(userToken)
   }, [user])
   const route = useRouter()
   useEffect(() => {

@@ -28,7 +28,7 @@ const recruitDetail = () => {
       .get(`/recruit/${id}`)
       .then((res) => {
         setRecruitData(res.data)
-        console.log(res.data)
+        // console.log(res.data)
         const formattedDate = formatDate(res.data.meetingDate)
         setFormattedDate(formattedDate)
       })

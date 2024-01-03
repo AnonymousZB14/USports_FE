@@ -7,7 +7,7 @@ import { useRecoilState } from 'recoil'
 export const HamBtn = () => {
   const [openMode, setOpenmode] = useRecoilState(OpenHeader)
   useEffect(() => {
-    console.log(openMode)
+    // console.log(openMode)
   }, [openMode])
   return (
     <div className="ham">

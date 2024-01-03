@@ -15,7 +15,7 @@ const SignUpModal = () => {
       alert('비밀번호를 동일하게 입력해주세요')
       return
     }
-    console.log(e)
+    // console.log(e)
     try {
       const res = await axios.post(`/usports/member/register`, e)
       if (res.status === 200) {
@@ -41,9 +41,6 @@ const SignUpModal = () => {
               id="accountName"
               {...register('accountName')}
               placeholder="계정명 ex)username"
-              onChange={() => {
-                console.log('x')
-              }}
             />
 
             <input
