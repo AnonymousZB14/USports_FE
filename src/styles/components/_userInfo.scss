@@ -1,3 +1,5 @@
+@use '../themes/theme' as *;
+@use '../base/variables' as *;
 .user_info {
   width: 80%;
   display: flex;
@@ -6,6 +8,9 @@
   h3 {
     font-size: 20px;
     font-weight: 500;
+    @include mobile {
+      font-size: 15px;
+    }
   }
   p {
     color: gray;

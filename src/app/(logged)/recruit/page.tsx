@@ -74,7 +74,7 @@ const recruitWrite = () => {
   }
 
   const applyFilter1 = (filter: string) => {
-    console.log('Applying filter 1:', filter)
+    // console.log('Applying filter 1:', filter)
     setSelectedRegion(filter)
   }
 
@@ -87,7 +87,7 @@ const recruitWrite = () => {
   }
 
   const applyFilter2 = (sportsId: number, sportsName: string) => {
-    console.log('Applying filter 2:', sportsId)
+    // console.log('Applying filter 2:', sportsId)
     setSelectedSports({ sportsId, sportsName })
   }
 
@@ -100,7 +100,7 @@ const recruitWrite = () => {
   }
 
   const applyFilter3 = (filter: string) => {
-    console.log('Applying filter 3:', filter)
+    // console.log('Applying filter 3:', filter)
     setSelectedGender(filter)
   }
 
@@ -113,7 +113,7 @@ const recruitWrite = () => {
   }
 
   const applyFilter4 = (filter: string) => {
-    console.log('Applying filter 4:', filter)
+    // console.log('Applying filter 4:', filter)
     setSelectedGradeFrom(filter)
   }
 
@@ -126,7 +126,7 @@ const recruitWrite = () => {
   }
 
   const applyFilter5 = (filter: string) => {
-    console.log('Applying filter 5:', filter)
+    // console.log('Applying filter 5:', filter)
     setSelectedGradeTo(filter)
   }
 
@@ -138,7 +138,7 @@ const recruitWrite = () => {
     // console.log(selectedDates, dateStr)
     const offset = 1000 * 60 * 60 * 9
     const koreaNow = new Date(new Date(dateStr).getTime() + offset)
-    console.log(koreaNow.toISOString())
+    // console.log(koreaNow.toISOString())
     setSelectedDate(koreaNow.toISOString())
   }
   const handleTitChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -167,7 +167,7 @@ const recruitWrite = () => {
       .then((res) => {
         setOptionList(res.data)
 
-        console.log('optionList: ', res.data, optionList?.genderList)
+        // console.log('optionList: ', res.data, optionList?.genderList)
       })
       .catch((err) => {
         console.log(err)
@@ -180,7 +180,7 @@ const recruitWrite = () => {
     let isSuccess, recruitId
     try {
       const recruitData = new FormData()
-      console.log('Recruit Data:', Object.fromEntries(recruitData))
+      // console.log('Recruit Data:', Object.fromEntries(recruitData))
       const res = await axiosInstance.post(`/recruit`, {
         title: tit,
         content,
@@ -196,7 +196,7 @@ const recruitWrite = () => {
         gradeFrom: selectedGradeFrom,
         gradeTo: selectedGradeTo,
       })
-      console.log('Response:', res)
+      // console.log('Response:', res)
 
       if (res.status == 200) {
         setTit('')
@@ -278,8 +278,8 @@ const recruitWrite = () => {
           />
         </div>
         <div className="category-wrap">
+          <label>레벨</label>
           <div className="category-con">
-            <label>레벨</label>
             <LevelFilterSection
               openFilterDialog={openFilterDialog4}
               closeFilterDialog={closeFilterDialog4}
@@ -344,7 +344,7 @@ const recruitWrite = () => {
           />
         </div>
 
-        <div className="tit-input-wrap">
+        <div className="tit-input-wrap addressWrap">
           <label>주소</label>
           <FormAddress
             addressData={addressData}
@@ -372,7 +372,7 @@ const recruitWrite = () => {
             tailwindStyles="py-0 px-2"
             theme="blue"
             onClick={() => {
-              console.log(addressData, selectedDate)
+              // console.log(addressData, selectedDate)
             }}
           >
             작성완료

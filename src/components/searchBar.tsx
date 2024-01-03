@@ -16,21 +16,7 @@ const SearchBar = ({ onSearchHandler,value,isLoading,handleSearch }: Prop) => {
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [searchResults, setSearchResults] = useState<SearchResult[]>([])
 
-/*   const handleSearch = () => {
-    const fakeSearchResults: SearchResult[] = [
-      { id: 1, title: '운동' },
-      { id: 2, title: '스피닝' },
-      { id: 3, title: '스쿼시' },
-      { id: 4, title: '배드민턴' },
-      { id: 5, title: '테니스' },
-      { id: 6, title: '축구' },
-    ]
-    const filteredResults = fakeSearchResults.filter((result) =>
-      result.title.includes(searchQuery),
-    )
-    setSearchResults(filteredResults)
-    console.log(filteredResults)
-  } */
+
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {

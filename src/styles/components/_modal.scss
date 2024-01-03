@@ -1,3 +1,4 @@
+@use '../themes/theme' as *;
 #modal {
   position: fixed;
   left: 0;
@@ -17,6 +18,9 @@
     top: 50%;
     transform: translate(-50%, -50%);
     border-radius: 30px;
+    @include mobile {
+      width: 90dvw;
+    }
     & > div:not(.closeModalBtn) {
       min-height: 200px;
       overflow-y: auto;

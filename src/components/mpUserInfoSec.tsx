@@ -17,7 +17,7 @@ const MpUserInfoSec = () => {
   })
 
   useEffect(() => {
-    console.log(data)
+    // console.log(data)
   }, [data])
   if (!data) return null
   return (

@@ -41,7 +41,10 @@ export const UserDetailState = atom({
     teamworkScore: 0,
     updatedAt: '2023-12-18T09:39:45.148Z',
     username: '',
-    interestedSportsList: [0],
+    interestedSportsList: [{
+      sportsId: 0,
+      sportsName: '',
+    }],
 
     /*     tokenDto: {
       accessToken: '',

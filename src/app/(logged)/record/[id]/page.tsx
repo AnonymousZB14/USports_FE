@@ -71,7 +71,7 @@ const page = ({ params }: { params: PageParams }) => {
     scrollHandler(pageRef.current)
   }, [pageRef])
   useEffect(() => {
-    console.log(data)
+    // console.log(data)
     if (data?.currentUserLikes) {
       setLikeStatus(data?.currentUserLikes)
     }

@@ -103,7 +103,7 @@ const Page = () => {
   ]
 
   const handleSubmit = async () => {
-    console.log('폼 제출:', evaluation)
+    // console.log('폼 제출:', evaluation)
     try {
       const res = await Postfetch('evaluation', {
         kindness: evaluation.kindness,
@@ -127,7 +127,7 @@ const Page = () => {
         </div>
         <div className="modal-body">
           <div className="manners-wrap">
-            <label>😄친절점수</label>
+            <label>😄 친절 점수</label>
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((score) => (
               <button
                 key={score}

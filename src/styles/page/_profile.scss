@@ -1,10 +1,11 @@
+@use '../themes/theme' as *;
 .profile_info {
   background-color: var(--bg-color-4);
   padding-top: 50px;
   position: relative;
   padding-bottom: 30px;
   &::after {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     background-color: var(--bg-color-2);
@@ -20,10 +21,30 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 0 30px;
-    .avatar_img{
+    gap: 0 20px;
+    @include mobile{
+      flex-wrap: wrap;
+      .user_info{
+        width: unset;
+      }
+      .follow{
+        display: flex;
+        justify-content: right;
+        width: 100%;
+      }
+    }
+    .lock {
+      svg {
+        width: 40px;
+        height: 40px;
+      }
+    }
+    .avatar_img {
       width: 180px;
       height: 180px;
+      @include mobile{
+        width: 100px;height: 100px;
+      }
     }
   }
 }
@@ -32,5 +53,21 @@
   background-color: var(--bg-color-2);
   padding: 0;
   position: relative;
-
+  min-height: 200px;
+  .contents_lock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    p {
+      font-size: var(--text-size-base);
+      color: var(--text-color-3);
+    }
+    svg {
+      width: 40px;
+      height: 40px;
+      color: var(--text-color-3);
+    }
+  }
 }

@@ -18,7 +18,7 @@ export const GoToFollow = () => {
     }
   }, [])
   useEffect(() => {
-    console.log(list)
+    // console.log(list)
   }, [list])
 
   return (

@@ -31,8 +31,8 @@ export default async (prevState: any, formData: FormData) => {
       body: formData,
       credentials: 'include',
     })
-    console.log(response.status)
-    console.log(formData)
+    // console.log(response.status)
+    // console.log(formData)
     // console.log(await response.data)
     /*     if (response.status === 403) {
       return { message: 'user_exists' }

@@ -27,7 +27,7 @@ export const Notification = ({ item }: { item: N }) => {
   const route = useRouter()
   const date = new Date(item.createdAt).toDateString()
   const isitPassed = new Date() > new Date(item.readAt)
-  console.log(isitPassed)
+  // console.log(isitPassed)
   return (
     <li
       // className={isitPassed ? 'readed' : ''}

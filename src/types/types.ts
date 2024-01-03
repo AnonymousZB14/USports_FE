@@ -109,6 +109,7 @@ export interface Post {
 export interface ProfileUserType {
   followStatus: string | null
   memberInfo: {
+    profileOpen:boolean
     accountName: string
     email: string
     interestSportsList: string[]

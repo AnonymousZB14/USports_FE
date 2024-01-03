@@ -16,7 +16,7 @@ const RoleChange = () => {
     } */
     setRole(user.role)
     setCookie('role', user.role, { path: '/' })
-    console.log(role, cookieRole)
+    // console.log(role, cookieRole)
   }, [user])
   if (role !== 'UNAUTH') return null
   return (

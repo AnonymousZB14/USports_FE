@@ -28,7 +28,7 @@ const recruitDetail = () => {
       .get(`/recruit/${id}`)
       .then((res) => {
         setRecruitData(res.data)
-        console.log(res.data)
+        // console.log(res.data)
         const formattedDate = formatDate(res.data.meetingDate)
         setFormattedDate(formattedDate)
       })
@@ -148,14 +148,15 @@ const recruitDetail = () => {
                 </div>
               </div>
             </div>
-
           </div>
           <div className="right-body-wrap">
             <div className="apply-con">
               <div className="apply-main-section">
                 {recruitData && (
                   <p className="match-person">
-                    {recruitData.memberAccountName}
+                    <Link href={`/profile/${recruitData.memberAccountName}`}>
+                      {recruitData.memberAccountName}
+                    </Link>
                   </p>
                 )}
 

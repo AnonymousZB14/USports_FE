@@ -13,7 +13,7 @@ export const ExploreRecruitItem = ({ item }: { item: recruitItemProps }) => {
     const selectedSport = sportList.find(
       (sport) => sport.sportsId == item.sportsId,
     )
-    console.log(selectedSport)
+    // console.log(selectedSport)
     setSportname(selectedSport?.sportsName!)
   }, [])
   return (

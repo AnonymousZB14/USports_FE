@@ -1,3 +1,5 @@
+@use '../themes/theme' as *;
+@use '../base/variables' as *;
 .mypageWrap {
   padding: 0;
   & > #title {
@@ -150,6 +152,9 @@
             align-items: center;
             justify-content: space-between;
             font-size: var(--text-size-xl);
+            @include mobile{
+              font-size: var(--text-size-base);
+            }
             svg {
               width: 22px;
               height: 22px;

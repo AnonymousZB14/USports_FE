@@ -13,7 +13,6 @@ import { useRecoilState } from 'recoil'
 import { loginFun, onLoginSuccess } from '@/func/service'
 import axios from 'axios'
 import { UserDetailState, UserTokenState } from '@/store/user'
-import LocalStorage from '@/func/localstrage'
 import { KAKAO_AUTH_URL } from '../_lib/kakao'
 const LoginModal = () => {
   const router = useRouter()
@@ -31,8 +30,6 @@ const LoginModal = () => {
       }
       await setHeaderToken(res.data.tokenDto.accessToken)
       onLoginSuccess(res?.data)
-      // LocalStorage.setAccessToken(res.data.tokenDto.accessToken)
-      // LocalStorage.setItem('user', JSON.stringify(res.data))
       setUser(res.data.memberResponse)
       setUserToken(res.data.tokenDto)
       isSuccessed = true
@@ -43,7 +40,13 @@ const LoginModal = () => {
       router.replace('/')
     }
   }
-
+  const kakaoLoginHandler = async () => {
+    try {
+      const res = await axios.get(`usports/oauth2/authorization/kakao`)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <div className="loginP notLoggedP centered">
       <h2>Log into USports</h2>
@@ -75,7 +78,7 @@ const LoginModal = () => {
       </div>
       <hr />
       <div className="socialLogBtn">
-        <Link href={'http://3.39.34.245:8080/oauth2/authorization/kakao'}>
+        <Link href='http://3.39.34.245:8080/oauth2/authorization/kakao'>
           <button className="kakaoBtn">카카오로 로그인</button>
         </Link>
       </div>

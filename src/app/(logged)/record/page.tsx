@@ -55,25 +55,29 @@ const recordWrite = () => {
     const formData = new FormData()
     // formData.append('images', images[0])
     images.map((file) => formData.append('images', file))
-    const blob = new Blob([JSON.stringify({ sportsId: 1, content: content })], {
-      type: 'application/json',
-    })
+    const blob = new Blob(
+      [
+        JSON.stringify({
+          sportsId: selectedFilter2.sportsId,
+          content: content,
+        }),
+      ],
+      {
+        type: 'application/json',
+      },
+    )
     formData.append('request', blob)
     let isSuccess = false
     let recordId
     try {
       // console.dir(images)
-      const res = await axios.post(
-        `/usports/record`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            credentials: 'include',
-            Authorization: `Bearer ${userToken.accessToken}`,
-          },
+      const res = await axios.post(`/usports/record`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          credentials: 'include',
+          Authorization: `Bearer ${userToken.accessToken}`,
         },
-      )
+      })
       if (!(res.status === 200)) return
       alert('작성 완료!')
       setLoading(false)
@@ -81,7 +85,6 @@ const recordWrite = () => {
       isSuccess = true
     } catch (error) {
       setLoading(false)
-      console.log
     }
     if (isSuccess && recordId) {
       route.replace(`record/${recordId}`)
@@ -89,7 +92,7 @@ const recordWrite = () => {
   }
 
   useEffect(() => {
-    console.log(selectedFilter2)
+    // console.log(selectedFilter2)
   }, [selectedFilter2])
 
   // 이미지 상대경로 저장
@@ -111,7 +114,7 @@ const recordWrite = () => {
   // X버튼 클릭 시 이미지 삭제
   const handleDeleteImage = (id: number) => {
     // console.log('파일',images)
-    console.log('미리보기', showImages)
+    // console.log('미리보기', showImages)
     setShowImages(showImages.filter((_, index) => index !== id))
     setImages(images.filter((_, index) => index !== id))
   }
@@ -201,20 +204,13 @@ const recordWrite = () => {
           <Button
             tailwindStyles="py-0 px-2"
             theme="gray"
-            // onClick={() => {
-            //   router.back()
-            // }}
+            onClick={() => {
+              route.back()
+            }}
           >
             작성취소
           </Button>
-          <Button
-            type="submit"
-            tailwindStyles="py-0 px-2"
-            theme="blue"
-            onClick={() => {
-              console.log('a')
-            }}
-          >
+          <Button type="submit" tailwindStyles="py-0 px-2" theme="blue">
             작성완료
           </Button>
         </div>

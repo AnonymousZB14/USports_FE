@@ -35,7 +35,7 @@ const ACCESSTOKEN =
   'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJoYXBweWhzcnl1QGdtYWlsLmNvbSIsImlhdCI6MTcwMjM3Mjk5NywiZXhwIjoxNzAyNTg4OTk3fQ.WcUEwKNxFepfB9_fK3XAGQi71mfDefnNi_JIGxJZigD3Er8CeC5s0vBigzZVMGlYVD0th_Sv2tdzPtZo0wlhLw'
 export const handlers = [
   http.post('/member/login', ({ request }) => {
-    console.log('로그인', request)
+    // console.log('로그인', request)
     return HttpResponse.json(
       {
         user: {

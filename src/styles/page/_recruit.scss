@@ -1,3 +1,5 @@
+@use '../themes/theme' as *;
+@use '../base/variables' as *;
 .write-tit {
   font-size: var(--text-size-xl);
   font-weight: 700;
@@ -6,7 +8,9 @@
 .explore-form {
   padding-top: 5rem;
   padding-bottom: 6rem;
-
+  @include mobile {
+    margin-bottom: 70px;
+  }
   & label {
     min-width: 6rem;
     font-size: var(--text-size-base);
@@ -23,7 +27,11 @@
     align-items: flex-start;
     justify-content: flex-start;
     margin-bottom: 2rem;
-
+    &.addressWrap {
+      @include mobile {
+        flex-wrap: wrap;
+      }
+    }
     & > input {
       display: block;
       width: 100%;
@@ -77,7 +85,12 @@
   .category-wrap {
     display: flex;
     margin-bottom: 2rem;
-
+    @include mobile {
+      flex-wrap: wrap;
+      label {
+        width: 100%;
+      }
+    }
     .category-con {
       display: flex;
       align-items: center;
@@ -124,7 +137,7 @@
 
     .filter-dialog {
       position: fixed;
-      z-index: 1;
+      z-index: 15;
       left: 0;
       top: 0;
       width: 100%;
@@ -134,7 +147,6 @@
       transition: opacity 0.3s ease;
 
       .modal-wrapper {
-
         height: fit-content;
         width: 36rem;
         right: 0;
@@ -250,10 +262,15 @@
     display: flex;
     color: var(--text-color-1);
     font-size: var(--text-size-base);
-
+    @include mobile {
+      flex-wrap: wrap;
+      & > div {
+        width: 100% !important;
+        
+      }
+    }
     .left-body-wrap {
       width: 35%;
-
       .match-point-con {
         background-color: var(--bg-color-2);
         border-radius: 1rem;
@@ -304,7 +321,7 @@
         }
       }
     }
-    
+
     .right-body-wrap {
       margin-bottom: 30px;
       .recruit-detail-con {
@@ -312,7 +329,7 @@
         background-color: var(--bg-color-2);
         border-radius: 1rem;
         box-shadow: rgba(73, 73, 73, 0.1) 0 1.2rem 2.5rem 0;
-  
+
         .match-title {
           font-weight: 600;
           font-size: var(--text-size-base);
