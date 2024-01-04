@@ -2245,6 +2245,11 @@ p.info {
   color: var(--text-color-3);
 }
 
+.followManageBtn {
+  position: absolute;
+  right: 0;
+  top: 30px;
+}
 .notifications {
   margin-top: 40px;
 }
