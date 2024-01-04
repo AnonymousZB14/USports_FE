@@ -1,3 +1,10 @@
+.followManageBtn {
+  position: absolute;
+  right: 0;
+  top: 30px;
+  button {
+  }
+}
 .notifications {
   margin-top: 40px;
   ul {
@@ -5,8 +12,8 @@
     flex-direction: column;
     gap: 25px;
     li {
-      &.readed{
-        opacity: .5;
+      &.readed {
+        opacity: 0.5;
       }
       .alert {
         cursor: pointer;
@@ -19,7 +26,7 @@
           display: flex;
           flex-direction: column;
           gap: 5px;
-          h3{
+          h3 {
             font-size: var(--text-size-base);
           }
           span {
@@ -29,7 +36,7 @@
         }
         &:hover {
           // transform: scale(1.02);
-          filter: brightness(.95);
+          filter: brightness(0.95);
         }
         svg {
           width: 25px;
