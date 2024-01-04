@@ -23,6 +23,6 @@
 
 ### 📎 [Github](https://github.com/AnonymousZB14/USports_FE)
 
-### 🗂️ [Notion](https://gleaming-canid-70b.notion.site/Main-usports-d19a7d683f494b178e62403edd6f84ae?pvs=4](https://helloworldusports.notion.site/USPORTS-SNS-c10174ce56d7451094935fc9d4b4765f?pvs=4)
+### 🗂️ [Notion](https://helloworldusports.notion.site/USPORTS-SNS-c10174ce56d7451094935fc9d4b4765f?pvs=4)
 
 ### 🎨 [Figma](https://www.figma.com/file/RiyQ1qhN4RXkdiMWr7OrEF/%EC%A0%9C%EB%A1%9C%EB%B2%A0%EC%9D%B4%EC%8A%A4-2%EC%A1%B0?type=design&node-id=0%3A1&mode=design&t=5woPr1uYENUKgQDm-1)
