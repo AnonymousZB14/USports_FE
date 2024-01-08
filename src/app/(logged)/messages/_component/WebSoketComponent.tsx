@@ -3,27 +3,25 @@ import * as StompJs from '@stomp/stompjs'
 import { getCookie } from '@/func/cookie_c'
 import { useEffect, useState } from 'react'
 import { Stomp } from '@stomp/stompjs'
-
+import SockJS from 'sockjs-client'
+import { useRecoilState } from 'recoil'
+import { UserDetailState } from '@/store/user'
 interface Prop {
   roomId: number
 }
 const WebSoketComponent = ({ roomId }: Prop) => {
   let [client, changeClient] = useState<StompJs.Client | null>(null)
   const [chat, setChat] = useState('')
+  const [user, _] = useRecoilState(UserDetailState)
   const [chatList, setChatList] = useState([''])
   const userToken = getCookie('accessToken')
   var firstEnter = true
-
   const connect = () => {
-    /*     let socket = new WebSocket('ws://3.39.34.245:8080/chat')
-    socket.onopen = function (e) {
-      alert('[open] 커넥션이 만들어졌습니다.')
-      alert('데이터를 서버에 전송해봅시다.')
-      socket.send('My name is Bora')
-    } */
     try {
       const client = new StompJs.Client({
-        brokerURL: 'ws://3.39.34.245:8080/chat/room',
+        webSocketFactory: () => new SockJS(`http://3.39.34.245:8080/ws/chat`),
+        // brokerURL: 'wss://javascript.info/article/websocket/demo/hello',
+        // brokerURL: 'ws://3.39.34.245:8080/ws/chat',
         connectHeaders: {
           credentials: 'include',
           Authorization: `Bearer ${userToken}`,
@@ -41,7 +39,7 @@ const WebSoketComponent = ({ roomId }: Prop) => {
 
       client.onConnect = function (frame) {
         console.log('onConnect!!')
-        client.subscribe(`/chat/${roomId}`, callback)
+        client.subscribe('/exchange/chat.exchange/room.' + roomId, callback)
       }
       client.activate()
       changeClient(client)
@@ -50,23 +48,25 @@ const WebSoketComponent = ({ roomId }: Prop) => {
     }
 
     const callback = function (message: any) {
+      console.log('call back')
       if (message.body) {
         let msg = JSON.parse(message.body)
         setChatList((prev) => [...prev, msg])
       }
     }
     const sendChat = () => {
-      if (chat === '') {
+      if (chat === '' || client === null) {
         return
       }
-      if (client === null) return
       client.publish({
-        destination: '/pub/chat/' + roomId,
+        destination: '/pub/chat/message/' + roomId,
         body: JSON.stringify({
-          type: '',
-          sender: roomId,
-          channelId: '1',
-          data: chat,
+          chatRoomId: roomId,
+          user: user.accountName,
+          userId: user.memberId,
+          imageAddress: user.profileImage,
+          content: chat,
+          time: new Date(),
         }),
       })
 
@@ -83,6 +83,7 @@ const WebSoketComponent = ({ roomId }: Prop) => {
 
   useEffect(() => {
     connect()
+    return () => disConnect()
   }, [userToken])
   return null
 }
