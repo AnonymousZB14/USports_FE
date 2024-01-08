@@ -109,7 +109,7 @@ export interface Post {
 export interface ProfileUserType {
   followStatus: string | null
   memberInfo: {
-    profileOpen:boolean
+    profileOpen: boolean
     accountName: string
     email: string
     interestSportsList: string[]
@@ -348,4 +348,15 @@ export interface IngList {
   memberId: number
   sportsSkill: string
   status: string
+}
+
+export type Rooms = Room[]
+export interface Room {
+  chatRoomId: number
+  chatRoomName: string
+  lastReadChatId: string
+  memberId: number
+  partakeId: number
+  recruitId: number
+  unreadChatCount: number
 }
