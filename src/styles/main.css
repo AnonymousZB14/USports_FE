@@ -2020,14 +2020,21 @@ ul.recruitManagement > li .recruitItemCont p.status {
   font-weight: 400;
 }
 
+.modalInner:has(.findUserWrap) {
+  max-width: 600px;
+}
+
 .findUserWrap {
-  padding-top: 50px;
+  padding: 50px 30px 30px;
+  max-width: 700px;
+  margin: 0 auto;
+  min-height: unset !important;
 }
 .findUserWrap form {
   display: flex;
   border: 1px solid #333;
-  border-radius: 5px;
-  padding: 0 10px 0 0;
+  border-radius: 25px;
+  padding: 0 20px;
   gap: 4px;
   overflow: hidden;
   align-items: center;
