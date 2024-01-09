@@ -58,15 +58,17 @@ const Page = () => {
           <div className="exercise-wrap">
             <h2>운동 평균 점수</h2>
             <div className="exercise-score">
-              {data?.sportsSkills &&
-                data?.sportsSkills.length < 1 ? (
+              {data?.sportsSkills && data?.sportsSkills.length < 1 ? (
                 <p>No data</p>
               ) : (
                 data?.sportsSkills.map((item, idx) => (
-                  <Fragment key={idx}>
-                    <h3>{item.sportsName}</h3>
-                    <p>{item.sportsGrade}</p>
-                  </Fragment>
+                  <>
+                    <div key={idx}>
+                      <h3>{item.sportsName}</h3>
+                      <p>{item.sportsGrade}</p>
+                      <br />
+                    </div>
+                  </>
                 ))
               )}
             </div>

@@ -275,7 +275,7 @@ body:has(.centered) {
     left: 0;
     position: absolute;
     top: 0;
-    z-index: 12;
+    z-index: 52;
   }
 }
 @media (max-width: 767px) {
@@ -284,7 +284,7 @@ body:has(.centered) {
     left: 0;
     display: none;
     position: absolute;
-    z-index: 12;
+    z-index: 52;
   }
 }
 #header .head_inner {
@@ -297,6 +297,16 @@ body:has(.centered) {
   height: 100%;
   gap: 40px;
   position: relative;
+}
+#header .head_inner > .logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.88;
+}
+#header .head_inner > .logo img {
+  width: 65%;
+  display: block;
 }
 #header .head_inner .user_profile {
   display: flex;
@@ -370,7 +380,7 @@ body:has(.centered) {
   gap: 20px;
   position: fixed;
   transform: translateX(-50%);
-  z-index: 100;
+  z-index: 40;
   left: 50%;
   bottom: 20px;
   background-color: var(--main-color1);
@@ -896,7 +906,7 @@ span.dayjs {
   background-color: #000000;
   width: 100%;
   padding: 20px 0;
-  z-index: 100;
+  z-index: 50;
 }
 .commentInput .inner {
   display: flex;
@@ -1241,6 +1251,25 @@ ul.recruitManagement > li .recruitItemCont p.status {
   flex-direction: row;
   align-items: center;
   gap: 0 20px;
+}
+.profile_info .inner .follow {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.profile_info .inner .follow > a {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  box-shadow: 0 0 3px 0 rgba(51, 51, 51, 0.0666666667);
+}
+.profile_info .inner .follow > a svg {
+  width: 20px;
+  height: 20px;
 }
 @media (max-width: 767px) {
   .profile_info .inner {
@@ -2195,8 +2224,14 @@ ul.recruitManagement > li .recruitItemCont p.status {
   display: flex;
   align-items: center;
   margin-top: 2rem;
+  flex-direction: column;
+  gap: 6px;
 }
-.my-info-wrap .my-info-body .exercise-wrap > .exercise-score > h3 {
+.my-info-wrap .my-info-body .exercise-wrap > .exercise-score > div {
+  display: flex;
+  align-items: center;
+}
+.my-info-wrap .my-info-body .exercise-wrap > .exercise-score > div > h3 {
   display: flex;
   padding: 1rem 1.2rem;
   margin-right: 1rem;
@@ -2206,7 +2241,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   border-radius: 0.3rem;
   justify-content: center;
 }
-.my-info-wrap .my-info-body .exercise-wrap > .exercise-score > p {
+.my-info-wrap .my-info-body .exercise-wrap > .exercise-score > div > p {
   font-weight: 500;
 }
 .my-info-wrap .my-info-body .manners-wrap {
@@ -3131,6 +3166,7 @@ p.info {
   display: flex;
   align-items: center;
   gap: 17px;
+  cursor: pointer;
 }
 .chatDetailWrap .bottomSection > .inner > ul > li > div > div {
   display: flex;
@@ -3155,7 +3191,7 @@ p.info {
   width: 100%;
   padding: 30px;
   box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.0784313725);
-  z-index: 100;
+  z-index: 50;
 }
 .chatDetailWrap .bottomSection .inputFormWrap form {
   display: flex;

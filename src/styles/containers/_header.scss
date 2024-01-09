@@ -13,15 +13,14 @@
     left: 0;
     position: absolute;
     top: 0;
-    z-index: 12;
+    z-index: 52;
   }
   @include mobile {
     top: 0;
     left: 0;
     display: none;
     position: absolute;
-    z-index: 12;
-
+    z-index: 52;
   }
 
   .head_inner {
@@ -34,6 +33,16 @@
     height: 100%;
     gap: 40px;
     position: relative;
+    & > .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: .88;
+      img {
+        width: 65%;
+        display: block;
+      }
+    }
     .user_profile {
       display: flex;
       align-items: center;
@@ -110,7 +119,7 @@
   gap: 20px;
   position: fixed;
   transform: translateX(-50%);
-  z-index: 100;
+  z-index: 40;
   left: 50%;
   bottom: 20px;
   background-color: var(--main-color1);

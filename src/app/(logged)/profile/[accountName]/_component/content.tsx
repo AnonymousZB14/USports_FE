@@ -6,16 +6,22 @@ import Recruits, { Recruit } from '@/components/recruits'
 import { Getfetch, Postfetch } from '@/func/fetchCall'
 import React, { useEffect, useRef, useState } from 'react'
 import { QueryClient, useQuery } from '@tanstack/react-query'
+import { FiMessageCircle } from 'react-icons/fi'
 import { getProfileUser } from '../../_lib/getProfileUser'
 import { ProfileUserType } from '@/types/types'
 import UserAvatar from '@/components/userAvatar'
+import { AiOutlineMessage } from 'react-icons/ai'
+import { LuMessagesSquare } from 'react-icons/lu'
 import Button from '@/components/commonButton'
 import { useRecoilState } from 'recoil'
 import { UserDetailState } from '@/store/user'
 import { RiUserFollowLine, RiUserFollowFill } from 'react-icons/ri'
 import { HiOutlineLockClosed } from 'react-icons/hi'
+import Link from 'next/link'
+import { getChatRoomId } from '../../_lib/getChatRoomId'
 const Content = ({ accountName }: { accountName: string }) => {
   const [number, setNum] = useState(0)
+  const [memberId, setMemberId] = useState(0)
   const [user, _] = useRecoilState(UserDetailState)
   const [followStatus, setFollowStatus] = useState<string | null>(null)
   const divRef = useRef<HTMLDivElement | null>(null)
@@ -26,6 +32,10 @@ const Content = ({ accountName }: { accountName: string }) => {
   const { data, isFetching } = useQuery<ProfileUserType, Object>({
     queryKey: ['profile', accountName],
     queryFn: getProfileUser,
+  })
+  const { data: chatRoomId } = useQuery<any, Object>({
+    queryKey: ['chatRoom', memberId],
+    queryFn: getChatRoomId,
   })
   useEffect(() => {
     if (divRef.current === null) return
@@ -38,6 +48,7 @@ const Content = ({ accountName }: { accountName: string }) => {
   useEffect(() => {
     // console.log(data)
     setFollowStatus(data?.followStatus!)
+    setMemberId(data?.memberInfo.memberId!)
   }, [data])
   const goFollow = async () => {
     try {
@@ -61,6 +72,7 @@ const Content = ({ accountName }: { accountName: string }) => {
       }
     } catch (error) {}
   }
+
   return (
     <>
       <div className="profile_info">
@@ -104,6 +116,9 @@ const Content = ({ accountName }: { accountName: string }) => {
                   <RiUserFollowLine />
                 </Button>
               )}
+              <Link href={'/home'}>
+                <AiOutlineMessage />
+              </Link>
             </div>
           )}
         </div>

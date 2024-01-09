@@ -130,17 +130,15 @@ const page = () => {
               route.back()
             }}
           />
-
         </div>
         <div className="bottomSection">
           <div className="inner">
             <ul>
               {chatList.map((_chatMessage, index) =>
                 _chatMessage.user === user.accountName ? (
-                  // <li key={index}>{_chatMessage.content}</li>
-                  <ChatBubble_Me key={index} content={_chatMessage.content} />
+                  <ChatBubble_Me key={index} item={_chatMessage} />
                 ) : (
-                  <ChatBubble_U key={index} content={_chatMessage.content} />
+                  <ChatBubble_U key={index} item={_chatMessage} />
                 ),
               )}
             </ul>
