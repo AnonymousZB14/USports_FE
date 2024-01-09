@@ -8,6 +8,7 @@ import {
 import { getMyRecords } from '../_lib/getMyRecords'
 import { getProfileUser } from '../_lib/getProfileUser'
 import { Metadata } from 'next'
+import { getFollowers } from '../_lib/getFollowers'
 type PageParams = {
   accountName: string
 }
@@ -26,6 +27,7 @@ const page = async ({ params }: { params: PageParams }) => {
     queryFn: getMyRecords,
     initialPageParam: 1,
   })
+
   const dehydratedState = dehydrate(queryClient)
 
   return (

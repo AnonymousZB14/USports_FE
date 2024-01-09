@@ -18,7 +18,9 @@ import { UserDetailState } from '@/store/user'
 import { RiUserFollowLine, RiUserFollowFill } from 'react-icons/ri'
 import { HiOutlineLockClosed } from 'react-icons/hi'
 import Link from 'next/link'
-import { getChatRoomId } from '../../_lib/getChatRoomId'
+
+import FollowList from './followList'
+import DmComponent from '../../_component/dm'
 const Content = ({ accountName }: { accountName: string }) => {
   const [number, setNum] = useState(0)
   const [memberId, setMemberId] = useState(0)
@@ -33,10 +35,7 @@ const Content = ({ accountName }: { accountName: string }) => {
     queryKey: ['profile', accountName],
     queryFn: getProfileUser,
   })
-  const { data: chatRoomId } = useQuery<any, Object>({
-    queryKey: ['chatRoom', memberId],
-    queryFn: getChatRoomId,
-  })
+
   useEffect(() => {
     if (divRef.current === null) return
     ;[...(divRef.current as HTMLDivElement).children].forEach((div, idx) => {
@@ -89,6 +88,7 @@ const Content = ({ accountName }: { accountName: string }) => {
           <div className="user_info">
             <h3>{accountName}</h3>
             <p>{data?.memberInfo.email}</p>
+            {accountName === user.accountName && <FollowList />}
           </div>
           {accountName !== user.accountName && (
             <div className="follow">
@@ -116,9 +116,9 @@ const Content = ({ accountName }: { accountName: string }) => {
                   <RiUserFollowLine />
                 </Button>
               )}
-              <Link href={'/home'}>
-                <AiOutlineMessage />
-              </Link>
+              {data?.memberInfo && (
+                <DmComponent memberId={data.memberInfo.memberId} />
+              )}
             </div>
           )}
         </div>

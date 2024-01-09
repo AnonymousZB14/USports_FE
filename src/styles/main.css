@@ -255,6 +255,7 @@ body:has(.centered) {
   width: 100%;
   max-width: 1000px;
   border-right: 1px solid #000;
+  border-left: 1px solid #000;
   height: 100%;
   margin: 0 auto;
   position: relative;
@@ -1322,6 +1323,21 @@ ul.recruitManagement > li .recruitItemCont p.status {
   color: var(--text-color-3);
 }
 
+.profileFollowList {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.profileFollowList p {
+  max-width: fit-content;
+  width: max-content;
+  font-size: var(--text-size-xs);
+  color: var(--text-color-1);
+}
+.profileFollowList p span {
+  font-weight: 800;
+}
+
 .home_section {
   height: 100%;
   overflow-y: auto;
@@ -2048,6 +2064,26 @@ ul.recruitManagement > li .recruitItemCont p.status {
 .findUserWrap form button svg {
   width: 30px;
   height: 30px;
+}
+.findUserWrap .findUserResult {
+  margin-top: 30px;
+}
+.findUserWrap .findUserResult p.findresult {
+  font-size: var(--text-size-xs);
+  color: var(--text-color-1);
+  text-align: center;
+  margin-bottom: 30px;
+}
+.findUserWrap .findUserResult ul {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.findUserWrap .findUserResult ul li {
+  border-left: 10px solid #b7b7b7;
+  background-color: #f4f4f4;
+  padding: 13px;
+  border-radius: 6px;
 }
 
 .mypageWrap {

@@ -91,3 +91,18 @@
     }
   }
 }
+
+.profileFollowList{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  p{
+    max-width: fit-content;
+    width: max-content;
+    font-size: var(--text-size-xs);
+    color:var(--text-color-1);
+    span{
+      font-weight: 800;
+    }
+  }
+}
