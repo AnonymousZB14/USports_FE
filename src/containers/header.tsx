@@ -35,15 +35,11 @@ const Header = () => {
       icon: <GoHomeFill />,
     },
     {
-      href: '/search',
-      title: 'Search',
-      icon: <IoSearch />,
-    },
-    {
       href: '/explore',
       title: 'TeamUp',
       icon: <MdSportsScore />,
     },
+
     {
       href: '/notifications',
       title: 'Notifications',
@@ -53,6 +49,11 @@ const Header = () => {
       href: '/messages',
       title: 'Messages',
       icon: <IoMail />,
+    },
+    {
+      href: '/search',
+      title: 'Search',
+      icon: <IoSearch />,
     },
     {
       href: '/profile',

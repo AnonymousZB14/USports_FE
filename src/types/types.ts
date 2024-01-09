@@ -370,3 +370,18 @@ export interface ChatListItem {
   user: string
   userId: number
 }
+
+export interface FollowUserPerType {
+  currentPage: number
+  list: FollowUserPerTypeList[]
+  pageSize: number
+  totalElements: number
+  totalPages: number
+}
+export interface FollowUserPerTypeList {
+  followId: number
+  fromMemberAccountName: string
+  fromMemberId: number
+  toMemberAccountName: string
+  toMemberId: number
+}

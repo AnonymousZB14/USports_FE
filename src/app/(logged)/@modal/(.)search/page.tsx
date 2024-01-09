@@ -23,7 +23,7 @@ const page = () => {
             onChange={(e) => setValue(e.target.value)}
           />
           <button type="submit">
-            <IoSearchCircle />
+            <IoSearch />
           </button>
         </form>
       </div>

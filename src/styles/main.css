@@ -2020,6 +2020,29 @@ ul.recruitManagement > li .recruitItemCont p.status {
   font-weight: 400;
 }
 
+.findUserWrap {
+  padding-top: 50px;
+}
+.findUserWrap form {
+  display: flex;
+  border: 1px solid #333;
+  border-radius: 5px;
+  padding: 0 10px 0 0;
+  gap: 4px;
+  overflow: hidden;
+  align-items: center;
+}
+.findUserWrap form input {
+  padding: 15px;
+  font-size: 15px;
+  flex: 1;
+  background-color: transparent;
+}
+.findUserWrap form button svg {
+  width: 30px;
+  height: 30px;
+}
+
 .mypageWrap {
   padding: 0;
 }
@@ -2285,6 +2308,7 @@ p.info {
   right: 0;
   top: 30px;
 }
+
 .notifications {
   margin-top: 40px;
 }
@@ -2322,6 +2346,27 @@ p.info {
 .notifications ul li .alert svg {
   width: 25px;
   height: 25px;
+}
+.notifications.followRequestWrap ul li {
+  display: flex;
+  background-color: var(--bg-color-2);
+}
+.notifications.followRequestWrap ul li p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  font-size: var(--text-size-xl);
+  padding: 10px;
+  position: relative;
+}
+.notifications.followRequestWrap ul li p svg {
+  width: 30px;
+  height: 30px;
+}
+.notifications.followRequestWrap ul li div {
+  display: flex;
+  gap: 3px;
 }
 
 .search-wrap {
