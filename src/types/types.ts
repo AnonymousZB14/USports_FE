@@ -360,3 +360,13 @@ export interface Room {
   recruitId: number
   unreadChatCount: number
 }
+export interface ChatListItem {
+  chatRoomId: number
+  chatRoomName: string
+  content: string
+  imageAddress: string
+  time: Date
+  type: string
+  user: string
+  userId: number
+}

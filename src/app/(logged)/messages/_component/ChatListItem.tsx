@@ -6,7 +6,7 @@ const ChatListItem = () => {
   return (
     <li>
       <div className="inner">
-        <Link href="/messages/4">
+        <Link href="/messages/1">
           <div className="inner_left">
             <img src="/basicProfile.png" />
           </div>

@@ -8,22 +8,28 @@ import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import SockJS from 'sockjs-client'
 import { IoSend } from 'react-icons/io5'
-import WebSoketComponent from '../_component/WebSoketComponent'
-import { SocketProvider } from '../_component/SocketComponent'
 import { useRecoilState } from 'recoil'
 import { UserDetailState } from '@/store/user'
 import { getCookie } from '@/func/cookie_c'
+import { ChatListItem, Room } from '@/types/types'
+import { useQuery } from '@tanstack/react-query'
+import { getChatList } from '../_lib/getChatList'
 const page = () => {
   const { room } = useParams()
   const route = useRouter()
   let [client, changeClient] = useState<StompJs.Client | null>(null)
   const [chat, setChat] = useState('')
   const [user, _] = useRecoilState(UserDetailState)
-  const [chatList, setChatList] = useState<any[]>([])
+  const [chatList, setChatList] = useState<ChatListItem[]>([])
   const userToken = getCookie('accessToken')
   var firstEnter = true
+  const { data, isFetching } = useQuery<ChatListItem[]>({
+    queryKey: ['chatList', room],
+    queryFn: getChatList,
+  })
   useEffect(() => {
     console.log(chatList)
+    data && setChatList(data)
   }, [chatList])
   const connect = () => {
     try {
@@ -47,8 +53,8 @@ const page = () => {
       })
 
       client.onConnect = function () {
-        client.subscribe(`/exchange/chat.exchange/room.` + room, callback)
-        if (firstEnter == true) {
+        if (firstEnter === true) {
+          client.subscribe(`/exchange/chat.exchange/room.` + room, callback)
           sendEnterMessage()
           firstEnter = false
         }
@@ -124,34 +130,33 @@ const page = () => {
               route.back()
             }}
           />
-          <div>
-            <Link href={'/profile'}>
-              <img src="/basicProfile.png" />
-            </Link>
-            <p>username</p>
-          </div>
+
         </div>
         <div className="bottomSection">
           <div className="inner">
             <ul>
-              {chatList.map((_chatMessage, index) => (
-                <li key={index}>{_chatMessage}</li>
-              ))}
-
-              <ChatBubble_U />
-              <ChatBubble_Me />
+              {chatList.map((_chatMessage, index) =>
+                _chatMessage.user === user.accountName ? (
+                  // <li key={index}>{_chatMessage.content}</li>
+                  <ChatBubble_Me key={index} content={_chatMessage.content} />
+                ) : (
+                  <ChatBubble_U key={index} content={_chatMessage.content} />
+                ),
+              )}
             </ul>
-            <form onSubmit={sendChat}>
-              <input
-                type="text"
-                placeholder={`메세지를 입력해주세요`}
-                value={chat}
-                onChange={(e) => setChat(e.target.value)}
-              ></input>
-              <button type="submit">
-                <IoSend />
-              </button>
-            </form>
+            <div className="inputFormWrap">
+              <form onSubmit={sendChat}>
+                <input
+                  type="text"
+                  placeholder={`메세지를 입력해주세요`}
+                  value={chat}
+                  onChange={(e) => setChat(e.target.value)}
+                ></input>
+                <button type="submit">
+                  <IoSend />
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>

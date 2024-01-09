@@ -5,7 +5,7 @@ import ChatListItem from './_component/ChatListItem'
 import { useQuery } from '@tanstack/react-query'
 import { getRooms } from './_lib/getRooms'
 import { Rooms } from '@/types/types'
-import { SocketProvider } from './_component/SocketComponent'
+
 
 const page = () => {
   const { data, isFetching } = useQuery<Rooms, Object>({
