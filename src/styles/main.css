@@ -3186,7 +3186,6 @@ p.info {
 }
 
 .chatDetailWrap {
-  height: 100%;
   background-color: #f7f7f7;
   padding: 0;
 }
@@ -3235,6 +3234,7 @@ p.info {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding-bottom: 110px;
 }
 .chatDetailWrap .bottomSection > .inner > ul > li {
   font-size: var(--text-size-base);
@@ -3273,7 +3273,7 @@ p.info {
 }
 .chatDetailWrap .bottomSection .inputFormWrap {
   background-color: rgb(255, 255, 255);
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
@@ -3310,6 +3310,19 @@ p.info {
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #ccc;
+}
+
+.toBottomBtn {
+  padding: 0 !important;
+  position: fixed;
+  right: var(--side-padding);
+  bottom: 120px;
+  z-index: 55;
+  cursor: pointer;
+}
+.toBottomBtn svg {
+  width: 50px;
+  height: 50px;
 }
 
 .tab_contents > div {

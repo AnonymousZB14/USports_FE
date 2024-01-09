@@ -1,10 +1,12 @@
 'use client'
 import BackBtn from '@/components/backBtn'
-import React, { FormEventHandler, useEffect, useState } from 'react'
+import React, { FormEventHandler, useEffect, useRef, useState } from 'react'
 import * as StompJs from '@stomp/stompjs'
 import { IoChevronBackCircleSharp } from 'react-icons/io5'
+import { BsFillArrowDownCircleFill } from 'react-icons/bs'
 import { ChatBubble_Me, ChatBubble_U } from '../_component/ChatBubble'
 import { useParams, useRouter } from 'next/navigation'
+import { useInView } from 'react-intersection-observer'
 import Link from 'next/link'
 import SockJS from 'sockjs-client'
 import { IoSend } from 'react-icons/io5'
@@ -16,21 +18,26 @@ import { useQuery } from '@tanstack/react-query'
 import { getChatList } from '../_lib/getChatList'
 const page = () => {
   const { room } = useParams()
+  const innerRef = useRef<HTMLDivElement | null>(null)
   const route = useRouter()
   let [client, changeClient] = useState<StompJs.Client | null>(null)
   const [chat, setChat] = useState('')
   const [user, _] = useRecoilState(UserDetailState)
   const [chatList, setChatList] = useState<ChatListItem[]>([])
   const userToken = getCookie('accessToken')
+  const [scrollHeight, setScrollHeight] = useState(0)
+  const [showBtn, setShowBtn] = useState(true)
+  let isReady = false
+  let $main: HTMLDivElement
+  const btmRef = useRef<HTMLDivElement>(null)
   var firstEnter = true
   const { data, isFetching } = useQuery<ChatListItem[]>({
     queryKey: ['chatList', room],
     queryFn: getChatList,
   })
   useEffect(() => {
-    console.log(chatList)
     data && setChatList(data)
-  }, [chatList])
+  }, [data])
   const connect = () => {
     try {
       const client = new StompJs.Client({
@@ -64,6 +71,7 @@ const page = () => {
     } catch (error) {
       console.log(error)
     }
+
     function sendEnterMessage() {
       client !== null &&
         client.publish({
@@ -86,6 +94,7 @@ const page = () => {
         let msg = JSON.parse(message.body)
         console.log(msg)
         setChatList((prev) => [...prev, msg])
+        setScrollHeight($main.scrollHeight)
       }
     }
   }
@@ -98,7 +107,7 @@ const page = () => {
       destination: '/pub/chat/message/' + room,
       body: JSON.stringify({
         chatRoomId: room,
-        user: user.accountName,
+        user: user.name,
         userId: user.memberId,
         imageAddress: user.profileImage,
         content: chat,
@@ -115,11 +124,45 @@ const page = () => {
     client.deactivate()
   }
 
+  if (typeof document !== 'undefined') {
+    $main = document.querySelector('#main') as HTMLDivElement
+  }
   useEffect(() => {
+    setScrollHeight($main.scrollHeight)
+    innerRef.current?.scrollTo({
+      top: $main.scrollHeight,
+      behavior: 'smooth',
+    })
     connect()
     return () => disConnect()
   }, [])
+  const goToBottom = () => {
+    btmRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
+  }
+  useEffect(() => {
+    $main.scrollTop = scrollHeight
+    // innerRef.current?.scrollIntoView({ behavior: 'smooth' })
+    btmRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
+    goToBottom()
+  }, [scrollHeight])
+  const { ref, inView } = useInView({
+    threshold: 0,
+    delay: 0,
+  })
 
+  useEffect(() => {
+    if (inView) {
+      setShowBtn(false)
+    } else {
+      setShowBtn(true)
+    }
+  }, [inView])
   return (
     <>
       <div className="chatDetailWrap">
@@ -132,16 +175,18 @@ const page = () => {
           />
         </div>
         <div className="bottomSection">
-          <div className="inner">
+          <div className="inner" ref={innerRef}>
             <ul>
               {chatList.map((_chatMessage, index) =>
-                _chatMessage.user === user.accountName ? (
+                _chatMessage.user === user.name ? (
                   <ChatBubble_Me key={index} item={_chatMessage} />
                 ) : (
                   <ChatBubble_U key={index} item={_chatMessage} />
                 ),
               )}
+              <div ref={ref} />
             </ul>
+
             <div className="inputFormWrap">
               <form onSubmit={sendChat}>
                 <input
@@ -157,6 +202,13 @@ const page = () => {
             </div>
           </div>
         </div>
+        <div ref={btmRef}></div>
+
+        {showBtn === true && (
+          <div className="toBottomBtn" onClick={goToBottom}>
+            <BsFillArrowDownCircleFill />
+          </div>
+        )}
       </div>
     </>
   )

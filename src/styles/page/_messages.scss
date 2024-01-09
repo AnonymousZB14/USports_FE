@@ -51,7 +51,6 @@
 }
 
 .chatDetailWrap {
-  height: 100%;
   background-color: #f7f7f7;
   padding: 0;
   & > div {
@@ -62,7 +61,7 @@
     z-index: 4;
     // position: relative;
     display: flex;
-    align-items:center;
+    align-items: center;
 
     justify-content: baseline;
     padding: 20px;
@@ -75,7 +74,6 @@
     & > svg {
       width: 40px;
       height: 40px;
-
     }
     div {
       display: flex;
@@ -100,12 +98,13 @@
   .bottomSection {
     // min-height: 1700px;
     & > .inner {
-      
+      // padding-bottom: 120px;
       margin-top: 40px;
       & > ul {
         display: flex;
         flex-direction: column;
         gap: 10px;
+        padding-bottom: 110px;
         & > li {
           font-size: var(--text-size-base);
           line-height: 1.4;
@@ -131,12 +130,12 @@
               flex-direction: column;
               gap: 5px;
               justify-content: right;
-              span{
+              span {
                 font-size: 11px;
                 color: #677;
               }
             }
-            .chat-bubble{
+            .chat-bubble {
               min-width: fit-content;
               padding: 15px;
               box-shadow: 0 6px 10px 0 #00000017;
@@ -148,7 +147,7 @@
     .inputFormWrap {
       background-color: rgb(255, 255, 255);
 
-      position: absolute;
+      position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
@@ -179,12 +178,11 @@
   }
 }
 
-
-.chat-start{
+.chat-start {
   display: flex;
   align-items: start;
-  &>div:first-child{
-    img{
+  & > div:first-child {
+    img {
       width: 50px;
       height: 50px;
       background-color: #fff;
@@ -192,5 +190,18 @@
       object-fit: cover;
       border: 2px solid #ccc;
     }
+  }
+}
+
+.toBottomBtn {
+  padding: 0 !important;
+  position: fixed;
+  right: var(--side-padding);
+  bottom: 120px;
+  z-index: 55;
+  cursor: pointer;
+  svg {
+    width: 50px;
+    height: 50px;
   }
 }
