@@ -275,7 +275,7 @@ body:has(.centered) {
     left: 0;
     position: absolute;
     top: 0;
-    z-index: 12;
+    z-index: 52;
   }
 }
 @media (max-width: 767px) {
@@ -284,7 +284,7 @@ body:has(.centered) {
     left: 0;
     display: none;
     position: absolute;
-    z-index: 12;
+    z-index: 52;
   }
 }
 #header .head_inner {
@@ -297,6 +297,16 @@ body:has(.centered) {
   height: 100%;
   gap: 40px;
   position: relative;
+}
+#header .head_inner > .logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.88;
+}
+#header .head_inner > .logo img {
+  width: 65%;
+  display: block;
 }
 #header .head_inner .user_profile {
   display: flex;
@@ -370,7 +380,7 @@ body:has(.centered) {
   gap: 20px;
   position: fixed;
   transform: translateX(-50%);
-  z-index: 100;
+  z-index: 40;
   left: 50%;
   bottom: 20px;
   background-color: var(--main-color1);
@@ -896,7 +906,7 @@ span.dayjs {
   background-color: #000000;
   width: 100%;
   padding: 20px 0;
-  z-index: 100;
+  z-index: 50;
 }
 .commentInput .inner {
   display: flex;
@@ -1241,6 +1251,25 @@ ul.recruitManagement > li .recruitItemCont p.status {
   flex-direction: row;
   align-items: center;
   gap: 0 20px;
+}
+.profile_info .inner .follow {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.profile_info .inner .follow > a {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  box-shadow: 0 0 3px 0 rgba(51, 51, 51, 0.0666666667);
+}
+.profile_info .inner .follow > a svg {
+  width: 20px;
+  height: 20px;
 }
 @media (max-width: 767px) {
   .profile_info .inner {
@@ -1991,6 +2020,29 @@ ul.recruitManagement > li .recruitItemCont p.status {
   font-weight: 400;
 }
 
+.findUserWrap {
+  padding-top: 50px;
+}
+.findUserWrap form {
+  display: flex;
+  border: 1px solid #333;
+  border-radius: 5px;
+  padding: 0 10px 0 0;
+  gap: 4px;
+  overflow: hidden;
+  align-items: center;
+}
+.findUserWrap form input {
+  padding: 15px;
+  font-size: 15px;
+  flex: 1;
+  background-color: transparent;
+}
+.findUserWrap form button svg {
+  width: 30px;
+  height: 30px;
+}
+
 .mypageWrap {
   padding: 0;
 }
@@ -2195,8 +2247,14 @@ ul.recruitManagement > li .recruitItemCont p.status {
   display: flex;
   align-items: center;
   margin-top: 2rem;
+  flex-direction: column;
+  gap: 6px;
 }
-.my-info-wrap .my-info-body .exercise-wrap > .exercise-score > h3 {
+.my-info-wrap .my-info-body .exercise-wrap > .exercise-score > div {
+  display: flex;
+  align-items: center;
+}
+.my-info-wrap .my-info-body .exercise-wrap > .exercise-score > div > h3 {
   display: flex;
   padding: 1rem 1.2rem;
   margin-right: 1rem;
@@ -2206,7 +2264,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   border-radius: 0.3rem;
   justify-content: center;
 }
-.my-info-wrap .my-info-body .exercise-wrap > .exercise-score > p {
+.my-info-wrap .my-info-body .exercise-wrap > .exercise-score > div > p {
   font-weight: 500;
 }
 .my-info-wrap .my-info-body .manners-wrap {
@@ -2250,6 +2308,7 @@ p.info {
   right: 0;
   top: 30px;
 }
+
 .notifications {
   margin-top: 40px;
 }
@@ -2287,6 +2346,27 @@ p.info {
 .notifications ul li .alert svg {
   width: 25px;
   height: 25px;
+}
+.notifications.followRequestWrap ul li {
+  display: flex;
+  background-color: var(--bg-color-2);
+}
+.notifications.followRequestWrap ul li p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  font-size: var(--text-size-xl);
+  padding: 10px;
+  position: relative;
+}
+.notifications.followRequestWrap ul li p svg {
+  width: 30px;
+  height: 30px;
+}
+.notifications.followRequestWrap ul li div {
+  display: flex;
+  gap: 3px;
 }
 
 .search-wrap {
@@ -3063,19 +3143,20 @@ p.info {
 }
 
 .chatDetailWrap {
+  height: 100%;
+  background-color: #f7f7f7;
   padding: 0;
 }
 .chatDetailWrap > div {
   padding: 0 var(--side-padding);
 }
 .chatDetailWrap .topSection {
+  background-color: #fff;
   z-index: 4;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 20px 0;
-  box-shadow: 0 6px 20px 0px rgba(0, 0, 0, 0.073);
-  background-color: rgba(255, 255, 255, 0.0588235294);
+  justify-content: baseline;
+  padding: 20px;
   backdrop-filter: blur(5px);
   transition: all 0.4s;
   position: sticky;
@@ -3084,9 +3165,6 @@ p.info {
 .chatDetailWrap .topSection > svg {
   width: 40px;
   height: 40px;
-  position: absolute;
-  left: 10px;
-  top: 10px;
 }
 .chatDetailWrap .topSection div {
   display: flex;
@@ -3130,10 +3208,65 @@ p.info {
 .chatDetailWrap .bottomSection > .inner > ul > li > div {
   width: max-content;
   max-width: 65%;
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  cursor: pointer;
 }
 .chatDetailWrap .bottomSection > .inner > ul > li > div > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: right;
+}
+.chatDetailWrap .bottomSection > .inner > ul > li > div > div span {
+  font-size: 11px;
+  color: #677;
+}
+.chatDetailWrap .bottomSection > .inner > ul > li > div .chat-bubble {
   min-width: fit-content;
   padding: 15px;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.0901960784);
+}
+.chatDetailWrap .bottomSection .inputFormWrap {
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 30px;
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.0784313725);
+  z-index: 50;
+}
+.chatDetailWrap .bottomSection .inputFormWrap form {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.chatDetailWrap .bottomSection .inputFormWrap form input {
+  padding: 15px 30px;
+  background-color: rgba(238, 238, 238, 0.7333333333);
+  font-size: 13px;
+  flex: 1;
+  border: none;
+  border: 1px solid #eee;
+}
+.chatDetailWrap .bottomSection .inputFormWrap form button svg {
+  width: 24px;
+  height: 24px;
+}
+
+.chat-start {
+  display: flex;
+  align-items: start;
+}
+.chat-start > div:first-child img {
+  width: 50px;
+  height: 50px;
+  background-color: #fff;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
 }
 
 .tab_contents > div {

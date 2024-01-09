@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   swcMinify: true,
+
   async generateStaticParams() {
     return {
       'src/app/(logged)/@modal/(.)member/:id': { page: '/member/:id' }, // correct
@@ -34,8 +35,8 @@ const nextConfig = {
         destination: 'http://3.39.34.245:8080/:path*',
       },
       {
-        source: '/usports/:path*/',
-        destination: 'http://3.39.34.245:8080/:path*/',
+        source: '/ws/chat/:path*',
+        destination: 'http://3.39.34.245:8080/ws/chat/:path*',
       },
     ]
   },

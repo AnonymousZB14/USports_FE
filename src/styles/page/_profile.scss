@@ -22,12 +22,31 @@
     flex-direction: row;
     align-items: center;
     gap: 0 20px;
-    @include mobile{
+    .follow {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      & > a {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        box-shadow: 0 0 3px 0 #33333311;
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+    @include mobile {
       flex-wrap: wrap;
-      .user_info{
+      .user_info {
         width: unset;
       }
-      .follow{
+      .follow {
         display: flex;
         justify-content: right;
         width: 100%;
@@ -42,8 +61,9 @@
     .avatar_img {
       width: 180px;
       height: 180px;
-      @include mobile{
-        width: 100px;height: 100px;
+      @include mobile {
+        width: 100px;
+        height: 100px;
       }
     }
   }
