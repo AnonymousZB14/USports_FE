@@ -13,7 +13,9 @@ const ChatListItem = ({ item }: { item: Room }) => {
           </div>
           <div className="inner_right">
             <p className="username">{item.chatRoomName}</p>
-            <p className="lastmessage"></p>
+            {item.unreadChatCount !== 0 && (
+              <p className="lastmessage">{item.unreadChatCount}</p>
+            )}
           </div>
         </Link>
       </div>

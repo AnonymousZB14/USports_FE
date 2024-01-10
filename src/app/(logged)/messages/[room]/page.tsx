@@ -13,17 +13,18 @@ import { IoSend } from 'react-icons/io5'
 import { useRecoilState } from 'recoil'
 import { UserDetailState } from '@/store/user'
 import { getCookie } from '@/func/cookie_c'
-import { ChatListItem, Room } from '@/types/types'
-import { useQuery } from '@tanstack/react-query'
+import { ChatList, ChatListItem, Room } from '@/types/types'
+import { InfiniteData, useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import { getChatList } from '../_lib/getChatList'
+import { Postfetch } from '@/func/fetchCall'
 const page = () => {
   const { room } = useParams()
-  const innerRef = useRef<HTMLDivElement | null>(null)
+  const innerRef = useRef<HTMLUListElement | null>(null)
   const route = useRouter()
   let [client, changeClient] = useState<StompJs.Client | null>(null)
   const [chat, setChat] = useState('')
   const [user, _] = useRecoilState(UserDetailState)
-  const [chatList, setChatList] = useState<ChatListItem[]>([])
+  const [chatList, setChatList] = useState<ChatListItem[]>()
   const userToken = getCookie('accessToken')
   const [scrollHeight, setScrollHeight] = useState(0)
   const [showBtn, setShowBtn] = useState(true)
@@ -31,12 +32,44 @@ const page = () => {
   let $main: HTMLDivElement
   const btmRef = useRef<HTMLDivElement>(null)
   var firstEnter = true
-  const { data, isFetching } = useQuery<ChatListItem[]>({
+  /*   const { data, isFetching } = useQuery<ChatList>({
     queryKey: ['chatList', room],
     queryFn: getChatList,
+  }) */
+
+  const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery<
+    ChatList,
+    Object,
+    InfiniteData<ChatList>,
+    any,
+    number
+  >({
+    queryKey: ['chatList', room],
+    queryFn: getChatList,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      return lastPage.totalPages === 0 ||
+        lastPage.totalPages === lastPage.currentPage
+        ? undefined
+        : lastPage.currentPage + 1
+    },
+  })
+  const { ref, inView } = useInView({
+    threshold: 0,
+    delay: 0,
   })
   useEffect(() => {
-    data && setChatList(data)
+    if (inView) {
+      !isFetching && hasNextPage && fetchNextPage()
+    }
+  }, [inView, isFetching, hasNextPage, fetchNextPage])
+
+  useEffect(() => {
+    if (!data) return
+    data.pages.map((page) =>
+      setChatList((prev) => [...(prev as ChatListItem[]), ...page.list]),
+    )
+    // setChatList(data.list)
   }, [data])
   const connect = () => {
     try {
@@ -93,7 +126,7 @@ const page = () => {
         console.log(message)
         let msg = JSON.parse(message.body)
         console.log(msg)
-        setChatList((prev) => [...prev, msg])
+        setChatList((prev) => [msg, ...(prev as ChatListItem[])])
         setScrollHeight($main.scrollHeight)
       }
     }
@@ -127,35 +160,51 @@ const page = () => {
   if (typeof document !== 'undefined') {
     $main = document.querySelector('#main') as HTMLDivElement
   }
-  useEffect(() => {
-    setScrollHeight($main.scrollHeight)
-    innerRef.current?.scrollTo({
-      top: $main.scrollHeight,
-      behavior: 'smooth',
-    })
-    connect()
-    return () => disConnect()
-  }, [])
+
   const goToBottom = () => {
     btmRef.current?.scrollIntoView({
       behavior: 'smooth',
       block: 'start',
     })
   }
+  const leaveChatRoom = async () => {
+    try {
+      const res = await Postfetch('/markchat', {
+        chatRoomId: room,
+        userId: user.memberId,
+      })
+      if (res.status === 200) {
+        console.log('채팅방에서 나갔다')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    setScrollHeight($main.scrollHeight)
+    innerRef.current?.scrollTo({
+      top: $main.scrollHeight,
+      behavior: 'smooth',
+    })
+
+    connect()
+    return () => {
+      disConnect()
+      leaveChatRoom()
+    }
+  }, [])
   useEffect(() => {
     $main.scrollTop = scrollHeight
-    // innerRef.current?.scrollIntoView({ behavior: 'smooth' })
+
     btmRef.current?.scrollIntoView({
       behavior: 'smooth',
-      block: 'start',
     })
     goToBottom()
   }, [scrollHeight])
-  const { ref, inView } = useInView({
-    threshold: 0,
-    delay: 0,
-  })
 
+  useEffect(() => {
+    btmRef.current?.scrollIntoView(true)
+  }, [chatList])
   useEffect(() => {
     if (inView) {
       setShowBtn(false)
@@ -175,31 +224,32 @@ const page = () => {
           />
         </div>
         <div className="bottomSection">
-          <div className="inner" ref={innerRef}>
-            <ul>
-              {chatList.map((_chatMessage, index) =>
-                _chatMessage.user === user.name ? (
-                  <ChatBubble_Me key={index} item={_chatMessage} />
-                ) : (
-                  <ChatBubble_U key={index} item={_chatMessage} />
-                ),
-              )}
-              <div ref={ref} />
+          <div className="inner">
+            <ul ref={innerRef}>
+              {chatList &&
+                chatList.map((_chatMessage, index) =>
+                  _chatMessage.userId === user.memberId ? (
+                    <ChatBubble_Me key={index} item={_chatMessage} />
+                  ) : (
+                    <ChatBubble_U key={index} item={_chatMessage} />
+                  ),
+                )}
             </ul>
+            <div ref={ref} style={{ height: 10 }} />
+          </div>
 
-            <div className="inputFormWrap">
-              <form onSubmit={sendChat}>
-                <input
-                  type="text"
-                  placeholder={`메세지를 입력해주세요`}
-                  value={chat}
-                  onChange={(e) => setChat(e.target.value)}
-                ></input>
-                <button type="submit">
-                  <IoSend />
-                </button>
-              </form>
-            </div>
+          <div className="inputFormWrap">
+            <form onSubmit={sendChat}>
+              <input
+                type="text"
+                placeholder={`메세지를 입력해주세요`}
+                value={chat}
+                onChange={(e) => setChat(e.target.value)}
+              ></input>
+              <button type="submit">
+                <IoSend />
+              </button>
+            </form>
           </div>
         </div>
         <div ref={btmRef}></div>
