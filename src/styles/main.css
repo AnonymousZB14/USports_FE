@@ -966,7 +966,7 @@ span.dayjs {
   background-color: rgba(0, 0, 0, 0.368627451);
 }
 #modal .modalInner {
-  min-width: 60dvw;
+  min-width: 900px;
   width: fit-content;
   max-width: 100dvw;
   padding: 35px 20px;
@@ -1324,6 +1324,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
 }
 
 .profileFollowList {
+  cursor: pointer;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -1336,6 +1337,41 @@ ul.recruitManagement > li .recruitItemCont p.status {
 }
 .profileFollowList p span {
   font-weight: 800;
+}
+
+.listWrap {
+  display: flex;
+}
+.listWrap section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 0;
+  overflow-y: auto;
+  gap: 20px;
+}
+.listWrap section h3 {
+  font-size: var(--text-size-xl);
+  font-weight: 700;
+}
+.listWrap section ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.listWrap section ul li {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
+  background-color: var(--bg-color-3);
+  padding: 10px 20px 10px 16px;
+  border-left: 5px solid var(--text-color-3);
+  border-radius: 4px 0 0 4px;
+  font-weight: 400;
+  font-size: var(--text-size-base);
 }
 
 .home_section {
@@ -2080,6 +2116,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   gap: 20px;
 }
 .findUserWrap .findUserResult ul li {
+  cursor: pointer;
   border-left: 10px solid #b7b7b7;
   background-color: #f4f4f4;
   padding: 13px;
@@ -3200,12 +3237,14 @@ p.info {
   font-size: 15px;
 }
 
-.chatDetailWrap {
+main:has(.chatDetailWrap) {
   background-color: #f7f7f7;
+}
+
+.chatDetailWrap {
   padding: 0;
 }
 .chatDetailWrap .topSection {
-  background-color: #fff;
   z-index: 4;
   display: flex;
   align-items: center;
@@ -3290,20 +3329,32 @@ p.info {
 }
 .chatDetailWrap .bottomSection .inputFormWrap {
   height: 110px;
-  background-color: rgb(255, 255, 255);
   max-width: 1000px;
   position: fixed;
   bottom: 0;
   left: 50%;
+  padding-left: 300px;
   transform: translateX(-50%);
   width: 100%;
-  padding: 30px;
-  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.0784313725);
   z-index: 50;
 }
+@media (min-width: 768px) and (max-width: 1203px) {
+  .chatDetailWrap .bottomSection .inputFormWrap {
+    padding-left: 0;
+  }
+}
+@media (max-width: 767px) {
+  .chatDetailWrap .bottomSection .inputFormWrap {
+    padding-left: 0;
+  }
+}
 .chatDetailWrap .bottomSection .inputFormWrap form {
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.0784313725);
+  padding: 30px;
+  background-color: rgb(255, 255, 255);
   display: flex;
   align-items: center;
+  height: 100%;
   gap: 20px;
 }
 .chatDetailWrap .bottomSection .inputFormWrap form input {
@@ -3333,10 +3384,15 @@ p.info {
 }
 
 .toBottomBtn {
-  padding: 0 !important;
+  padding: 0 20px 0 0 !important;
   position: fixed;
-  right: var(--side-padding);
-  bottom: 120px;
+  width: 100%;
+  max-width: 1000px;
+  transform: translateX(-50%);
+  left: 50%;
+  bottom: 140px;
+  display: flex;
+  justify-content: right;
   z-index: 55;
   cursor: pointer;
 }

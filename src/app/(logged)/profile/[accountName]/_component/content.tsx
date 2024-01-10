@@ -86,9 +86,12 @@ const Content = ({ accountName }: { accountName: string }) => {
             </div>
           )}
           <div className="user_info">
-            <h3>{accountName}</h3>
-            <p>{data?.memberInfo.email}</p>
-            {accountName === user.accountName && <FollowList />}
+            <h3>{data?.memberInfo.name}</h3>
+            <p>@{accountName}/{data?.memberInfo.email}</p>
+            {(accountName === user.accountName ||
+              data?.memberInfo.profileOpen === true) && (
+              <FollowList memberId={data?.memberInfo.memberId} />
+            )}
           </div>
           {accountName !== user.accountName && (
             <div className="follow">
@@ -125,6 +128,7 @@ const Content = ({ accountName }: { accountName: string }) => {
       </div>
       <div className="profile_contents">
         {data?.memberInfo.profileOpen === false &&
+        data.followStatus !== 'ACTIVE' &&
         user.accountName !== data.memberInfo.accountName ? (
           <div className="contents_lock">
             <HiOutlineLockClosed />
