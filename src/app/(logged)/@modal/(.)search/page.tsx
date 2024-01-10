@@ -69,7 +69,7 @@ const page = () => {
                           <div className="avatar_img">
                             {
                               <img
-                                src={item.profileImage}
+                                src={item.profileImage?item.profileImage:'/basicProfile.png'}
                                 alt="profile"
                                 width={100}
                                 height={100}

@@ -27,7 +27,7 @@ export const ChatBubble_U = ({ item }: Prop) => {
   return (
     <li>
       <div className="chat chat-start">
-        <div>
+        <div onClick={()=>route.replace(`/profile/${item.user}`)}>
           <img src={item.imageAddress} />
         </div>
         <div>
