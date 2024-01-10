@@ -87,9 +87,7 @@ const Content = ({ accountName }: { accountName: string }) => {
           )}
           <div className="user_info">
             <h3>{data?.memberInfo.name}</h3>
-            <p>
-              @{accountName}/{data?.memberInfo.email}
-            </p>
+            <p>{data?.memberInfo.email}</p>
             {(accountName === user.accountName ||
               data?.memberInfo.profileOpen === true) && (
               <FollowList memberId={data?.memberInfo.memberId as number} />

@@ -20,7 +20,7 @@ const UserInfo = ({ userImage, accountName, userId }: userInfo) => {
       </div>
       <div className="user_info">
         <h3>{accountName}</h3>
-        <p>{userId}</p>
+        <p>@{userId}</p>
       </div>
     </div>
   )

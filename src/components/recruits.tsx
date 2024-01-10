@@ -102,7 +102,7 @@ export const Recruit = ({
     <li>
       <div className="recruit_head">
         <UserInfo
-          userId={user.memberInfo.email}
+          userId={user.memberInfo.accountName}
           userImage={user.memberInfo.profileImage}
           accountName={user.memberInfo.name}
         />

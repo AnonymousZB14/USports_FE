@@ -65,12 +65,18 @@ const page = () => {
                         className="userInfoSec"
                         onClick={() => onClickHandler(item.accountName)}
                       >
-                        <Avatar
-                          width="40px"
-                          height="40px"
-                          imgAddress={item.profileImage}
-                          // linkAddress={item.accountName}
-                        />
+                        <div style={{ width: 40, height: 40 }}>
+                          <div className="avatar_img">
+                            {
+                              <img
+                                src={item.profileImage}
+                                alt="profile"
+                                width={100}
+                                height={100}
+                              />
+                            }
+                          </div>
+                        </div>
                         <div className="user_info">
                           <h3>{item.name}</h3>
                           <p>@{item.accountName}</p>
