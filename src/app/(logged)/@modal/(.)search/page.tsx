@@ -69,7 +69,7 @@ const page = () => {
                           width="40px"
                           height="40px"
                           imgAddress={item.profileImage}
-                          linkAddress={item.accountName}
+                          // linkAddress={item.accountName}
                         />
                         <div className="user_info">
                           <h3>{item.name}</h3>

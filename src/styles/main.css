@@ -1324,6 +1324,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
 }
 
 .profileFollowList {
+  cursor: pointer;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -1336,6 +1337,41 @@ ul.recruitManagement > li .recruitItemCont p.status {
 }
 .profileFollowList p span {
   font-weight: 800;
+}
+
+.listWrap {
+  display: flex;
+}
+.listWrap section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 0;
+  overflow-y: auto;
+  gap: 20px;
+}
+.listWrap section h3 {
+  font-size: var(--text-size-xl);
+  font-weight: 700;
+}
+.listWrap section ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.listWrap section ul li {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
+  background-color: var(--bg-color-3);
+  padding: 10px 20px 10px 16px;
+  border-left: 5px solid var(--text-color-3);
+  border-radius: 4px 0 0 4px;
+  font-weight: 400;
+  font-size: var(--text-size-base);
 }
 
 .home_section {
@@ -2080,6 +2116,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   gap: 20px;
 }
 .findUserWrap .findUserResult ul li {
+  cursor: pointer;
   border-left: 10px solid #b7b7b7;
   background-color: #f4f4f4;
   padding: 13px;

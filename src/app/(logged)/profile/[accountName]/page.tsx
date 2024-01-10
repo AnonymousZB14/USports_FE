@@ -32,7 +32,7 @@ const page = async ({ params }: { params: PageParams }) => {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <Content accountName={params.accountName} />
+      <Content accountName={params.accountName}  />
     </HydrationBoundary>
   )
 }
