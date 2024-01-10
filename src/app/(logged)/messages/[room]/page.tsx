@@ -24,37 +24,29 @@ const page = () => {
   let [client, changeClient] = useState<StompJs.Client | null>(null)
   const [chat, setChat] = useState('')
   const [user, _] = useRecoilState(UserDetailState)
-  const [chatList, setChatList] = useState<ChatListItem[]>()
+  const [chatList, setChatList] = useState<ChatListItem[]>([])
   const userToken = getCookie('accessToken')
-  const [scrollHeight, setScrollHeight] = useState(0)
   const [showBtn, setShowBtn] = useState(true)
-  let isReady = false
-  let $main: HTMLDivElement
   const btmRef = useRef<HTMLDivElement>(null)
-  var firstEnter = true
-  /*   const { data, isFetching } = useQuery<ChatList>({
-    queryKey: ['chatList', room],
-    queryFn: getChatList,
-  }) */
-
-  const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery<
-    ChatList,
-    Object,
-    InfiniteData<ChatList>,
-    any,
-    number
-  >({
-    queryKey: ['chatList', room],
-    queryFn: getChatList,
-    initialPageParam: 1,
-    getNextPageParam: (lastPage) => {
-      return lastPage.totalPages === 0 ||
-        lastPage.totalPages === lastPage.currentPage
-        ? undefined
-        : lastPage.currentPage + 1
-    },
-  })
+  const [firstEnter,setfirstEnter] = useState(true)
+  // var firstEnter = true
+  const { data, fetchNextPage, hasNextPage, hasPreviousPage, isFetching } =
+    useInfiniteQuery<ChatList, Object, InfiniteData<ChatList>, any, number>({
+      queryKey: ['chatList', room],
+      queryFn: getChatList,
+      initialPageParam: 1,
+      getNextPageParam: (lastPage) => {
+        return lastPage.totalPages === 0 ||
+          lastPage.totalPages === lastPage.currentPage
+          ? undefined
+          : lastPage.currentPage + 1
+      },
+    })
   const { ref, inView } = useInView({
+    threshold: 0,
+    delay: 0,
+  })
+  const { ref: ref2, inView: inView2 } = useInView({
     threshold: 0,
     delay: 0,
   })
@@ -66,11 +58,15 @@ const page = () => {
 
   useEffect(() => {
     if (!data) return
-    data.pages.map((page) =>
-      setChatList((prev) => [...(prev as ChatListItem[]), ...page.list]),
-    )
-    // setChatList(data.list)
+    data.pages.map((page) => setChatList((prev) => [...prev, ...page.list]))
   }, [data])
+  useEffect(() => {
+    firstEnter && btmRef.current?.scrollIntoView(true)
+  }, [chatList])
+  /*   useEffect(() => {
+    if (!isFetching && btmRef.current)
+      btmRef.current.scrollTop = btmRef.current?.scrollHeight
+  }, []) */
   const connect = () => {
     try {
       const client = new StompJs.Client({
@@ -80,9 +76,6 @@ const page = () => {
         connectHeaders: {
           credentials: 'include',
           Authorization: `Bearer ${userToken}`,
-        },
-        beforeConnect: () => {
-          // console.log('beforeConnect')
         },
         debug(str) {
           console.log(`debug`, str)
@@ -96,7 +89,7 @@ const page = () => {
         if (firstEnter === true) {
           client.subscribe(`/exchange/chat.exchange/room.` + room, callback)
           sendEnterMessage()
-          firstEnter = false
+          setfirstEnter(false)
         }
       }
       client.activate()
@@ -127,7 +120,6 @@ const page = () => {
         let msg = JSON.parse(message.body)
         console.log(msg)
         setChatList((prev) => [msg, ...(prev as ChatListItem[])])
-        setScrollHeight($main.scrollHeight)
       }
     }
   }
@@ -157,16 +149,6 @@ const page = () => {
     client.deactivate()
   }
 
-  if (typeof document !== 'undefined') {
-    $main = document.querySelector('#main') as HTMLDivElement
-  }
-
-  const goToBottom = () => {
-    btmRef.current?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    })
-  }
   const leaveChatRoom = async () => {
     try {
       const res = await Postfetch('/markchat', {
@@ -175,43 +157,33 @@ const page = () => {
       })
       if (res.status === 200) {
         console.log('채팅방에서 나갔다')
+        setChatList([])
       }
     } catch (error) {
       console.log(error)
     }
   }
-  useEffect(() => {
-    setScrollHeight($main.scrollHeight)
-    innerRef.current?.scrollTo({
-      top: $main.scrollHeight,
+  const goToBottom = () => {
+    btmRef.current?.scrollIntoView({
       behavior: 'smooth',
+      block: 'start',
     })
-
+  }
+  useEffect(() => {
     connect()
     return () => {
       disConnect()
       leaveChatRoom()
     }
   }, [])
-  useEffect(() => {
-    $main.scrollTop = scrollHeight
-
-    btmRef.current?.scrollIntoView({
-      behavior: 'smooth',
-    })
-    goToBottom()
-  }, [scrollHeight])
 
   useEffect(() => {
-    btmRef.current?.scrollIntoView(true)
-  }, [chatList])
-  useEffect(() => {
-    if (inView) {
+    if (inView2) {
       setShowBtn(false)
     } else {
       setShowBtn(true)
     }
-  }, [inView])
+  }, [inView2])
   return (
     <>
       <div className="chatDetailWrap">
@@ -225,6 +197,7 @@ const page = () => {
         </div>
         <div className="bottomSection">
           <div className="inner">
+            {chatList.length > 1 && <div ref={ref} style={{ height: 10 }} />}
             <ul ref={innerRef}>
               {chatList &&
                 chatList.map((_chatMessage, index) =>
@@ -235,7 +208,8 @@ const page = () => {
                   ),
                 )}
             </ul>
-            <div ref={ref} style={{ height: 10 }} />
+            <div ref={btmRef} style={{ height: 10 }} />
+            <div ref={ref2} />
           </div>
 
           <div className="inputFormWrap">
@@ -252,8 +226,6 @@ const page = () => {
             </form>
           </div>
         </div>
-        <div ref={btmRef}></div>
-
         {showBtn === true && (
           <div className="toBottomBtn" onClick={goToBottom}>
             <BsFillArrowDownCircleFill />
