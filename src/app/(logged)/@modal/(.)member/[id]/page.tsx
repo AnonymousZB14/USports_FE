@@ -68,7 +68,6 @@ const Page = () => {
       )
       if (!(res.status === 200)) {
         setMessage(res.data.errorMessage)
-        // console.log(res.statusText)
         return
       }
       setUser(res.data)
@@ -100,7 +99,6 @@ const Page = () => {
       )
       if (!(res.status === 200)) {
         setMessage(res.data.errorMessage)
-        // console.log(res.statusText)
         return
       }
       setUser(res.data)
@@ -207,8 +205,6 @@ const Page = () => {
     if (isSuccess) router.back()
   }
   useEffect(() => {
-    // console.log(user)
-
     setinterestedSports(user.interestedSportsList.map((item) => item.sportsId))
   }, [user])
   return (

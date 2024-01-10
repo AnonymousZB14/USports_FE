@@ -1,7 +1,15 @@
+@use '../themes/theme' as *;
 .followManageBtn {
   position: absolute;
   right: 0;
   top: 30px;
+  transition: all .2s;
+  @include tablet{
+    padding-right: 70px;
+  }
+  @include mobile{
+    padding-right: 70px;
+  }
 
 }
 .notifications {

@@ -103,7 +103,6 @@ const Page = () => {
   ]
 
   const handleSubmit = async () => {
-    // console.log('폼 제출:', evaluation)
     try {
       const res = await Postfetch('evaluation', {
         kindness: evaluation.kindness,

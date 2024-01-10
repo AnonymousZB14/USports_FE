@@ -14,7 +14,6 @@ const page = () => {
     queryFn: getFollow,
   })
   useEffect(() => {
-    console.log(data)
     setUserList(data?.list)
   }, [data])
   const participantsHandler = async (accept: boolean, memberId: number) => {

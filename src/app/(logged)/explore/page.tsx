@@ -12,10 +12,8 @@ import { recruitItemProps } from '@/types/types'
 import { useQuery } from '@tanstack/react-query'
 import { ExploreData } from '@/types/types'
 import { getRecruitsData } from './_lib/getRecruitsData'
-import { Getfetch } from '@/func/fetchCall'
 import { useRecoilState } from 'recoil'
 import { RegionList, SportsList } from '@/store/types'
-import LoadingScreen from '@/components/loading-screen'
 import { ExploreRecruitItem } from './_component/ExploreRecruitItem'
 
 type Props = {
@@ -34,20 +32,17 @@ const explore = ({ searchParams }: Props) => {
   const router = useRouter()
   const [isOn, setIsOn] = useState(false)
   const [isFilterDialogOpen1, setIsFilterDialogOpen1] = useState(false)
-  const [selectedFilter1, setSelectedFilter1] = useState<string>('모든 지역')
+  const [selectedRegion, setSelectedRegion] = useState<string>('모든 지역')
   const [isFilterDialogOpen2, setIsFilterDialogOpen2] = useState(false)
-  const [selectedFilter2, setSelectedFilter2] = useState<string>('운동종목')
+  const [selectedSports, setSelectedSports] = useState<string>('운동종목')
   const [isFilterDialogOpen3, setIsFilterDialogOpen3] = useState(false)
-  const [selectedFilter3, setSelectedFilter3] = useState<string>('성별 무관')
+  const [selectedGender, setSelectedGender] = useState<string>('성별 무관')
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [isLoading, setIsLoading] = useState(false)
   const onSearchHandler = (value: string) => {
     setSearchQuery(value)
   }
 
-  useEffect(() => {
-    // console.log(searchQuery)
-  }, [searchQuery])
   const [list, setList] = useState<recruitItemProps[]>([])
   const [currentPage, setCurrentPage] = useState(1)
   const [filter, setFilter] = useState<{
@@ -59,8 +54,6 @@ const explore = ({ searchParams }: Props) => {
     sports?: string
   }>({})
   useEffect(() => {
-    // console.log(currentPage)
-    // setCurrentPage((current) => current)
     setFilter((prev) => {
       return {
         ...prev,
@@ -69,7 +62,6 @@ const explore = ({ searchParams }: Props) => {
     })
   }, [currentPage])
   useEffect(() => {
-    // console.log(filter)
     handleSearchForm()
   }, [filter])
   const postsPerPage = 6
@@ -86,8 +78,6 @@ const explore = ({ searchParams }: Props) => {
   >({
     queryKey: ['explore', 'recruits', searchParams],
     queryFn: getRecruitsData,
-    // staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
-    // gcTime: 300 * 1000,
   })
   const handleSearchForm = () => {
     const urlSearchParams = new URLSearchParams(filter)
@@ -103,9 +93,8 @@ const explore = ({ searchParams }: Props) => {
     setIsFilterDialogOpen1(false)
   }
   const applyFilter1 = (filter: string) => {
-    // console.log('Applying filter 1:', filter)
     setCurrentPage(1)
-    setSelectedFilter1(filter)
+    setSelectedRegion(filter)
     setFilter((prev) => {
       return {
         ...prev,
@@ -120,9 +109,8 @@ const explore = ({ searchParams }: Props) => {
     setIsFilterDialogOpen2(false)
   }
   const applyFilter2 = (filter: string) => {
-    // console.log('Applying filter 2:', filter)
     setCurrentPage(1)
-    setSelectedFilter2(filter)
+    setSelectedSports(filter)
     setFilter((prev) => {
       return {
         ...prev,
@@ -137,9 +125,8 @@ const explore = ({ searchParams }: Props) => {
     setIsFilterDialogOpen3(false)
   }
   const applyFilter3 = (filter: string) => {
-    // console.log('Applying filter 3:', filter)
     setCurrentPage(1)
-    setSelectedFilter3(filter)
+    setSelectedGender(filter)
     setFilter((prev) => {
       return {
         ...prev,
@@ -171,7 +158,6 @@ const explore = ({ searchParams }: Props) => {
     setCurrentPage(pageNumber)
   }
   const indexOfLastItem = currentPage * postsPerPage
-  const indexOfFirstItem = indexOfLastItem - postsPerPage
   const currentItems = list
 
   return (
@@ -190,7 +176,7 @@ const explore = ({ searchParams }: Props) => {
             closeFilterDialog={closeFilterDialog1}
             applyFilter={applyFilter1}
             isFilterDialogOpen={isFilterDialogOpen1}
-            selectedFilter={selectedFilter1}
+            selectedFilter={selectedRegion}
             filterOptions={region}
             title="모든 지역"
           />
@@ -200,7 +186,7 @@ const explore = ({ searchParams }: Props) => {
             closeFilterDialog={closeFilterDialog2}
             applyFilter={applyFilter2}
             isFilterDialogOpen={isFilterDialogOpen2}
-            selectedFilter={selectedFilter2}
+            selectedFilter={selectedSports}
             filterOptions={sportList.map((sport) => sport.sportsName)}
             title="운동종목"
           />
@@ -210,7 +196,7 @@ const explore = ({ searchParams }: Props) => {
             closeFilterDialog={closeFilterDialog3}
             applyFilter={applyFilter3}
             isFilterDialogOpen={isFilterDialogOpen3}
-            selectedFilter={selectedFilter3}
+            selectedFilter={selectedGender}
             filterOptions={filterOptions.options3}
             title="성별 무관"
           />
@@ -222,24 +208,15 @@ const explore = ({ searchParams }: Props) => {
       </div>
       <div className="board-header">
         <p style={{ flex: '1' }}>총 {list.length}건</p>
-        {/*         <Button
-          tailwindStyles="py-0 px-2"
-          theme="blue"
-          onClick={() => {
-            handleSearchForm()
-          }}
-        >
-          필터링 적용하기
-        </Button> */}
         &nbsp;
         <Button
           tailwindStyles="py-0 px-2"
           theme="blue"
           onClick={() => {
             router.push(`/explore`)
-            setSelectedFilter1('모든 지역')
-            setSelectedFilter2('운동종목')
-            setSelectedFilter3('성별 무관')
+            setSelectedRegion('모든 지역')
+            setSelectedSports('운동종목')
+            setSelectedGender('성별 무관')
             setIsOn(false)
             setSearchQuery('')
             setCurrentPage(1)

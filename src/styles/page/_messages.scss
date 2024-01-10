@@ -79,7 +79,8 @@ main:has(.chatDetailWrap) {
     display: flex;
     align-items: center;
     height: 80px;
-    justify-content: baseline;
+
+    justify-content: space-between;
     padding: 20px;
     // box-shadow: 0 6px 20px 0px rgba(0, 0, 0, 0.073);
     // background-color: rgba(255, 255, 255, 0.0588235294);
@@ -93,21 +94,13 @@ main:has(.chatDetailWrap) {
     }
     div {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      img {
-        border: 2px solid;
-        width: 85px;
-        height: 85px;
-        object-fit: cover;
-        border-radius: 50%;
+      gap: 10px;
+      transition: all 0.2s;
+      @include tablet {
+        padding-right: 50px;
       }
-      p {
-        font-size: var(--text-size-base);
-        color: var(--text-color-1);
-        font-weight: 600;
+      @include mobile {
+        padding-right: 50px;
       }
     }
   }
@@ -181,28 +174,49 @@ main:has(.chatDetailWrap) {
       @include mobile {
         padding-left: 0;
       }
-      form {
+      .inputFormInner {
         box-shadow: 0 0 30px 0 #00000014;
-        padding: 30px;
-
-        background-color: rgb(255, 255, 255);
+        padding: 15px 30px;
         display: flex;
         align-items: center;
+        gap: 10px;
+        // align-items: stretch;
+        background-color: rgb(255, 255, 255);
         height: 100%;
-        gap: 20px;
-        input {
-          padding: 15px 30px;
-          background-color: #eeeeeebb;
-          font-size: 13px;
-          flex: 1;
-          border: none;
-          border: 1px solid #eee;
-          // border-radius: 30px;
+        .settingBtn {
+          display: flex;
+          gap: 4px;
+          button {
+            flex: 1;
+            width: 100%;
+          }
         }
-        button {
-          svg {
-            width: 24px;
-            height: 24px;
+        form {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          // gap: 20px;
+          align-items: stretch;
+          input {
+            padding: 15px 30px;
+            background-color: #eeeeeebb;
+            font-size: 13px;
+            height: 100%;
+            flex: 1;
+            border: none;
+            border: 1px solid #eee;
+            // border-radius: 30px;
+          }
+          button {
+            height: auto !important;
+            border-radius: 0 4px 4px 0 !important;
+            button {
+              height: 100% !important;
+            }
+            svg {
+              width: 16px;
+              height: 14px;
+            }
           }
         }
       }
@@ -236,7 +250,7 @@ main:has(.chatDetailWrap) {
   bottom: 140px;
   display: flex;
   justify-content: right;
-  
+
   z-index: 55;
   cursor: pointer;
   svg {

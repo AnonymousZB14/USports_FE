@@ -518,7 +518,7 @@ main:is(main > section) {
 .ham {
   position: absolute;
   right: 10px;
-  top: 10px;
+  top: 14px;
   z-index: 15;
   display: none;
 }
@@ -534,7 +534,8 @@ main:is(main > section) {
 }
 .ham label {
   padding: 25px;
-  border: 1px solid var(--text-color-3);
+  background-color: var(--bg-color-2);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.0705882353);
 }
 
 .rolebg {
@@ -1265,8 +1266,13 @@ ul.recruitManagement > li .recruitItemCont p.status {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
+  background-color: var(--bg-color-2);
   box-shadow: 0 0 3px 0 rgba(51, 51, 51, 0.0666666667);
+  border: 1px solid transparent;
+  transition: all 0.1s;
+}
+.profile_info .inner .follow > a:hover {
+  border-color: var(--text-color-2);
 }
 .profile_info .inner .follow > a svg {
   width: 20px;
@@ -1610,6 +1616,17 @@ ul.recruitManagement > li .recruitItemCont p.status {
 }
 .explore-form .category-wrap .filter-dialog .modal-body li:last-child {
   box-shadow: none;
+}
+
+@media (min-width: 768px) and (max-width: 1203px) {
+  .back-arrow ~ a {
+    margin-right: 50px;
+  }
+}
+@media (max-width: 767px) {
+  .back-arrow ~ a {
+    margin-right: 50px;
+  }
 }
 
 .back-arrow {
@@ -2387,6 +2404,17 @@ p.info {
   position: absolute;
   right: 0;
   top: 30px;
+  transition: all 0.2s;
+}
+@media (min-width: 768px) and (max-width: 1203px) {
+  .followManageBtn {
+    padding-right: 70px;
+  }
+}
+@media (max-width: 767px) {
+  .followManageBtn {
+    padding-right: 70px;
+  }
 }
 
 .notifications {
@@ -3249,7 +3277,7 @@ main:has(.chatDetailWrap) {
   display: flex;
   align-items: center;
   height: 80px;
-  justify-content: baseline;
+  justify-content: space-between;
   padding: 20px;
   backdrop-filter: blur(5px);
   transition: all 0.4s;
@@ -3262,22 +3290,18 @@ main:has(.chatDetailWrap) {
 }
 .chatDetailWrap .topSection div {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
+  gap: 10px;
+  transition: all 0.2s;
 }
-.chatDetailWrap .topSection div img {
-  border: 2px solid;
-  width: 85px;
-  height: 85px;
-  object-fit: cover;
-  border-radius: 50%;
+@media (min-width: 768px) and (max-width: 1203px) {
+  .chatDetailWrap .topSection div {
+    padding-right: 50px;
+  }
 }
-.chatDetailWrap .topSection div p {
-  font-size: var(--text-size-base);
-  color: var(--text-color-1);
-  font-weight: 600;
+@media (max-width: 767px) {
+  .chatDetailWrap .topSection div {
+    padding-right: 50px;
+  }
 }
 .chatDetailWrap .bottomSection > .inner {
   padding-bottom: 120px;
@@ -3348,26 +3372,48 @@ main:has(.chatDetailWrap) {
     padding-left: 0;
   }
 }
-.chatDetailWrap .bottomSection .inputFormWrap form {
+.chatDetailWrap .bottomSection .inputFormWrap .inputFormInner {
   box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.0784313725);
-  padding: 30px;
-  background-color: rgb(255, 255, 255);
+  padding: 15px 30px;
   display: flex;
   align-items: center;
+  gap: 10px;
+  background-color: rgb(255, 255, 255);
   height: 100%;
-  gap: 20px;
 }
-.chatDetailWrap .bottomSection .inputFormWrap form input {
+.chatDetailWrap .bottomSection .inputFormWrap .inputFormInner .settingBtn {
+  display: flex;
+  gap: 4px;
+}
+.chatDetailWrap .bottomSection .inputFormWrap .inputFormInner .settingBtn button {
+  flex: 1;
+  width: 100%;
+}
+.chatDetailWrap .bottomSection .inputFormWrap .inputFormInner form {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  align-items: stretch;
+}
+.chatDetailWrap .bottomSection .inputFormWrap .inputFormInner form input {
   padding: 15px 30px;
   background-color: rgba(238, 238, 238, 0.7333333333);
   font-size: 13px;
+  height: 100%;
   flex: 1;
   border: none;
   border: 1px solid #eee;
 }
-.chatDetailWrap .bottomSection .inputFormWrap form button svg {
-  width: 24px;
-  height: 24px;
+.chatDetailWrap .bottomSection .inputFormWrap .inputFormInner form button {
+  height: auto !important;
+  border-radius: 0 4px 4px 0 !important;
+}
+.chatDetailWrap .bottomSection .inputFormWrap .inputFormInner form button button {
+  height: 100% !important;
+}
+.chatDetailWrap .bottomSection .inputFormWrap .inputFormInner form button svg {
+  width: 16px;
+  height: 14px;
 }
 
 .chat-start {
