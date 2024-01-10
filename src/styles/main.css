@@ -3200,12 +3200,14 @@ p.info {
   font-size: 15px;
 }
 
-.chatDetailWrap {
+main:has(.chatDetailWrap) {
   background-color: #f7f7f7;
+}
+
+.chatDetailWrap {
   padding: 0;
 }
 .chatDetailWrap .topSection {
-  background-color: #fff;
   z-index: 4;
   display: flex;
   align-items: center;
@@ -3290,20 +3292,32 @@ p.info {
 }
 .chatDetailWrap .bottomSection .inputFormWrap {
   height: 110px;
-  background-color: rgb(255, 255, 255);
   max-width: 1000px;
   position: fixed;
   bottom: 0;
   left: 50%;
+  padding-left: 300px;
   transform: translateX(-50%);
   width: 100%;
-  padding: 30px;
-  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.0784313725);
   z-index: 50;
 }
+@media (min-width: 768px) and (max-width: 1203px) {
+  .chatDetailWrap .bottomSection .inputFormWrap {
+    padding-left: 0;
+  }
+}
+@media (max-width: 767px) {
+  .chatDetailWrap .bottomSection .inputFormWrap {
+    padding-left: 0;
+  }
+}
 .chatDetailWrap .bottomSection .inputFormWrap form {
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.0784313725);
+  padding: 30px;
+  background-color: rgb(255, 255, 255);
   display: flex;
   align-items: center;
+  height: 100%;
   gap: 20px;
 }
 .chatDetailWrap .bottomSection .inputFormWrap form input {
@@ -3333,10 +3347,15 @@ p.info {
 }
 
 .toBottomBtn {
-  padding: 0 !important;
+  padding: 0 20px 0 0 !important;
   position: fixed;
-  right: var(--side-padding);
-  bottom: 120px;
+  width: 100%;
+  max-width: 1000px;
+  transform: translateX(-50%);
+  left: 50%;
+  bottom: 140px;
+  display: flex;
+  justify-content: right;
   z-index: 55;
   cursor: pointer;
 }
