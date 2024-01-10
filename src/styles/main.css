@@ -966,7 +966,7 @@ span.dayjs {
   background-color: rgba(0, 0, 0, 0.368627451);
 }
 #modal .modalInner {
-  min-width: 60dvw;
+  min-width: 900px;
   width: fit-content;
   max-width: 100dvw;
   padding: 35px 20px;
