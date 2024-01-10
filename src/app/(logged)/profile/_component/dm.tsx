@@ -1,17 +1,24 @@
 'use client'
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiOutlineMessage } from 'react-icons/ai'
 import { getChatRoomId } from '../_lib/getChatRoomId'
-
-const DmComponent = ({memberId} : {memberId : number}) => {
-  const { data: chatRoomId } = useQuery<any, Object>({
+interface DmData {
+  chatRoomId: number
+  message: string
+}
+const DmComponent = ({ memberId }: { memberId: number }) => {
+  const [roomId, setRoomId] = useState<number>(0)
+  const { data } = useQuery<DmData, Object>({
     queryKey: ['chatRoom', memberId],
     queryFn: getChatRoomId,
   })
+  useEffect(() => {
+    data && data.chatRoomId && setRoomId(data.chatRoomId)
+  }, [data])
   return (
-    <Link href={'/home'}>
+    <Link href={`/messages/${roomId}`}>
       <AiOutlineMessage />
     </Link>
   )

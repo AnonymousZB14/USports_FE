@@ -1,20 +1,21 @@
 'use client'
+import { Room } from '@/types/types'
 import Link from 'next/link'
 import React from 'react'
 
-const ChatListItem = () => {
+const ChatListItem = ({ item }: { item: Room }) => {
   return (
     <li>
       <div className="inner">
-        <Link href="/messages/1">
+        <Link href={`/messages/${item.chatRoomId}`}>
           <div className="inner_left">
             <img src="/basicProfile.png" />
           </div>
           <div className="inner_right">
-            <p className="username">user</p>
-            <p className="lastmessage">
-              Lorem ipsum dolor, sit amet consectetur adipisicing
-            </p>
+            <p className="username">{item.chatRoomName}</p>
+            {item.unreadChatCount !== 0 && (
+              <p className="lastmessage">{item.unreadChatCount}</p>
+            )}
           </div>
         </Link>
       </div>

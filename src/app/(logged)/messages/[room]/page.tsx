@@ -1,36 +1,72 @@
 'use client'
 import BackBtn from '@/components/backBtn'
-import React, { FormEventHandler, useEffect, useState } from 'react'
+import React, { FormEventHandler, useEffect, useRef, useState } from 'react'
 import * as StompJs from '@stomp/stompjs'
 import { IoChevronBackCircleSharp } from 'react-icons/io5'
+import { BsFillArrowDownCircleFill } from 'react-icons/bs'
 import { ChatBubble_Me, ChatBubble_U } from '../_component/ChatBubble'
 import { useParams, useRouter } from 'next/navigation'
+import { useInView } from 'react-intersection-observer'
 import Link from 'next/link'
 import SockJS from 'sockjs-client'
 import { IoSend } from 'react-icons/io5'
 import { useRecoilState } from 'recoil'
 import { UserDetailState } from '@/store/user'
 import { getCookie } from '@/func/cookie_c'
-import { ChatListItem, Room } from '@/types/types'
-import { useQuery } from '@tanstack/react-query'
+import { ChatList, ChatListItem, Room } from '@/types/types'
+import { InfiniteData, useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import { getChatList } from '../_lib/getChatList'
+import { Postfetch } from '@/func/fetchCall'
 const page = () => {
   const { room } = useParams()
+  const innerRef = useRef<HTMLUListElement | null>(null)
   const route = useRouter()
   let [client, changeClient] = useState<StompJs.Client | null>(null)
   const [chat, setChat] = useState('')
   const [user, _] = useRecoilState(UserDetailState)
   const [chatList, setChatList] = useState<ChatListItem[]>([])
   const userToken = getCookie('accessToken')
-  var firstEnter = true
-  const { data, isFetching } = useQuery<ChatListItem[]>({
-    queryKey: ['chatList', room],
-    queryFn: getChatList,
+  const [showBtn, setShowBtn] = useState(true)
+  const btmRef = useRef<HTMLDivElement>(null)
+  const [firstEnter,setfirstEnter] = useState(true)
+  // var firstEnter = true
+  const { data, fetchNextPage, hasNextPage, hasPreviousPage, isFetching } =
+    useInfiniteQuery<ChatList, Object, InfiniteData<ChatList>, any, number>({
+      queryKey: ['chatList', room],
+      queryFn: getChatList,
+      initialPageParam: 1,
+      getNextPageParam: (lastPage) => {
+        return lastPage.totalPages === 0 ||
+          lastPage.totalPages === lastPage.currentPage
+          ? undefined
+          : lastPage.currentPage + 1
+      },
+    })
+  const { ref, inView } = useInView({
+    threshold: 0,
+    delay: 0,
+  })
+  const { ref: ref2, inView: inView2 } = useInView({
+    threshold: 0,
+    delay: 0,
   })
   useEffect(() => {
-    console.log(chatList)
-    data && setChatList(data)
+    if (inView) {
+      !isFetching && hasNextPage && fetchNextPage()
+    }
+  }, [inView, isFetching, hasNextPage, fetchNextPage])
+
+  useEffect(() => {
+    if (!data) return
+    data.pages.map((page) => setChatList((prev) => [...prev, ...page.list]))
+  }, [data])
+  useEffect(() => {
+    firstEnter && btmRef.current?.scrollIntoView(true)
   }, [chatList])
+  /*   useEffect(() => {
+    if (!isFetching && btmRef.current)
+      btmRef.current.scrollTop = btmRef.current?.scrollHeight
+  }, []) */
   const connect = () => {
     try {
       const client = new StompJs.Client({
@@ -40,9 +76,6 @@ const page = () => {
         connectHeaders: {
           credentials: 'include',
           Authorization: `Bearer ${userToken}`,
-        },
-        beforeConnect: () => {
-          // console.log('beforeConnect')
         },
         debug(str) {
           console.log(`debug`, str)
@@ -56,7 +89,7 @@ const page = () => {
         if (firstEnter === true) {
           client.subscribe(`/exchange/chat.exchange/room.` + room, callback)
           sendEnterMessage()
-          firstEnter = false
+          setfirstEnter(false)
         }
       }
       client.activate()
@@ -64,6 +97,7 @@ const page = () => {
     } catch (error) {
       console.log(error)
     }
+
     function sendEnterMessage() {
       client !== null &&
         client.publish({
@@ -85,7 +119,7 @@ const page = () => {
         console.log(message)
         let msg = JSON.parse(message.body)
         console.log(msg)
-        setChatList((prev) => [...prev, msg])
+        setChatList((prev) => [msg, ...(prev as ChatListItem[])])
       }
     }
   }
@@ -98,7 +132,7 @@ const page = () => {
       destination: '/pub/chat/message/' + room,
       body: JSON.stringify({
         chatRoomId: room,
-        user: user.accountName,
+        user: user.name,
         userId: user.memberId,
         imageAddress: user.profileImage,
         content: chat,
@@ -115,11 +149,41 @@ const page = () => {
     client.deactivate()
   }
 
+  const leaveChatRoom = async () => {
+    try {
+      const res = await Postfetch('/markchat', {
+        chatRoomId: room,
+        userId: user.memberId,
+      })
+      if (res.status === 200) {
+        console.log('채팅방에서 나갔다')
+        setChatList([])
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const goToBottom = () => {
+    btmRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
+  }
   useEffect(() => {
     connect()
-    return () => disConnect()
+    return () => {
+      disConnect()
+      leaveChatRoom()
+    }
   }, [])
 
+  useEffect(() => {
+    if (inView2) {
+      setShowBtn(false)
+    } else {
+      setShowBtn(true)
+    }
+  }, [inView2])
   return (
     <>
       <div className="chatDetailWrap">
@@ -133,30 +197,40 @@ const page = () => {
         </div>
         <div className="bottomSection">
           <div className="inner">
-            <ul>
-              {chatList.map((_chatMessage, index) =>
-                _chatMessage.user === user.accountName ? (
-                  <ChatBubble_Me key={index} item={_chatMessage} />
-                ) : (
-                  <ChatBubble_U key={index} item={_chatMessage} />
-                ),
-              )}
+            {chatList.length > 1 && <div ref={ref} style={{ height: 10 }} />}
+            <ul ref={innerRef}>
+              {chatList &&
+                chatList.map((_chatMessage, index) =>
+                  _chatMessage.userId === user.memberId ? (
+                    <ChatBubble_Me key={index} item={_chatMessage} />
+                  ) : (
+                    <ChatBubble_U key={index} item={_chatMessage} />
+                  ),
+                )}
             </ul>
-            <div className="inputFormWrap">
-              <form onSubmit={sendChat}>
-                <input
-                  type="text"
-                  placeholder={`메세지를 입력해주세요`}
-                  value={chat}
-                  onChange={(e) => setChat(e.target.value)}
-                ></input>
-                <button type="submit">
-                  <IoSend />
-                </button>
-              </form>
-            </div>
+            <div ref={btmRef} style={{ height: 10 }} />
+            <div ref={ref2} />
+          </div>
+
+          <div className="inputFormWrap">
+            <form onSubmit={sendChat}>
+              <input
+                type="text"
+                placeholder={`메세지를 입력해주세요`}
+                value={chat}
+                onChange={(e) => setChat(e.target.value)}
+              ></input>
+              <button type="submit">
+                <IoSend />
+              </button>
+            </form>
           </div>
         </div>
+        {showBtn === true && (
+          <div className="toBottomBtn" onClick={goToBottom}>
+            <BsFillArrowDownCircleFill />
+          </div>
+        )}
       </div>
     </>
   )
