@@ -1259,7 +1259,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   gap: 6px;
   align-items: center;
 }
-.profile_info .inner .follow > a {
+.profile_info .inner .follow > div {
   width: 35px;
   height: 35px;
   border-radius: 50%;
@@ -1271,10 +1271,10 @@ ul.recruitManagement > li .recruitItemCont p.status {
   border: 1px solid transparent;
   transition: all 0.1s;
 }
-.profile_info .inner .follow > a:hover {
+.profile_info .inner .follow > div:hover {
   border-color: var(--text-color-2);
 }
-.profile_info .inner .follow > a svg {
+.profile_info .inner .follow > div svg {
   width: 20px;
   height: 20px;
 }
@@ -3215,7 +3215,7 @@ p.info {
   transition: all 0.2s;
   border-radius: 14px;
   background-color: var(--bg-color-2);
-  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.0549019608);
+  box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.0549019608);
 }
 .messageWrap ul li:hover {
   filter: brightness(0.98);

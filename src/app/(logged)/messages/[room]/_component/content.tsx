@@ -29,6 +29,7 @@ import { Postfetch } from '@/func/fetchCall'
 import { AiFillSetting } from 'react-icons/ai'
 import Button from '@/components/commonButton'
 import { getChatRoomInfo } from '../../_lib/getChatRoomInfo'
+import axios from 'axios'
 const Content = () => {
   const { room } = useParams()
   const innerRef = useRef<HTMLUListElement | null>(null)
@@ -151,18 +152,19 @@ const Content = () => {
     if (client === null) {
       return
     }
+    setChatList([])
     client.deactivate()
+    changeClient(null)
   }
 
-  const leaveChatRoom = async () => {
+  const leaveChatRoom = () => {
     try {
-      const res = await Postfetch('/markchat', {
+      const res = Postfetch('/markchat', {
         chatRoomId: room,
         userId: user.memberId,
+      }).then((res) => {
+        if (res.status === 200) setChatList([])
       })
-      if (res.status === 200) {
-        setChatList([])
-      }
     } catch (error) {
       console.log(error)
     }
@@ -173,6 +175,19 @@ const Content = () => {
       block: 'start',
     })
   }
+  const exitHander = async () => {
+    let isSuccess = false
+    try {
+      const res = await axios.delete(`/usports/chat/${room}/exit`)
+      if (res.status === 200) {
+        alert('채팅방을 나가셨습니다')
+        isSuccess = true
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    if (isSuccess) route.back()
+  }
   //useEffect
   useEffect(() => {
     if (inView) {
@@ -180,11 +195,17 @@ const Content = () => {
     }
   }, [inView, isFetching, hasNextPage, fetchNextPage])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!data) return
-    data.pages.map((page) => setChatList((prev) => [...prev, ...page.list]))
+
+    data.pages.map((page) => {
+      page.currentPage === 1
+        ? setChatList([...page.list])
+        : setChatList((prev) => [...prev, ...page.list])
+    })
   }, [data])
   useEffect(() => {
+    console.log(chatList)
     firstEnter && btmRef.current?.scrollIntoView(true)
   }, [chatList])
   useEffect(() => {
@@ -220,12 +241,18 @@ const Content = () => {
           <IoChevronBackCircleSharp
             className={'hoverScaleAct'}
             onClick={() => {
-              route.back()
+              leaveChatRoom()
+              disConnect()
+              setTimeout(() => {
+                route.push('/messages')
+              }, 100)
             }}
           />
           <div className="settingBtn">
             <Button>초대하기</Button>
-            <Button theme="red">나가기</Button>
+            <Button theme="red" onClick={exitHander}>
+              나가기
+            </Button>
           </div>
         </div>
         <div className="bottomSection">

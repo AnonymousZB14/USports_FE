@@ -2,14 +2,17 @@
 import React, { useEffect, useState } from 'react'
 import Content from './_component/content'
 import axios from 'axios'
+import { useParams } from 'next/navigation'
 
-const page = ({ params }: { params: { room: string } }) => {
+const page = () => {
   const [isItmember, setIsItmember] = useState<boolean>()
+  const param = useParams()
+  const { room } = param
   const [isItLoading, setIsItLoading] = useState<boolean>(false)
   const checkUser = async () => {
     try {
       setIsItLoading(true)
-      const res = await axios.get(`/usports/chat/${params.room}`)
+      const res = await axios.get(`/usports/chat/${room}`)
       if (res.status === 200) {
         setIsItmember(true)
       } else {

@@ -9,6 +9,7 @@ import LocalStorage from '@/func/localstrage'
 import { checkCookie } from '@/func/cookie'
 import { WritingPageListWrap } from '@/components/writingPageList'
 import { HamBtn } from '@/components/hambtn'
+import SseComponent from './_component/SseComponent'
 export const metadata: Metadata = {
   title: 'USports',
   description: 'usports',
@@ -29,6 +30,7 @@ export default async function RootLayout({
       />
       <div id="wrap">
         <HamBtn />
+        <SseComponent />
         <Header />
         <main id="main">{children}</main>
         <WritingPageListWrap />
