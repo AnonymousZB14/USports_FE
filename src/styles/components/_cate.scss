@@ -1,0 +1,30 @@
+.cate {
+  position: relative;
+  ul {
+    display: flex;
+    border-bottom: 1px solid;
+    align-items: center;
+    position: relative;
+    li {
+      cursor: pointer;
+      width: 50%;
+      text-align: center;
+      padding-bottom: 15px;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--text-color-1);
+      
+    }
+  }
+  span.border {
+    display: block;
+    background-color: var(--text-color-1);
+    height: 4px;
+    width: 50px;
+    position: absolute;
+    transform: translateX(-50%);
+    bottom: 0;
+    left: 0;
+    transition: all 0.2s;
+  }
+}

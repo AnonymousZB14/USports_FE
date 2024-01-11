@@ -1,0 +1,51 @@
+.commentInput {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: #000000;
+  width: 100%;
+  padding: 20px 0;
+  z-index: 50;
+  .inner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 20px;
+    & > div {
+    }
+    & > input {
+      flex: 1;
+      background-color: transparent;
+      border: 1px solid #717171;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: var(--text-size-base);
+      color: #ccc;
+      &::placeholder {
+        color: #686868;
+        font-size: var(--text-size-base);
+      }
+      &:focus {
+        // border-color: #ccc;
+        outline-color: #fff;
+      }
+    }
+    & > button {
+      svg {
+        width: 30px;
+        height: 30px;
+        color: #fff;
+      }
+    }
+  }
+  button.close {
+    position: absolute;
+    top: 9px;
+    right: 10px;
+    svg {
+      width: 17px;
+      height: 17px;
+      color: #ccc;
+    }
+  }
+}

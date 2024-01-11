@@ -1,0 +1,66 @@
+@use '../themes/theme' as *;
+@use '../base/variables' as *;
+ul.applicationsList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  & > li {
+    background-color: var(--bg-color-3);
+    border-bottom: 1px solid var(--bg-color-3);
+    border-left: 1px solid var(--bg-color-3);
+    border-right: 1px solid var(--bg-color-3);
+    .applicationCont {
+      padding: 14px;
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      .sportsBadge {
+        text-align: center;
+        width: max-content;
+        padding: 4px 10px;
+        background-color: springgreen;
+        color: #222;
+        font-size: var(--text-size-xs);
+      }
+      .cont {
+        flex: 1;
+        p {
+          font-size: var(--text-size-base);
+          color: var(--text-color-1);
+          font-weight: 600;
+          @include mobile {
+            font-size: var(--text-size-xs);
+          }
+        }
+      }
+      .buttonWrap {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        button {
+          padding: 9px 10px;
+          border-radius: 4px;
+          font-size: var(--text-size-xs);
+          &.cancle {
+            background-color: transparent;
+            color: var(--text-color-2);
+            border: 1px solid var(--text-color-2);
+          }
+          &.applying {
+            background-color: var(--text-color-3);
+            color: var(--bg-color-2);
+          }
+          &.rejected {
+            background-color: var(--text-color-2);
+            color: var(--bg-color-2);
+          }
+          &.accepted {
+            background-color: rgb(0, 214, 7);
+            color: var(--bg-color-2);
+          }
+        }
+      }
+    }
+  }
+}

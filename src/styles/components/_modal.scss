@@ -1,0 +1,31 @@
+@use '../themes/theme' as *;
+#modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  background-color: #0000005e;
+  .modalInner {
+    min-width: 900px;
+    width: fit-content;
+    max-width: 100dvw;
+    padding: 35px 20px;
+    background-color: var(--bg-color-2);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 30px;
+    @include mobile {
+      width: 90dvw;
+    }
+    & > div:not(.closeModalBtn) {
+      min-height: 200px;
+      overflow-y: auto;
+      height: 100%;
+      max-height: 70vh;
+    }
+  }
+}
