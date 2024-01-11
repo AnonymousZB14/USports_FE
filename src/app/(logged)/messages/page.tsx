@@ -21,7 +21,6 @@ const page = () => {
       <div className="messageWrap">
         <ul>
           {chatList?.map((chat) => <ChatListItem key={chat.chatRoomId} item={chat} />)}
-
         </ul>
       </div>
     </>
