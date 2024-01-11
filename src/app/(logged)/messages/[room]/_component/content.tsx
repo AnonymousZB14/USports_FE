@@ -241,7 +241,11 @@ const Content = () => {
           <IoChevronBackCircleSharp
             className={'hoverScaleAct'}
             onClick={() => {
-              route.push('/messages')
+              leaveChatRoom()
+              disConnect()
+              setTimeout(() => {
+                route.push('/messages')
+              }, 100)
             }}
           />
           <div className="settingBtn">
