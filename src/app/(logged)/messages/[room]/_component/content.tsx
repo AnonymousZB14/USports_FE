@@ -205,7 +205,7 @@ const Content = () => {
     })
   }, [data])
   useEffect(() => {
-    console.log(chatList)
+    // console.log(chatList)
     firstEnter && btmRef.current?.scrollIntoView(true)
   }, [chatList])
   useEffect(() => {
