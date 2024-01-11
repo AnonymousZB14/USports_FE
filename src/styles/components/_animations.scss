@@ -1,8 +1,0 @@
-.hoverScaleAct {
-  transform: scale(1);
-  transition: all 0.1s;
-  cursor: pointer;
-  &:hover {
-    transform: scale(1.15);
-  }
-}
