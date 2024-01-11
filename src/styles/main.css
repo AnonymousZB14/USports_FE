@@ -336,20 +336,6 @@ body:has(.centered) {
   background-color: transparent;
   transition: all 0.1s;
 }
-#header .head_inner nav ul li:nth-child(3) span {
-  position: relative;
-  /*               &::after{
-    content: "";
-    display: block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: rgb(0, 230, 23);
-    position: absolute;
-    top: 16px;
-    left: 35px;
-  } */
-}
 #header .head_inner nav ul li a {
   display: block;
   width: 100%;
@@ -357,7 +343,7 @@ body:has(.centered) {
 #header .head_inner nav ul li a:hover > span {
   background-color: rgba(51, 51, 51, 0.968627451);
 }
-#header .head_inner nav ul li a span {
+#header .head_inner nav ul li a > span {
   background-color: transparent;
   transition: all 0.1s;
   display: flex;
@@ -365,14 +351,38 @@ body:has(.centered) {
   width: fit-content;
   gap: 13px;
   padding: 15px 20px;
+  position: relative;
   color: #fff;
   border-radius: 14px;
   font-size: var(--text-size-xl);
 }
-#header .head_inner nav ul li a span svg {
+#header .head_inner nav ul li a > span svg {
   width: 25px;
   height: 25px;
   color: #fff;
+}
+
+span:has(span.light) svg {
+  transform-origin: top center;
+  animation: move infinite 0.6s alternate-reverse;
+  fill: yellow;
+}
+
+@keyframes move {
+  0% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(15deg);
+  }
+}
+span.light {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  position: absolute;
+  top: 18px;
+  left: 23px;
 }
 
 #wrap > .iconWrap {
