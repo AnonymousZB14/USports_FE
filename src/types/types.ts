@@ -380,6 +380,45 @@ export interface ChatList {
   totalPages: number
 }
 
+export interface ChatRoomMember {
+  accountName: string
+  accountNonExpired: true
+  accountNonLocked: true
+  activeRegion: string
+  attributes: {}
+  authorities: {
+    authority: string
+  }[]
+  birthDate: Date
+  credentialsNonExpired: true
+  email: string
+  emailAuthAt: Date
+  enabled: true
+  evaluationCount: number
+  gender: string
+  kindnessScore: number
+  loginBy: string
+  mannerScore: number
+  memberId: number
+  name: string
+  passionScore: number
+  password: string
+  penaltyCount: number
+  phoneNumber: string
+  profileImage: string
+  profileOpen: true
+  registeredAt: Date
+  role: string
+  teamworkScore: number
+  updatedAt: Date
+  username: string
+}
+export interface ChatRoomInfo {
+  chatRoomId: number
+  chatRoomName: string
+  members: ChatRoomMember[]
+}
+
 export interface FollowUserPerType {
   currentPage: number
   list: FollowUserPerTypeList[]
