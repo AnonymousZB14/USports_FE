@@ -33,8 +33,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: #fff;
+        background-color: var(--bg-color-2);
         box-shadow: 0 0 3px 0 #33333311;
+        border: 1px solid transparent;
+        transition: all .1s;
+        &:hover{
+          border-color: var(--text-color-2);
+        }
         svg {
           width: 20px;
           height: 20px;

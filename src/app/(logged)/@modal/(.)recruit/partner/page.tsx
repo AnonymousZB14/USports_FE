@@ -49,16 +49,12 @@ const Page = () => {
 
   const isButtonActive = (value: number | string, category: string) => {
     if (category === 'manners') {
-      // console.log(evaluation.mannersScore)
       return value === evaluation.mannersScore
     } else if (category === 'passion') {
-      // console.log(evaluation.passionScore)
       return value === evaluation.passionScore
     } else if (category === 'teamwork') {
-      // console.log(evaluation.teamworkScore)
       return value === evaluation.teamworkScore
     } else if (category === 'skill') {
-      // console.log(evaluation.skillLevel)
       return value === evaluation.skillLevel
     }
     return false

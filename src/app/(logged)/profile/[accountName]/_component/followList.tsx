@@ -100,7 +100,7 @@ const FollowListModal = ({
                 return (
                   <li
                     onClick={() =>
-                      router.replace(`/profile/${user.toMemberAccountName}`)
+                      router.replace(`/profile/${user.fromMemberAccountName}`)
                     }
                   >
                     <BsPersonCircle />
