@@ -35,7 +35,7 @@ interface ItemProp {
   }
 }
 export const RecruitManagementItem = ({ item }: ItemProp) => {
-  const [chatRoom, setChatRoom] = useState<number>()
+  const [chatRoomId, setChatRoomId] = useState<number>(0)
   const route = useRouter()
   const changeKor = (value: string) => {
     switch (value) {
@@ -56,7 +56,7 @@ export const RecruitManagementItem = ({ item }: ItemProp) => {
         recruitId: item.recruitId,
       })
       if (res.status === 200) {
-        setChatRoom(res.data.chatRoomId)
+        setChatRoomId(res.data.chatRoomId)
       }
     } catch (error) {
       console.log(error)
@@ -64,8 +64,8 @@ export const RecruitManagementItem = ({ item }: ItemProp) => {
   }
 
   useEffect(() => {
-    createGroupChat()
-  }, [])
+    chatRoomId !== 0 && route.push(`/messages/${chatRoomId}`)
+  }, [chatRoomId])
   return (
     <li>
       <div className="recruitItemCont">
@@ -78,16 +78,13 @@ export const RecruitManagementItem = ({ item }: ItemProp) => {
             <p className="subCon">{item.gender}</p>
             <p className="conditions">
               <span></span>
-              {/* <span>모든 레벨</span> */}
+              
             </p>
           </div>
         </div>
         <p className="status">{changeKor(item.status)}</p>
         <Link href={`/recruit/${item.recruitId}`}>관리 ⇀</Link>
-        <Button
-          theme="black"
-          onClick={() => route.replace(`/messages/${chatRoom}`)}
-        >
+        <Button theme="black" onClick={createGroupChat}>
           채팅
         </Button>
       </div>

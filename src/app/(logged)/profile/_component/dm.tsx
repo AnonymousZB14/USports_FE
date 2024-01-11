@@ -13,10 +13,6 @@ interface DmData {
 const DmComponent = ({ memberId }: { memberId: number }) => {
   const route = useRouter()
   const [roomId, setRoomId] = useState<number>(0)
-  /*   const { data } = useQuery<DmData, Object>({
-    queryKey: ['chatRoom', memberId],
-    queryFn: getChatRoomId,
-  }) */
   const getRoomId = () => {
     try {
       const res = Postfetch(`/chat/direct-message`, {
@@ -31,9 +27,7 @@ const DmComponent = ({ memberId }: { memberId: number }) => {
   useEffect(() => {
     roomId !== 0 && route.push(`/messages/${roomId}`)
   }, [roomId])
-  /* useEffect(() => {
-    data && data.chatRoomId && setRoomId(data.chatRoomId)
-  }, [data]) */
+
   return (
     <div onClick={getRoomId}>
       <AiOutlineMessage />
