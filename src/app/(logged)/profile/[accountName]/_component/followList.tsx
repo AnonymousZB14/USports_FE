@@ -16,10 +16,12 @@ const FollowList = ({ memberId }: { memberId: number }) => {
   const { data: followerData } = useQuery<FollowUserPerType>({
     queryKey: ['followList', 'FOLLOWERS', memberId],
     queryFn: getFollowers,
+    enabled: memberId !== undefined,
   })
   const { data: followingData } = useQuery<FollowUserPerType>({
     queryKey: ['followList', 'FOLLOWING', memberId],
     queryFn: getFollowing,
+    enabled: memberId !== undefined,
   })
   useEffect(() => {
     followerData && setFollowers(followerData.list)

@@ -71,3 +71,8 @@ export const NotificationState = atom({
     state: false,
   },
 })
+
+export const AlertOpenState = atom({
+  key: 'alertOpenState',
+  default: '',
+})
