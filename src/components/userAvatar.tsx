@@ -1,5 +1,4 @@
 'use client'
-import { checkUser } from '@/test/user'
 import { useEffect, useLayoutEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { UserState, UserState as userstate } from '@/store/user'
