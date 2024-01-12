@@ -268,7 +268,15 @@ const Content = () => {
           />
           <div className="settingBtn">
             {recruitId !== 0 && (
-              <Button onClick={() => setOpenModal((prev) => !prev)}>
+              <Button
+                onClick={() => {
+                  if (!inviteMemberList || inviteMemberList.length < 1) {
+                    alert('초대 가능한 멤버가 없습니다')
+                    return
+                  }
+                  setOpenModal((prev) => !prev)
+                }}
+              >
                 초대하기
               </Button>
             )}

@@ -8,6 +8,7 @@ import RecoilRootWrapper from '@/containers/recoilRootWrapper'
 import RQProvider from './(logged)/_component/RQProvider'
 import UserInfoProvider from './_component/UserInfoProvider'
 import Script from 'next/script'
+
 export const metadata: Metadata = {
   title: 'USports',
   description: 'usports',
@@ -28,17 +29,12 @@ export default async function RootLayout({
   return (
     <html data-theme="light">
       <head>
-        <meta
-          http-equiv="Content-Security-Policy"
-          content="upgrade-insecure-requests"
-        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap"
           rel="stylesheet"
         />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body>
         <RecoilRootWrapper>
