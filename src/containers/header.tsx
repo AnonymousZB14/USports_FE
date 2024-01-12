@@ -70,8 +70,8 @@ const Header = () => {
   ]
   return (
     <>
+      <RoleChange />
       <header id="header" className={openMode === true ? 'block' : ''}>
-        <RoleChange />
         <div className="head_inner" style={{ overflowY: 'auto' }}>
           <UserProfile />
           <nav>
