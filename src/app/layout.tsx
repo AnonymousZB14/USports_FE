@@ -11,6 +11,9 @@ import Script from 'next/script'
 export const metadata: Metadata = {
   title: 'USports',
   description: 'usports',
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 declare global {
   // Kakao 함수를 전역에서 사용할 수 있도록 선언
@@ -34,7 +37,6 @@ export default async function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap"
           rel="stylesheet"
         />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body>
         <RecoilRootWrapper>
