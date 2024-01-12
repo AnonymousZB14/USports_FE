@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react'
 import * as StompJs from '@stomp/stompjs'
-import { IoChevronBackCircleSharp } from 'react-icons/io5'
+import { IoChevronBackCircleSharp, IoClose } from 'react-icons/io5'
 import { BsFillArrowDownCircleFill } from 'react-icons/bs'
 import { ChatBubble_Me, ChatBubble_U } from '../../_component/ChatBubble'
 import { useParams, useRouter } from 'next/navigation'
@@ -25,11 +25,13 @@ import {
 } from '@/types/types'
 import { InfiniteData, useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import { getChatList } from '../../_lib/getChatList'
-import { Postfetch } from '@/func/fetchCall'
+import { Getfetch, Postfetch } from '@/func/fetchCall'
 import { AiFillSetting } from 'react-icons/ai'
 import Button from '@/components/commonButton'
 import { getChatRoomInfo } from '../../_lib/getChatRoomInfo'
 import axios from 'axios'
+import Title from '@/components/title'
+import { getInviteList } from '../../_lib/getInviteList'
 const Content = () => {
   const { room } = useParams()
   const innerRef = useRef<HTMLUListElement | null>(null)
@@ -44,6 +46,9 @@ const Content = () => {
   const [firstEnter, setfirstEnter] = useState(true)
   const [members, setMembers] = useState<ChatRoomMember[]>()
   const [checkUser, setCheckUser] = useState(true)
+  const [openModal, setOpenModal] = useState(false)
+  const [recruitId, setRecruitId] = useState(0)
+  const [inviteMemberList, setInviteList] = useState<ChatRoomMember[]>()
   //dataFetching (useQuery)
   const {
     data: roomData,
@@ -52,6 +57,11 @@ const Content = () => {
   } = useQuery<ChatRoomInfo>({
     queryKey: ['chatRoom', room],
     queryFn: getChatRoomInfo,
+  })
+  const { data: inviteList } = useQuery<ChatRoomMember[]>({
+    queryKey: ['chatRoom', 'invite-list', room],
+    queryFn: getInviteList,
+    enabled: recruitId !== 0,
   })
   const { data, fetchNextPage, hasNextPage, hasPreviousPage, isFetching } =
     useInfiniteQuery<ChatList, Object, InfiniteData<ChatList>, any, number>({
@@ -65,6 +75,7 @@ const Content = () => {
           : lastPage.currentPage + 1
       },
     })
+
   const { ref, inView } = useInView({
     threshold: 0,
     delay: 0,
@@ -205,7 +216,6 @@ const Content = () => {
     })
   }, [data])
   useEffect(() => {
-    // console.log(chatList)
     firstEnter && btmRef.current?.scrollIntoView(true)
   }, [chatList])
   useEffect(() => {
@@ -217,7 +227,15 @@ const Content = () => {
   }, [])
   useEffect(() => {
     roomData && setMembers(roomData.members)
+    roomData && roomData.recruitId && setRecruitId(roomData.recruitId)
   }, [roomData])
+  useEffect(() => {
+    roomData &&
+      roomData.recruitId &&
+      inviteList &&
+      inviteList.length > 0 &&
+      setInviteList(inviteList)
+  }, [inviteList])
   useLayoutEffect(() => {
     if (!members) return
     if (members?.findIndex((item) => item.memberId === user.memberId) > -1) {
@@ -249,7 +267,11 @@ const Content = () => {
             }}
           />
           <div className="settingBtn">
-            <Button>초대하기</Button>
+            {recruitId !== 0 && (
+              <Button onClick={() => setOpenModal((prev) => !prev)}>
+                초대하기
+              </Button>
+            )}
             <Button theme="red" onClick={exitHander}>
               나가기
             </Button>
@@ -294,8 +316,72 @@ const Content = () => {
           </div>
         )}
       </div>
+      {openModal && (
+        <InviteList
+          setOpenModal={setOpenModal}
+          chatId={+room}
+          recruitId={recruitId}
+          list={inviteMemberList}
+        />
+      )}
     </>
   )
 }
 
+const InviteList = ({
+  chatId,
+  list,
+  recruitId,
+  setOpenModal,
+}: {
+  chatId?: number
+  list?: any
+  recruitId?: number
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
+}) => {
+  const [memberList, setMemberList] = useState([])
+  const router = useRouter()
+  const inviteHandler = async (memberId: number) => {
+    try {
+      const res = await Postfetch(`/chat/invite`, {
+        chatId: chatId,
+        memberId,
+        recruitId: recruitId,
+      })
+      if (res.status === 200) {
+        alert('초대장이 전송되었습니다')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  return (
+    <div id="modal">
+      <div className="modalInner">
+        <div
+          className="closeModalBtn"
+          onClick={() => setOpenModal((prev) => !prev)}
+        >
+          <IoClose />
+        </div>
+        <div className="inviteMemberModal">
+          <Title title="멤버 초대"></Title>
+          <ul>
+            {list.map((member: ChatRoomMember) => (
+              <li key={member.memberId}>
+                <p>{member.accountName}</p>
+                <Button
+                  theme="blue"
+                  onClick={() => inviteHandler(member.memberId)}
+                >
+                  초대하기
+                </Button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  )
+}
 export default Content

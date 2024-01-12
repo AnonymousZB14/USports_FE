@@ -11,7 +11,7 @@ import { MdOutlineSportsVolleyball } from 'react-icons/md'
 import { IoMail, IoNotifications } from 'react-icons/io5'
 import { IoMdSettings } from 'react-icons/io'
 import WritingBtn from '@/components/writingBtn'
-import { IoSearchCircle,IoSearch } from "react-icons/io5";
+import { IoSearchCircle, IoSearch } from 'react-icons/io5'
 import { cookies } from 'next/headers'
 import RoleChange from '@/components/roleChange'
 import UserProfile from '@/components/user_profile'
@@ -20,8 +20,10 @@ import { useRecoilState } from 'recoil'
 import { MdSportsScore } from 'react-icons/md'
 import { OpenHeader } from '@/store/mode'
 import { usePathname } from 'next/navigation'
+import { NotificationState } from '@/store/user'
 const Header = () => {
   const [openMode, setOpenmode] = useRecoilState(OpenHeader)
+  const [notificatioinExist, setNtExist] = useRecoilState(NotificationState)
   const pathname = usePathname()
   useLayoutEffect(() => {
     setOpenmode((prev) => {
@@ -65,7 +67,6 @@ const Header = () => {
       title: 'Mypage',
       icon: <IoMdSettings />,
     },
-
   ]
   return (
     <>
@@ -82,6 +83,10 @@ const Header = () => {
                       <span>
                         {cate.icon}
                         {cate.title}
+                        {notificatioinExist.state &&
+                          cate.title === 'Notifications' && (
+                            <span className="light"></span>
+                          )}
                       </span>
                     </Link>
                   </li>

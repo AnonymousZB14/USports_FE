@@ -2,10 +2,6 @@
 const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
-  webpack: (config, options) => {
-    config.cache = false
-    return config
-  },
   async generateStaticParams() {
     return {
       'src/app/(logged)/@modal/(.)member/:id': { page: '/member/:id' }, // correct

@@ -3,14 +3,13 @@
   position: absolute;
   right: 0;
   top: 30px;
-  transition: all .2s;
-  @include tablet{
+  transition: all 0.2s;
+  @include tablet {
     padding-right: 70px;
   }
-  @include mobile{
+  @include mobile {
     padding-right: 70px;
   }
-
 }
 .notifications {
   margin-top: 40px;
@@ -55,10 +54,9 @@
   &.followRequestWrap {
     ul {
       li {
-
         display: flex;
         background-color: var(--bg-color-2);
-        p{
+        p {
           display: flex;
           align-items: center;
           gap: 10px;
@@ -66,15 +64,81 @@
           font-size: var(--text-size-xl);
           padding: 10px;
           position: relative;
-          svg{
+          svg {
             width: 30px;
             height: 30px;
           }
         }
-        div{
+        div {
           display: flex;
           gap: 3px;
         }
+      }
+    }
+  }
+}
+
+.notificationWrap {
+  position: fixed;
+  // border: 1px solid red;
+  top: 0;
+  width: 100%;
+  padding-left: 300px;
+  max-width: 1000px;
+  z-index: 100;
+  left: 50%;
+  transition: all 0.7s;
+  opacity: 0;
+  transform: translate(-50%,-200px);
+  @include tablet {
+    padding-left: 0;
+  }
+  @include mobile {
+    padding-left: 0;
+  }
+  &:has(.hasNotification) {
+    opacity: 1;
+    transform: translate(-50%,0);
+  }
+  .inner {
+    padding: 16px 20px;
+    section {
+      transition: all 0.7s;
+      border-radius: 10px;
+      padding: 40px 30px 20px;
+
+      position: relative;
+      button {
+        width: 100%;
+        display: flex;
+        justify-content: right;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+      div {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 100%;
+        p {
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          width: 100%;
+          word-break: break-all;
+          text-align: left;
+          font-size: var(--text-size-base);
+        }
+
+        // color: #fff;
       }
     }
   }

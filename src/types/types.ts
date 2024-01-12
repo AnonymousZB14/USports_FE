@@ -417,6 +417,7 @@ export interface ChatRoomInfo {
   chatRoomId: number
   chatRoomName: string
   members: ChatRoomMember[]
+  recruitId?:number
 }
 
 export interface FollowUserPerType {

@@ -41,10 +41,12 @@ export const UserDetailState = atom({
     teamworkScore: 0,
     updatedAt: '2023-12-18T09:39:45.148Z',
     username: '',
-    interestedSportsList: [{
-      sportsId: 0,
-      sportsName: '',
-    }],
+    interestedSportsList: [
+      {
+        sportsId: 0,
+        sportsName: '',
+      },
+    ],
 
     /*     tokenDto: {
       accessToken: '',
@@ -59,5 +61,13 @@ export const UserTokenState = atom({
     accessToken: '',
     refreshToken: '',
     tokenType: '',
+  },
+})
+
+export const NotificationState = atom({
+  key: 'notificationState',
+  default: {
+    msg: '',
+    state: false,
   },
 })
