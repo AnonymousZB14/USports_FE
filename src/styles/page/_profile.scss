@@ -36,8 +36,8 @@
         background-color: var(--bg-color-2);
         box-shadow: 0 0 3px 0 #33333311;
         border: 1px solid transparent;
-        transition: all .1s;
-        &:hover{
+        transition: all 0.1s;
+        &:hover {
           border-color: var(--text-color-2);
         }
         svg {
@@ -114,6 +114,13 @@
 }
 .listWrap {
   display: flex;
+  @include mobile{
+    flex-wrap: wrap;
+    width: 100%;
+    section{
+      flex: auto !important;
+    }
+  }
   section {
     flex: 1;
     display: flex;
@@ -123,8 +130,8 @@
     overflow-y: auto;
     gap: 20px;
     h3 {
-      font-size: var(--text-size-xl);
-      font-weight: 700;
+      font-size: var(--text-size-2xl);
+      font-weight: 400;
     }
     ul {
       display: flex;

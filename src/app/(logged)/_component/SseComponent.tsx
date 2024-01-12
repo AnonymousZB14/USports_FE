@@ -33,12 +33,12 @@ const SseComponent = () => {
       },
     )
 
-    eventSource.onopen = () => console.log('open!!!!!')
-    eventSource.onmessage = (e) => console.log('>>>', e.data)
-    eventSource.onerror = (e) => console.log('error!!', e)
+    // eventSource.onopen = () => console.log('open!!!!!')
+    // eventSource.onmessage = (e) => console.log('>>>', e.data)
+    // eventSource.onerror = (e) => console.log('error!!', e)
     eventSource.addEventListener('sse', (event: any) => {
       const { data } = event
-      console.log('SSE CONNECTED')
+      // console.log('SSE CONNECTED')
       if (!data.includes(`EventStream Created`))
         setNtExist({ msg: data, state: true })
     })
@@ -52,7 +52,7 @@ const SseComponent = () => {
 
     return () => {
       eventSource.close()
-      console.log('SSE CLOSED')
+      // console.log('SSE CLOSED')
     }
   }, [user])
   const btnClickHandler = () => {

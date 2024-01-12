@@ -258,3 +258,25 @@ main:has(.chatDetailWrap) {
     height: 50px;
   }
 }
+
+.inviteMemberModal{
+  padding: 0 20px;
+  ul{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+    li{
+      display: flex;
+      border-left: 8px solid var(--text-color-3);
+      border-radius: 4px;
+      padding: 10px 10px 10px 26px;
+      align-items: center;
+      justify-content: space-between;
+      font-size: var(--text-size-base);
+      background-color: var(--bg-color-3);
+      font-weight: 500;
+    }
+  }
+}

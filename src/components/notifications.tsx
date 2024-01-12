@@ -46,7 +46,7 @@ export const Notification = ({ item }: { item: N }) => {
           <h3 className="font-bold">{item.message}</h3>
           <span>{date}</span>
         </div>
-        {/* <button className="btn btn-sm">delete</button> */}
+        
       </div>
     </li>
   )

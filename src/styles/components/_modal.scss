@@ -20,6 +20,11 @@
     border-radius: 30px;
     @include mobile {
       width: 90dvw;
+      min-width: unset;
+    }
+    @include tablet {
+      min-width: 450px;
+      width: 70dvw;
     }
     & > div:not(.closeModalBtn) {
       min-height: 200px;

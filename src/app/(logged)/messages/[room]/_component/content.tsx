@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react'
 import * as StompJs from '@stomp/stompjs'
-import { IoChevronBackCircleSharp } from 'react-icons/io5'
+import { IoChevronBackCircleSharp, IoClose } from 'react-icons/io5'
 import { BsFillArrowDownCircleFill } from 'react-icons/bs'
 import { ChatBubble_Me, ChatBubble_U } from '../../_component/ChatBubble'
 import { useParams, useRouter } from 'next/navigation'
@@ -30,6 +30,7 @@ import { AiFillSetting } from 'react-icons/ai'
 import Button from '@/components/commonButton'
 import { getChatRoomInfo } from '../../_lib/getChatRoomInfo'
 import axios from 'axios'
+import Title from '@/components/title'
 const Content = () => {
   const { room } = useParams()
   const innerRef = useRef<HTMLUListElement | null>(null)
@@ -44,6 +45,7 @@ const Content = () => {
   const [firstEnter, setfirstEnter] = useState(true)
   const [members, setMembers] = useState<ChatRoomMember[]>()
   const [checkUser, setCheckUser] = useState(true)
+  const [openModal, setOpenModal] = useState(false)
   //dataFetching (useQuery)
   const {
     data: roomData,
@@ -249,7 +251,9 @@ const Content = () => {
             }}
           />
           <div className="settingBtn">
-            <Button>초대하기</Button>
+            <Button onClick={() => setOpenModal((prev) => !prev)}>
+              초대하기
+            </Button>
             <Button theme="red" onClick={exitHander}>
               나가기
             </Button>
@@ -294,8 +298,66 @@ const Content = () => {
           </div>
         )}
       </div>
+      {openModal && <InviteList setOpenModal={setOpenModal} />}
     </>
   )
 }
 
+const InviteList = ({
+  chatId,
+  list,
+  recruitId,
+  setOpenModal,
+}: {
+  chatId?: number
+  list?: any
+  recruitId?: number
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
+}) => {
+  const [memberList, setMemberList] = useState([])
+  const router = useRouter()
+  const inviteHandler = async (memberId: number) => {
+    try {
+      const res = await Postfetch(`/chat/invite`, {
+        chatId: chatId,
+        memberId,
+        recruitId: recruitId,
+      })
+      if (res.status === 200) {
+        alert('초대장이 전송되었습니다')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  return (
+    <div id="modal">
+      <div className="modalInner">
+        <div
+          className="closeModalBtn"
+          onClick={() => setOpenModal((prev) => !prev)}
+        >
+          <IoClose />
+        </div>
+        <div className="inviteMemberModal">
+          <Title title="멤버 초대"></Title>
+          <ul>
+            <li>
+              <p>멤버아이디</p>
+              <Button theme="blue">초대하기</Button>
+            </li>
+            <li>
+              <p>멤버아이디</p>
+              <Button theme="blue">초대하기</Button>
+            </li>
+            <li>
+              <p>멤버아이디</p>
+              <Button theme="blue">초대하기</Button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  )
+}
 export default Content

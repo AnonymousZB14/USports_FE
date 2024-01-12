@@ -991,6 +991,13 @@ span.dayjs {
 @media (max-width: 767px) {
   #modal .modalInner {
     width: 90dvw;
+    min-width: unset;
+  }
+}
+@media (min-width: 768px) and (max-width: 1203px) {
+  #modal .modalInner {
+    min-width: 450px;
+    width: 70dvw;
   }
 }
 #modal .modalInner > div:not(.closeModalBtn) {
@@ -1358,6 +1365,15 @@ ul.recruitManagement > li .recruitItemCont p.status {
 .listWrap {
   display: flex;
 }
+@media (max-width: 767px) {
+  .listWrap {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .listWrap section {
+    flex: auto !important;
+  }
+}
 .listWrap section {
   flex: 1;
   display: flex;
@@ -1368,8 +1384,8 @@ ul.recruitManagement > li .recruitItemCont p.status {
   gap: 20px;
 }
 .listWrap section h3 {
-  font-size: var(--text-size-xl);
-  font-weight: 700;
+  font-size: var(--text-size-2xl);
+  font-weight: 400;
 }
 .listWrap section ul {
   display: flex;
@@ -3507,6 +3523,28 @@ main:has(.chatDetailWrap) {
 .toBottomBtn svg {
   width: 50px;
   height: 50px;
+}
+
+.inviteMemberModal {
+  padding: 0 20px;
+}
+.inviteMemberModal ul {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+.inviteMemberModal ul li {
+  display: flex;
+  border-left: 8px solid var(--text-color-3);
+  border-radius: 4px;
+  padding: 10px 10px 10px 26px;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--text-size-base);
+  background-color: var(--bg-color-3);
+  font-weight: 500;
 }
 
 .tab_contents > div {
