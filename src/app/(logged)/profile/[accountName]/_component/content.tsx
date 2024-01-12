@@ -14,14 +14,14 @@ import { AiOutlineMessage } from 'react-icons/ai'
 import { LuMessagesSquare } from 'react-icons/lu'
 import Button from '@/components/commonButton'
 import { useRecoilState } from 'recoil'
-import { UserDetailState } from '@/store/user'
+import { AlertOpenState, UserDetailState } from '@/store/user'
 import { RiUserFollowLine, RiUserFollowFill } from 'react-icons/ri'
 import { HiOutlineLockClosed } from 'react-icons/hi'
 import Link from 'next/link'
-
 import FollowList from './followList'
 import DmComponent from '../../_component/dm'
 const Content = ({ accountName }: { accountName: string }) => {
+  const [alertmsg, setAlert] = useRecoilState(AlertOpenState)
   const [number, setNum] = useState(0)
   const [memberId, setMemberId] = useState(0)
   const [user, _] = useRecoilState(UserDetailState)
@@ -53,7 +53,8 @@ const Content = ({ accountName }: { accountName: string }) => {
     try {
       const res = await Postfetch(`follow/${data?.memberInfo.memberId}`)
       if (res.status === 200) {
-        alert('팔로우 신청 완료!')
+        // alert('팔로우 신청 완료!')
+        setAlert('팔로우 신청 완료')
         if (data?.memberInfo.profileOpen === true) {
           setFollowStatus('ACTIVE')
         } else {
@@ -66,7 +67,8 @@ const Content = ({ accountName }: { accountName: string }) => {
     try {
       const res = await Postfetch(`follow/${data?.memberInfo.memberId}`)
       if (res.status === 200) {
-        alert('팔로우 취소 완료')
+        // alert('팔로우 취소 완료')
+        setAlert('팔로우 취소 완료')
         setFollowStatus(null)
       }
     } catch (error) {}

@@ -8,6 +8,7 @@ import RecoilRootWrapper from '@/containers/recoilRootWrapper'
 import RQProvider from './(logged)/_component/RQProvider'
 import UserInfoProvider from './_component/UserInfoProvider'
 import Script from 'next/script'
+import Alert from '@/components/alert'
 
 export const metadata: Metadata = {
   title: 'USports',
@@ -40,7 +41,10 @@ export default async function RootLayout({
         <RecoilRootWrapper>
           <MSWComponent />
           <UserInfoProvider>
-            <RQProvider>{children}</RQProvider>
+            <RQProvider>
+              <Alert />
+              {children}
+            </RQProvider>
           </UserInfoProvider>
         </RecoilRootWrapper>
         <script

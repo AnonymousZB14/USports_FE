@@ -9,16 +9,14 @@ import { IoClose, IoNotificationsSharp } from 'react-icons/io5'
 import React, { useEffect, useRef, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { EventSourcePolyfill, NativeEventSource } from 'event-source-polyfill'
-import { getCookie } from '@/func/cookie_c'
+import { useRouter } from 'next/navigation'
 const SseComponent = () => {
-  const [isStarted, setIsStarted] = useState(false)
   const [token, _] = useRecoilState(UserTokenState)
   const [user, _2] = useRecoilState(UserDetailState)
   const [notificatioinExist, setNtExist] = useRecoilState(NotificationState)
   const EventSource = EventSourcePolyfill || NativeEventSource
+  const router = useRouter()
   useEffect(() => {
-    // if (!TOKEN) return
-    // if (user.memberId === 0) return
     const eventSource = new EventSourcePolyfill(
       `${process.env.NEXT_PUBLIC_BACKEND_SERVER}/subscribe`,
       {
@@ -26,16 +24,10 @@ const SseComponent = () => {
           Authorization: `Bearer ${token.accessToken}`,
           Connection: 'keep-alive',
         },
-        heartbeatTimeout: 20000000,
       },
     )
-
-    // eventSource.onopen = () => console.log('open!!!!!')
-    // eventSource.onmessage = (e) => console.log('>>>', e.data)
-    // eventSource.onerror = (e) => console.log('error!!', e)
     eventSource.addEventListener('sse', (event: any) => {
       const { data } = event
-      // console.log('SSE CONNECTED')
       if (!data.includes(`EventStream Created`))
         setNtExist({ msg: data, state: true })
     })
@@ -77,7 +69,9 @@ const SseComponent = () => {
                 d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
               ></path>
             </svg>
-            <p>{notificatioinExist.msg}</p>
+            <p onClick={() => router.replace('/notifications')}>
+              {notificatioinExist.msg}
+            </p>
           </div>
         </section>
       </div>

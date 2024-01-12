@@ -9,6 +9,7 @@ import { checkCookie } from '@/func/cookie'
 import { WritingPageListWrap } from '@/components/writingPageList'
 import { HamBtn } from '@/components/hambtn'
 import SseComponent from './_component/SseComponent'
+import Alert from '@/components/alert'
 export const metadata: Metadata = {
   title: 'USports',
   description: 'usports',
@@ -28,6 +29,7 @@ export default async function RootLayout({
         type="text/javascript"
       />
       <div id="wrap">
+        
         <HamBtn />
         <SseComponent />
         <Header />

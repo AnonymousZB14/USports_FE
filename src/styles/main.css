@@ -435,6 +435,59 @@ main:is(main > section) {
   object-fit: cover;
 }
 
+#alertModal {
+  background-color: rgba(0, 0, 0, 0.231);
+  position: fixed;
+  width: 100dvw;
+  height: 100dvh;
+  z-index: 1100;
+}
+#alertModal .alertCont {
+  position: absolute;
+  top: 1%;
+  left: 50%;
+  transform: translate(calc(-50% + 150px), 0%);
+  background-color: rgb(27, 9, 0);
+  border-radius: 16px;
+  width: fit-content;
+  max-width: 90%;
+  min-width: 450px;
+}
+@media (min-width: 768px) and (max-width: 1203px) {
+  #alertModal .alertCont {
+    min-width: 400px;
+    transform: translate(-50%, 0%);
+  }
+}
+@media (max-width: 767px) {
+  #alertModal .alertCont {
+    transform: translate(-50%, 0%);
+    min-width: 320px;
+  }
+}
+#alertModal .alertCont .alertInner {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+#alertModal .alertCont .alertInner svg {
+  color: #fff;
+  width: 20px;
+  height: 20px;
+}
+#alertModal .alertCont .alertInner p {
+  color: #fff;
+  font-weight: 500;
+  font-size: var(--text-size-base);
+}
+#alertModal .alertCont .alertInner button {
+  margin-left: auto;
+  text-align: right;
+  background-color: rgb(255, 195, 98);
+  color: #000;
+}
+
 .writingPageList {
   position: fixed;
   width: 100dvw;

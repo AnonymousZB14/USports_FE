@@ -1,9 +1,6 @@
 'use client'
-import { useQuery } from '@tanstack/react-query'
-import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { AiOutlineMessage } from 'react-icons/ai'
-import { getChatRoomId } from '../_lib/getChatRoomId'
 import { Postfetch } from '@/func/fetchCall'
 import { useRouter } from 'next/navigation'
 interface DmData {
