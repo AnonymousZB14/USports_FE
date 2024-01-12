@@ -14,8 +14,10 @@ const Auth2Redirect = () => {
   const router = useRouter()
   let isSuccessed = false
   useEffect(() => {
-    new URL(window.location.href).searchParams.get('code') &&
-      setCode(new URL(window.location.href).searchParams.get('code'))
+    if (typeof window !== 'undefined') {
+      new URL(window.location.href).searchParams.get('code') &&
+        setCode(new URL(window.location.href).searchParams.get('code'))
+    }
   }, [])
   const kakaoLogin = async () => {
     try {
