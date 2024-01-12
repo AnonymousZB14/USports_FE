@@ -15,11 +15,7 @@ const SseComponent = () => {
   const [token, _] = useRecoilState(UserTokenState)
   const [user, _2] = useRecoilState(UserDetailState)
   const [notificatioinExist, setNtExist] = useRecoilState(NotificationState)
-  const TOKEN = getCookie('accessToken')
   const EventSource = EventSourcePolyfill || NativeEventSource
-  useEffect(() => {
-    console.log(notificatioinExist)
-  }, [notificatioinExist])
   useEffect(() => {
     // if (!TOKEN) return
     // if (user.memberId === 0) return
@@ -30,6 +26,7 @@ const SseComponent = () => {
           Authorization: `Bearer ${token.accessToken}`,
           Connection: 'keep-alive',
         },
+        heartbeatTimeout: 20000000,
       },
     )
 
@@ -43,16 +40,8 @@ const SseComponent = () => {
         setNtExist({ msg: data, state: true })
     })
 
-    /*     eventSource.addEventListener('error', (err: any) => {
-      console.log(err)
-    })
-    eventSource.addEventListener('message', (event: any) => {
-      console.log(event.data)
-    }) */
-
     return () => {
       eventSource.close()
-      // console.log('SSE CLOSED')
     }
   }, [user])
   const btnClickHandler = () => {
