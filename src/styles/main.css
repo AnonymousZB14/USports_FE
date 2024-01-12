@@ -2487,6 +2487,61 @@ p.info {
   gap: 3px;
 }
 
+.notificationWrap {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding-left: 300px;
+  max-width: 1000px;
+  z-index: 100;
+  left: 50%;
+  transition: all 0.7s;
+  opacity: 0;
+  transform: translate(-50%, -200px);
+}
+.notificationWrap:has(.hasNotification) {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+.notificationWrap .inner {
+  padding: 16px 20px;
+}
+.notificationWrap .inner section {
+  transition: all 0.7s;
+  border-radius: 10px;
+  padding: 40px 30px 20px;
+  position: relative;
+}
+.notificationWrap .inner section button {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+.notificationWrap .inner section button svg {
+  width: 20px;
+  height: 20px;
+}
+.notificationWrap .inner section div {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+}
+.notificationWrap .inner section div p {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  word-break: break-all;
+  font-size: var(--text-size-base);
+}
+
 .search-wrap {
   position: relative;
   width: 40rem;

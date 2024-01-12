@@ -5,6 +5,7 @@ import {
   UserDetailState,
   UserTokenState,
 } from '@/store/user'
+import { IoClose, IoNotificationsSharp } from 'react-icons/io5'
 import React, { useEffect, useRef, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { EventSourcePolyfill, NativeEventSource } from 'event-source-polyfill'
@@ -35,11 +36,11 @@ const SseComponent = () => {
     eventSource.onopen = () => console.log('open!!!!!')
     eventSource.onmessage = (e) => console.log('>>>', e.data)
     eventSource.onerror = (e) => console.log('error!!', e)
-
     eventSource.addEventListener('sse', (event: any) => {
-      const { data: receivedConnectData } = event
+      const { data } = event
       console.log('SSE CONNECTED')
-      if (receivedConnectData !== `EventStream Created`) setNtExist(true)
+      if (!data.includes(`EventStream Created`))
+        setNtExist({ msg: data, state: true })
     })
 
     /*     eventSource.addEventListener('error', (err: any) => {
@@ -54,8 +55,43 @@ const SseComponent = () => {
       console.log('SSE CLOSED')
     }
   }, [user])
-
-  return null
+  const btnClickHandler = () => {
+    setNtExist((prev) => {
+      return {
+        ...prev,
+        msg: '',
+      }
+    })
+  }
+  return (
+    <div className="notificationWrap">
+      <div className="inner">
+        <section
+          className={notificatioinExist.msg ? 'hasNotification alert' : 'alert'}
+        >
+          <button onClick={btnClickHandler}>
+            <IoClose />
+          </button>
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              className="stroke-info shrink-0 w-10 h-10"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <p>{notificatioinExist.msg}</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  )
 }
 
 export default SseComponent

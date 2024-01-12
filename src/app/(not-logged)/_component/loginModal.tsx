@@ -12,13 +12,18 @@ import { Postfetch, axiosInstance, setHeaderToken } from '@/func/fetchCall'
 import { useRecoilState } from 'recoil'
 import { loginFun, onLoginSuccess } from '@/func/service'
 import axios from 'axios'
-import { UserDetailState, UserTokenState } from '@/store/user'
+import {
+  NotificationState,
+  UserDetailState,
+  UserTokenState,
+} from '@/store/user'
 import { KAKAO_AUTH_URL } from '../_lib/kakao'
 const LoginModal = () => {
   const router = useRouter()
   const [message, setMessage] = useState('')
   const [user, setUser] = useRecoilState(UserDetailState)
   const [userToken, setUserToken] = useRecoilState(UserTokenState)
+  const [notificatioinExist, setNtExist] = useRecoilState(NotificationState)
   const { register, handleSubmit } = useForm()
   let isSuccessed = false
   const onsubmitHandler = async (e: any) => {
@@ -32,12 +37,33 @@ const LoginModal = () => {
       onLoginSuccess(res?.data)
       setUser(res.data.memberResponse)
       setUserToken(res.data.tokenDto)
+      checkUnreadMsg(res.data.tokenDto.accessToken)
       isSuccessed = true
     } catch (error) {
       console.error(error)
     }
     if (isSuccessed) {
       router.replace('/')
+    }
+  }
+  const checkUnreadMsg = async (TOKEN: any) => {
+    try {
+      const res = await axios.get(`/usports/notification/unread`, {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
+      })
+      if (res.status === 200) {
+        res.data === true &&
+          setNtExist((prev) => {
+            return {
+              ...prev,
+              state: true,
+            }
+          })
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
   const kakaoLoginHandler = async () => {
@@ -78,7 +104,7 @@ const LoginModal = () => {
       </div>
       {/* <hr /> */}
       <div className="socialLogBtn">
-{/*         <Link href='http://3.39.34.245:8080/oauth2/authorization/kakao'>
+        {/*         <Link href='http://3.39.34.245:8080/oauth2/authorization/kakao'>
           <button className="kakaoBtn">카카오로 로그인</button>
         </Link> */}
       </div>

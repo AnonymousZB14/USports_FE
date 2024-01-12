@@ -14,7 +14,10 @@ const Notifications = () => {
   useLayoutEffect(() => {
     Getfetch(`/notifications`).then((resp) => {
       setList(resp)
-      setNtExist(false)
+      setNtExist({
+        msg: '',
+        state: false,
+      })
     })
   }, [])
   if (list.length < 1) return <p className="info">새로운 알림내역이 없습니다</p>
@@ -29,8 +32,7 @@ const Notifications = () => {
 
 export const Notification = ({ item }: { item: N }) => {
   const route = useRouter()
-  const date = new Date(item.createdAt).toDateString()
-  const isitPassed = new Date() > new Date(item.readAt)
+  const date = new Date(item.createdAt).toLocaleString()
   return (
     <li
       // className={isitPassed ? 'readed' : ''}

@@ -66,5 +66,8 @@ export const UserTokenState = atom({
 
 export const NotificationState = atom({
   key: 'notificationState',
-  default: false,
+  default: {
+    msg: '',
+    state: false,
+  },
 })

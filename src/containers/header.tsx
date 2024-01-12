@@ -83,7 +83,7 @@ const Header = () => {
                       <span>
                         {cate.icon}
                         {cate.title}
-                        {notificatioinExist &&
+                        {notificatioinExist.state &&
                           cate.title === 'Notifications' && (
                             <span className="light"></span>
                           )}
