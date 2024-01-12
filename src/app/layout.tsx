@@ -8,12 +8,10 @@ import RecoilRootWrapper from '@/containers/recoilRootWrapper'
 import RQProvider from './(logged)/_component/RQProvider'
 import UserInfoProvider from './_component/UserInfoProvider'
 import Script from 'next/script'
+
 export const metadata: Metadata = {
   title: 'USports',
   description: 'usports',
-  icons: {
-    icon: '/favicon.ico',
-  },
 }
 declare global {
   // Kakao 함수를 전역에서 사용할 수 있도록 선언
