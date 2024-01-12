@@ -104,9 +104,9 @@ const LoginModal = () => {
       </div>
       {/* <hr /> */}
       <div className="socialLogBtn">
-        {/*         <Link href='http://3.39.34.245:8080/oauth2/authorization/kakao'>
+        <Link href={KAKAO_AUTH_URL}>
           <button className="kakaoBtn">카카오로 로그인</button>
-        </Link> */}
+        </Link>
       </div>
     </div>
   )

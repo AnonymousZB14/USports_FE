@@ -12,10 +12,11 @@ const Auth2Redirect = () => {
   const [userToken, setUserToken] = useRecoilState(UserTokenState)
   const router = useRouter()
   let isSuccessed = false
+  const code = new URL(window.location.href).searchParams.get('code')
   const kakaoLogin = async () => {
     try {
       const res = await axios.get(
-        `http://3.39.34.245:8080/oauth2/authorization/kakao`,
+        `http://3.39.34.245:8080/login/oauth2/code/kakao?code=${code}`,
       )
       if (res.status === 200) {
         await setHeaderToken(res.data.tokenDto.accessToken)
@@ -28,12 +29,13 @@ const Auth2Redirect = () => {
       console.log(error)
     }
     if (isSuccessed) {
-      // router.replace('/')
+      router.replace('/home')
     }
   }
-  useLayoutEffect(() => {
+  useEffect(() => {
     kakaoLogin()
-  }, [])
+  }, [code])
+
   return null
 }
 

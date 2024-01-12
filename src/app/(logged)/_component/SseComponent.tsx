@@ -67,7 +67,9 @@ const SseComponent = () => {
     <div className="notificationWrap">
       <div className="inner">
         <section
-          className={notificatioinExist.msg ? 'hasNotification alert' : 'alert'}
+          className={
+            notificatioinExist.msg !== '' ? 'hasNotification alert' : 'alert'
+          }
         >
           <button onClick={btnClickHandler}>
             <IoClose />

@@ -90,6 +90,12 @@
   transition: all 0.7s;
   opacity: 0;
   transform: translate(-50%,-200px);
+  @include tablet {
+    padding-left: 0;
+  }
+  @include mobile {
+    padding-left: 0;
+  }
   &:has(.hasNotification) {
     opacity: 1;
     transform: translate(-50%,0);
@@ -100,11 +106,7 @@
       transition: all 0.7s;
       border-radius: 10px;
       padding: 40px 30px 20px;
-      // background-color: rgb(255, 255, 255);
-      // background-color: #eee;
-      // box-shadow: 0 0 30px 0 #00000013;
-      // border: 1px solid #eee;
-      // display: flex;
+
       position: relative;
       button {
         width: 100%;
@@ -132,6 +134,7 @@
           white-space: nowrap;
           width: 100%;
           word-break: break-all;
+          text-align: left;
           font-size: var(--text-size-base);
         }
 
