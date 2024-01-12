@@ -26,7 +26,6 @@ const SseComponent = () => {
           Authorization: `Bearer ${token.accessToken}`,
           Connection: 'keep-alive',
         },
-        heartbeatTimeout: 20000000,
       },
     )
 
@@ -35,7 +34,7 @@ const SseComponent = () => {
     // eventSource.onerror = (e) => console.log('error!!', e)
     eventSource.addEventListener('sse', (event: any) => {
       const { data } = event
-      // console.log('SSE CONNECTED')
+      console.log('SSE CONNECTED')
       if (!data.includes(`EventStream Created`))
         setNtExist({ msg: data, state: true })
     })
