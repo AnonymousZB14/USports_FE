@@ -1,11 +1,10 @@
 'use client'
-import { Getfetch } from '@/func/fetchCall'
 import {
   NotificationState,
   UserDetailState,
   UserTokenState,
 } from '@/store/user'
-import { IoClose, IoNotificationsSharp } from 'react-icons/io5'
+import { IoClose } from 'react-icons/io5'
 import React, { useEffect, useRef, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { EventSourcePolyfill, NativeEventSource } from 'event-source-polyfill'
@@ -31,7 +30,6 @@ const SseComponent = () => {
       if (!data.includes(`EventStream Created`))
         setNtExist({ msg: data, state: true })
     })
-
     return () => {
       eventSource.close()
     }

@@ -18,9 +18,9 @@ import {
   useFieldArray,
   useForm,
 } from 'react-hook-form'
-import { IoCloseOutline } from 'react-icons/io5'
-import { useRecoilState } from 'recoil'
 
+import { useRecoilState } from 'recoil'
+import { toast } from 'react-toastify'
 const Page = () => {
   const router = useRouter()
   const [message, setMessage] = useState('')
@@ -47,7 +47,8 @@ const Page = () => {
   ) => {
     e.preventDefault()
     if (images == null || images.length < 1) {
-      alert('이미지를 업로드해주세요')
+      // alert('이미지를 업로드해주세요')
+      toast.warning('이미지를 업로드해주세요')
       return
     }
     setLoading(true)
@@ -73,7 +74,9 @@ const Page = () => {
       setUser(res.data)
       localStorage.setItem('user', JSON.stringify(res.data))
       setLoading(false)
-      alert('프로필 변경 완료!')
+      // alert('프로필 변경 완료!')
+      toast.success('프로필 변경 완료!')
+      
     } catch (error) {
       setLoading(false)
     }
@@ -104,7 +107,8 @@ const Page = () => {
       setUser(res.data)
       localStorage.setItem('user', JSON.stringify(res.data))
       setLoading(false)
-      alert('프로필 변경 완료!')
+      // alert('프로필 변경 완료!')
+      toast.success('프로필 변경 완료!')
       isSuccess = true
     } catch (error) {
       setLoading(false)
@@ -132,7 +136,8 @@ const Page = () => {
         },
       )
       if (res.status === 200) {
-        alert('이메일 발송 완료! 메일함을 확인해주세요')
+        // alert('이메일 발송 완료! 메일함을 확인해주세요')
+        toast.success('이메일 발송 완료! 메일함을 확인해주세요')
       }
       setLoading(false)
     } catch (error) {}
@@ -148,11 +153,13 @@ const Page = () => {
     let isSuccess = false
     const regPhone = /^\d{3}-\d{3,4}-\d{4}$/
     if (!regPhone.test(phoneNumber)) {
-      alert('휴대폰 번호는 000-0000-0000 형식으로 입력해주세요')
+      // alert('휴대폰 번호는 000-0000-0000 형식으로 입력해주세요')
+      toast.warning('휴대폰 번호는 000-0000-0000 형식으로 입력해주세요')
       return
     }
     if (interestedSportsList.length < 1) {
-      alert('최소 1개 이상의 운동 종목을 선택해주세요')
+      // alert('최소 1개 이상의 운동 종목을 선택해주세요')
+      toast.warning('최소 1개 이상의 운동 종목을 선택해주세요')
       return
     }
     let formBody =
@@ -195,7 +202,8 @@ const Page = () => {
         setUser(data)
         localStorage.setItem('user', JSON.stringify(data))
         setLoading(false)
-        alert('변경 완료!')
+        // alert('변경 완료!')
+        toast.success('변경 완료!')
         isSuccess = true
       }
     } catch (e) {
