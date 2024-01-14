@@ -88,7 +88,8 @@ const Content = () => {
   const connect = () => {
     try {
       const client = new StompJs.Client({
-        webSocketFactory: () => new SockJS(`/ws/chat`),
+        webSocketFactory: () =>
+          new SockJS(`https://3.39.34.245.nip.io/ws/chat`),
         // brokerURL: 'wss://javascript.info/article/websocket/demo/hello',
         // brokerURL: 'ws://3.39.34.245:8080/ws/chat',
         connectHeaders: {
