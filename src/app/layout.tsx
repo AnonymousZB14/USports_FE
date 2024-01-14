@@ -9,7 +9,8 @@ import RQProvider from './(logged)/_component/RQProvider'
 import UserInfoProvider from './_component/UserInfoProvider'
 import Script from 'next/script'
 import Alert from '@/components/alert'
-
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 export const metadata: Metadata = {
   title: 'USports',
   description: 'usports',
@@ -42,6 +43,12 @@ export default async function RootLayout({
           <MSWComponent />
           <UserInfoProvider>
             <RQProvider>
+              <ToastContainer
+                style={{ zIndex: 200 }}
+                hideProgressBar={false}
+                position="top-center"
+                theme="dark"
+              />
               <Alert />
               {children}
             </RQProvider>
