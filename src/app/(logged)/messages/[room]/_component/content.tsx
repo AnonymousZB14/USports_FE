@@ -93,7 +93,6 @@ const Content = () => {
         // brokerURL: 'wss://javascript.info/article/websocket/demo/hello',
         // brokerURL: 'ws://3.39.34.245:8080/ws/chat',
         connectHeaders: {
-          credentials: 'include',
           Authorization: `Bearer ${userToken}`,
         },
         debug(str) {
