@@ -1,5 +1,5 @@
 import React from 'react'
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import '../styles/main.css'
 import { MSWComponent } from '@/app/_component/MSWComponent'
@@ -10,13 +10,21 @@ import UserInfoProvider from './_component/UserInfoProvider'
 import Script from 'next/script'
 import Alert from '@/components/alert'
 import { ToastContainer } from 'react-toastify'
+
 import 'react-toastify/dist/ReactToastify.css'
 export const metadata: Metadata = {
   title: 'USports',
   description: 'usports',
 }
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: 1,
+  // Also supported by less commonly used
+  // interactiveWidget: 'resizes-visual',
+}
 declare global {
-  // Kakao 함수를 전역에서 사용할 수 있도록 선언
   interface Window {
     Kakao: any
   }

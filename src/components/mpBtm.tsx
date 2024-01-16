@@ -44,13 +44,16 @@ const MpBtm = () => {
       <section id="mp4">
         <div className="editBtnWrap">
           <Link href={`/member/${data?.memberProfile.accountName}`}>
-            내 정보 수정하기
+            내 정보 수정
             <FaArrowAltCircleRight />
           </Link>
           <Link
             href={`/member/${data?.memberProfile.accountName}/edit-password`}
           >
-            비밀번호 변경하기 <FaArrowAltCircleRight />
+            비밀번호 변경 <FaArrowAltCircleRight />
+          </Link>
+          <Link href={`/member/${data?.memberProfile.accountName}/withdraw`}>
+            회원 탈퇴 <FaArrowAltCircleRight />
           </Link>
         </div>
       </section>

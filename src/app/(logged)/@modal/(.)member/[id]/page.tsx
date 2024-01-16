@@ -76,7 +76,6 @@ const Page = () => {
       setLoading(false)
       // alert('프로필 변경 완료!')
       toast.success('프로필 변경 완료!')
-      
     } catch (error) {
       setLoading(false)
     }
@@ -154,7 +153,7 @@ const Page = () => {
     const regPhone = /^\d{3}-\d{3,4}-\d{4}$/
     if (!regPhone.test(phoneNumber)) {
       // alert('휴대폰 번호는 000-0000-0000 형식으로 입력해주세요')
-      toast.warning('휴대폰 번호는 000-0000-0000 형식으로 입력해주세요')
+      toast.warn('휴대폰 번호는 000-0000-0000 형식으로 입력해주세요')
       return
     }
     if (interestedSportsList.length < 1) {

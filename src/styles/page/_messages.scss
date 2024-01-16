@@ -180,6 +180,9 @@ main:has(.chatDetailWrap) {
         display: flex;
         align-items: center;
         gap: 10px;
+        @include mobile {
+          padding: 10px 3px;
+        }
         // align-items: stretch;
         background-color: rgb(255, 255, 255);
         height: 100%;
@@ -259,15 +262,15 @@ main:has(.chatDetailWrap) {
   }
 }
 
-.inviteMemberModal{
+.inviteMemberModal {
   padding: 0 20px;
-  ul{
+  ul {
     margin-top: 50px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin-bottom: 30px;
-    li{
+    li {
       display: flex;
       border-left: 8px solid var(--text-color-3);
       border-radius: 4px;

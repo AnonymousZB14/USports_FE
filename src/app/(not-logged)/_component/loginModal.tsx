@@ -66,13 +66,7 @@ const LoginModal = () => {
       console.log(error)
     }
   }
-  const kakaoLoginHandler = async () => {
-    try {
-      const res = await axios.get(`usports/oauth2/authorization/kakao`)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+
   return (
     <div className="loginP notLoggedP centered">
       <h2>Log into USports</h2>
