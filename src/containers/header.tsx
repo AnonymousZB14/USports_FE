@@ -7,19 +7,23 @@ import ModeToggle from '@/components/modeToggle'
 import MypageBtn from '@/components/mypageBtn'
 import { GoHomeFill } from 'react-icons/go'
 import { FaUserAlt } from 'react-icons/fa'
-import { MdExplore } from 'react-icons/md'
+import { MdOutlineSportsVolleyball } from 'react-icons/md'
 import { IoMail, IoNotifications } from 'react-icons/io5'
 import { IoMdSettings } from 'react-icons/io'
 import WritingBtn from '@/components/writingBtn'
+import { IoSearchCircle, IoSearch } from 'react-icons/io5'
 import { cookies } from 'next/headers'
 import RoleChange from '@/components/roleChange'
 import UserProfile from '@/components/user_profile'
 import { HamBtn } from '@/components/hambtn'
 import { useRecoilState } from 'recoil'
+import { MdSportsScore } from 'react-icons/md'
 import { OpenHeader } from '@/store/mode'
 import { usePathname } from 'next/navigation'
+import { NotificationState } from '@/store/user'
 const Header = () => {
   const [openMode, setOpenmode] = useRecoilState(OpenHeader)
+  const [notificatioinExist, setNtExist] = useRecoilState(NotificationState)
   const pathname = usePathname()
   useLayoutEffect(() => {
     setOpenmode((prev) => {
@@ -34,9 +38,10 @@ const Header = () => {
     },
     {
       href: '/explore',
-      title: 'Explore',
-      icon: <MdExplore />,
+      title: 'TeamUp',
+      icon: <MdSportsScore />,
     },
+
     {
       href: '/notifications',
       title: 'Notifications',
@@ -46,6 +51,11 @@ const Header = () => {
       href: '/messages',
       title: 'Messages',
       icon: <IoMail />,
+    },
+    {
+      href: '/search',
+      title: 'Search',
+      icon: <IoSearch />,
     },
     {
       href: '/profile',
@@ -60,8 +70,8 @@ const Header = () => {
   ]
   return (
     <>
+      <RoleChange />
       <header id="header" className={openMode === true ? 'block' : ''}>
-        <RoleChange />
         <div className="head_inner" style={{ overflowY: 'auto' }}>
           <UserProfile />
           <nav>
@@ -73,6 +83,10 @@ const Header = () => {
                       <span>
                         {cate.icon}
                         {cate.title}
+                        {notificatioinExist.state &&
+                          cate.title === 'Notifications' && (
+                            <span className="light"></span>
+                          )}
                       </span>
                     </Link>
                   </li>
@@ -80,6 +94,9 @@ const Header = () => {
               })}
             </ul>
           </nav>
+          <div className="logo">
+            <img src={'/usports_logo2.png'} width={'80%'} />
+          </div>
         </div>
       </header>
       <div className="iconWrap bg-primary">

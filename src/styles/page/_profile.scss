@@ -22,12 +22,36 @@
     flex-direction: row;
     align-items: center;
     gap: 0 20px;
-    @include mobile{
+    .follow {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      & > div {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--bg-color-2);
+        box-shadow: 0 0 3px 0 #33333311;
+        border: 1px solid transparent;
+        transition: all 0.1s;
+        &:hover {
+          border-color: var(--text-color-2);
+        }
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+    @include mobile {
       flex-wrap: wrap;
-      .user_info{
+      .user_info {
         width: unset;
       }
-      .follow{
+      .follow {
         display: flex;
         justify-content: right;
         width: 100%;
@@ -42,8 +66,9 @@
     .avatar_img {
       width: 180px;
       height: 180px;
-      @include mobile{
-        width: 100px;height: 100px;
+      @include mobile {
+        width: 100px;
+        height: 100px;
       }
     }
   }
@@ -68,6 +93,64 @@
       width: 40px;
       height: 40px;
       color: var(--text-color-3);
+    }
+  }
+}
+
+.profileFollowList {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  p {
+    max-width: fit-content;
+    width: max-content;
+    font-size: var(--text-size-xs);
+    color: var(--text-color-1);
+    span {
+      font-weight: 800;
+    }
+  }
+}
+.listWrap {
+  display: flex;
+  @include mobile{
+    flex-wrap: wrap;
+    width: 100%;
+    section{
+      flex: auto !important;
+    }
+  }
+  section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 0;
+    overflow-y: auto;
+    gap: 20px;
+    h3 {
+      font-size: var(--text-size-2xl);
+      font-weight: 400;
+    }
+    ul {
+      display: flex;
+      flex-direction: column;
+
+      gap: 10px;
+      li {
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        gap: 6px;
+        align-items: center;
+        background-color: var(--bg-color-3);
+        padding: 10px 20px 10px 16px;
+        border-left: 5px solid var(--text-color-3);
+        border-radius: 4px 0 0 4px;
+        font-weight: 400;
+        font-size: var(--text-size-base);
+      }
     }
   }
 }

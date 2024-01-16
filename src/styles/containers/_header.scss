@@ -13,15 +13,14 @@
     left: 0;
     position: absolute;
     top: 0;
-    z-index: 12;
+    z-index: 52;
   }
   @include mobile {
     top: 0;
     left: 0;
     display: none;
     position: absolute;
-    z-index: 12;
-
+    z-index: 52;
   }
 
   .head_inner {
@@ -34,6 +33,16 @@
     height: 100%;
     gap: 40px;
     position: relative;
+    & > .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.88;
+      img {
+        width: 65%;
+        display: block;
+      }
+    }
     .user_profile {
       display: flex;
       align-items: center;
@@ -58,29 +67,14 @@
           align-items: center;
           background-color: transparent;
           transition: all 0.1s;
-          &:nth-child(3) {
-            span {
-              position: relative;
-              /*               &::after{
-                content: "";
-                display: block;
-                width: 6px;
-                height: 6px;
-                border-radius: 50%;
-                background-color: rgb(0, 230, 23);
-                position: absolute;
-                top: 16px;
-                left: 35px;
-              } */
-            }
-          }
+
           a {
             display: block;
             width: 100%;
             &:hover > span {
               background-color: #333333f7;
             }
-            span {
+            & > span {
               background-color: transparent;
               transition: all 0.1s;
               display: flex;
@@ -88,6 +82,7 @@
               width: fit-content;
               gap: 13px;
               padding: 15px 20px;
+              position: relative;
               color: #fff;
               border-radius: 14px;
               font-size: var(--text-size-xl);
@@ -104,13 +99,38 @@
     }
   }
 }
+span:has(span.light) {
+  svg {
+    transform-origin: top center;
+    animation: move infinite .6s alternate-reverse;
+    fill: yellow;
+  }
+}
+@keyframes move {
+  0%{
+    transform: rotate(-15deg);
+  }
+  100%{
+    transform: rotate(15deg);
+
+  }
+}
+span.light {
+  width: 7px;
+  height: 7px;
+  // background-color: rgb(20, 255, 4);
+  border-radius: 50%;
+  position: absolute;
+  top: 18px;
+  left: 23px;
+}
 #wrap > .iconWrap {
   display: flex;
   align-items: center;
   gap: 20px;
   position: fixed;
   transform: translateX(-50%);
-  z-index: 100;
+  z-index: 40;
   left: 50%;
   bottom: 20px;
   background-color: var(--main-color1);
@@ -123,3 +143,4 @@
     color: #fff;
   }
 }
+

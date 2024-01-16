@@ -8,7 +8,7 @@
   z-index: 100;
   background-color: #0000005e;
   .modalInner {
-    min-width: 60dvw;
+    min-width: 900px;
     width: fit-content;
     max-width: 100dvw;
     padding: 35px 20px;
@@ -20,6 +20,11 @@
     border-radius: 30px;
     @include mobile {
       width: 90dvw;
+      min-width: unset;
+    }
+    @include tablet {
+      min-width: 450px;
+      width: 70dvw;
     }
     & > div:not(.closeModalBtn) {
       min-height: 200px;

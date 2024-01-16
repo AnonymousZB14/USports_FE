@@ -6,16 +6,24 @@ import Recruits, { Recruit } from '@/components/recruits'
 import { Getfetch, Postfetch } from '@/func/fetchCall'
 import React, { useEffect, useRef, useState } from 'react'
 import { QueryClient, useQuery } from '@tanstack/react-query'
+import { FiMessageCircle } from 'react-icons/fi'
 import { getProfileUser } from '../../_lib/getProfileUser'
 import { ProfileUserType } from '@/types/types'
 import UserAvatar from '@/components/userAvatar'
+import { AiOutlineMessage } from 'react-icons/ai'
+import { LuMessagesSquare } from 'react-icons/lu'
 import Button from '@/components/commonButton'
 import { useRecoilState } from 'recoil'
-import { UserDetailState } from '@/store/user'
+import { AlertOpenState, UserDetailState } from '@/store/user'
 import { RiUserFollowLine, RiUserFollowFill } from 'react-icons/ri'
 import { HiOutlineLockClosed } from 'react-icons/hi'
+import Link from 'next/link'
+import FollowList from './followList'
+import DmComponent from '../../_component/dm'
 const Content = ({ accountName }: { accountName: string }) => {
+  const [alertmsg, setAlert] = useRecoilState(AlertOpenState)
   const [number, setNum] = useState(0)
+  const [memberId, setMemberId] = useState(0)
   const [user, _] = useRecoilState(UserDetailState)
   const [followStatus, setFollowStatus] = useState<string | null>(null)
   const divRef = useRef<HTMLDivElement | null>(null)
@@ -27,6 +35,7 @@ const Content = ({ accountName }: { accountName: string }) => {
     queryKey: ['profile', accountName],
     queryFn: getProfileUser,
   })
+
   useEffect(() => {
     if (divRef.current === null) return
     ;[...(divRef.current as HTMLDivElement).children].forEach((div, idx) => {
@@ -38,12 +47,14 @@ const Content = ({ accountName }: { accountName: string }) => {
   useEffect(() => {
     // console.log(data)
     setFollowStatus(data?.followStatus!)
+    setMemberId(data?.memberInfo.memberId!)
   }, [data])
   const goFollow = async () => {
     try {
       const res = await Postfetch(`follow/${data?.memberInfo.memberId}`)
       if (res.status === 200) {
-        alert('팔로우 신청 완료!')
+        // alert('팔로우 신청 완료!')
+        setAlert('팔로우 신청 완료')
         if (data?.memberInfo.profileOpen === true) {
           setFollowStatus('ACTIVE')
         } else {
@@ -56,11 +67,13 @@ const Content = ({ accountName }: { accountName: string }) => {
     try {
       const res = await Postfetch(`follow/${data?.memberInfo.memberId}`)
       if (res.status === 200) {
-        alert('팔로우 취소 완료')
+        // alert('팔로우 취소 완료')
+        setAlert('팔로우 취소 완료')
         setFollowStatus(null)
       }
     } catch (error) {}
   }
+
   return (
     <>
       <div className="profile_info">
@@ -75,8 +88,12 @@ const Content = ({ accountName }: { accountName: string }) => {
             </div>
           )}
           <div className="user_info">
-            <h3>{accountName}</h3>
+            <h3>{data?.memberInfo.name}</h3>
             <p>{data?.memberInfo.email}</p>
+            {(accountName === user.accountName ||
+              data?.memberInfo.profileOpen === true) && (
+              <FollowList memberId={data?.memberInfo.memberId as number} />
+            )}
           </div>
           {accountName !== user.accountName && (
             <div className="follow">
@@ -104,12 +121,16 @@ const Content = ({ accountName }: { accountName: string }) => {
                   <RiUserFollowLine />
                 </Button>
               )}
+              {data?.memberInfo && (
+                <DmComponent memberId={data.memberInfo.memberId} />
+              )}
             </div>
           )}
         </div>
       </div>
       <div className="profile_contents">
         {data?.memberInfo.profileOpen === false &&
+        data.followStatus !== 'ACTIVE' &&
         user.accountName !== data.memberInfo.accountName ? (
           <div className="contents_lock">
             <HiOutlineLockClosed />

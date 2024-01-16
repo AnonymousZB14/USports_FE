@@ -109,7 +109,7 @@ export interface Post {
 export interface ProfileUserType {
   followStatus: string | null
   memberInfo: {
-    profileOpen:boolean
+    profileOpen: boolean
     accountName: string
     email: string
     interestSportsList: string[]
@@ -348,4 +348,89 @@ export interface IngList {
   memberId: number
   sportsSkill: string
   status: string
+}
+
+export type Rooms = Room[]
+export interface Room {
+  chatRoomId: number
+  chatRoomName: string
+  lastReadChatId: string
+  memberId: number
+  partakeId: number
+  recruitId: number
+  unreadChatCount: number
+}
+export interface ChatListItem {
+  chatRoomId: number
+  chatRoomName: string
+  content: string
+  imageAddress: string
+  time: Date
+  type: string
+  user: string
+  userId: number
+}
+
+export interface ChatList {
+  currentElements: number
+  currentPage: number
+  list: ChatListItem[]
+  pageSize: number
+  totalElements: number
+  totalPages: number
+}
+
+export interface ChatRoomMember {
+  accountName: string
+  accountNonExpired: true
+  accountNonLocked: true
+  activeRegion: string
+  attributes: {}
+  authorities: {
+    authority: string
+  }[]
+  birthDate: Date
+  credentialsNonExpired: true
+  email: string
+  emailAuthAt: Date
+  enabled: true
+  evaluationCount: number
+  gender: string
+  kindnessScore: number
+  loginBy: string
+  mannerScore: number
+  memberId: number
+  name: string
+  passionScore: number
+  password: string
+  penaltyCount: number
+  phoneNumber: string
+  profileImage: string
+  profileOpen: true
+  registeredAt: Date
+  role: string
+  teamworkScore: number
+  updatedAt: Date
+  username: string
+}
+export interface ChatRoomInfo {
+  chatRoomId: number
+  chatRoomName: string
+  members: ChatRoomMember[]
+  recruitId?:number
+}
+
+export interface FollowUserPerType {
+  currentPage: number
+  list: FollowUserPerTypeList[]
+  pageSize: number
+  totalElements: number
+  totalPages: number
+}
+export interface FollowUserPerTypeList {
+  followId: number
+  fromMemberAccountName: string
+  fromMemberId: number
+  toMemberAccountName: string
+  toMemberId: number
 }

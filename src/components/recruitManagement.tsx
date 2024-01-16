@@ -1,9 +1,12 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { list1 } from '@/app/(logged)/mypage/_data/mock'
 import Link from 'next/link'
 import { MdKeyboardArrowUp } from 'react-icons/md'
 import { MypageData } from '@/types/types'
+import Button from './commonButton'
+import { Postfetch } from '@/func/fetchCall'
+import { useRouter } from 'next/navigation'
 interface Prop {
   list: {
     gender: string
@@ -32,6 +35,8 @@ interface ItemProp {
   }
 }
 export const RecruitManagementItem = ({ item }: ItemProp) => {
+  const [chatRoomId, setChatRoomId] = useState<number>(0)
+  const route = useRouter()
   const changeKor = (value: string) => {
     switch (value) {
       case 'ALMOST_END':
@@ -45,6 +50,22 @@ export const RecruitManagementItem = ({ item }: ItemProp) => {
         break
     }
   }
+  const createGroupChat = async () => {
+    try {
+      const res = await Postfetch(`/chat/recruit`, {
+        recruitId: item.recruitId,
+      })
+      if (res.status === 200) {
+        setChatRoomId(res.data.chatRoomId)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    chatRoomId !== 0 && route.push(`/messages/${chatRoomId}`)
+  }, [chatRoomId])
   return (
     <li>
       <div className="recruitItemCont">
@@ -57,12 +78,15 @@ export const RecruitManagementItem = ({ item }: ItemProp) => {
             <p className="subCon">{item.gender}</p>
             <p className="conditions">
               <span></span>
-              {/* <span>모든 레벨</span> */}
+              
             </p>
           </div>
         </div>
         <p className="status">{changeKor(item.status)}</p>
         <Link href={`/recruit/${item.recruitId}`}>관리 ⇀</Link>
+        <Button theme="black" onClick={createGroupChat}>
+          채팅
+        </Button>
       </div>
     </li>
   )

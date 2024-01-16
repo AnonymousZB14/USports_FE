@@ -195,7 +195,14 @@
     }
   }
 }
-
+.back-arrow~a{
+  @include tablet{
+    margin-right: 50px;
+  }
+  @include mobile{
+    margin-right: 50px;
+  }
+}
 .back-arrow {
   padding: 0px 1rem;
   height: 4rem;

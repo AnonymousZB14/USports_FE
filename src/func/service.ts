@@ -56,6 +56,9 @@ export const onLoginSuccess = (res: any) => {
   axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`
   // setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000)
 }
+
+
+
 export const onLogoutFun = (accessToken?: string) => {
   axios.post(`/usports/member/logout`, {
     headers: {

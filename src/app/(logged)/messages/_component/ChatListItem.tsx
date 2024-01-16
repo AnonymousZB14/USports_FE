@@ -1,20 +1,22 @@
 'use client'
+import { Room } from '@/types/types'
 import Link from 'next/link'
 import React from 'react'
-
-const ChatListItem = () => {
+import { AiFillMessage } from "react-icons/ai";
+const ChatListItem = ({ item }: { item: Room }) => {
   return (
     <li>
       <div className="inner">
-        <Link href="/messages/nara">
+        <Link href={`/messages/${item.chatRoomId}`}>
           <div className="inner_left">
-            <img src="/basicProfile.png" />
+            {/* <img src="/basicProfile.png" /> */}
+            <AiFillMessage />
           </div>
           <div className="inner_right">
-            <p className="username">user</p>
-            <p className="lastmessage">
-              Lorem ipsum dolor, sit amet consectetur adipisicing
-            </p>
+            <p className="username">{item.chatRoomName}</p>
+            {item.unreadChatCount !== 0 && (
+              <p className="lastmessage">{item.unreadChatCount}</p>
+            )}
           </div>
         </Link>
       </div>

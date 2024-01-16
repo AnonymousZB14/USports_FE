@@ -255,6 +255,7 @@ body:has(.centered) {
   width: 100%;
   max-width: 1000px;
   border-right: 1px solid #000;
+  border-left: 1px solid #000;
   height: 100%;
   margin: 0 auto;
   position: relative;
@@ -275,7 +276,7 @@ body:has(.centered) {
     left: 0;
     position: absolute;
     top: 0;
-    z-index: 12;
+    z-index: 52;
   }
 }
 @media (max-width: 767px) {
@@ -284,7 +285,7 @@ body:has(.centered) {
     left: 0;
     display: none;
     position: absolute;
-    z-index: 12;
+    z-index: 52;
   }
 }
 #header .head_inner {
@@ -297,6 +298,16 @@ body:has(.centered) {
   height: 100%;
   gap: 40px;
   position: relative;
+}
+#header .head_inner > .logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.88;
+}
+#header .head_inner > .logo img {
+  width: 65%;
+  display: block;
 }
 #header .head_inner .user_profile {
   display: flex;
@@ -325,20 +336,6 @@ body:has(.centered) {
   background-color: transparent;
   transition: all 0.1s;
 }
-#header .head_inner nav ul li:nth-child(3) span {
-  position: relative;
-  /*               &::after{
-    content: "";
-    display: block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: rgb(0, 230, 23);
-    position: absolute;
-    top: 16px;
-    left: 35px;
-  } */
-}
 #header .head_inner nav ul li a {
   display: block;
   width: 100%;
@@ -346,7 +343,7 @@ body:has(.centered) {
 #header .head_inner nav ul li a:hover > span {
   background-color: rgba(51, 51, 51, 0.968627451);
 }
-#header .head_inner nav ul li a span {
+#header .head_inner nav ul li a > span {
   background-color: transparent;
   transition: all 0.1s;
   display: flex;
@@ -354,14 +351,38 @@ body:has(.centered) {
   width: fit-content;
   gap: 13px;
   padding: 15px 20px;
+  position: relative;
   color: #fff;
   border-radius: 14px;
   font-size: var(--text-size-xl);
 }
-#header .head_inner nav ul li a span svg {
+#header .head_inner nav ul li a > span svg {
   width: 25px;
   height: 25px;
   color: #fff;
+}
+
+span:has(span.light) svg {
+  transform-origin: top center;
+  animation: move infinite 0.6s alternate-reverse;
+  fill: yellow;
+}
+
+@keyframes move {
+  0% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(15deg);
+  }
+}
+span.light {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  position: absolute;
+  top: 18px;
+  left: 23px;
 }
 
 #wrap > .iconWrap {
@@ -370,7 +391,7 @@ body:has(.centered) {
   gap: 20px;
   position: fixed;
   transform: translateX(-50%);
-  z-index: 100;
+  z-index: 40;
   left: 50%;
   bottom: 20px;
   background-color: var(--main-color1);
@@ -412,6 +433,59 @@ main:is(main > section) {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
+}
+
+#alertModal {
+  background-color: rgba(0, 0, 0, 0.231);
+  position: fixed;
+  width: 100dvw;
+  height: 100dvh;
+  z-index: 1100;
+}
+#alertModal .alertCont {
+  position: absolute;
+  top: 1%;
+  left: 50%;
+  transform: translate(calc(-50% + 150px), 0%);
+  background-color: rgb(27, 9, 0);
+  border-radius: 16px;
+  width: fit-content;
+  max-width: 90%;
+  min-width: 450px;
+}
+@media (min-width: 768px) and (max-width: 1203px) {
+  #alertModal .alertCont {
+    min-width: 400px;
+    transform: translate(-50%, 0%);
+  }
+}
+@media (max-width: 767px) {
+  #alertModal .alertCont {
+    transform: translate(-50%, 0%);
+    min-width: 320px;
+  }
+}
+#alertModal .alertCont .alertInner {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+#alertModal .alertCont .alertInner svg {
+  color: #fff;
+  width: 20px;
+  height: 20px;
+}
+#alertModal .alertCont .alertInner p {
+  color: #fff;
+  font-weight: 500;
+  font-size: var(--text-size-base);
+}
+#alertModal .alertCont .alertInner button {
+  margin-left: auto;
+  text-align: right;
+  background-color: rgb(255, 195, 98);
+  color: #000;
 }
 
 .writingPageList {
@@ -507,7 +581,7 @@ main:is(main > section) {
 .ham {
   position: absolute;
   right: 10px;
-  top: 10px;
+  top: 14px;
   z-index: 15;
   display: none;
 }
@@ -523,7 +597,8 @@ main:is(main > section) {
 }
 .ham label {
   padding: 25px;
-  border: 1px solid var(--text-color-3);
+  background-color: var(--bg-color-2);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.0705882353);
 }
 
 .rolebg {
@@ -896,7 +971,7 @@ span.dayjs {
   background-color: #000000;
   width: 100%;
   padding: 20px 0;
-  z-index: 100;
+  z-index: 50;
 }
 .commentInput .inner {
   display: flex;
@@ -955,7 +1030,7 @@ span.dayjs {
   background-color: rgba(0, 0, 0, 0.368627451);
 }
 #modal .modalInner {
-  min-width: 60dvw;
+  min-width: 900px;
   width: fit-content;
   max-width: 100dvw;
   padding: 35px 20px;
@@ -969,6 +1044,13 @@ span.dayjs {
 @media (max-width: 767px) {
   #modal .modalInner {
     width: 90dvw;
+    min-width: unset;
+  }
+}
+@media (min-width: 768px) and (max-width: 1203px) {
+  #modal .modalInner {
+    min-width: 450px;
+    width: 70dvw;
   }
 }
 #modal .modalInner > div:not(.closeModalBtn) {
@@ -1242,6 +1324,30 @@ ul.recruitManagement > li .recruitItemCont p.status {
   align-items: center;
   gap: 0 20px;
 }
+.profile_info .inner .follow {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.profile_info .inner .follow > div {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-color-2);
+  box-shadow: 0 0 3px 0 rgba(51, 51, 51, 0.0666666667);
+  border: 1px solid transparent;
+  transition: all 0.1s;
+}
+.profile_info .inner .follow > div:hover {
+  border-color: var(--text-color-2);
+}
+.profile_info .inner .follow > div svg {
+  width: 20px;
+  height: 20px;
+}
 @media (max-width: 767px) {
   .profile_info .inner {
     flex-wrap: wrap;
@@ -1291,6 +1397,66 @@ ul.recruitManagement > li .recruitItemCont p.status {
   width: 40px;
   height: 40px;
   color: var(--text-color-3);
+}
+
+.profileFollowList {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.profileFollowList p {
+  max-width: fit-content;
+  width: max-content;
+  font-size: var(--text-size-xs);
+  color: var(--text-color-1);
+}
+.profileFollowList p span {
+  font-weight: 800;
+}
+
+.listWrap {
+  display: flex;
+}
+@media (max-width: 767px) {
+  .listWrap {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .listWrap section {
+    flex: auto !important;
+  }
+}
+.listWrap section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 0;
+  overflow-y: auto;
+  gap: 20px;
+}
+.listWrap section h3 {
+  font-size: var(--text-size-2xl);
+  font-weight: 400;
+}
+.listWrap section ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.listWrap section ul li {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
+  background-color: var(--bg-color-3);
+  padding: 10px 20px 10px 16px;
+  border-left: 5px solid var(--text-color-3);
+  border-radius: 4px 0 0 4px;
+  font-weight: 400;
+  font-size: var(--text-size-base);
 }
 
 .home_section {
@@ -1529,6 +1695,17 @@ ul.recruitManagement > li .recruitItemCont p.status {
 }
 .explore-form .category-wrap .filter-dialog .modal-body li:last-child {
   box-shadow: none;
+}
+
+@media (min-width: 768px) and (max-width: 1203px) {
+  .back-arrow ~ a {
+    margin-right: 50px;
+  }
+}
+@media (max-width: 767px) {
+  .back-arrow ~ a {
+    margin-right: 50px;
+  }
 }
 
 .back-arrow {
@@ -1991,6 +2168,57 @@ ul.recruitManagement > li .recruitItemCont p.status {
   font-weight: 400;
 }
 
+.modalInner:has(.findUserWrap) {
+  max-width: 600px;
+}
+
+.findUserWrap {
+  padding: 50px 30px 30px;
+  max-width: 700px;
+  margin: 0 auto;
+  min-height: unset !important;
+}
+.findUserWrap form {
+  display: flex;
+  border: 1px solid #333;
+  border-radius: 25px;
+  padding: 0 20px;
+  gap: 4px;
+  overflow: hidden;
+  align-items: center;
+}
+.findUserWrap form input {
+  padding: 15px;
+  font-size: 15px;
+  flex: 1;
+  background-color: transparent;
+}
+.findUserWrap form button svg {
+  width: 30px;
+  height: 30px;
+}
+.findUserWrap .findUserResult {
+  margin-top: 30px;
+}
+.findUserWrap .findUserResult p.findresult {
+  font-size: var(--text-size-xs);
+  color: var(--text-color-1);
+  text-align: center;
+  margin-bottom: 30px;
+}
+.findUserWrap .findUserResult ul {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.findUserWrap .findUserResult ul li {
+  cursor: pointer;
+  border-left: 10px solid #b7b7b7;
+  background-color: #f4f4f4;
+  padding: 13px;
+  border-radius: 6px;
+}
+
 .mypageWrap {
   padding: 0;
 }
@@ -2123,6 +2351,12 @@ ul.recruitManagement > li .recruitItemCont p.status {
   display: flex;
   gap: 15px;
 }
+@media (max-width: 767px) {
+  .mypageWrap > section .mpBtm section .editBtnWrap {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
 .mypageWrap > section .mpBtm section .editBtnWrap a {
   transition: all 0.2s;
   width: calc((100% - 15px) / 2);
@@ -2134,12 +2368,16 @@ ul.recruitManagement > li .recruitItemCont p.status {
   font-size: var(--text-size-xl);
 }
 .mypageWrap > section .mpBtm section .editBtnWrap a:first-child {
-  background-color: var(--bg-color-3);
+  background-color: var(--bg-color-4);
   color: var(--text-color-1);
 }
-.mypageWrap > section .mpBtm section .editBtnWrap a:last-child {
+.mypageWrap > section .mpBtm section .editBtnWrap a:nth-child(2) {
   background-color: var(--text-color-2);
   color: var(--bg-color-1);
+}
+.mypageWrap > section .mpBtm section .editBtnWrap a:last-child {
+  background-color: var(--bg-color-3);
+  color: var(--text-color-2);
 }
 .mypageWrap > section .mpBtm section .editBtnWrap a:hover {
   opacity: 0.7;
@@ -2182,6 +2420,15 @@ ul.recruitManagement > li .recruitItemCont p.status {
   color: var(--text-color-1);
   margin-top: 3rem;
 }
+@media (max-width: 767px) {
+  .my-info-wrap .my-info-body {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .my-info-wrap .my-info-body .manners-wrap {
+    align-items: center;
+  }
+}
 .my-info-wrap .my-info-body .exercise-wrap {
   display: flex;
   flex-direction: column;
@@ -2195,8 +2442,14 @@ ul.recruitManagement > li .recruitItemCont p.status {
   display: flex;
   align-items: center;
   margin-top: 2rem;
+  flex-direction: column;
+  gap: 6px;
 }
-.my-info-wrap .my-info-body .exercise-wrap > .exercise-score > h3 {
+.my-info-wrap .my-info-body .exercise-wrap > .exercise-score > div {
+  display: flex;
+  align-items: center;
+}
+.my-info-wrap .my-info-body .exercise-wrap > .exercise-score > div > h3 {
   display: flex;
   padding: 1rem 1.2rem;
   margin-right: 1rem;
@@ -2206,7 +2459,7 @@ ul.recruitManagement > li .recruitItemCont p.status {
   border-radius: 0.3rem;
   justify-content: center;
 }
-.my-info-wrap .my-info-body .exercise-wrap > .exercise-score > p {
+.my-info-wrap .my-info-body .exercise-wrap > .exercise-score > div > p {
   font-weight: 500;
 }
 .my-info-wrap .my-info-body .manners-wrap {
@@ -2249,7 +2502,19 @@ p.info {
   position: absolute;
   right: 0;
   top: 30px;
+  transition: all 0.2s;
 }
+@media (min-width: 768px) and (max-width: 1203px) {
+  .followManageBtn {
+    padding-right: 70px;
+  }
+}
+@media (max-width: 767px) {
+  .followManageBtn {
+    padding-right: 70px;
+  }
+}
+
 .notifications {
   margin-top: 40px;
 }
@@ -2287,6 +2552,93 @@ p.info {
 .notifications ul li .alert svg {
   width: 25px;
   height: 25px;
+}
+.notifications.followRequestWrap ul li {
+  display: flex;
+  background-color: var(--bg-color-2);
+}
+.notifications.followRequestWrap ul li p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  font-size: var(--text-size-xl);
+  padding: 10px;
+  position: relative;
+}
+.notifications.followRequestWrap ul li p svg {
+  width: 30px;
+  height: 30px;
+}
+.notifications.followRequestWrap ul li div {
+  display: flex;
+  gap: 3px;
+}
+
+.notificationWrap {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding-left: 300px;
+  max-width: 1000px;
+  z-index: 100;
+  left: 50%;
+  transition: all 0.7s;
+  opacity: 0;
+  transform: translate(-50%, -200px);
+}
+@media (min-width: 768px) and (max-width: 1203px) {
+  .notificationWrap {
+    padding-left: 0;
+  }
+}
+@media (max-width: 767px) {
+  .notificationWrap {
+    padding-left: 0;
+  }
+}
+.notificationWrap:has(.hasNotification) {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+.notificationWrap .inner {
+  padding: 16px 20px;
+}
+.notificationWrap .inner section {
+  transition: all 0.7s;
+  border-radius: 10px;
+  padding: 40px 30px 20px;
+  position: relative;
+}
+.notificationWrap .inner section button {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+.notificationWrap .inner section button svg {
+  width: 20px;
+  height: 20px;
+}
+.notificationWrap .inner section div {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+}
+.notificationWrap .inner section div p {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  word-break: break-all;
+  text-align: left;
+  font-size: var(--text-size-base);
 }
 
 .search-wrap {
@@ -2669,6 +3021,16 @@ p.info {
   height: 100%;
   gap: 30px;
 }
+@media (min-width: 768px) and (max-width: 1203px) {
+  .editPwd {
+    width: 70%;
+  }
+}
+@media (max-width: 767px) {
+  .editPwd {
+    width: 90%;
+  }
+}
 .editPwd p {
   font-size: var(--text-size-2xl);
   font-weight: 600;
@@ -2698,11 +3060,15 @@ p.info {
   width: 100%;
   gap: 10px;
 }
+.editPwd form > div button {
+  flex: 1;
+  line-height: 2rem;
+}
 .editPwd form > div input {
   cursor: pointer;
   text-align: center;
   padding: 15px 0;
-  width: 50%;
+  flex: 1;
   transition: all 0.1s;
 }
 .editPwd form > div input:hover {
@@ -2748,12 +3114,27 @@ p.info {
 .editUser form > div.profileForm {
   flex-direction: column;
 }
+@media (max-width: 767px) {
+  .editUser form > div.profileForm {
+    flex-wrap: wrap;
+  }
+}
 .editUser form > div.profileForm div {
   display: flex;
   gap: 10px;
 }
+@media (max-width: 767px) {
+  .editUser form > div.profileForm div {
+    flex-wrap: wrap;
+  }
+}
 .editUser form > div.profileForm div button {
   height: 40px;
+}
+@media (max-width: 767px) {
+  .editUser form > div {
+    flex-wrap: wrap;
+  }
 }
 .editUser form > div:has(.sportOptionContainer) {
   align-items: flex-start;
@@ -2764,6 +3145,11 @@ p.info {
   border: 1px dashed rgba(204, 204, 204, 0.937254902);
   text-align: center;
   width: 180px;
+}
+@media (max-width: 767px) {
+  .editUser form > div > label {
+    width: 100%;
+  }
 }
 .editUser form > div > label:has(img) {
   width: 90px;
@@ -3023,10 +3409,11 @@ p.info {
   gap: 14px;
 }
 .messageWrap ul li {
+  position: relative;
   transition: all 0.2s;
   border-radius: 14px;
   background-color: var(--bg-color-2);
-  box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.0549019608);
+  box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.0549019608);
 }
 .messageWrap ul li:hover {
   filter: brightness(0.98);
@@ -3040,16 +3427,15 @@ p.info {
 .messageWrap ul li .inner a > div:first-child {
   display: block;
 }
-.messageWrap ul li .inner a > div:first-child img {
-  width: 50px;
-  height: 50px;
-  border: 2px solid #000;
-  object-fit: cover;
-  border-radius: 50%;
+.messageWrap ul li .inner a > div:first-child svg {
+  width: 30px;
+  height: 30px;
 }
 .messageWrap ul li .inner a > div:last-child {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   gap: 5px;
 }
 .messageWrap ul li .inner a > div:last-child p.username {
@@ -3058,24 +3444,36 @@ p.info {
   color: var(--text-color-2);
 }
 .messageWrap ul li .inner a > div:last-child p.lastmessage {
+  position: absolute;
+  top: -5px;
+  right: -5px;
   font-size: var(--text-size-xs);
   color: var(--text-color-3);
+  background-color: rgb(0, 174, 255);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+
+main:has(.chatDetailWrap) {
+  background-color: #f7f7f7;
 }
 
 .chatDetailWrap {
   padding: 0;
 }
-.chatDetailWrap > div {
-  padding: 0 var(--side-padding);
-}
 .chatDetailWrap .topSection {
   z-index: 4;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 20px 0;
-  box-shadow: 0 6px 20px 0px rgba(0, 0, 0, 0.073);
-  background-color: rgba(255, 255, 255, 0.0588235294);
+  height: 80px;
+  justify-content: space-between;
+  padding: 20px;
   backdrop-filter: blur(5px);
   transition: all 0.4s;
   position: sticky;
@@ -3084,35 +3482,33 @@ p.info {
 .chatDetailWrap .topSection > svg {
   width: 40px;
   height: 40px;
-  position: absolute;
-  left: 10px;
-  top: 10px;
 }
 .chatDetailWrap .topSection div {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
+  gap: 10px;
+  transition: all 0.2s;
 }
-.chatDetailWrap .topSection div img {
-  border: 2px solid;
-  width: 85px;
-  height: 85px;
-  object-fit: cover;
-  border-radius: 50%;
+@media (min-width: 768px) and (max-width: 1203px) {
+  .chatDetailWrap .topSection div {
+    padding-right: 50px;
+  }
 }
-.chatDetailWrap .topSection div p {
-  font-size: var(--text-size-base);
-  color: var(--text-color-1);
-  font-weight: 600;
+@media (max-width: 767px) {
+  .chatDetailWrap .topSection div {
+    padding-right: 50px;
+  }
 }
 .chatDetailWrap .bottomSection > .inner {
-  margin-top: 40px;
+  padding-bottom: 120px;
+  padding-top: 40px;
+  height: 100%;
+  overflow-y: auto;
+  padding: 10px;
 }
 .chatDetailWrap .bottomSection > .inner > ul {
+  padding-bottom: 110px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   gap: 10px;
 }
 .chatDetailWrap .bottomSection > .inner > ul > li {
@@ -3130,10 +3526,147 @@ p.info {
 .chatDetailWrap .bottomSection > .inner > ul > li > div {
   width: max-content;
   max-width: 65%;
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  cursor: pointer;
 }
 .chatDetailWrap .bottomSection > .inner > ul > li > div > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: right;
+}
+.chatDetailWrap .bottomSection > .inner > ul > li > div > div span {
+  font-size: 11px;
+  color: #677;
+}
+.chatDetailWrap .bottomSection > .inner > ul > li > div .chat-bubble {
   min-width: fit-content;
   padding: 15px;
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.0901960784);
+}
+.chatDetailWrap .bottomSection .inputFormWrap {
+  height: 110px;
+  max-width: 1000px;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  padding-left: 300px;
+  transform: translateX(-50%);
+  width: 100%;
+  z-index: 50;
+}
+@media (min-width: 768px) and (max-width: 1203px) {
+  .chatDetailWrap .bottomSection .inputFormWrap {
+    padding-left: 0;
+  }
+}
+@media (max-width: 767px) {
+  .chatDetailWrap .bottomSection .inputFormWrap {
+    padding-left: 0;
+  }
+}
+.chatDetailWrap .bottomSection .inputFormWrap .inputFormInner {
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.0784313725);
+  padding: 15px 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: rgb(255, 255, 255);
+  height: 100%;
+}
+@media (max-width: 767px) {
+  .chatDetailWrap .bottomSection .inputFormWrap .inputFormInner {
+    padding: 10px 3px;
+  }
+}
+.chatDetailWrap .bottomSection .inputFormWrap .inputFormInner .settingBtn {
+  display: flex;
+  gap: 4px;
+}
+.chatDetailWrap .bottomSection .inputFormWrap .inputFormInner .settingBtn button {
+  flex: 1;
+  width: 100%;
+}
+.chatDetailWrap .bottomSection .inputFormWrap .inputFormInner form {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  align-items: stretch;
+}
+.chatDetailWrap .bottomSection .inputFormWrap .inputFormInner form input {
+  padding: 15px 30px;
+  background-color: rgba(238, 238, 238, 0.7333333333);
+  font-size: 13px;
+  height: 100%;
+  flex: 1;
+  border: none;
+  border: 1px solid #eee;
+}
+.chatDetailWrap .bottomSection .inputFormWrap .inputFormInner form button {
+  height: auto !important;
+  border-radius: 0 4px 4px 0 !important;
+}
+.chatDetailWrap .bottomSection .inputFormWrap .inputFormInner form button button {
+  height: 100% !important;
+}
+.chatDetailWrap .bottomSection .inputFormWrap .inputFormInner form button svg {
+  width: 16px;
+  height: 14px;
+}
+
+.chat-start {
+  display: flex;
+  align-items: flex-start;
+}
+.chat-start > div:first-child img {
+  width: 50px;
+  height: 50px;
+  background-color: #fff;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+.toBottomBtn {
+  padding: 0 20px 0 0 !important;
+  position: fixed;
+  width: 100%;
+  max-width: 1000px;
+  transform: translateX(-50%);
+  left: 50%;
+  bottom: 140px;
+  display: flex;
+  justify-content: right;
+  z-index: 55;
+  cursor: pointer;
+}
+.toBottomBtn svg {
+  width: 50px;
+  height: 50px;
+}
+
+.inviteMemberModal {
+  padding: 0 20px;
+}
+.inviteMemberModal ul {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+.inviteMemberModal ul li {
+  display: flex;
+  border-left: 8px solid var(--text-color-3);
+  border-radius: 4px;
+  padding: 10px 10px 10px 26px;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--text-size-base);
+  background-color: var(--bg-color-3);
+  font-weight: 500;
 }
 
 .tab_contents > div {

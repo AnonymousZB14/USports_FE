@@ -7,6 +7,7 @@ import { MypageData } from '@/types/types'
 import { useRecoilState } from 'recoil'
 import { UserDetailState } from '@/store/user'
 import { useRouter } from 'next/navigation'
+import { FaMedal } from 'react-icons/fa6'
 import { sportsGrageKor } from '@/func/translateKor'
 const MpUserInfoSec = () => {
   const [user, _] = useRecoilState(UserDetailState)
@@ -43,8 +44,8 @@ const MpUserInfoSec = () => {
           <span>{data.memberProfile.email}</span>
         </div>
         <div className="btnWrap">
-          <Link className="link-btn" href={`/member/${'id'}/info`}>
-            Info
+          <Link className="link-btn" href={`/member/${user.accountName}/info`}>
+            Skills
           </Link>
           <button
             className="link-btn"
@@ -77,9 +78,9 @@ const MpUserInfoSec = () => {
           </li>
           <li>
             <p className="content">
-              {data.sportsSkills[0]?.sportsGrade
-                ? sportsGrageKor(data.sportsSkills[0]?.sportsGrade)
-                : 'no data'}
+              <Link href={`/member/${user.accountName}/info`}>
+                <FaMedal />
+              </Link>
             </p>
             <p className="title">운동별 능력</p>
           </li>

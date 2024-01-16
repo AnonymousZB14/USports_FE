@@ -126,8 +126,8 @@ const page = ({ params }: { params: PageParams }) => {
               </div>
             </div>
             <div className="user_info">
-              <h3>{data.accountName}</h3>
-              <p>@{data.name}</p>
+              <h3>{data.name}</h3>
+              <p>@{data.accountName}</p>
             </div>
           </div>
         </div>

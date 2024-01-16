@@ -11,7 +11,6 @@ import axios from 'axios'
 import { UserDetailState, UserTokenState } from '@/store/user'
 import { useRecoilState } from 'recoil'
 import { useRouter } from 'next/navigation'
-import { useQuery } from '@tanstack/react-query'
 import { SportsList } from '@/types/types'
 import { SportsList as SportsListStore } from '@/store/types'
 import SportsFilterDialog from '@/components/sportsFilterDialog'
@@ -25,7 +24,7 @@ const recordWrite = () => {
   const [sportsList, setSportsList] = useState<SportsList>([])
   const [user, setUser] = useRecoilState(UserDetailState)
   const [userToken, setUserToken] = useRecoilState(UserTokenState)
-  const [selectedFilter2, setSelectedFilter2] = useState<Sport>({
+  const [selectedSports, setselectedSports] = useState<Sport>({
     sportsId: 0,
     sportsName: '운동종목',
   })
@@ -45,20 +44,18 @@ const recordWrite = () => {
   }
 
   const applyFilter2 = (sportsId: number, sportsName: string) => {
-    // console.log('Applying filter 2:', sportsId)
-    setSelectedFilter2({ sportsId, sportsName })
+    setselectedSports({ sportsId, sportsName })
   }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setLoading(true)
     const formData = new FormData()
-    // formData.append('images', images[0])
     images.map((file) => formData.append('images', file))
     const blob = new Blob(
       [
         JSON.stringify({
-          sportsId: selectedFilter2.sportsId,
+          sportsId: selectedSports.sportsId,
           content: content,
         }),
       ],
@@ -70,7 +67,6 @@ const recordWrite = () => {
     let isSuccess = false
     let recordId
     try {
-      // console.dir(images)
       const res = await axios.post(`/usports/record`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -91,10 +87,6 @@ const recordWrite = () => {
     }
   }
 
-  useEffect(() => {
-    // console.log(selectedFilter2)
-  }, [selectedFilter2])
-
   // 이미지 상대경로 저장
   const handleAddImages = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return
@@ -111,10 +103,7 @@ const recordWrite = () => {
     setShowImages(imageUrlLists)
   }
 
-  // X버튼 클릭 시 이미지 삭제
   const handleDeleteImage = (id: number) => {
-    // console.log('파일',images)
-    // console.log('미리보기', showImages)
     setShowImages(showImages.filter((_, index) => index !== id))
     setImages(images.filter((_, index) => index !== id))
   }
@@ -133,9 +122,9 @@ const recordWrite = () => {
                   e.preventDefault()
                   openFilterDialog2()
                 }}
-                className={selectedFilter2.sportsId === 0 ? '' : 'active'}
+                className={selectedSports.sportsId === 0 ? '' : 'active'}
               >
-                {selectedFilter2.sportsName}
+                {selectedSports.sportsName}
                 <SlArrowDown className="category-arrow" />
               </button>
             </li>
@@ -146,7 +135,7 @@ const recordWrite = () => {
               optionsList={sports}
               onApplyFilter={applyFilter2}
               onClose={closeFilterDialog2}
-              selectedFilterName={selectedFilter2}
+              selectedFilterName={selectedSports}
             />
           )}
         </div>

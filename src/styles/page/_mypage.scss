@@ -132,14 +132,22 @@
           padding-top: 40px;
           display: flex;
           gap: 15px;
+          @include mobile {
+            flex-wrap: wrap;
+            justify-content: center;
+          }
           a {
             &:first-child {
-              background-color: var(--bg-color-3);
+              background-color: var(--bg-color-4);
               color: var(--text-color-1);
             }
-            &:last-child {
+            &:nth-child(2) {
               background-color: var(--text-color-2);
               color: var(--bg-color-1);
+            }
+            &:last-child {
+              background-color: var(--bg-color-3);
+              color: var(--text-color-2);
             }
             &:hover {
               opacity: 0.7;
@@ -152,7 +160,7 @@
             align-items: center;
             justify-content: space-between;
             font-size: var(--text-size-xl);
-            @include mobile{
+            @include mobile {
               font-size: var(--text-size-base);
             }
             svg {
@@ -191,6 +199,13 @@
   }
 
   .my-info-body {
+    @include mobile {
+      flex-wrap: wrap;
+      gap: 10px;
+      .manners-wrap{
+        align-items: center;
+      }
+    }
     display: flex;
     justify-content: space-evenly;
     margin-top: 1rem;
@@ -213,19 +228,24 @@
         display: flex;
         align-items: center;
         margin-top: 2rem;
-
-        & > h3 {
+        flex-direction: column;
+        gap: 6px;
+        & > div {
           display: flex;
-          padding: 1rem 1.2rem;
-          margin-right: 1rem;
-          background-color: var(--text-color-5);
-          color: var(--text-color-1);
-          font-size: var(--text-size-xs);
-          border-radius: 0.3rem;
-          justify-content: center;
-        }
-        & > p {
-          font-weight: 500;
+          align-items: center;
+          & > h3 {
+            display: flex;
+            padding: 1rem 1.2rem;
+            margin-right: 1rem;
+            background-color: var(--text-color-5);
+            color: var(--text-color-1);
+            font-size: var(--text-size-xs);
+            border-radius: 0.3rem;
+            justify-content: center;
+          }
+          & > p {
+            font-weight: 500;
+          }
         }
       }
     }

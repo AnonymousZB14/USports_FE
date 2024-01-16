@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   swcMinify: true,
   async generateStaticParams() {
     return {
@@ -31,11 +31,11 @@ const nextConfig = {
     return [
       {
         source: '/usports/:path*',
-        destination: 'http://3.39.34.245:8080/:path*',
+        destination: 'https://3.39.34.245.nip.io/:path*',
       },
       {
-        source: '/usports/:path*/',
-        destination: 'http://3.39.34.245:8080/:path*/',
+        source: '/ws/chat/:path*',
+        destination: 'https://3.39.34.245.nip.io/ws/chat/:path*',
       },
     ]
   },

@@ -13,6 +13,7 @@ import { getMypageData } from './_lib/getMypageData'
 export const metadata: Metadata = {
   title: 'USports : 마이페이지',
   description: 'USports : 마이페이지',
+  
 }
 const page = async () => {
   const queryClient = new QueryClient()
