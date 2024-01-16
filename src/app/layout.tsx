@@ -10,6 +10,7 @@ import UserInfoProvider from './_component/UserInfoProvider'
 import Script from 'next/script'
 import Alert from '@/components/alert'
 import { ToastContainer } from 'react-toastify'
+
 import 'react-toastify/dist/ReactToastify.css'
 export const metadata: Metadata = {
   title: 'USports',
