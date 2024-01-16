@@ -2351,6 +2351,12 @@ ul.recruitManagement > li .recruitItemCont p.status {
   display: flex;
   gap: 15px;
 }
+@media (max-width: 767px) {
+  .mypageWrap > section .mpBtm section .editBtnWrap {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
 .mypageWrap > section .mpBtm section .editBtnWrap a {
   transition: all 0.2s;
   width: calc((100% - 15px) / 2);
@@ -2362,12 +2368,16 @@ ul.recruitManagement > li .recruitItemCont p.status {
   font-size: var(--text-size-xl);
 }
 .mypageWrap > section .mpBtm section .editBtnWrap a:first-child {
-  background-color: var(--bg-color-3);
+  background-color: var(--bg-color-4);
   color: var(--text-color-1);
 }
-.mypageWrap > section .mpBtm section .editBtnWrap a:last-child {
+.mypageWrap > section .mpBtm section .editBtnWrap a:nth-child(2) {
   background-color: var(--text-color-2);
   color: var(--bg-color-1);
+}
+.mypageWrap > section .mpBtm section .editBtnWrap a:last-child {
+  background-color: var(--bg-color-3);
+  color: var(--text-color-2);
 }
 .mypageWrap > section .mpBtm section .editBtnWrap a:hover {
   opacity: 0.7;
@@ -2409,6 +2419,15 @@ ul.recruitManagement > li .recruitItemCont p.status {
   font-weight: 600;
   color: var(--text-color-1);
   margin-top: 3rem;
+}
+@media (max-width: 767px) {
+  .my-info-wrap .my-info-body {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .my-info-wrap .my-info-body .manners-wrap {
+    align-items: center;
+  }
 }
 .my-info-wrap .my-info-body .exercise-wrap {
   display: flex;
@@ -3002,6 +3021,16 @@ p.info {
   height: 100%;
   gap: 30px;
 }
+@media (min-width: 768px) and (max-width: 1203px) {
+  .editPwd {
+    width: 70%;
+  }
+}
+@media (max-width: 767px) {
+  .editPwd {
+    width: 90%;
+  }
+}
 .editPwd p {
   font-size: var(--text-size-2xl);
   font-weight: 600;
@@ -3031,11 +3060,15 @@ p.info {
   width: 100%;
   gap: 10px;
 }
+.editPwd form > div button {
+  flex: 1;
+  line-height: 2rem;
+}
 .editPwd form > div input {
   cursor: pointer;
   text-align: center;
   padding: 15px 0;
-  width: 50%;
+  flex: 1;
   transition: all 0.1s;
 }
 .editPwd form > div input:hover {
@@ -3081,12 +3114,27 @@ p.info {
 .editUser form > div.profileForm {
   flex-direction: column;
 }
+@media (max-width: 767px) {
+  .editUser form > div.profileForm {
+    flex-wrap: wrap;
+  }
+}
 .editUser form > div.profileForm div {
   display: flex;
   gap: 10px;
 }
+@media (max-width: 767px) {
+  .editUser form > div.profileForm div {
+    flex-wrap: wrap;
+  }
+}
 .editUser form > div.profileForm div button {
   height: 40px;
+}
+@media (max-width: 767px) {
+  .editUser form > div {
+    flex-wrap: wrap;
+  }
 }
 .editUser form > div:has(.sportOptionContainer) {
   align-items: flex-start;
@@ -3097,6 +3145,11 @@ p.info {
   border: 1px dashed rgba(204, 204, 204, 0.937254902);
   text-align: center;
   width: 180px;
+}
+@media (max-width: 767px) {
+  .editUser form > div > label {
+    width: 100%;
+  }
 }
 .editUser form > div > label:has(img) {
   width: 90px;
@@ -3522,6 +3575,11 @@ main:has(.chatDetailWrap) {
   gap: 10px;
   background-color: rgb(255, 255, 255);
   height: 100%;
+}
+@media (max-width: 767px) {
+  .chatDetailWrap .bottomSection .inputFormWrap .inputFormInner {
+    padding: 10px 3px;
+  }
 }
 .chatDetailWrap .bottomSection .inputFormWrap .inputFormInner .settingBtn {
   display: flex;
